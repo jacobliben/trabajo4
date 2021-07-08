@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "徐工智联",
+  "usingComponents": {
+    "cmd-notice-bar": "/components/cmd-notice-bar/cmd-notice-bar"
+  }
+}

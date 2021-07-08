@@ -1,0 +1,70 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.red.data-v-a6fc1b34 {
+  color: #f00;
+}
+.acuerdo.data-v-a6fc1b34 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  text-decoration: none;
+  width: 100%;
+}
+.terms.data-v-a6fc1b34 {
+  color: #429bff;
+  margin-left: 10rpx;
+}
+.user-password.data-v-a6fc1b34 {
+  position: relative;
+}
+.end-icon.data-v-a6fc1b34 {
+  position: absolute;
+  top: 5rpx;
+  right: 0rpx;
+}
+.btn-row.data-v-a6fc1b34 {
+  width: 100%;
+  margin-top: 200rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+.current-btn.data-v-a6fc1b34 {
+  background-color: #0081FF;
+  color: #fff;
+}
+.disabled-btn.data-v-a6fc1b34 {
+  background-color: #ddd;
+}
+
