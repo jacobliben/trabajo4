@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "kps-image-cutter": "/components/ksp-image-cutter/ksp-image-cutter"
+  }
+}
