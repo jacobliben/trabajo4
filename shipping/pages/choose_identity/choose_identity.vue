@@ -70,6 +70,8 @@
 		},
 		methods:{
 			showDriverModal(){
+				//APP 端
+				// #ifdef APP-PLUS
 				uni.showModal({
 				   
 				    content: '确认选择个体司机，选择后不可更换！',
@@ -91,6 +93,34 @@
 				        }
 				    }
 				});
+				
+				// #endif
+				
+				//非APP端
+				// #ifndef APP-PLUS
+				uni.showModal({
+				   
+				    content: '确认选择个体司机，选择后不可更换！',
+					cancelText:'取消',
+					confirmText:'确定',
+				    success: function (res) {
+						//调换点击事件使得"确认"键出现在Modal右面
+				        if (res.confirm) {
+							
+							uni.setStorageSync("in_personal_registering",true)
+							uni.setStorageSync("in_company_registering",false)
+							
+							uni.navigateTo({
+								url:"/pages/register/register"
+							}) 
+							
+				        } else if (res.cancel) {
+				           console.log('用户点击取消');
+							
+				        }
+				    }
+				});
+				// #endif
 			},
 			
 			// showBossModal(){
@@ -112,6 +142,8 @@
 			// },
 			
 			showCompanyModal(){
+				//APP端
+				// #ifdef APP-PLUS
 				uni.showModal({
 				   
 				    content: '确认选择物流企业，选择后不可更换！',
@@ -133,6 +165,34 @@
 				        }
 				    }
 				});
+				// #endif
+				
+				//非APP端
+				// #ifndef APP-PLUS
+				uni.showModal({
+				   
+				    content: '确认选择物流企业，选择后不可更换！',
+					cancelText:'取消',
+					confirmText:'确定',
+				    success: function (res) {
+						//调换点击事件使得"确认"键出现在Modal右面
+				        if (res.confirm) {
+							
+							uni.setStorageSync("in_personal_registering",false)
+							uni.setStorageSync("in_company_registering",true)
+							
+							uni.navigateTo({
+								url:"/pages/register/register"
+							})
+							
+							
+				        } else if (res.cancel) {
+							console.log('用户点击取消');
+				        }
+				    }
+				});
+				
+				// #endif
 			},
 		}
 	}

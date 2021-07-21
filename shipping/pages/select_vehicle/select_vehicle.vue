@@ -1,5 +1,39 @@
 <template>
 	<view class="vehicle-has-approved-body">
+		
+		<view class="cu-bar search bg-white">
+			 <text class="margin-left">车船牌照号码</text>
+			<view class="search-form round">
+				<text class="cuIcon-search"></text>
+				<input placeholder="通过车船牌照号码搜索" type="text" @input="searchVehiclePlateNumber"
+				selection-start="-1"  selection-end="-1" cursor="-1" />
+			</view>
+		</view>
+		
+		<view class="cu-bar search bg-white">
+			 <text class="margin-left">车辆入网状态</text>
+			<view class="search-form round">
+				<text class="cuIcon-search"></text>
+				<picker @change="bindPickerVehicleNetStatusChange" :value="vehicle_net_status_index" :range="vehicleNetStatusOptions">
+				    <view class="picker-view text-lg">{{vehicleNetStatusOptions[vehicle_net_status_index]}}</view>
+				 </picker>
+			</view>
+		</view>
+		
+		<view class="cu-bar search bg-white">
+			 <text class="margin-left">车辆工作状态</text>
+			<view class="search-form round">
+				<text class="cuIcon-search"></text>
+				<picker @change="bindPickerVehicleWorkStatusChange" :value="vehicle_work_status_index" :range="vehicleWorkStatusOptions">
+				    <view class="picker-view text-lg">{{vehicleWorkStatusOptions[vehicle_work_status_index]}}</view>
+				 </picker>
+			</view>
+			<view class="action">
+				<button class="cu-btn bg-green shadow-blur round" role="button"
+				aria-disabled="false" @click="searchVehicleBtn" >搜索</button>
+			</view>
+		</view>
+		
 		<scroll-view  scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
 		  lower-threshold="200" enable-flex="true">
 		<radio-group @change="radioChange" >
@@ -32,7 +66,7 @@
 							<view class="vehicleLadenWeight"> {{item.vehicleLadenWeight}} 吨</view>	
 								
 						</view>
-						<radio :value="item" :checked="index === current" />
+						<radio :value="JSON.stringify(item)" :checked="index === current" />
 					</view>
 			</view>
 			
@@ -48,6 +82,34 @@
 	export default {
 		data() {
 			return {
+				load_more:true,//继续加载列表
+				
+				//车辆入网状态字典
+				vehicleNetStatusOptions:[],
+				vehicle_net_status_index:0,
+				vehicleNetStatusSendValue:[],
+				
+				// 工作状态字典
+				vehicleWorkStatusOptions:[],
+				vehicle_work_status_index:0,
+				vehicleWorkStatusSendValue:[],
+				
+				
+				//车船牌照号码
+				vehiclePlateNumber:"",
+				//承运人
+				carrierName:"",
+				// 车辆入网状态数据
+				vehicleNetStatus:"", 
+				// 车辆工作状态数据
+				vehicleWorkStatus:"", 
+				// 车主类型数据
+				vehicleOwnType:"", 
+				//道路运输证号
+				vehicleRoadcertNo:"", 
+				// 车辆长度
+				vehicleLength:"", 
+				
 				vehicle_list:[],
 				current: -1,
 				vehicle_choosen:"",
@@ -59,88 +121,175 @@
 				        }
 			}
 		},
+		created(){
+			// 车辆入网状态字典
+			this.getVehicleNetStatusOptions()
+			
+			// 工作状态字典
+			this.getVehicleWorkStatusOptions()
+		
+			},
+			
+		mounted(){
+			
+			this.searchVehicle()
+		},
+				
 		methods: {
+			//按下搜索按钮
+			searchVehicleBtn(){
+				
+				this.vehicle_list =[]
+				this.queryParams.pageNum = 1
+				this.queryParams.pageSize = 1000
+				this.searchVehicle()
+			},
+			
+			// 车辆入网状态字典
+			async getVehicleNetStatusOptions(){
+				var that = this
+				var authorization = uni.getStorageSync("token")
+				
+				const res = await this.$request({
+					 	url:"/system/dict/data/type/vehicle_net_status",
+					 	
+					 	header:{
+					 		Authorization:authorization,
+					 	},
+					 	
+					 })
+					console.log(res,'jj12');
+					 
+					 this.vehicleNetStatusOptions = res.data.data.map(e=>e=e.dictLabel)
+					 this.vehicleNetStatusSendValue = res.data.data.map(e=>e=e.dictValue)
+					 this.vehicleNetStatusOptions.unshift("请选择车辆入网状态")
+			},
+			
+			
+			// 工作状态字典
+			async getVehicleWorkStatusOptions(){
+				var that = this
+				var authorization = uni.getStorageSync("token")
+				
+				const res = await this.$request({
+					 	url:"/system/dict/data/type/vehicle_work_status",
+					 	
+					 	header:{
+					 		Authorization:authorization,
+					 	},
+					 	
+					 })
+					console.log(res,'a12');
+					 
+					 this.vehicleWorkStatusOptions = res.data.data.map(e=>e=e.dictLabel)
+					 this.vehicleWorkStatusSendValue = res.data.data.map(e=>e=e.dictValue)
+					 this.vehicleWorkStatusOptions.unshift("请选择车辆工作状态")
+			},
+			
+			
+			
+			//通过车船牌照号码搜索
+			searchVehiclePlateNumber(e){
+				this.vehiclePlateNumber = e.target.value
+				console.log(this.driverName,'aas');
+			},
+			
+			
+			//通过车辆入网状态搜索
+			bindPickerVehicleNetStatusChange(e) {
+						            console.log('picker发送选择改变，携带值为工作状态', e.target.value)
+						            this.vehicle_net_status_index = e.target.value
+									
+									var vehicle_net_status_index = this.vehicle_net_status_index
+									
+									 this.vehicleNetStatus =this.vehicleNetStatusSendValue[vehicle_net_status_index-1]
+									 console.log (this.vehicleNetStatus,"工作状态后台值")
+									
+						        },
+			
+			//通过工作状态搜索
+			bindPickerVehicleWorkStatusChange(e) {
+						            console.log('picker发送选择改变，携带值为工作状态', e.target.value)
+						            this.vehicle_work_status_index = e.target.value
+									
+									var vehicle_work_status_index = this.vehicle_work_status_index
+									
+									 this.vehicleWorkStatus =this.vehicleWorkStatusSendValue[vehicle_work_status_index-1]
+									 console.log (this.vehicleWorkStatus,"工作状态后台值")
+									
+						        },
+			
+			
 			upper: function(e) {
 			           console.log(e,'11111')
 			       },
 			lower: function(e) {
 			           console.log(e,'222222')
-					   this.queryParams.pageNum += this.queryParams.pageSize
-					  this.getVehicleList()
-					    },
+					    
+						setTimeout(() => {
+						//TODO这里填写你加载数据的方法
+						
+						this.queryParams.pageNum += 1
+						if (this.load_more){
+							 this.searchVehicle()
+						}
+					}, 1000)
+						
+				},
+						
 			radioChange: function(evt) {
-				  console.log(evt.target.value,"111")
-			      this.vehicle_choosen = evt.target.value.vehiclePlateNumber
-				  this.vehicle_id = evt.target.value.vehicleId
-			      uni.setStorageSync("vehicle_choosen", this.vehicle_choosen)
-				  uni.setStorageSync("vehicle_id", this.vehicle_id)
+				
+			      uni.setStorageSync("vehicle_choosen", evt.target.value)
+				
 			      uni.navigateTo({
 			      					  url:"/pages/choosing_driver/choosing_driver",
 			      })      
 			        },
-			async getVehicleList(){
-				this.queryParams.vehicleStatus = 1
-				const queryParamsVehicle= this.queryParams
-				var authorization = uni.getStorageSync("token")		
-				const res = await this.$request({
-					url:"/app/vehicle/list",
-					header:{
-						Authorization:authorization,
-					},
-					data:queryParamsVehicle
 					
-				})
-				console.log(res,"222")
+			
+			//车辆列表搜索
+			async searchVehicle(){
+						 
+							const queryParams= this.queryParams
+							const vehiclePlateNumber = this.vehiclePlateNumber
+							const carrierName = this.carrierName
+							const vehicleNetStatus = this.vehicleNetStatus
+							const vehicleWorkStatus =this.vehicleWorkStatus
+							const vehicleOwnType =this.vehicleOwnType
+							const vehicleRoadcertNo =this.vehicleRoadcertNo
+							const vehicleLength =this.vehicleLength
+							
+							var authorization = uni.getStorageSync("token")		
+							const res = await this.$request({
+								url:`/app/vehicle/list?vehiclePlateNumber=${vehiclePlateNumber}&carrierName=${carrierName}&vehicleNetStatus=${vehicleNetStatus}&vehicleWorkStatus=${vehicleWorkStatus}&vehicleOwnType=${vehicleOwnType}&vehicleRoadcertNo=${vehicleRoadcertNo}&vehicleLength=${vehicleLength}`,
+								header:{
+									Authorization:authorization,
+									
+								},
+								data:queryParams
+								
+							})
+							
+							//stop sending request
+							if (this.queryParams.pageNum*this.queryParams.pageSize>=res.data.total){
+								this.load_more = false
+							}
+							     
+							console.log(res,'q55');  
+							if (this.vehicle_list.length<res.data.total){
+								this.vehicle_list =[...this.vehicle_list,...res.data.rows]
+								
+							}else{
+								uni.showToast({
+									title:"没有更多的信息了",
+									icon:"none"
+								})
+								return
+							}  
+			 },	
 				
-				if (this.vehicle_list.length<res.data.total){
-					this.vehicle_list =[...this.vehicle_list,...res.data.rows]
-					
-				}else{
-					uni.showToast({
-						title:"没有更多的信息了",
-						icon:"none"
-					})
-					return
-				}
-			},		
 		},
-		mounted(){
-			
-			// this.vehicle_list=[
-			// 	{
-			// 		vehiclePlateNumber:"苏C56176",
-			// 		value:"苏C56176",
-			// 		vehicleOwnType:"企业",
-			// 		tel:"370421197408023812",
-			// 		vehicleLadenWeight:"49",
-			// 		carrier_vehiclePlateNumber:"徐州市聚诚运输有限公司"
-					
-			// 	},
-			// 	{
-			// 		vehiclePlateNumber:"鲁DZ5299",
-			// 		value:"鲁DZ5299",
-			// 		vehicleOwnType:"A2",
-			// 		tel:"320323198109111217",
-					
-			// 		vehicleLadenWeight:"49",
-			// 		carrier_vehiclePlateNumber:"徐州市聚诚运输有限公司",
-					
-			// 	},
-			// 	{
-			// 		vehiclePlateNumber:"苏CDV316",
-			// 		value:"苏CDV316",
-			// 		vehicleOwnType:"个人",
-			// 		tel:"320323197606104419",
-					
-			// 		vehicleLadenWeight:"49",
-			// 		carrier_vehiclePlateNumber:"徐州市聚诚运输有限公司",
-					
-			// 	},
-			// ]
-			
-			this.getVehicleList()
-		},
-	
+		
 	}
 </script>
 
@@ -149,7 +298,7 @@
 		background-color: #fff;
 	}
 	.scroll-Y{
-		height:95vh;
+		height:85vh;
 	}
 	
 	.vehicle_content{

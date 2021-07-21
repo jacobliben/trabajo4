@@ -340,11 +340,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
 var _vuex = __webpack_require__(/*! vuex */ 12);
 
 
 
-var _permission = _interopRequireDefault(__webpack_require__(/*! @/js_sdk/wa-permission/permission.js */ 234));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var cmdNoticeBar = function cmdNoticeBar() {__webpack_require__.e(/*! require.ensure | components/cmd-notice-bar/cmd-notice-bar */ "components/cmd-notice-bar/cmd-notice-bar").then((function () {return resolve(__webpack_require__(/*! @/components/cmd-notice-bar/cmd-notice-bar.vue */ 998));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+var _permission = _interopRequireDefault(__webpack_require__(/*! @/js_sdk/wa-permission/permission.js */ 234));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}
 
 var start_location; //目前地址
 var start_latitude; //目前latitude
@@ -357,7 +360,10 @@ var dest_longitude;var _default =
 {
   data: function data() {
     return {
-
+      //控制页面重载
+      reload_flag: false,
+      //未读信息数
+      un_read_msg: 0,
       title: '',
       title2: '',
       show_shipping_list: true,
@@ -374,8 +380,8 @@ var dest_longitude;var _default =
 
   },
   computed: (0, _vuex.mapState)(['hasLogin', 'uerInfo']),
-  components: {
-    cmdNoticeBar: cmdNoticeBar },
+  components: {},
+
 
 
   onLoad: function onLoad() {
@@ -398,9 +404,17 @@ var dest_longitude;var _default =
 
 
 
+
+    //后退刷新页面，查询“未读信息”的条数
+
+    this.getUnreadMessageList();
   },
 
+
   onShow: function onShow() {
+
+    //查询“未读信息”的条数
+    this.getUnreadMessageList();
     //去除派车单中的storage
     try {
       uni.removeStorageSync('nav_state');
@@ -515,9 +529,29 @@ var dest_longitude;var _default =
 
   },
   methods: {
+    //查询“未读信息”的条数
+    getUnreadMessageList: function getUnreadMessageList() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var authorization, resMsg;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+                authorization = uni.getStorageSync("token");_context.next = 3;return (
+
+
+                  _this.$request({
+                    url: "/iscm/msg/list?pageNum=1&pageSize=7&msgStatus=20",
+
+                    header: {
+                      Authorization: authorization } }));case 3:resMsg = _context.sent;
+
+
+
+                _this.un_read_msg = resMsg.data.total;
+                console.log(resMsg, 'slbgw111');case 6:case "end":return _context.stop();}}}, _callee);}))();
+
+
+
+
+    },
     //判断用户是否授权
-    requestAndroidPermission: function requestAndroidPermission(permisionID) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var result, strStatus;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
-                  _permission.default.requestAndroidPermission(permisionID));case 2:result = _context.sent;
+    requestAndroidPermission: function requestAndroidPermission(permisionID) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var result, strStatus;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
+                  _permission.default.requestAndroidPermission(permisionID));case 2:result = _context2.sent;
 
                 if (result == 1) {
                   strStatus = "已获得授权";
@@ -528,41 +562,41 @@ var dest_longitude;var _default =
                 }
                 uni.showModal({
                   content: permisionID + strStatus,
-                  showCancel: false });case 5:case "end":return _context.stop();}}}, _callee);}))();
+                  showCancel: false });case 5:case "end":return _context2.stop();}}}, _callee2);}))();
 
     },
-    gotRouter: function gotRouter() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
+    gotRouter: function gotRouter() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.next = 2;return (
 
-                  _this.$getRouters({}));case 2:res = _context2.sent;case 3:case "end":return _context2.stop();}}}, _callee2);}))();
+                  _this2.$getRouters({}));case 2:res = _context3.sent;case 3:case "end":return _context3.stop();}}}, _callee3);}))();
 
 
 
     },
 
-    getShippingInfoList: function getShippingInfoList() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var queryParams, authorization, res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
-                _this2.queryParams.waybillStatus = _this2.$waitAccept;
+    getShippingInfoList: function getShippingInfoList() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var queryParams, authorization, res;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
+                _this3.queryParams.waybillStatus = _this3.$waitAccept;
 
-                queryParams = _this2.queryParams;
-                authorization = uni.getStorageSync("token");_context3.next = 5;return (
+                queryParams = _this3.queryParams;
+                authorization = uni.getStorageSync("token");_context4.next = 5;return (
 
-                  _this2.$request({
+                  _this3.$request({
                     url: "/app/waybill/list",
 
                     header: {
                       Authorization: authorization },
 
-                    data: queryParams }));case 5:res = _context3.sent;if (!(
+                    data: queryParams }));case 5:res = _context4.sent;if (!(
 
 
 
-                !res.data.rows || res.data.rows.length == 0)) {_context3.next = 11;break;}
-                _this2.show_shipping_list = false;return _context3.abrupt("return");case 11:
+                !res.data.rows || res.data.rows.length == 0)) {_context4.next = 11;break;}
+                _this3.show_shipping_list = false;return _context4.abrupt("return");case 11:
 
                 if (res.data.rows.length > 2) {
-                  _this2.shipping_info_list = res.data.rows.splice(2);
+                  _this3.shipping_info_list = res.data.rows.splice(2);
                 } else {
-                  _this2.shipping_info_list = res.data.rows;
-                }case 12:case "end":return _context3.stop();}}}, _callee3);}))();
+                  _this3.shipping_info_list = res.data.rows;
+                }case 12:case "end":return _context4.stop();}}}, _callee4);}))();
 
     },
     goMessage: function goMessage() {
@@ -640,18 +674,18 @@ var dest_longitude;var _default =
         //only for camera
         onlyFromCamera: true,
 
-        success: function () {var _success = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4(res) {var status, resScan;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
+        success: function () {var _success = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5(res) {var status, resScan;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:
                     console.log('条码类型：' + res.scanType);
                     console.log('条码内容：' + res.result);
                     //after scaning ,send the QR UUID to inform the server the scanning  
 
-                    status = 3;_context4.next = 5;return (
+                    status = 3;_context5.next = 5;return (
 
                       that.$request({
                         url: "/loginByQrCode/".concat(res.result, "/").concat(status),
 
                         header: {
-                          Authorization: authorization } }));case 5:resScan = _context4.sent;case 6:case "end":return _context4.stop();}}}, _callee4);}));function success(_x) {return _success.apply(this, arguments);}return success;}() });
+                          Authorization: authorization } }));case 5:resScan = _context5.sent;case 6:case "end":return _context5.stop();}}}, _callee5);}));function success(_x) {return _success.apply(this, arguments);}return success;}() });
 
 
 
@@ -683,12 +717,12 @@ var dest_longitude;var _default =
       }
 
 
+      uni.navigateTo({
+        url: '/pages/login/login' });
 
 
 
-
-
-
+      //
 
 
 

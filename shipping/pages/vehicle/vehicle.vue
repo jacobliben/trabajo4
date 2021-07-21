@@ -66,7 +66,7 @@
 			</view>
 			
 		      <view class="cu-form-group">
-		      			     <view class="name">车辆类型 </view>
+		      			     <view class="name">车辆分类</view>
 		      			     <view class="ref-name">
 		      					<radio-group class="truck-type" @change="radioCarChange">
 		      					                <label class="cell" v-for="(item, index) in car_items" 
@@ -89,6 +89,35 @@
 								 @input ="getCarNo" :value="plate_number">
 			  				 </view>
 			  </view>
+			  
+			  <view class="cu-form-group">
+			  			     <view class="name">车辆所有人 <text class="star">*</text></view>
+			  			     <view class="ref-name">
+			  					<input type="text" placeholder="请输入车辆所有人" :value="vehicleOwnName" @input ="getVehicleOwnName">
+			  					
+			  				 </view>
+			  </view>
+			  
+			  <view class="cu-form-group">
+			  			     <view class="name">车主类型 <text class="star">*</text></view>
+			  			     <view class="ref-name" >
+			  				     
+			  							<picker @change="bindPickerTypeChange" :value="owner_type_index" :range="owner_type_list">
+			  							                      <view class="picker-view text-lg">{{owner_type_list[owner_type_index]}}</view>
+			  							 </picker>	 
+			  				 </view>
+			  </view>
+			  
+			  
+			 <view class="cu-form-group">
+			  						     <view class="name">车辆类型 <text class="star">*</text></view>
+			  						     <view class="ref-name">
+			  								<picker @change="bindPickerCarTypeChange" :value="car_type_index" :range="car_type_list">
+			  								                      <view class="picker-view text-lg">{{car_type_list[car_type_index]}}</view>
+			  								 </picker>
+			  							 </view>
+			  </view>
+			  
 			  
 			  <view class="cu-form-group">
 			  			     <view class="name">牌照类型 <text class="star">*</text></view>
@@ -115,6 +144,19 @@
 								                      <view class="picker-view text-lg">{{list[plate_color_index]}}</view>
 								 </picker>		  
 			  				 </view>
+			  </view>
+			  
+			  <view class="cu-form-group" >
+			  	<text class="name">行驶证失效日期<text class="star">*</text></text>
+			  	<view >
+			  		 <picker mode="date" v-if="driving_cert_expiry_date_has_input" :value="driving_cert_expiry_date"   :end="endDate" @change="bindDateChange" data-index="driving_cert_expiry_date">
+			  		      <view class="picker-view text-lg">{{driving_cert_expiry_date}}</view>
+			  		 </picker>
+			  	</view>
+			  				<view @click="driving_cert_expiry_date_has_input = true"  >
+			  					
+			  					 <view  class="picker-view text-lg"  v-if="!driving_cert_expiry_date_has_input" >选择行驶证失效日期</view>
+			  				</view>
 			  </view>
 			  
 			  <view class="cu-form-group">
@@ -207,13 +249,18 @@
 	
 	export default {
 		data() {
+			
+			const currentDate = this.getDate({
+			           format: true
+			       })
 			return {
 				//是否个人
 				isPerson: false,
 				disabled:true,
 				active:false,
 				//显示车牌号
-				plate_number:"", 
+				plate_number:"",
+				vehicleOwnName:"",
 				params:{
 					the_step:4,
 					active_one_step:true,
@@ -252,6 +299,12 @@
 				is_ordinary:false,
 				plate_type_index:1,
 				plate_color_index:0,
+				vehicleOwnTypeOptions: [],
+				owner_type_list: [],
+				owner_type_index:0,
+				vehicleTypeOptions: [],
+				car_type_list: [],
+				car_type_index:0,
 				list: [
 				               '黄牌',
 				               // '蓝牌',
@@ -300,8 +353,17 @@
 					
 				// 货箱长度传给后台的值
 				vehicleCargoBoxLengthSendValue: [],
+				//行驶证失效日期
+				driving_cert_expiry_date: currentDate,
+				driving_cert_expiry_date_has_input:false,
 			};
 		},
+		computed: {
+		      
+		        endDate() {
+		            return this.getDate('end');
+		        }
+		    },
 		components:{
 			
 			
@@ -312,6 +374,8 @@
 			this.params.whetherNewEnergy =2
 			
 			this.getCarTypes()
+			this.getVehicleOwnTypeOptions()
+			this.getVehicleTypeOptions()
 			this.getVehiclePlateTypeOptions()
 			this.getVehiclePlateColorOptions()
 			this.getVehicleEnergyTypeOptions()
@@ -360,6 +424,13 @@
 				this.car_current = 1
 			}
 			
+			//行驶证失效日期
+			if (this.params_vehicle.vehicleLicenseExpireDate){
+												  this.driving_cert_expiry_date = this.params_vehicle.vehicleLicenseExpireDate||this.getDate({format: true})
+												  this.driving_cert_expiry_date_has_input = true
+			}
+			
+			
 			
 			this.plate_number = this.params_vehicle.vehiclePlateNumber ||""
 			if(this.params_vehicle.vehiclePlateType == "02"){
@@ -369,6 +440,8 @@
 			}else if (this.params_vehicle.vehiclePlateType == "99" ){
 				this.plate_type_index= 2
 			}
+			 this.vehicleOwnName = this.params_vehicle.vehicleOwnName||""
+			
 			this.vehicleBrands = this.params_vehicle.vehicleBrands ||""
 			this.vehicle_weight = this.params_vehicle.vehicleLadenWeight ||""
 			this.rating_weight = this.params_vehicle.vehicleTonnage ||""
@@ -389,6 +462,23 @@
 			}
 		},
 		methods:{
+			//用于 date picker!!!!!
+			getDate(type) {
+								            const date = new Date();
+								            let year = date.getFullYear();
+								            let month = date.getMonth() + 1;
+								            let day = date.getDate();
+								
+								            if (type === 'start') {
+								                year = year - 60;
+								            } else if (type === 'end') {
+								                year = year + 20;
+								            }
+								            month = month > 9 ? month : '0' + month;;
+								            day = day > 9 ? day : '0' + day;
+								            return `${year}-${month}-${day}`;
+								        },
+			
 			//将base64位图片上传,之后identifying要用
 			
 			detailImage(path, callback) {
@@ -439,6 +529,33 @@
 				const resCarTypes = await this.$getRegistDicts("iscm_vehicle_species")
 				
 			},
+			
+			//车主类型
+			async getVehicleOwnTypeOptions(){
+				const vehicleOwnTypeOptions = await this.$getRegistDicts("vehicle_own_type")
+				this.vehicleOwnTypeOptions = vehicleOwnTypeOptions.data.data.map(e=>e.dictLabel)
+				
+				this.owner_type_list = this.vehicleOwnTypeOptions
+				this.owner_type_list.unshift("请选择车主类型")
+				
+			     this.owner_type_index = this.params_vehicle.vehicleOwnType||""
+			},
+			
+			// 车辆类型字典
+			async getVehicleTypeOptions(){
+				const vehicleTypeOptions = await this.$getRegistDicts("vehicle_type")
+				this.vehicleTypeOptions =  vehicleTypeOptions.data.data.map(e=>e.dictLabel)
+				this.car_type_list = this.vehicleTypeOptions
+				this.car_type_list.unshift("请选择车辆类型")
+				
+				this.vehicleTypeSendValue = vehicleTypeOptions.data.data.map(e=>e.dictValue)
+				
+				const vehicleType = this.params_vehicle.vehicleType
+				
+				this.car_type_index = this.vehicleTypeSendValue.findIndex(value=>value == vehicleType) + 1
+				
+			},
+			
 			
 			async getVehiclePlateTypeOptions(){
 				const vehiclePlateTypeOptions = await this.$getRegistDicts("vehicle_plate_type")
@@ -497,6 +614,58 @@
 				
 			},
 			
+			//	车辆所有人
+			getVehicleOwnName(e){
+				             this.vehicleOwnName = e.target.value
+							this.params. vehicleOwnName = e.target.value
+							
+						},
+						
+						
+			//车主类型
+			bindPickerTypeChange(e) {
+						            console.log('picker发送选择改变，携带值为车主类型', e.target.value)
+						            this.owner_type_index = e.target.value
+									
+									this.params.vehicleOwnType =  this.owner_type_index
+									
+						        },	
+			//车辆类型
+			bindPickerCarTypeChange(e) {
+						            console.log('picker发送选择改变，携带值为车辆类型', e.target.value)
+						            this.car_type_index = e.target.value
+									
+									var car_type_index = this.car_type_index
+									
+									 this.params.vehicleType =this.vehicleTypeSendValue[car_type_index-1]
+									 console.log (this.params.vehicleType,"车辆类型后台值")
+									
+						        },
+																
+			bindDateChange: function(e) {
+				                //行驶证注册日期
+							  if(e.currentTarget.dataset.index=="driving_cert_register_date"){
+								  this.driving_cert_register_date = e.target.value
+								  this.params.vehicleRegisterDate = this.driving_cert_register_date
+								  this.driving_cert_register_date_has_input = true
+							  }else if(e.currentTarget.dataset.index=="driving_cert_issuing_date"){
+								  //行驶证发证日期
+								  this.driving_cert_issuing_date = e.target.value
+								  this.params.vehicleIssueDate = this.driving_cert_issuing_date
+								  this.driving_cert_issuing_date_has_input = true
+							  }else if(e.currentTarget.dataset.index=="driving_cert_expiry_date"){
+								   //行驶证失效日期
+								  this.driving_cert_expiry_date = e.target.value
+								  this.params.vehicleLicenseExpireDate =this.driving_cert_expiry_date
+								  this.driving_cert_expiry_date_has_input = true
+							  }else if(e.currentTarget.dataset.index=="road_cert_expiry_date"){
+								   //道路运输证失效日期
+								  this.road_cert_expiry_date = e.target.value
+								  this.params.vehicleRoadcertExpireDate =this.road_cert_expiry_date
+								  this.road_cert_expiry_date_has_input = true
+							  }
+			    
+			       },													
 			getCarBrand(e){
 				
 				this.params.vehicleBrands = e.detail.value

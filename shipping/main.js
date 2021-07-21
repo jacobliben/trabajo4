@@ -18,6 +18,7 @@ Vue.prototype.$photo = myImage
 
 Vue.prototype.$waitAccept= 28//待接收    
 Vue.prototype.$waitSendDispatch= 30//待派车 
+Vue.prototype.$waitAuditLoadInfo= 33//待装货
 Vue.prototype.$waitSign = 50        //待签收
 Vue.prototype.$waitDepart = 40//待发车
 Vue.prototype.$waitConfirmReceipt = 80   //待确认收货
@@ -29,11 +30,6 @@ Vue.prototype.$getRouters = getRouters
 Vue.prototype.$registCarrier = myRegisterCarrier
 Vue.prototype.pattern = pattern
 
-//正式库 危险！！！
-//Vue.prototype.BASE_URL = 'https://wl.xcmgzhilian.com' + '/prod-api'
-//测试库
-Vue.prototype.BASE_URL = 'http://10.22.2.138:8080' 
-//Vue.prototype.BASE_URL = 'http://10.22.0.136:8080' 
 App.mpType = 'app'
 
 const app = new Vue({

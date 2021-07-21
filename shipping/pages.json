@@ -429,7 +429,7 @@
             "path" : "pages/way_bill_details/way_bill_details",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "派车状态和账单详情",
+                "navigationBarTitleText": "派车单详情",
                 "enablePullDownRefresh": false
             }
             
@@ -864,6 +864,24 @@
         }
         ,{
             "path" : "pages/message/message",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/dispatch_before_detail/dispatch_before_detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "历史派车单详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/order_detail/order_detail",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",

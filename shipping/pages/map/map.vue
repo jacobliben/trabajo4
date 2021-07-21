@@ -50,7 +50,7 @@
 		onLoad() {
 			this.received_info = uni.getStorageSync("upload_item")
 			 
-			 var destiny_address = this.received_info.iscmConsignee.consigneeAddress
+			 var destiny_address = this.received_info.iscmDispatchInformationRecord.consigneeAddress
 			 
 			 that = this
 		    
@@ -75,40 +75,40 @@
 			    }
 			})
 			
-			// uni.getLocation({
-			// 			    type: 'gcj02',
-			// 				geocode:true,//设置该参数为true可直接获取经纬度及城市信息
-			// 			    success: function (res) {
-			// 					console.log(res,"121")    
-			// 					 start_longitude  =res.longitude
-			// 				     start_latitude   = res.latitude
-			// 					start_location = res.longitude + res.latitude;
-			// 			    },
-			// 				fail: function () {
-			// 					uni.showToast({
-			// 					    title: '获取地址失败',
-			// 						icon:'none'
-			// 					});
-			// 				}
-			// 			});
+			uni.getLocation({
+						    type: 'gcj02',
+							geocode:true,//设置该参数为true可直接获取经纬度及城市信息
+						    success: function (res) {
+								console.log(res,"121")    
+								 start_longitude  =res.longitude
+							     start_latitude   = res.latitude
+								start_location = res.longitude + res.latitude;
+						    },
+							fail: function () {
+								uni.showToast({
+								    title: '获取地址失败',
+									icon:'none'
+								});
+							}
+						});
 			
 			
 			
 			// make the Gaode Map APP road planning
 			
 			
-			//   that = this;
-			//     var startPoi = start_location;
-			//     var wayPoi = "";
-			//     var endPoi = destiny_location;
+			  that = this;
+			    var startPoi = start_location;
+			    var wayPoi = "";
+			    var endPoi = destiny_location;
 			
-			//     Amap.line(startPoi, endPoi, wayPoi,function(res){
-			//         that.polyline.push(res)
-			//     });
+			    Amap.line(startPoi, endPoi, wayPoi,function(res){
+			        that.polyline.push(res)
+			    });
 			
-			//     Amap.markers(startPoi,endPoi,wayPoi,function(res){
-			//         that.markers.push.apply(that.markers,res)
-			//     })
+			    Amap.markers(startPoi,endPoi,wayPoi,function(res){
+			        that.markers.push.apply(that.markers,res)
+			    })
 			
 			
 			

@@ -2,15 +2,6 @@
 	<view>
 	   <view class="take-photo-id" >
 		   
-		  <!-- <view class="top-line flex-bar">
-		   			     <view class="name">头像 (修改后需重新登录生效)</view>
-		   			     <view class="ref-name" @click="uploadAvatar">
-		   					<image  :src="imgAvatarUrl" class="img" mode=""></image>
-		   					<image src="/static/tachar.png" mode="aspectFit" @click="cancelAvatar"
-		   					 class="tachar" v-if="tachar_avatar"></image>
-		   				 </view>
-		   </view> -->
-		   
 		   <view class="top-line flex-bar">
 		   			     <view class="name">用户账号</view>
 		   			     <view class="ref-name">
@@ -26,7 +17,7 @@
 			</view>
 			
 			<view class="top-line flex-bar">
-						     <view class="name">手机号 （个人用户手机号也可作为登录账号使用）</view>
+						     <view class="name">手机号 （手机号也可作为个人用户登录账号）</view>
 						     <view class="ref-name">
 								<view>{{user.data.user.phonenumber}}</view>
 							 </view>
@@ -178,22 +169,13 @@
 			if (options.email){
 				this.email_got = options.email
 			}
-			 
-			 //正式库，危险！！！！
-			 //this.imgAvatarUrl = "https://wl.xcmgzhilian.com/prod-api" + this.user.data.user.avatar
-			 //测试库
-            this.imgAvatarUrl = 'http://10.22.2.138:8080' + this.user.data.user.avatar
-			//this.imgAvatarUrl = 'http://10.22.0.136:8080' + this.user.data.user.avatar
+			
 			
 		},
 		 onShow() {
 			
 			this.user = uni.getStorageSync("user_info")
-			 //正式库，危险！！！！
-			 // this.imgAvatarUrl = uni.getStorageSync("user_avatar")||'https://wl.xcmgzhilian.com' + '/prod-api' + this.user.data.user.avatar
-			 //测试库
-			this.imgAvatarUrl = uni.getStorageSync("user_avatar")||'http://10.22.2.138:8080' + this.user.data.user.avatar
-			 // this.imgAvatarUrl = uni.getStorageSync("user_avatar")||'http://10.22.0.136:8080' + this.user.data.user.avatar
+			
 		},
 		methods:{
 			
@@ -226,70 +208,6 @@
 				})
 			},
 			
-			async uploadAvatar(e){
-				var _self=this
-				var authorization = uni.getStorageSync("token")
-				/**
-				 * 用户头像
-				 */ 
-				const resChoosePhoto= await this.$photo({
-										  async success(res) {
-										    const tempFilePaths = res.tempFilePaths;
-											
-											//preview the photos
-											// uni.previewImage({
-											//             urls: res.tempFilePaths,
-											            
-											//         });
-													
-											
-											 //upload the img
-											 _self.imgAvatarUrl = tempFilePaths[0]
-											   uni.setStorageSync("user_avatar",_self.imgAvatarUrl)
-											 //make the tachar img appear
-											  _self.tachar_avatar=true
-											  
-											   //upload
-											 
-											   _self.params.avatarfile = _self.imgAvatarUrl
-											   var form =  _self.params
-											   var avatar =  _self.imgAvatarUrl
-											 
-											   uni.uploadFile({
-												                  //正式库，危险！！！！
-												                //url:"https://wl.xcmgzhilian.com/prod-api/system/user/profile/avatar",
-											   					//测试库
-																url:"http://10.22.2.138:8080/system/user/profile/avatar",
-																//url:"http://10.22.0.136:8080/system/user/profile/avatar",
-											   					filePath: tempFilePaths[0],
-											              		name: 'avatarfile',  //后台接收字段名
-											   					
-											   					header:{
-																	Authorization:authorization,
-											   						"Content-Type": "multipart/form-data",
-											   						
-											   					},
-											   					success: (res) => {
-											   					 
-																uni.showToast({title:"保存成功!", });	 
-											   					 console.log('请求成功_______________',res)
-											   					  setTimeout(()=>{
-											   					  	uni.reLaunch({
-											   					  		url:`/pages/accounts/accounts?avatar=${_self.imgAvatarUrl}`
-											   					  	})
-											   					  },200)
-											          			
-											   						
-											   					},
-											   					fail:(err)=>{
-											   						console.log('请求失败_______________',err)
-																	
-											   					}
-											   				})
-											   
-											}
-				})	
-			},
 			
 			goDriverIdentifying(){
 				uni.navigateTo({

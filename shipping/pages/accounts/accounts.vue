@@ -10,7 +10,7 @@
 							   class="tachar" v-if="tachar_avatar"></image>
 						  </view>
 						   <view>
-							  <text class="user-name"> {{user.data.user.nickName}}</text>
+							  <text class="user-name"> {{this.user.data.user.nickName}}</text>
 							  <text class="has-accreditted"> 已认证</text> 
 						   </view>
 						  <view class="user-accounts"> 账号： {{user.data.user.phonenumber}}</view>
@@ -23,7 +23,7 @@
 					  </view>
 					<text class="cuIcon-right lg text-gray"></text>
 		</view>
-	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goShipping">
+	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goShipping" v-if="show_shipping_order">
 		      <view>
 				  <image src="/static/folder.png" mode="" class="sm-pic"></image>
 				  <text>我的运单</text>
@@ -97,7 +97,7 @@
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
-	   <view class="cu-form-group" @click="goVehicle" >
+	   <view class="cu-form-group" @click="goVehicle"  v-if="show_vehicle">
 		   <view>
 		   	    <image src="/static/cars.png" mode="" class="sm-pic"></image>
 				<text>车辆管理</text>
@@ -105,7 +105,7 @@
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
-	   <view class="cu-form-group" @click="goBankCard" v-if="true">
+	   <view class="cu-form-group" @click="goBankCard" v-if="show_bankcard">
 	   		   <view>
 	   		   	    <image src="/static/archive.png" mode="" class="sm-pic"></image>
 	   				<text>银行卡管理</text>
@@ -113,7 +113,7 @@
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
-	   <view class="cu-form-group" @click="goDriver" v-if="true">
+	   <view class="cu-form-group" @click="goDriver" v-if="show_driver">
 	   		   <view>
 	   		   	    <image src="/static/driver.png" mode="" class="sm-pic"></image>
 	   				<text>司机管理</text>
@@ -163,22 +163,152 @@
 				user:"",
 				imgAvatarUrl:"/static/user.png",
 				tachar_avatar:false,
+				
 				show_dispatch_before:false,
+				
+				show_shipping_order:true,
+				show_vehicle:true,
+				show_driver:true,
+				show_bankcard:true,
 				params:{},
 			}
 		},
 		
-		onLoad(options){
-		    this.user = uni.getStorageSync("user_info")
-			
-			 //正式库，危险
-		       //this.imgAvatarUrl = 'https://wl.xcmgzhilian.com' + '/prod-api' + this.user.data.user.avatar
-			 //测试库
-		    this.imgAvatarUrl = 'http://10.22.2.138:8080' + this.user.data.user.avatar
-		   //this.imgAvatarUrl = 'http://10.22.0.136:8080' + this.user.data.user.avatar
+		async onLoad(options){
+			const token = uni.getStorageSync('token')
+			   //get this user's permission rights
+			   const resUserInfo = await this.$request({
+			   	  	 	url:"/getInfo",
+			   	  	 	
+			   	  	 	header:{
+			   	  	 		Authorization:token,
+			   	  	 	},
+			   	  	 	
+			   	  	 })
+					 
+				this.user = resUserInfo	 
+			      const user = resUserInfo			
+			       			 //正式库，危险
+			           // this.imgAvatarUrl = 'https://wl.xcmgzhilian.com' + '/prod-api' + this.user.data.user.avatar
+			       			 //半测试版
+			       			this.imgAvatarUrl = 'http://116.62.172.131:88' + '/stage-api' + this.user.data.user.avatar
+			       			 //测试库
+			       // this.imgAvatarUrl = 'http://10.22.2.138:8080' + this.user.data.user.avatar
+			       //this.imgAvatarUrl = 'http://10.22.0.136:8080' + this.user.data.user.avatar
+			       
+			       //如果后台没有传入avatar,就用local 的avatar展示
+			       if (this.imgAvatarUrl ==""){
+			       			  this.imgAvatarUrl ="/static/user.png"
+							  
+			       }
+				   
+				   
+				   
+				   const user_permissions = user.data.permissions
+				   
+				   let result_shipping_order = user_permissions.findIndex(ele => ele === 'iscm:waybill:list')
+				   
+				   if (result_shipping_order == -1){
+				   	this.show_shipping_order = false
+				   	
+				   }
+				   
+				   let result_vehicle = user_permissions.findIndex(ele => ele === 'iscm:vehicle:list')
+				  
+				   if (result_vehicle == -1){
+				   	this.show_vehicle = false
+				   	
+				   }
+				   
+				   let result_driver = user_permissions.findIndex(ele => ele === 'iscm:driver:list')
+				 
+				   if (result_driver == -1){
+				   	this.show_driver = false
+				   	
+				   }
+				   
+				   let result_bankcard = user_permissions.findIndex(ele => ele === 'iscm:carrierBankcard:list')
+				   
+				   if (result_bankcard == -1){
+				   	this.show_bankcard = false
+				   	
+				   }
+				
 		  
 		},
-		onShow(){
+		async onShow(){
+			       const token = uni.getStorageSync('token')
+			          //get this user's permission rights
+			          const resUserInfo = await this.$request({
+			          	  	 	url:"/getInfo",
+			          	  	 	
+			          	  	 	header:{
+			          	  	 		Authorization:token,
+			          	  	 	},
+			          	  	 	
+			          	  	 })
+			       		 
+			       	this.user = resUserInfo	 
+			       			
+			       			 //正式库，危险
+			           // this.imgAvatarUrl = 'https://wl.xcmgzhilian.com' + '/prod-api' + this.user.data.user.avatar
+			       			 //半测试版
+			       			this.imgAvatarUrl = 'http://116.62.172.131:88' + '/stage-api' + this.user.data.user.avatar
+			       			 //测试库
+			       // this.imgAvatarUrl = 'http://10.22.2.138:8080' + this.user.data.user.avatar
+			       //this.imgAvatarUrl = 'http://10.22.0.136:8080' + this.user.data.user.avatar
+			       
+			       //如果后台没有传入avatar,就用local 的avatar展示
+			       if (this.user.data.user.avatar ==""){
+					   
+			       			 this.imgAvatarUrl ="/static/user.png"
+							  
+							  
+							  console.log(this.user,"vvv");
+			       }
+				   
+				   const user = this.user 
+				   
+				   const user_permissions = user.data.permissions
+				   
+				   let result_shipping_order = user_permissions.findIndex(ele => ele === 'iscm:waybill:list')
+				   console.log (result_shipping_order,'99ds44')
+				   if (result_shipping_order == -1){
+				   	this.show_shipping_order = false
+				   	
+				   }
+				   
+				   let result_vehicle = user_permissions.findIndex(ele => ele === 'iscm:vehicle:list')
+				   console.log (result_vehicle,'99ds')
+				   if (result_vehicle == -1){
+				   	this.show_vehicle = false
+				   	
+				   }
+				   
+				   let result_driver = user_permissions.findIndex(ele => ele === 'iscm:driver:list')
+				   console.log (result_driver,'99ds')
+				   if (result_driver == -1){
+				   	this.show_driver = false
+				   	
+				   }
+				   
+				   let result_bankcard = user_permissions.findIndex(ele => ele === 'iscm:carrierBankcard:list')
+				   console.log (result_bankcard,'99ds')
+				   if (result_bankcard == -1){
+				   	this.show_bankcard = false
+				   	
+				   }
+			//如果是管理员,可以看到所有，不受上面的权限约束
+			const user_role  = user.data.roles
+			if(user_role.includes("admin")) {
+				this.show_shipping_order = true
+				this.show_vehicle = true
+				this.show_driver = true
+				this.show_bankcard = true
+			}
+			
+			
+			
 			//get the user information to present
 			this.user = uni.getStorageSync("user_info")
 			if (!this.user||this.user == undefined|| this.user ==null){
@@ -198,9 +328,19 @@
 			    this.show_dispatch_before = false
 			//正式库 危险！！！
 			//this.imgAvatarUrl = uni.getStorageSync("user_avatar")||'https://wl.xcmgzhilian.com' + '/prod-api' + this.user.data.user.avatar	
+			//半测试版
+			this.imgAvatarUrl = uni.getStorageSync("user_avatar")|| 'http://116.62.172.131:88'  + '/stage-api' + this.user.data.user.avatar
 			//测试库
-			this.imgAvatarUrl = uni.getStorageSync("user_avatar")||'http://10.22.2.138:8080' + this.user.data.user.avatar
+			//this.imgAvatarUrl = uni.getStorageSync("user_avatar")||'http://10.22.2.138:8080' + this.user.data.user.avatar
 			//this.imgAvatarUrl = uni.getStorageSync("user_avatar")||'http://10.22.0.136:8080' + this.user.data.user.avatar
+		},
+		
+		onHide(){
+			//restore the original shipping order status
+			this.show_shipping_order = true
+			this.show_driver = true
+			this.show_vehicle = true
+			this.show_bankcard = true
 		},
 		methods: {
 			async uploadAvatar(e){
@@ -235,8 +375,10 @@
 											   uni.uploadFile({
 												                  //正式库，危险！！！！
 												                 //url:"https://wl.xcmgzhilian.com/prod-api/system/user/profile/avatar",
-											   					//测试库
-																url:"http://10.22.2.138:8080/system/user/profile/avatar",
+											   					//半测试版
+																url:"http://116.62.172.131:88/stage-api/system/user/profile/avatar",
+																//测试库
+																//url:"http://10.22.2.138:8080/system/user/profile/avatar",
 																//url:"http://10.22.0.136:8080/system/user/profile/avatar",
 											   					filePath: tempFilePaths[0],
 											              		name: 'avatarfile',  //后台接收字段名
@@ -304,7 +446,7 @@
 			goDispatchBefore(){
 				
 				uni.navigateTo({
-					url:'/pages/dispatch_before/dispatch_before'
+					url:'/pages/dispatch_before_detail/dispatch_before_detail'
 				})
 			},
 			
@@ -346,7 +488,7 @@
 				try {
 				    uni.removeStorageSync('token');
 					uni.removeStorageSync('user_info');
-					this.user = ""
+					//this.user = ""
 				} catch (e) {
 				   
 				}
@@ -358,14 +500,19 @@
 				   
 				}
 				
+				//restore the original show driver status
+			    this.show_shipping_order = true
+				this.show_driver = true
+				this.show_vehicle = true
+				this.show_bankcard = true
 				
 				uni.navigateTo({
 					url:'/pages/login/login'
 				})
-				// #ifdef APP-PLUS 
+				// // #ifdef APP-PLUS 
 				 
-				plus.runtime.quit();  
-				// #endif
+				// plus.runtime.quit();  
+				// // #endif
 			}
 		}
 	}

@@ -3,7 +3,7 @@
 		<uni-segmented-control :current="current"  @clickItem="onClickItem" styleType="text" activeColor="#09499b"></uni-segmented-control>
 		        <view class="content">
 		         
-		                <detail :passed_info="detailed_info"></detail>
+		                <order-detail :passed_info="detailed_info"></order-detail>
 		          
 		        </view>
 	</view>
@@ -11,7 +11,7 @@
 
 <script>
 	import uniSegmentedControl from "uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue"
-	import  detail from "@/pages/detail/detail"
+	import  orderDetail from "@/pages/order_detail/order_detail"
 	import  shippingCurrentState from "@/components/shipping_state/shipping_current_state.vue"
 	import  accountsDetail from "@/components/shipping_state/accounts_detail.vue"
 	
@@ -26,7 +26,7 @@
 		
 		components:{
 			uniSegmentedControl,
-			detail,
+			orderDetail,
 			shippingCurrentState,
 			accountsDetail
 		},

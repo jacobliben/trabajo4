@@ -80,7 +80,7 @@ var components
 try {
   components = {
     uniNumberBox: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-number-box/components/uni-number-box/uni-number-box */ "uni_modules/uni-number-box/components/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-number-box/components/uni-number-box/uni-number-box.vue */ 1022))
+      return __webpack_require__.e(/*! import() | uni_modules/uni-number-box/components/uni-number-box/uni-number-box */ "uni_modules/uni-number-box/components/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-number-box/components/uni-number-box/uni-number-box.vue */ 1004))
     }
   }
 } catch (e) {
@@ -460,6 +460,33 @@ var _self;var _default =
     this.params_vehicle = uni.getStorageSync("params_vehicle");
   },
   mounted: function mounted() {
+    //加载车辆行驶证主副页 
+    this.imgVehicleLicenseFirstUrl = uni.getStorageSync("vehicleLicensePhotoFirst_reshow");
+    if (this.imgVehicleLicenseFirstUrl == "") {
+      this.imgVehicleLicenseFirstUrl = "/static/vehicle_license.jpg";
+    }
+
+    //加载人车合照
+    this.imgPeopleVehicleUrl = uni.getStorageSync("peopleVehiclePhoto_reshow");
+    if (this.imgPeopleVehicleUrl == "") {
+      this.imgPeopleVehicleUrl = "/static/people_vehicle.jpg";
+    }
+
+    //加载道路运输证照片
+    this.imgTransportLicenseUrl = uni.getStorageSync("vehicleRoadcertPhoto_reshow");
+    if (this.imgTransportLicenseUrl == "") {
+      this.imgTransportLicenseUrl = "/static/TransportLicense.png";
+    }
+
+    //加载挂车行驶证主副页
+    this.imgHangingCarPhotoUrl = uni.getStorageSync("trailerLicensePhotoFirst_reshow");
+    if (this.imgHangingCarPhotoUrl == "") {
+      this.imgHangingCarPhotoUrl = "/static/vehicle_license.jpg";
+    }
+
+
+
+
     //跳转时显示
     var show_energy_current = this.params_vehicle.whetherNewEnergy || 2;
     this.energy_current = show_energy_current - 1;
@@ -2389,7 +2416,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 798:
+/***/ 794:
 /*!********************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/main.js?{"page":"pages%2Fvehicle%2Fvehicle"} ***!
   \********************************************************************************************************/
@@ -2405,5 +2432,5 @@ createPage(_vehicle.default);
 
 /***/ })
 
-},[[798,"common/runtime","common/vendor"]]]);
+},[[794,"common/runtime","common/vendor"]]]);
 //# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/vehicle/vehicle.js.map

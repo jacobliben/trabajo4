@@ -304,10 +304,15 @@ var _default =
     this.user = uni.getStorageSync("user_info");
 
     //正式库，危险
-    this.imgAvatarUrl = 'https://wl.xcmgzhilian.com' + '/prod-api' + this.user.data.user.avatar;
+    //this.imgAvatarUrl = 'https://wl.xcmgzhilian.com' + '/prod-api' + this.user.data.user.avatar
     //测试库
-    //this.imgAvatarUrl = 'http://10.22.2.138:8080' + this.user.data.user.avatar
+    this.imgAvatarUrl = 'http://10.22.2.138:8080' + this.user.data.user.avatar;
     //this.imgAvatarUrl = 'http://10.22.0.136:8080' + this.user.data.user.avatar
+
+    //如果后台没有传入avatar,就用local 的avatar展示
+    if (this.imgAvatarUrl == "") {
+      this.imgAvatarUrl = "/static/user.png";
+    }
 
   },
   onShow: function onShow() {
@@ -329,9 +334,9 @@ var _default =
 
     this.show_dispatch_before = false;
     //正式库 危险！！！
-    this.imgAvatarUrl = uni.getStorageSync("user_avatar") || 'https://wl.xcmgzhilian.com' + '/prod-api' + this.user.data.user.avatar;
+    //this.imgAvatarUrl = uni.getStorageSync("user_avatar")||'https://wl.xcmgzhilian.com' + '/prod-api' + this.user.data.user.avatar	
     //测试库
-    //this.imgAvatarUrl = uni.getStorageSync("user_avatar")||'http://10.22.2.138:8080' + this.user.data.user.avatar
+    this.imgAvatarUrl = uni.getStorageSync("user_avatar") || 'http://10.22.2.138:8080' + this.user.data.user.avatar;
     //this.imgAvatarUrl = uni.getStorageSync("user_avatar")||'http://10.22.0.136:8080' + this.user.data.user.avatar
   },
   methods: {
@@ -366,9 +371,9 @@ var _default =
 
                                 uni.uploadFile({
                                   //正式库，危险！！！！
-                                  url: "https://wl.xcmgzhilian.com/prod-api/system/user/profile/avatar",
+                                  //url:"https://wl.xcmgzhilian.com/prod-api/system/user/profile/avatar",
                                   //测试库
-                                  //url:"http://10.22.2.138:8080/system/user/profile/avatar",
+                                  url: "http://10.22.2.138:8080/system/user/profile/avatar",
                                   //url:"http://10.22.0.136:8080/system/user/profile/avatar",
                                   filePath: tempFilePaths[0],
                                   name: 'avatarfile', //后台接收字段名
@@ -494,7 +499,7 @@ var _default =
       uni.navigateTo({
         url: '/pages/login/login' });
 
-
+      //
 
 
 

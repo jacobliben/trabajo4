@@ -21,9 +21,7 @@
 			<view class="list" v-for = "(item,index) in navList" :key="index"  v-if="tabCurrentIndex===index">
 				
 				<vehicle-has-approved :vehicle = "item"/>
-				<!-- <vehicle-in-approving v-if="item.state===1"/>
-				<vehicle-not-approved v-if="item.state===2"/>
-				<vehicle-not-accredited v-if="item.state===3"/> -->
+				
 				
 			</view>
 		</view>
@@ -33,10 +31,7 @@
 
 <script>
 	import vehicleHasApproved from "@/pages/vehicle_has_approved/vehicle_has_approved.vue"
-	// import vehicleInApproving from "@/pages/vehicle_in_approving/vehicle_in_approving.vue"
-	// import vehicleNotApproved from "@/pages/vehicle_not_approved/vehicle_not_approved.vue"
-	// import vehicleNotAccredited from "@/pages/vehicle_not_accredited/vehicle_not_accredited.vue"
-	
+
 	
 	export default {
 		data() {
@@ -69,10 +64,7 @@
 		},
 		components:{
 			vehicleHasApproved,
-			// vehicleInApproving,
-			// vehicleNotApproved,
-			// vehicleNotAccredited,
-			
+		
 		},
 		onLoad(options){
 			this.tabCurrentIndex = 0

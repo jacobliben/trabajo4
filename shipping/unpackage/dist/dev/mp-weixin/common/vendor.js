@@ -2065,185 +2065,7 @@ EDE.prototype._unpad = DES.prototype._unpad;
 
 /***/ }),
 
-/***/ 101:
-/*!************************************************!*\
-  !*** ./node_modules/browserify-aes/browser.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var ciphers = __webpack_require__(/*! ./encrypter */ 102)
-var deciphers = __webpack_require__(/*! ./decrypter */ 119)
-var modes = __webpack_require__(/*! ./modes/list.json */ 113)
-
-function getCiphers () {
-  return Object.keys(modes)
-}
-
-exports.createCipher = exports.Cipher = ciphers.createCipher
-exports.createCipheriv = exports.Cipheriv = ciphers.createCipheriv
-exports.createDecipher = exports.Decipher = deciphers.createDecipher
-exports.createDecipheriv = exports.Decipheriv = deciphers.createDecipheriv
-exports.listCiphers = exports.getCiphers = getCiphers
-
-
-/***/ }),
-
-/***/ 1017:
-/*!****************************************************************************************************************!*\
-  !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/components/simple-address-high/city-data/province.js ***!
-  \****************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /* eslint-disable */
-var provinceData = [{
-  "label": "北京市",
-  "value": "11" },
-
-{
-  "label": "天津市",
-  "value": "12" },
-
-{
-  "label": "河北省",
-  "value": "13" },
-
-{
-  "label": "山西省",
-  "value": "14" },
-
-{
-  "label": "内蒙古自治区",
-  "value": "15" },
-
-{
-  "label": "辽宁省",
-  "value": "21" },
-
-{
-  "label": "吉林省",
-  "value": "22" },
-
-{
-  "label": "黑龙江省",
-  "value": "23" },
-
-{
-  "label": "上海市",
-  "value": "31" },
-
-{
-  "label": "江苏省",
-  "value": "32" },
-
-{
-  "label": "浙江省",
-  "value": "33" },
-
-{
-  "label": "安徽省",
-  "value": "34" },
-
-{
-  "label": "福建省",
-  "value": "35" },
-
-{
-  "label": "江西省",
-  "value": "36" },
-
-{
-  "label": "山东省",
-  "value": "37" },
-
-{
-  "label": "河南省",
-  "value": "41" },
-
-{
-  "label": "湖北省",
-  "value": "42" },
-
-{
-  "label": "湖南省",
-  "value": "43" },
-
-{
-  "label": "广东省",
-  "value": "44" },
-
-{
-  "label": "广西壮族自治区",
-  "value": "45" },
-
-{
-  "label": "海南省",
-  "value": "46" },
-
-{
-  "label": "重庆市",
-  "value": "50" },
-
-{
-  "label": "四川省",
-  "value": "51" },
-
-{
-  "label": "贵州省",
-  "value": "52" },
-
-{
-  "label": "云南省",
-  "value": "53" },
-
-{
-  "label": "西藏自治区",
-  "value": "54" },
-
-{
-  "label": "陕西省",
-  "value": "61" },
-
-{
-  "label": "甘肃省",
-  "value": "62" },
-
-{
-  "label": "青海省",
-  "value": "63" },
-
-{
-  "label": "宁夏回族自治区",
-  "value": "64" },
-
-{
-  "label": "新疆维吾尔自治区",
-  "value": "65" },
-
-{
-  "label": "台湾",
-  "value": "66" },
-
-{
-  "label": "香港",
-  "value": "67" },
-
-{
-  "label": "澳门",
-  "value": "68" },
-
-{
-  "label": "钓鱼岛",
-  "value": "69" }];var _default =
-
-
-provinceData;exports.default = _default;
-
-/***/ }),
-
-/***/ 1018:
+/***/ 1000:
 /*!************************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/components/simple-address-high/city-data/city.js ***!
   \************************************************************************************************************/
@@ -3761,7 +3583,7 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 1019:
+/***/ 1001:
 /*!************************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/components/simple-address-high/city-data/area.js ***!
   \************************************************************************************************************/
@@ -16320,161 +16142,31 @@ areaData;exports.default = _default;
 
 /***/ }),
 
-/***/ 102:
-/*!**************************************************!*\
-  !*** ./node_modules/browserify-aes/encrypter.js ***!
-  \**************************************************/
+/***/ 101:
+/*!************************************************!*\
+  !*** ./node_modules/browserify-aes/browser.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var MODES = __webpack_require__(/*! ./modes */ 103)
-var AuthCipher = __webpack_require__(/*! ./authCipher */ 114)
-var Buffer = __webpack_require__(/*! safe-buffer */ 45).Buffer
-var StreamCipher = __webpack_require__(/*! ./streamCipher */ 117)
-var Transform = __webpack_require__(/*! cipher-base */ 75)
-var aes = __webpack_require__(/*! ./aes */ 115)
-var ebtk = __webpack_require__(/*! evp_bytestokey */ 118)
-var inherits = __webpack_require__(/*! inherits */ 47)
+var ciphers = __webpack_require__(/*! ./encrypter */ 102)
+var deciphers = __webpack_require__(/*! ./decrypter */ 119)
+var modes = __webpack_require__(/*! ./modes/list.json */ 113)
 
-function Cipher (mode, key, iv) {
-  Transform.call(this)
-
-  this._cache = new Splitter()
-  this._cipher = new aes.AES(key)
-  this._prev = Buffer.from(iv)
-  this._mode = mode
-  this._autopadding = true
+function getCiphers () {
+  return Object.keys(modes)
 }
 
-inherits(Cipher, Transform)
-
-Cipher.prototype._update = function (data) {
-  this._cache.add(data)
-  var chunk
-  var thing
-  var out = []
-
-  while ((chunk = this._cache.get())) {
-    thing = this._mode.encrypt(this, chunk)
-    out.push(thing)
-  }
-
-  return Buffer.concat(out)
-}
-
-var PADDING = Buffer.alloc(16, 0x10)
-
-Cipher.prototype._final = function () {
-  var chunk = this._cache.flush()
-  if (this._autopadding) {
-    chunk = this._mode.encrypt(this, chunk)
-    this._cipher.scrub()
-    return chunk
-  }
-
-  if (!chunk.equals(PADDING)) {
-    this._cipher.scrub()
-    throw new Error('data not multiple of block length')
-  }
-}
-
-Cipher.prototype.setAutoPadding = function (setTo) {
-  this._autopadding = !!setTo
-  return this
-}
-
-function Splitter () {
-  this.cache = Buffer.allocUnsafe(0)
-}
-
-Splitter.prototype.add = function (data) {
-  this.cache = Buffer.concat([this.cache, data])
-}
-
-Splitter.prototype.get = function () {
-  if (this.cache.length > 15) {
-    var out = this.cache.slice(0, 16)
-    this.cache = this.cache.slice(16)
-    return out
-  }
-  return null
-}
-
-Splitter.prototype.flush = function () {
-  var len = 16 - this.cache.length
-  var padBuff = Buffer.allocUnsafe(len)
-
-  var i = -1
-  while (++i < len) {
-    padBuff.writeUInt8(len, i)
-  }
-
-  return Buffer.concat([this.cache, padBuff])
-}
-
-function createCipheriv (suite, password, iv) {
-  var config = MODES[suite.toLowerCase()]
-  if (!config) throw new TypeError('invalid suite type')
-
-  if (typeof password === 'string') password = Buffer.from(password)
-  if (password.length !== config.key / 8) throw new TypeError('invalid key length ' + password.length)
-
-  if (typeof iv === 'string') iv = Buffer.from(iv)
-  if (config.mode !== 'GCM' && iv.length !== config.iv) throw new TypeError('invalid iv length ' + iv.length)
-
-  if (config.type === 'stream') {
-    return new StreamCipher(config.module, password, iv)
-  } else if (config.type === 'auth') {
-    return new AuthCipher(config.module, password, iv)
-  }
-
-  return new Cipher(config.module, password, iv)
-}
-
-function createCipher (suite, password) {
-  var config = MODES[suite.toLowerCase()]
-  if (!config) throw new TypeError('invalid suite type')
-
-  var keys = ebtk(password, false, config.key, config.iv)
-  return createCipheriv(suite, keys.key, keys.iv)
-}
-
-exports.createCipheriv = createCipheriv
-exports.createCipher = createCipher
+exports.createCipher = exports.Cipher = ciphers.createCipher
+exports.createCipheriv = exports.Cipheriv = ciphers.createCipheriv
+exports.createDecipher = exports.Decipher = deciphers.createDecipher
+exports.createDecipheriv = exports.Decipheriv = deciphers.createDecipheriv
+exports.listCiphers = exports.getCiphers = getCiphers
 
 
 /***/ }),
 
-/***/ 103:
-/*!****************************************************!*\
-  !*** ./node_modules/browserify-aes/modes/index.js ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var modeModules = {
-  ECB: __webpack_require__(/*! ./ecb */ 104),
-  CBC: __webpack_require__(/*! ./cbc */ 105),
-  CFB: __webpack_require__(/*! ./cfb */ 107),
-  CFB8: __webpack_require__(/*! ./cfb8 */ 108),
-  CFB1: __webpack_require__(/*! ./cfb1 */ 109),
-  OFB: __webpack_require__(/*! ./ofb */ 110),
-  CTR: __webpack_require__(/*! ./ctr */ 111),
-  GCM: __webpack_require__(/*! ./ctr */ 111)
-}
-
-var modes = __webpack_require__(/*! ./list.json */ 113)
-
-for (var key in modes) {
-  modes[key].module = modeModules[modes[key].mode]
-}
-
-module.exports = modes
-
-
-/***/ }),
-
-/***/ 1034:
+/***/ 1016:
 /*!****************************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/node_modules/vue-multiselect/src/multiselectMixin.js ***!
   \****************************************************************************************************************/
@@ -17197,7 +16889,7 @@ var flow = function flow() {for (var _len = arguments.length, fns = new Array(_l
 
 /***/ }),
 
-/***/ 1035:
+/***/ 1017:
 /*!************************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/node_modules/vue-multiselect/src/pointerMixin.js ***!
   \************************************************************************************************************/
@@ -17343,6 +17035,160 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
+/***/ 102:
+/*!**************************************************!*\
+  !*** ./node_modules/browserify-aes/encrypter.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var MODES = __webpack_require__(/*! ./modes */ 103)
+var AuthCipher = __webpack_require__(/*! ./authCipher */ 114)
+var Buffer = __webpack_require__(/*! safe-buffer */ 45).Buffer
+var StreamCipher = __webpack_require__(/*! ./streamCipher */ 117)
+var Transform = __webpack_require__(/*! cipher-base */ 75)
+var aes = __webpack_require__(/*! ./aes */ 115)
+var ebtk = __webpack_require__(/*! evp_bytestokey */ 118)
+var inherits = __webpack_require__(/*! inherits */ 47)
+
+function Cipher (mode, key, iv) {
+  Transform.call(this)
+
+  this._cache = new Splitter()
+  this._cipher = new aes.AES(key)
+  this._prev = Buffer.from(iv)
+  this._mode = mode
+  this._autopadding = true
+}
+
+inherits(Cipher, Transform)
+
+Cipher.prototype._update = function (data) {
+  this._cache.add(data)
+  var chunk
+  var thing
+  var out = []
+
+  while ((chunk = this._cache.get())) {
+    thing = this._mode.encrypt(this, chunk)
+    out.push(thing)
+  }
+
+  return Buffer.concat(out)
+}
+
+var PADDING = Buffer.alloc(16, 0x10)
+
+Cipher.prototype._final = function () {
+  var chunk = this._cache.flush()
+  if (this._autopadding) {
+    chunk = this._mode.encrypt(this, chunk)
+    this._cipher.scrub()
+    return chunk
+  }
+
+  if (!chunk.equals(PADDING)) {
+    this._cipher.scrub()
+    throw new Error('data not multiple of block length')
+  }
+}
+
+Cipher.prototype.setAutoPadding = function (setTo) {
+  this._autopadding = !!setTo
+  return this
+}
+
+function Splitter () {
+  this.cache = Buffer.allocUnsafe(0)
+}
+
+Splitter.prototype.add = function (data) {
+  this.cache = Buffer.concat([this.cache, data])
+}
+
+Splitter.prototype.get = function () {
+  if (this.cache.length > 15) {
+    var out = this.cache.slice(0, 16)
+    this.cache = this.cache.slice(16)
+    return out
+  }
+  return null
+}
+
+Splitter.prototype.flush = function () {
+  var len = 16 - this.cache.length
+  var padBuff = Buffer.allocUnsafe(len)
+
+  var i = -1
+  while (++i < len) {
+    padBuff.writeUInt8(len, i)
+  }
+
+  return Buffer.concat([this.cache, padBuff])
+}
+
+function createCipheriv (suite, password, iv) {
+  var config = MODES[suite.toLowerCase()]
+  if (!config) throw new TypeError('invalid suite type')
+
+  if (typeof password === 'string') password = Buffer.from(password)
+  if (password.length !== config.key / 8) throw new TypeError('invalid key length ' + password.length)
+
+  if (typeof iv === 'string') iv = Buffer.from(iv)
+  if (config.mode !== 'GCM' && iv.length !== config.iv) throw new TypeError('invalid iv length ' + iv.length)
+
+  if (config.type === 'stream') {
+    return new StreamCipher(config.module, password, iv)
+  } else if (config.type === 'auth') {
+    return new AuthCipher(config.module, password, iv)
+  }
+
+  return new Cipher(config.module, password, iv)
+}
+
+function createCipher (suite, password) {
+  var config = MODES[suite.toLowerCase()]
+  if (!config) throw new TypeError('invalid suite type')
+
+  var keys = ebtk(password, false, config.key, config.iv)
+  return createCipheriv(suite, keys.key, keys.iv)
+}
+
+exports.createCipheriv = createCipheriv
+exports.createCipher = createCipher
+
+
+/***/ }),
+
+/***/ 103:
+/*!****************************************************!*\
+  !*** ./node_modules/browserify-aes/modes/index.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var modeModules = {
+  ECB: __webpack_require__(/*! ./ecb */ 104),
+  CBC: __webpack_require__(/*! ./cbc */ 105),
+  CFB: __webpack_require__(/*! ./cfb */ 107),
+  CFB8: __webpack_require__(/*! ./cfb8 */ 108),
+  CFB1: __webpack_require__(/*! ./cfb1 */ 109),
+  OFB: __webpack_require__(/*! ./ofb */ 110),
+  CTR: __webpack_require__(/*! ./ctr */ 111),
+  GCM: __webpack_require__(/*! ./ctr */ 111)
+}
+
+var modes = __webpack_require__(/*! ./list.json */ 113)
+
+for (var key in modes) {
+  modes[key].module = modeModules[modes[key].mode]
+}
+
+module.exports = modes
+
+
+/***/ }),
+
 /***/ 104:
 /*!**************************************************!*\
   !*** ./node_modules/browserify-aes/modes/ecb.js ***!
@@ -17361,57 +17207,7 @@ exports.decrypt = function (self, block) {
 
 /***/ }),
 
-/***/ 105:
-/*!**************************************************!*\
-  !*** ./node_modules/browserify-aes/modes/cbc.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var xor = __webpack_require__(/*! buffer-xor */ 106)
-
-exports.encrypt = function (self, block) {
-  var data = xor(block, self._prev)
-
-  self._prev = self._cipher.encryptBlock(data)
-  return self._prev
-}
-
-exports.decrypt = function (self, block) {
-  var pad = self._prev
-
-  self._prev = block
-  var out = self._cipher.decryptBlock(block)
-
-  return xor(out, pad)
-}
-
-
-/***/ }),
-
-/***/ 106:
-/*!******************************************!*\
-  !*** ./node_modules/buffer-xor/index.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(Buffer) {module.exports = function xor (a, b) {
-  var length = Math.min(a.length, b.length)
-  var buffer = new Buffer(length)
-
-  for (var i = 0; i < length; ++i) {
-    buffer[i] = a[i] ^ b[i]
-  }
-
-  return buffer
-}
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../buffer/index.js */ 34).Buffer))
-
-/***/ }),
-
-/***/ 1064:
+/***/ 1046:
 /*!*************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/components/ss-select-city/cityData.js ***!
   \*************************************************************************************************/
@@ -18484,87 +18280,57 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 107:
+/***/ 105:
 /*!**************************************************!*\
-  !*** ./node_modules/browserify-aes/modes/cfb.js ***!
+  !*** ./node_modules/browserify-aes/modes/cbc.js ***!
   \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Buffer = __webpack_require__(/*! safe-buffer */ 45).Buffer
 var xor = __webpack_require__(/*! buffer-xor */ 106)
 
-function encryptStart (self, data, decrypt) {
-  var len = data.length
-  var out = xor(data, self._cache)
-  self._cache = self._cache.slice(len)
-  self._prev = Buffer.concat([self._prev, decrypt ? data : out])
-  return out
+exports.encrypt = function (self, block) {
+  var data = xor(block, self._prev)
+
+  self._prev = self._cipher.encryptBlock(data)
+  return self._prev
 }
 
-exports.encrypt = function (self, data, decrypt) {
-  var out = Buffer.allocUnsafe(0)
-  var len
+exports.decrypt = function (self, block) {
+  var pad = self._prev
 
-  while (data.length) {
-    if (self._cache.length === 0) {
-      self._cache = self._cipher.encryptBlock(self._prev)
-      self._prev = Buffer.allocUnsafe(0)
-    }
+  self._prev = block
+  var out = self._cipher.decryptBlock(block)
 
-    if (self._cache.length <= data.length) {
-      len = self._cache.length
-      out = Buffer.concat([out, encryptStart(self, data.slice(0, len), decrypt)])
-      data = data.slice(len)
-    } else {
-      out = Buffer.concat([out, encryptStart(self, data, decrypt)])
-      break
-    }
-  }
-
-  return out
+  return xor(out, pad)
 }
 
 
 /***/ }),
 
-/***/ 108:
-/*!***************************************************!*\
-  !*** ./node_modules/browserify-aes/modes/cfb8.js ***!
-  \***************************************************/
+/***/ 106:
+/*!******************************************!*\
+  !*** ./node_modules/buffer-xor/index.js ***!
+  \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Buffer = __webpack_require__(/*! safe-buffer */ 45).Buffer
+/* WEBPACK VAR INJECTION */(function(Buffer) {module.exports = function xor (a, b) {
+  var length = Math.min(a.length, b.length)
+  var buffer = new Buffer(length)
 
-function encryptByte (self, byteParam, decrypt) {
-  var pad = self._cipher.encryptBlock(self._prev)
-  var out = pad[0] ^ byteParam
-
-  self._prev = Buffer.concat([
-    self._prev.slice(1),
-    Buffer.from([decrypt ? byteParam : out])
-  ])
-
-  return out
-}
-
-exports.encrypt = function (self, chunk, decrypt) {
-  var len = chunk.length
-  var out = Buffer.allocUnsafe(len)
-  var i = -1
-
-  while (++i < len) {
-    out[i] = encryptByte(self, chunk[i], decrypt)
+  for (var i = 0; i < length; ++i) {
+    buffer[i] = a[i] ^ b[i]
   }
 
-  return out
+  return buffer
 }
 
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../buffer/index.js */ 34).Buffer))
 
 /***/ }),
 
-/***/ 1086:
+/***/ 1068:
 /*!***********************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/components/simple-address/city-data/province.js ***!
   \***********************************************************************************************************/
@@ -18718,7 +18484,7 @@ provinceData;exports.default = _default;
 
 /***/ }),
 
-/***/ 1087:
+/***/ 1069:
 /*!*******************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/components/simple-address/city-data/city.js ***!
   \*******************************************************************************************************/
@@ -20236,7 +20002,51 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 1088:
+/***/ 107:
+/*!**************************************************!*\
+  !*** ./node_modules/browserify-aes/modes/cfb.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Buffer = __webpack_require__(/*! safe-buffer */ 45).Buffer
+var xor = __webpack_require__(/*! buffer-xor */ 106)
+
+function encryptStart (self, data, decrypt) {
+  var len = data.length
+  var out = xor(data, self._cache)
+  self._cache = self._cache.slice(len)
+  self._prev = Buffer.concat([self._prev, decrypt ? data : out])
+  return out
+}
+
+exports.encrypt = function (self, data, decrypt) {
+  var out = Buffer.allocUnsafe(0)
+  var len
+
+  while (data.length) {
+    if (self._cache.length === 0) {
+      self._cache = self._cipher.encryptBlock(self._prev)
+      self._prev = Buffer.allocUnsafe(0)
+    }
+
+    if (self._cache.length <= data.length) {
+      len = self._cache.length
+      out = Buffer.concat([out, encryptStart(self, data.slice(0, len), decrypt)])
+      data = data.slice(len)
+    } else {
+      out = Buffer.concat([out, encryptStart(self, data, decrypt)])
+      break
+    }
+  }
+
+  return out
+}
+
+
+/***/ }),
+
+/***/ 1070:
 /*!*******************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/components/simple-address/city-data/area.js ***!
   \*******************************************************************************************************/
@@ -32795,6 +32605,42 @@ areaData;exports.default = _default;
 
 /***/ }),
 
+/***/ 108:
+/*!***************************************************!*\
+  !*** ./node_modules/browserify-aes/modes/cfb8.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Buffer = __webpack_require__(/*! safe-buffer */ 45).Buffer
+
+function encryptByte (self, byteParam, decrypt) {
+  var pad = self._cipher.encryptBlock(self._prev)
+  var out = pad[0] ^ byteParam
+
+  self._prev = Buffer.concat([
+    self._prev.slice(1),
+    Buffer.from([decrypt ? byteParam : out])
+  ])
+
+  return out
+}
+
+exports.encrypt = function (self, chunk, decrypt) {
+  var len = chunk.length
+  var out = Buffer.allocUnsafe(len)
+  var i = -1
+
+  while (++i < len) {
+    out[i] = encryptByte(self, chunk[i], decrypt)
+  }
+
+  return out
+}
+
+
+/***/ }),
+
 /***/ 109:
 /*!***************************************************!*\
   !*** ./node_modules/browserify-aes/modes/cfb1.js ***!
@@ -40041,10 +39887,10 @@ BasePoint.prototype.dblp = function dblp(k) {
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.myPhoto = void 0;var _pattern = __webpack_require__(/*! @/util/pattern.js */ 15);
 // 单独配置url地址，便于以后维护
 //正式版
-var BASE_URL = 'https://wl.xcmgzhilian.com' + '/prod-api' + '/common/registUploadOSS/';
+//const BASE_URL = 'https://wl.xcmgzhilian.com'+ '/prod-api' + '/common/registUploadOSS/'
 
 //测试版
-//const BASE_URL = ' http://10.22.2.138:8080' + '/common/registUploadOSS/'
+var BASE_URL = ' http://10.22.2.138:8080' + '/common/registUploadOSS/';
 //const BASE_URL = 'http://10.22.0.136:8080'+ '/common/registUploadOSS/'
 // 暴露一个方法，用uni.uploadFile发送请求，异步处理的封装最好用promise
 var myPhoto = function myPhoto(options) {
@@ -40083,6 +39929,8 @@ var myPhoto = function myPhoto(options) {
 
     console.log(value, '111ok');
 
+
+    var photo_reshow = JSON.parse(value.data).url; //仅用于注册时回显
     var photo_file = JSON.parse(value.data).fileName;
 
     console.log(photo_file, 'fileName');
@@ -40107,30 +39955,30 @@ var myPhoto = function myPhoto(options) {
       /*注册类
                                                 * 法人证件身份证正面*/
       uni.setStorageSync("legalPersonCerFront", photo_file);
-
+      uni.setStorageSync("legalPersonCerFront_reshow", photo_reshow);
     } else if (options.url == "legal_back-") {
       /*
                                                * 法人证件身份证背面*/
       uni.setStorageSync("legalPersonCerReverse", photo_file);
-
+      uni.setStorageSync("legalPersonCerReverse_reshow", photo_reshow);
     } else if (options.url == "carrier-carrier_card_front-") {
       /**
                                                                * 身份证正面或营业执照
                                                                */
       uni.setStorageSync("carrierCardFront", photo_file);
-
+      uni.setStorageSync("carrierCardFront_reshow", photo_reshow);
     } else if (options.url == "carrier-road_transport_business_license-") {
       /**
                                                                             * 道路运输经营许可证
                                                                             */
       uni.setStorageSync("carrierRoadTransportBusinessLicense", photo_file);
-
+      uni.setStorageSync("carrierRoadTransportBusinessLicense_reshow", photo_reshow);
     } else if (options.url == _pattern.ossLocation.vehicle.first) {
       /**
                                                                     * 行驶证主页
                                                                     */
       uni.setStorageSync("vehicleLicensePhotoFirst", photo_file);
-
+      uni.setStorageSync("vehicleLicensePhotoFirst_reshow", photo_reshow);
     } else if (options.url == _pattern.ossLocation.vehicle.second) {
       /**
                                                                      * 行驶证副页
@@ -40142,52 +39990,52 @@ var myPhoto = function myPhoto(options) {
                                                                    * 道路运输证
                                                                    */
       uni.setStorageSync("vehicleRoadcertPhoto", photo_file);
-
+      uni.setStorageSync("vehicleRoadcertPhoto_reshow", photo_reshow);
     } else if (options.url == _pattern.ossLocation.trailer.first) {
       /**
                                                                     * 挂车行驶证主页
                                                                     */
       uni.setStorageSync("trailerLicensePhotoFirst", photo_file);
-
+      uni.setStorageSync("trailerLicensePhotoFirst_reshow", photo_reshow);
     } else if (options.url == _pattern.ossLocation.vehicle.rc) {
       /**
                                                                  * 人车
                                                                  *
                                                                  */
       uni.setStorageSync("peopleVehiclePhoto", photo_file);
-
+      uni.setStorageSync("peopleVehiclePhoto_reshow", photo_reshow);
     } else if (options.url == _pattern.ossLocation.driver.front) {
       /**
                                                                    * 驾驶员身份证正面
                                                                    *
                                                                    */
       uni.setStorageSync("idcardFront", photo_file);
-
+      uni.setStorageSync("idcardFront_reshow", photo_reshow);
     } else if (options.url == _pattern.ossLocation.driver.reverse) {
       /**
                                                                      * 驾驶员身份证背面
                                                                      *
                                                                      */
       uni.setStorageSync("idcardBack", photo_file);
-
+      uni.setStorageSync("idcardBack_reshow", photo_reshow);
     } else if (options.url == _pattern.ossLocation.driver.first) {
       /**
                                                                    * 驾驶证主页
                                                                    */
       uni.setStorageSync("drivingLicensePhotoFirst", photo_file);
-
+      uni.setStorageSync("drivingLicensePhotoFirst_reshow", photo_reshow);
     } else if (options.url == _pattern.ossLocation.driver.cert) {
       /**
                                                                   * 从业资格证
                                                                   */
       uni.setStorageSync("qualificationCertPhoto", photo_file);
-
+      uni.setStorageSync("qualificationCertPhoto_reshow", photo_reshow);
     } else if (options.url == _pattern.ossLocation.carrier.reverse) {
       /**
                                                                       * 身份证背面
                                                                       */
       uni.setStorageSync("carrierCardReverse", photo_file);
-
+      uni.setStorageSync("carrierCardReverse_reshow", photo_reshow);
     }
 
   });
@@ -48040,9 +47888,9 @@ function encodeTag(tag, primitive, cls, reporter) {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.myRegisterCarrier = void 0; // 单独配置url地址，便于以后维护
 //正式版
-var BASE_URL = 'https://wl.xcmgzhilian.com' + '/prod-api';
+//const BASE_URL = 'https://wl.xcmgzhilian.com' + '/prod-api'
 //测试版
-//const BASE_URL = ' http://10.22.2.138:8080' 
+var BASE_URL = ' http://10.22.2.138:8080';
 //const BASE_URL = ' http://10.22.0.136:8080' 
 // 暴露一个方法，用uni.uploadFile发送请求，异步处理的封装最好用promise
 var myRegisterCarrier = function myRegisterCarrier(form) {
@@ -73709,6 +73557,160 @@ proto._update = function _update(inp, inOff, out, outOff) {
   }
 };
 
+
+/***/ }),
+
+/***/ 999:
+/*!****************************************************************************************************************!*\
+  !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/components/simple-address-high/city-data/province.js ***!
+  \****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /* eslint-disable */
+var provinceData = [{
+  "label": "北京市",
+  "value": "11" },
+
+{
+  "label": "天津市",
+  "value": "12" },
+
+{
+  "label": "河北省",
+  "value": "13" },
+
+{
+  "label": "山西省",
+  "value": "14" },
+
+{
+  "label": "内蒙古自治区",
+  "value": "15" },
+
+{
+  "label": "辽宁省",
+  "value": "21" },
+
+{
+  "label": "吉林省",
+  "value": "22" },
+
+{
+  "label": "黑龙江省",
+  "value": "23" },
+
+{
+  "label": "上海市",
+  "value": "31" },
+
+{
+  "label": "江苏省",
+  "value": "32" },
+
+{
+  "label": "浙江省",
+  "value": "33" },
+
+{
+  "label": "安徽省",
+  "value": "34" },
+
+{
+  "label": "福建省",
+  "value": "35" },
+
+{
+  "label": "江西省",
+  "value": "36" },
+
+{
+  "label": "山东省",
+  "value": "37" },
+
+{
+  "label": "河南省",
+  "value": "41" },
+
+{
+  "label": "湖北省",
+  "value": "42" },
+
+{
+  "label": "湖南省",
+  "value": "43" },
+
+{
+  "label": "广东省",
+  "value": "44" },
+
+{
+  "label": "广西壮族自治区",
+  "value": "45" },
+
+{
+  "label": "海南省",
+  "value": "46" },
+
+{
+  "label": "重庆市",
+  "value": "50" },
+
+{
+  "label": "四川省",
+  "value": "51" },
+
+{
+  "label": "贵州省",
+  "value": "52" },
+
+{
+  "label": "云南省",
+  "value": "53" },
+
+{
+  "label": "西藏自治区",
+  "value": "54" },
+
+{
+  "label": "陕西省",
+  "value": "61" },
+
+{
+  "label": "甘肃省",
+  "value": "62" },
+
+{
+  "label": "青海省",
+  "value": "63" },
+
+{
+  "label": "宁夏回族自治区",
+  "value": "64" },
+
+{
+  "label": "新疆维吾尔自治区",
+  "value": "65" },
+
+{
+  "label": "台湾",
+  "value": "66" },
+
+{
+  "label": "香港",
+  "value": "67" },
+
+{
+  "label": "澳门",
+  "value": "68" },
+
+{
+  "label": "钓鱼岛",
+  "value": "69" }];var _default =
+
+
+provinceData;exports.default = _default;
 
 /***/ })
 

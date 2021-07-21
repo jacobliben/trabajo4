@@ -130,16 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 30));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var inputId = function inputId() {__webpack_require__.e(/*! require.ensure | components/register/input_id */ "components/register/input_id").then((function () {return resolve(__webpack_require__(/*! @/components/register/input_id.vue */ 1038));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var xflSelect = function xflSelect() {__webpack_require__.e(/*! require.ensure | components/xfl-select/xfl-select */ "components/xfl-select/xfl-select").then((function () {return resolve(__webpack_require__(/*! @/components/xfl-select/xfl-select.vue */ 324));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var ssSelectCity = function ssSelectCity() {Promise.all(/*! require.ensure | components/ss-select-city/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/ss-select-city/index")]).then((function () {return resolve(__webpack_require__(/*! @/components/ss-select-city/index.vue */ 1059));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
-
-
-
-
-
-
-
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 30));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var inputId = function inputId() {__webpack_require__.e(/*! require.ensure | components/register/input_id */ "components/register/input_id").then((function () {return resolve(__webpack_require__(/*! @/components/register/input_id.vue */ 1020));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var xflSelect = function xflSelect() {__webpack_require__.e(/*! require.ensure | components/xfl-select/xfl-select */ "components/xfl-select/xfl-select").then((function () {return resolve(__webpack_require__(/*! @/components/xfl-select/xfl-select.vue */ 324));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var ssSelectCity = function ssSelectCity() {Promise.all(/*! require.ensure | components/ss-select-city/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/ss-select-city/index")]).then((function () {return resolve(__webpack_require__(/*! @/components/ss-select-city/index.vue */ 1041));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
 
 
@@ -312,9 +303,9 @@ var _self;var _default =
     }
 
     //正式库，危险！！！！
-    this.imgAvatarUrl = "https://wl.xcmgzhilian.com/prod-api" + this.user.data.user.avatar;
+    //this.imgAvatarUrl = "https://wl.xcmgzhilian.com/prod-api" + this.user.data.user.avatar
     //测试库
-    //this.imgAvatarUrl = 'http://10.22.2.138:8080' + this.user.data.user.avatar
+    this.imgAvatarUrl = 'http://10.22.2.138:8080' + this.user.data.user.avatar;
     //this.imgAvatarUrl = 'http://10.22.0.136:8080' + this.user.data.user.avatar
 
   },
@@ -322,9 +313,9 @@ var _self;var _default =
 
     this.user = uni.getStorageSync("user_info");
     //正式库，危险！！！！
-    this.imgAvatarUrl = uni.getStorageSync("user_avatar") || 'https://wl.xcmgzhilian.com' + '/prod-api' + this.user.data.user.avatar;
+    // this.imgAvatarUrl = uni.getStorageSync("user_avatar")||'https://wl.xcmgzhilian.com' + '/prod-api' + this.user.data.user.avatar
     //测试库
-    //this.imgAvatarUrl = uni.getStorageSync("user_avatar")||'http://10.22.2.138:8080' + this.user.data.user.avatar
+    this.imgAvatarUrl = uni.getStorageSync("user_avatar") || 'http://10.22.2.138:8080' + this.user.data.user.avatar;
     // this.imgAvatarUrl = uni.getStorageSync("user_avatar")||'http://10.22.0.136:8080' + this.user.data.user.avatar
   },
   methods: {
@@ -389,9 +380,9 @@ var _self;var _default =
 
                                 uni.uploadFile({
                                   //正式库，危险！！！！
-                                  url: "https://wl.xcmgzhilian.com/prod-api/system/user/profile/avatar",
+                                  //url:"https://wl.xcmgzhilian.com/prod-api/system/user/profile/avatar",
                                   //测试库
-                                  //url:"http://10.22.2.138:8080/system/user/profile/avatar",
+                                  url: "http://10.22.2.138:8080/system/user/profile/avatar",
                                   //url:"http://10.22.0.136:8080/system/user/profile/avatar",
                                   filePath: tempFilePaths[0],
                                   name: 'avatarfile', //后台接收字段名

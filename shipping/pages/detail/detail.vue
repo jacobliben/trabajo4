@@ -118,8 +118,8 @@
 		 			 	<text class="name">承运人</text>			 
 		 			 </view>
 		 			 <view>
-		 			 	<!-- <text class="ref-name">{{passed_info.iscmCarrier.carrierName}}</text> 			 
-		 			 			<text class="cuIcon-right lg text-gray"></text>	 -->		 
+		 			 	<text class="ref-name">{{passed_info.carrierName}}</text> 			 
+		 			 			<!-- <text class="cuIcon-right lg text-gray"></text>		 -->	 
 		 			 </view>
 		 </view>
 		 
@@ -175,25 +175,25 @@
 			 			 		</view>
 		 </view> -->
 		 
-		 <view class="cu-form-group" @click="goCreatedPersonDetail">
+		<!-- <view class="cu-form-group" @click="goCreatedPersonDetail">
 		 			 <view>
 		 			 	<text class="name">创建人</text>			 
 		 			 </view>
 		 			 <view>
 		 			 	<text class="ref-name">{{passed_info.createBy}}</text>			 
 		 			 		<!-- 	<text class="cuIcon-right lg text-gray"></text>	 -->		 
-		 			 </view>
-		 </view>
+		 			<!-- </view>
+		 </view> -->
 		 
-		 <view class="cu-form-group">
+		<!-- <view class="cu-form-group">
 		 			 <view>
 		 			 	<text class="name">创建时间</text>			 
 		 			 </view>
 		 			 <view>
 		 			 	<text class="ref-name">{{passed_info.createTime}}</text>			 
 		 			 		<!-- 	<text class="cuIcon-right lg text-gray"></text>	 -->		 
-		 			 </view>
-		 </view>
+		 			 <!--</view>
+		 </view> -->
 		 
 		<!-- <view class="cu-form-group">
 		 			 <view>
@@ -205,25 +205,15 @@
 		 			  </view>
 		 </view> -->
 		 
-		  <view class="current-state">发货人信息</view>
+		<!--  <view class="current-state">发货人信息</view>
 		 <view class="cu-form-group">
 			 <view>
 			 	<text class="name">发货人(公司)</text>			 
 			 </view>
 			 <view>
-			 	<text class="ref-name">{{passed_info.iscmConsignee.consignorName}}</text>			 
-			 		<!--	<text class="cuIcon-right lg text-gray"></text>	 -->		 
+			 	<text class="ref-name">{{passed_info.iscmDispatchInformationRecord.shipper}}</text>			 
+			 			<text class="cuIcon-right lg text-gray"></text>	 		 
 			 </view>
-		 </view>
-		 
-		 <view class="cu-form-group" @click="goShipperDetail">
-		 			 <view>
-		 			 	<text class="name">托运人</text>			 
-		 			 </view>
-		 			 <view>
-		 			 	<text class="ref-name">{{passed_info.iscmShipper.companyName}}</text>			 
-		 			 		<!-- 	<text class="cuIcon-right lg text-gray"></text>	 -->		 
-		 			 </view>
 		 </view>
 		 
 		 <view class="cu-form-group">
@@ -231,8 +221,8 @@
 			 	<text class="name">发货联系人</text>			 
 			 </view>
 			 <view>
-			 	<text class="ref-name">{{passed_info.shipper}}</text>			 
-			 		<!-- 	<text class="cuIcon-right lg text-gray"></text>	 -->		 
+			 	<text class="ref-name">{{passed_info.iscmDispatchInformationRecord.shipperName}}</text>			 
+			 			<text class="cuIcon-right lg text-gray"></text>	 	 
 			 </view>
 		 </view>
 		 
@@ -241,8 +231,8 @@
 			 	<text class="name">发货联系人电话</text>			 
 			 </view>
 			 <view>
-			 	<text class="ref-name">{{passed_info.iscmShipper.shipperPhone}}</text>			 
-			 		<!-- 	<text class="cuIcon-right lg text-gray"></text>	 -->		 
+			 	<text class="ref-name">{{passed_info.iscmDispatchInformationRecord.shipperPhone}}</text>			 
+			 		 	<text class="cuIcon-right lg text-gray"></text>	 		 
 			 </view>
 		 </view>
 		 
@@ -251,10 +241,10 @@
 			 	<text class="name">发货地址</text>			 
 			 </view>
 			 <view>
-			 	<text class="ref-name">{{passed_info.iscmShipper.shipperAddress}}</text>			 
-			 		<!-- 	<text class="cuIcon-right lg text-gray"></text>	 -->		 
+			 	<text class="ref-name">{{passed_info.iscmDispatchInformationRecord.shipperAddress}}</text>			 
+			 		<text class="cuIcon-right lg text-gray"></text>		 
 			 </view>
-		 </view>
+		 </view>-->
 		 
 		 <view class="current-state">收货人信息</view>
 		 <view class="cu-form-group">
@@ -262,7 +252,7 @@
 			 	<text class="name">收货人(公司)</text>			 
 			 </view>
 			 <view>
-			 	<text class="ref-name">{{passed_info.iscmConsignee.consignee}}</text>			 
+			 	<text class="ref-name">{{passed_info.iscmDispatchInformationRecord.consignee}}</text>			 
 			 		<!-- 	<text class="cuIcon-right lg text-gray"></text>	 -->		 
 			 </view>
 		 </view>
@@ -272,7 +262,7 @@
 			 	<text class="name">收货联系人</text>			 
 			 </view>
 			 <view>
-			 	<text class="ref-name">{{passed_info.consignee}}</text>			 
+			 	<text class="ref-name">{{passed_info.iscmDispatchInformationRecord.consigneeName}}</text>			 
 			 		<!-- 	<text class="cuIcon-right lg text-gray"></text>	 -->		 
 			 </view>
 		 </view>
@@ -282,7 +272,7 @@
 			 	<text class="name">收货联系人电话</text>			 
 			 </view>
 			 <view>
-			 	<text class="ref-name">{{passed_info.iscmConsignee.consigneePhone}}</text>			 
+			 	<text class="ref-name">{{passed_info.iscmDispatchInformationRecord.consigneePhone}}</text>			 
 			 		<!-- 	<text class="cuIcon-right lg text-gray"></text>	 -->		 
 			 </view>
 		 </view>
@@ -292,7 +282,7 @@
 			 	<text class="name">收货地址</text>			 
 			 </view>
 			 <view>
-			 	<text class="ref-name">{{passed_info.iscmConsignee.consigneeAddress}}</text>			 
+			 	<text class="ref-name">{{passed_info.iscmDispatchInformationRecord.consigneeAddress}}</text>			 
 			 		<!-- 	<text class="cuIcon-right lg text-gray"></text>	 -->		 
 			 </view>
 		 </view>

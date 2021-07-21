@@ -71,15 +71,16 @@
 				   </view>
 				    -->
 				   
-				   <view class="one-icon" hover-class="one-icon-hover" @click="goOrderReceiving">
+				   <view class="one-icon" hover-class="one-icon-hover" @click="goOrderReceiving" v-if="show_shipping_order">
 				    					  <image src="/static/ordered-record.png" mode="aspectFit"></image>
 				    					  <text>运单接收</text>
 				    </view>
 					
-				    <view class="one-icon" hover-class="one-icon-hover" @click="goOrderDistributing">
-				    					  <image src="/static/delivery.png" mode="aspectFit"></image>
-				    					  <text>分配运力</text>
-				    </view>
+					<view class="one-icon" hover-class="one-icon-hover" @click="goLoading">
+					   					  <image src="/static/despatching.png" mode="aspectFit"></image>
+					   					  <text>确认装货</text>
+					   </view>
+				   
 					
 					<view class="one-icon" hover-class="one-icon-hover" @click="goDriverHome">
 					 					  <image src="/static/home-drivers.png" mode="aspectFit"></image>
@@ -112,10 +113,13 @@
 				    					  <text>全部</text>
 				    </view> -->
 					
-					<view class="one-icon" hover-class="one-icon-hover" @click="goLoading">
-					   					  <image src="/static/despatching.png" mode="aspectFit"></image>
-					   					  <text>确认装货</text>
-					   </view>
+					<view class="one-icon" hover-class="one-icon-hover" @click="goOrderDistributing" v-if="show_shipping_order">
+										  <image src="/static/delivery.png" mode="aspectFit"></image>
+										  <text>分配运力</text>
+					</view>
+					
+					
+					
 					   
 					   <view class="one-icon" hover-class="one-icon-hover" @click="goDespatching">
 					   					  <image src="/static/globe.png" mode="aspectFit"></image>
@@ -135,7 +139,7 @@
 			   </view>
 		   </view>
 		   
-		   <view class="shipping-list" v-if="show_shipping_list">
+		 <view class="shipping-list" v-if="show_shipping_list&&show_shipping_order" >
 			        <view class="title">
 						<view class="list-title">运单列表</view>
 					</view>
@@ -152,14 +156,14 @@
 						<view class="shipping_details">
 							<view class="shipping_content">
 								<view>
-									<text>{{item.iscmShipper.shipperProvinceName}}</text>
-									<text v-if ="item.iscmShipper.shipperCityName!=='市辖区'">{{item.iscmShipper.shipperCityName}}</text>
-									<text v-if ="item.iscmShipper.shipperCityName==='市辖区'">{{item.iscmShipper.shipperRegionName}}</text>
+									<text>{{item.iscmWaybillInformationRecord.shipperProvinceName}}</text>
+									<text v-if ="item.iscmWaybillInformationRecord.shipperCityName!=='市辖区'">{{item.iscmWaybillInformationRecord.shipperCityName}}</text>
+									<text v-if ="item.iscmWaybillInformationRecord.shipperCityName==='市辖区'">{{item.iscmWaybillInformationRecord.shipperRegionName}}</text>
 									<text class="cuIcon-pullright lg text-gray"> </text>
-									<text>{{item.iscmConsignee.consigneeProvinceName}}</text>
-									<!-- 判断是否为“直辖市” -->
-									<text v-if ="item.iscmConsignee.consigneeCityName!=='市辖区'">{{item.iscmConsignee.consigneeCityName}}</text>
-									<text v-if ="item.iscmConsignee.consigneeCityName==='市辖区'">{{item.iscmConsignee.consigneeRegionName}}</text>
+									<text>{{item.iscmWaybillInformationRecord.consigneeProvinceName}}</text>
+									<!-- 判断是否为“直辖市” --> 
+									<text v-if ="item.iscmWaybillInformationRecord.consigneeCityName!=='市辖区'">{{item.iscmWaybillInformationRecord.consigneeCityName}}</text>
+									<text v-if ="item.iscmWaybillInformationRecord.consigneeCityName==='市辖区'">{{item.iscmWaybillInformationRecord.consigneeRegionName}}</text>
 								</view>
 								<view>
 									<view class="goods_name">货物名称：{{item.goodsName}}</view>		
@@ -173,10 +177,10 @@
 									<text class="shipper">创建人：{{item.createBy}}</text>
 								</view>
 								<view>
-									<text class="create_time">发货人联系电话:{{item.iscmShipper.shipperPhone}}</text>		
+									<text class="create_time">发货人联系电话:{{item.iscmWaybillInformationRecord.shipperPhone}}</text>		
 								</view>
 								<view >
-									<text>装货地址：{{item.iscmShipper.shipperAddress}}</text>
+									<text>装货地址：{{item.iscmWaybillInformationRecord.shipperAddress}}</text>
 								</view>
 								<view class="distance">
 									<view> 约 {{distance_to_origin[index]}} 公里装货</view>
@@ -204,7 +208,7 @@
 							
 						</view>
 					</view>
-		   </view>
+		   </view> 
 	</view>
 </template>
 
@@ -234,6 +238,9 @@
 			    un_read_msg:0,
 				title: '',
 				title2: '',
+				user: '',
+				//显示按钮
+				show_shipping_order:true,
 				show_shipping_list:true,
 				shipping_info_list:[],
 				notice_message:"您好，黄贤勇现在添加您为车老板，您可以接受或者拒绝",
@@ -252,7 +259,41 @@
 			
 			
 			},
-		onLoad() {
+		async onLoad() {
+			const token = uni.getStorageSync('token')
+			   //get this user's permission rights
+			   const resUserInfo = await this.$request({
+			   	  	 	url:"/getInfo",
+			   	  	 	
+			   	  	 	header:{
+			   	  	 		Authorization:token,
+			   	  	 	},
+			   	  	 	
+			   	  	 })
+					 
+				this.user = resUserInfo	 
+			
+			   const user = this.user
+			   console.log (user.data.permissions,'ds')
+			   const user_permissions = user.data.permissions
+			   let result_shipping_order = user_permissions.findIndex(ele => ele === 'iscm:waybill:list')
+			   console.log (result_shipping_order,'99ds')
+			   if (result_shipping_order == -1){
+			   	this.show_shipping_order = false
+			   	
+			   }
+			   
+			   
+			   //如果是管理员,可以看到所有，不受上面的权限约束
+			   const user_role  = user.data.roles
+			   if(user_role.includes("admin")) {
+			   	this.show_shipping_order = true
+			   	this.show_vehicle = true
+			   	this.show_driver = true
+			   	this.show_bankcard = true
+			   }
+			
+			
 			// #ifdef APP-PLUS 
 			//判断用户是否同意开启定位，照相等功能的权限
 			requestAndroidPermission("android.permission.CAMERA")
@@ -279,7 +320,43 @@
 		},
 		
 		
-		onShow() {
+		async onShow() {
+			const token = uni.getStorageSync('token')
+			   //get this user's permission rights
+			   const resUserInfo = await this.$request({
+			   	  	 	url:"/getInfo",
+			   	  	 	
+			   	  	 	header:{
+			   	  	 		Authorization:token,
+			   	  	 	},
+			   	  	 	
+			   	  	 })
+					 
+				this.user = resUserInfo	 
+			
+			   const user = this.user
+			   console.log (user.data.permissions,'ds11')
+			   const user_permissions = user.data.permissions
+			   let result_shipping_order = user_permissions.findIndex(ele => ele === 'iscm:waybill:list')
+			   console.log (result_shipping_order,'99ds11')
+			   if (result_shipping_order == -1){
+			   	this.show_shipping_order = false
+			   	
+			   }
+			   
+			   
+			   //如果是管理员,可以看到所有，不受上面的权限约束
+			   const user_role  = user.data.roles
+			   if(user_role.includes("admin")) {
+			   	this.show_shipping_order = true
+			   	this.show_vehicle = true
+			   	this.show_driver = true
+			   	this.show_bankcard = true
+			   }
+			
+			
+			
+			
 			
 			//查询“未读信息”的条数
 			this.getUnreadMessageList()
@@ -396,6 +473,12 @@
 						// // this.mn = res
 						// // #endif
 		},
+		
+		onHide(){
+			//restore the original shipping order status
+			this.show_shipping_order = true
+		},
+		
 		methods: {
 			 //查询“未读信息”的条数
 			async getUnreadMessageList(){
@@ -584,16 +667,19 @@
 				    // error
 				}
 				
-			 	// #ifdef H5
+				
+				//restore the original shipping order status
+				this.show_shipping_order = true
+			 	
 			 	uni.navigateTo({
 			 		url:'/pages/login/login'
 			 	})  
-			 	// #endif
+			 
 			 	
-			 	// #ifdef APP-PLUS 
+			 	// // #ifdef APP-PLUS 
 				 
-			 	plus.runtime.quit();  
-			 	// #endif
+			 	// plus.runtime.quit();  
+			 	// // #endif
 			 }
 		}
 	}

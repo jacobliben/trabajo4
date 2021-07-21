@@ -8,26 +8,34 @@
 				<view>
 				<text selectable>{{item.dispatchNo}}</text>
 				<text class="copy" @click="copy(item.dispatchNo)">复制</text>
-				<!-- <text>{{now_state.businessStatus}}{{index}}</text> -->
+				<!-- <text>{{now_state.state}}</text> -->
 				</view>
-				<text class="waybill_state">{{state_text}}</text>
+				<text class="waybill_state" v-if="item.dispatchStatus==$waitAuditLoadInfo">待装货</text>
+				<text class="waybill_state" v-if="item.dispatchStatus==$waitDepart">待发车</text>
+				<text class="waybill_state" v-if="item.dispatchStatus==$waitSign">待签收</text>
+				<text class="waybill_state" v-if="item.dispatchStatus==$finished">已完成</text>
+				<text class="waybill_state" v-if="item.dispatchStatus==60">待审核</text>
+				<text class="waybill_state" v-if="item.dispatchStatus==65">审核未通过</text>
+				<text class="waybill_state" v-if="item.dispatchStatus==80">待确认收货</text>
+				<text class="waybill_state" v-if="item.dispatchStatus==85">待评价</text>
+				
 			</view>
 			<view class="waybill_details">
 				<view class="shipping_content">
 					<!-- 收发货双方地址 -->
 					<view>
 						<text>
-						  <text>{{item.iscmShipper.shipperProvinceName}}</text>
+						  <text>{{item.iscmDispatchInformationRecord.shipperProvinceName}}</text>
 						  <!-- 判断是否为“直辖市” -->
-						   <text v-if ="item.iscmShipper.shipperCityName!=='市辖区'">{{item.iscmShipper.shipperCityName}}</text>
-						   <text v-if ="item.iscmShipper.shipperCityName==='市辖区'">{{item.iscmShipper.shipperRegionName}}</text>
+						   <text v-if ="item.iscmDispatchInformationRecord.shipperCityName!=='市辖区'">{{item.iscmDispatchInformationRecord.shipperCityName}}</text>
+						   <text v-if ="item.iscmDispatchInformationRecord.shipperCityName==='市辖区'">{{item.iscmDispatchInformationRecord.shipperRegionName}}</text>
 						</text> 
 						<text class="cuIcon-pullright lg text-gray"> </text>
 						 <text>
-							<text>{{item.iscmConsignee.consigneeProvinceName}}</text>
+							<text>{{item.iscmDispatchInformationRecord.consigneeProvinceName}}</text>
 							<!-- 判断是否为“直辖市” -->
-							<text v-if ="item.iscmConsignee.consigneeCityName!=='市辖区'">{{item.iscmConsignee.consigneeCityName}}</text>
-							<text v-if ="item.iscmConsignee.consigneeCityName==='市辖区'">{{item.iscmConsignee.consigneeRegionName}}</text>
+							<text v-if ="item.iscmDispatchInformationRecord.consigneeCityName!=='市辖区'">{{item.iscmDispatchInformationRecord.consigneeCityName}}</text>
+							<text v-if ="item.iscmDispatchInformationRecord.consigneeCityName==='市辖区'">{{item.iscmDispatchInformationRecord.consigneeRegionName}}</text>
 						</text>
 					</view> 
 					<view>
@@ -36,21 +44,24 @@
 					</view>
 				
 					<view>
-						<text class="shipper">{{item.iscmShipper.shipper}}</text>
+						<text class="shipper">{{item.iscmDispatchInformationRecord.shipper}}</text>
 								<text class="cuIcon-move"></text>
-						<text>{{item.iscmConsignee.consigneeName}}</text>
+						<text>{{item.iscmDispatchInformationRecord.consigneeName}}</text>
 					</view>
 					<view>
 						<text class="create_time">创建时间:{{item.createTime}}</text>		
 					</view>
-					<!-- <view>
-						<text class="carrier">承运人:{{item.iscmCarrier.carrierName}}</text>		
-					</view> -->
+					<view>
+						<text class="carrier">承运司机:{{item.firstDriverName}}</text>		
+					</view>
+					<view>
+						<text class="carrier">承运车辆:{{item.vehiclePlateNumber}}</text>		
+					</view>
 				</view>
 				
 				    <view class="actions">
 						<view hover-class="one-icon-hover">
-						  <image src="/static/phone.png"  class="phone-img"  @click="phoneCall(item.iscmConsignee.consigneePhone)"></image>	
+						  <image src="/static/phone.png"  class="phone-img"  @click="phoneCall(item.iscmDispatchInformationRecord.consigneePhone)"></image>	
 						</view>
 						<button type="default" size="default" 
 						 class="receive-btn radius"
@@ -60,7 +71,7 @@
 			</view>
 			
 			<view class="address">
-				<text>收货地址：{{item.iscmConsignee.consigneeAddress}}</text>
+				<text>收货地址：{{item.iscmDispatchInformationRecord.consigneeAddress}}</text>
 			</view>
 		</view>
 		<info-not-found v-if ="show_not_found"/>
@@ -74,7 +85,8 @@
 	export default{
 		data(){
 			return{
-			  scrollTop: 0,
+			  load_more:true,//继续加载列表
+			  
 			  despatching_pending_list:[],
 			  show_not_found:false,
 		      now_state:this.transporte_state,
@@ -93,19 +105,16 @@
 		components:{
 			infoNotFound
 		},
-		onLoad(options){
 		
-			
-		},
-		onShow(){
-			this.getDespatchingPendingList()
-		},
 		mounted(){
 			
 				this.now_state = this.transporte_state
 				this.state_text =this.now_state.text
 				this.btn_text =this.now_state.btn
-				this.queryParams.dispatchStatus= this.now_state.businessStatus
+				if (this.now_state.state!=0){
+					this.queryParams.dispatchStatus= this.now_state.businessStatus
+				}
+				
 				uni.setNavigationBarTitle({
 					title:`${this.now_state.text}`
 				})
@@ -129,10 +138,25 @@
 		},
 		methods:{
 			 upper: function(e) {
+				  
 			        },
 			 lower: function(e) {
-						this.queryParams.pageNum += this.queryParams.pageSize
-						this.getDespatchingPendingList()
+				
+						setTimeout(() => {
+						
+						//TODO这里填写你加载数据的方法
+						
+						this.queryParams.pageNum += 1
+						if (this.load_more){
+						  this.getDespatchingPendingList()
+						}
+											  
+						
+						}, 1000)
+						
+						
+						
+						
 			        },
 			        
 			goUploadFiles(item){
@@ -164,8 +188,10 @@
 				      },
 					  
 			async getDespatchingPendingList(){
-				
-				this.queryParams.designatedStatus= this.pattern.businessStatus.finishSign+','+this.pattern.businessStatus.unAudit+','+this.pattern.businessStatus.waitConfirmReceipt+','+this.pattern.businessStatus.waitEvaluation+','+this.pattern.businessStatus.finished
+				if (this.now_state.state==0){
+					this.queryParams.designatedStatus= 33
+				}
+				//this.queryParams.designatedStatus= 33+','+ 40
 			     var queryParams= this.queryParams 
 				
 				 var authorization = uni.getStorageSync("token")
@@ -179,7 +205,7 @@
 					  	 	data:queryParams
 					  	 })
 				
-					  
+					     console.log(res,'mmm');
 					  if(res.data.total == 0){
 					  	setTimeout(()=>{
 					  		this.show_not_found = true

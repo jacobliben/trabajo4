@@ -2,7 +2,7 @@
 	<view class="shipping-order-body">
 		<scroll-view  scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
 		  lower-threshold="200" enable-flex="true">
-		<view v-for="(item,index) in receiving_shipping_order_list" :key="index" class="one_shipping" >
+		<view v-for="(item,index) in receiving_shipping_order_list" :key="index" class="one_shipping" v-if ="!show_not_found" >
 			<view class="first-row">
 				<view>
 				<text selectable>{{item.waybillNo}}</text>
@@ -13,14 +13,14 @@
 			<view class="shipping_details">
 				<view class="shipping_content">
 					<view>
-						<text>{{item.iscmShipper.shipperProvinceName}}</text>
-						<text v-if ="item.iscmShipper.shipperCityName!=='市辖区'">{{item.iscmShipper.shipperCityName}}</text>
-						<text v-if ="item.iscmShipper.shipperCityName==='市辖区'">{{item.iscmShipper.shipperRegionName}}</text>
+						<text>{{item.iscmWaybillInformationRecord.shipperProvinceName}}</text>
+						<text v-if ="item.iscmWaybillInformationRecord.shipperCityName!=='市辖区'">{{item.iscmWaybillInformationRecord.shipperCityName}}</text>
+						<text v-if ="item.iscmWaybillInformationRecord.shipperCityName==='市辖区'">{{item.iscmWaybillInformationRecord.shipperRegionName}}</text>
 						<text class="cuIcon-pullright lg text-gray"> </text>
-						<text>{{item.iscmConsignee.consigneeProvinceName}}</text>
+						<text>{{item.iscmWaybillInformationRecord.consigneeProvinceName}}</text>
 						<!-- 判断是否为“直辖市” -->
-						<text v-if ="item.iscmConsignee.consigneeCityName!=='市辖区'">{{item.iscmConsignee.consigneeCityName}}</text>
-						<text v-if ="item.iscmConsignee.consigneeCityName==='市辖区'">{{item.iscmConsignee.consigneeRegionName}}</text>
+						<text v-if ="item.iscmWaybillInformationRecord.consigneeCityName!=='市辖区'">{{item.iscmWaybillInformationRecord.consigneeCityName}}</text>
+						<text v-if ="item.iscmWaybillInformationRecord.consigneeCityName==='市辖区'">{{item.iscmWaybillInformationRecord.consigneeRegionName}}</text>
 					</view>
 					<view>
 						<view class="goods_name">货物名称：{{item.goodsName}}</view>		
@@ -30,18 +30,16 @@
 					<view>
 						<text class="shipper">运费：{{item.carrierRates}}元</text>
 					</view>
+					
 					<view>
-						<text class="shipper">创建人：{{item.createBy}}</text>
-					</view>
-					<view>
-						<text class="create_time">发货人联系电话:{{item.iscmShipper.shipperPhone}}</text>		
+						<text class="create_time">发货人联系电话:{{item.iscmWaybillInformationRecord.shipperPhone}}</text>		
 					</view>
 					
 				</view>
 				
 				    <view class="actions">
 						<view hover-class="one-icon-hover">
-							<image src="/static/phone.png"  class="phone-img"  @click="phoneCall(item.iscmShipper.shipperPhone)"></image>
+							<image src="/static/phone.png"  class="phone-img"  @click="phoneCall(item.iscmWaybillInformationRecord.shipperPhone)"></image>
 						</view>
 							
 						
@@ -51,7 +49,11 @@
 			</view>
 			
 			<view class="address">
-				<text>装货地址：{{item.iscmShipper.shipperAddress}}</text>
+				<text>装货地址：{{item.iscmWaybillInformationRecord.shipperAddress}}</text>
+			</view>
+			
+			<view class="address">
+				<text>收货地址：{{item.iscmWaybillInformationRecord.consigneeAddress}}</text>
 			</view>
 		</view>
 		<info-not-found v-if ="show_not_found"/>
@@ -64,6 +66,8 @@
 	export default{
 		data(){
 			return{
+			   load_more:true,//继续加载列表
+				
 			  receiving_shipping_order_list:[],
 			  id_token:'',
 			  show_not_found:false,
@@ -78,22 +82,56 @@
 		components:{
 			infoNotFound
 		},
-		mounted(){
+		async mounted(){
+			
 			console.log(this.now_state,'955')
 			uni.setNavigationBarTitle({
 				title:`${this.now_state.text}`
 			})
 		
 			this.getReceivingShippingOrderList()
+			
+			const token = uni.getStorageSync('token')
+			   //get this user's permission rights
+			   const resUserInfo = await this.$request({
+			   	  	 	url:"/getInfo",
+			   	  	 	
+			   	  	 	header:{
+			   	  	 		Authorization:token,
+			   	  	 	},
+			   	  	 	
+			   	  	 })
+			const user = resUserInfo		 
+			console.log (user.data.permissions,'ds')
+			const user_permissions = user.data.permissions
+			let result = user_permissions.findIndex(ele => ele === 'iscm:waybill:list')
+			console.log (result,'99ds')
+			if (result == -1){
+				this.show_not_found = true
+				
+				return
+			}
 		},
 		methods:{
 			upper: function(e) {
 			          
 			       },
 			lower: function(e) {
+				
+				setTimeout(() => {
+				
+				//TODO这里填写你加载数据的方法
+				
+				this.queryParams.pageNum += 1
+				if (this.load_more){
+				 	this.getReceivingShippingOrderList()
+				}
+									  
+				
+				}, 1000)
 			          
-									this.queryParams.pageNum += this.queryParams.pageSize
-									this.getReceivingShippingOrderList()
+								
+								
 			       },
 			       
 			phoneCall(phone){
@@ -152,7 +190,7 @@
 					 	data:queryParams
 					 })
 				
-				
+				console.log(res,'555');
 				if(res.data.total == 0){
 					setTimeout(()=>{
 						this.show_not_found = true

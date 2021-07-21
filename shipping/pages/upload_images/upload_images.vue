@@ -27,16 +27,16 @@
 		<view class="person">
 			<image src="/static/person.png" mode="aspectFit" class="person-img"></image>
 			<view class="person-details">
-				<view class="person-name">收货联系人：{{received_info.iscmConsignee.consigneeName}}</view>
+				<view class="person-name">收货联系人：{{received_info.iscmDispatchInformationRecord.consigneeName}}</view>
 				<view class="person-nums">
-					<text class="cellphone">Tel: {{received_info.iscmConsignee.consigneePhone}}</text>
+					<text class="cellphone">Tel: {{received_info.iscmDispatchInformationRecord.consigneePhone}}</text>
 					<!-- <text>021-7878738</text> -->
 				</view>
 				<view class="person-nums">
-					<text>收货地址：{{received_info.iscmConsignee.consigneeAddress}}</text>
+					<text>收货地址：{{received_info.iscmDispatchInformationRecord.consigneeAddress}}</text>
 				</view>
 			</view>
-			<image src="/static/phone-new.png" mode="aspectFit" @click="phoneCall(received_info.iscmConsignee.consigneePhone)"
+			<image src="/static/phone-new.png" mode="aspectFit" @click="phoneCall(received_info.iscmDispatchInformationRecord.consigneePhone)"
 			class="phone-new"></image>
 		</view>
 		
@@ -45,14 +45,14 @@
 			<view class="person-details">
 				<view class="address-name">{{received_info.consignee_address}}</view>
 				<view class="person-nums">
-					<text>{{received_info.iscmShipper.shipperProvinceName}}</text>
-					<text v-if ="received_info.iscmShipper.shipperCityName!=='市辖区'">{{received_info.iscmShipper.shipperCityName}}</text>
-					<text v-if ="received_info.iscmShipper.shipperCityName==='市辖区'">{{received_info.iscmShipper.shipperRegionName}}</text>
+					<text>{{received_info.iscmDispatchInformationRecord.shipperProvinceName}}</text>
+					<text v-if ="received_info.iscmDispatchInformationRecord.shipperCityName!=='市辖区'">{{received_info.iscmDispatchInformationRecord.shipperCityName}}</text>
+					<text v-if ="received_info.iscmDispatchInformationRecord.shipperCityName==='市辖区'">{{received_info.iscmDispatchInformationRecord.shipperRegionName}}</text>
 					<text class="cuIcon-pullright lg text-gray margin-left margin-right"> </text>
-					<text>{{received_info.iscmConsignee.consigneeProvinceName}}</text>
+					<text>{{received_info.iscmDispatchInformationRecord.consigneeProvinceName}}</text>
 					<!-- 判断是否为“直辖市” -->
-					<text v-if ="received_info.iscmConsignee.consigneeCityName!=='市辖区'">{{received_info.iscmConsignee.consigneeCityName}}</text>
-					<text v-if ="received_info.iscmConsignee.consigneeCityName==='市辖区'">{{received_info.iscmConsignee.consigneeRegionName}}</text>
+					<text v-if ="received_info.iscmDispatchInformationRecord.consigneeCityName!=='市辖区'">{{received_info.iscmDispatchInformationRecord.consigneeCityName}}</text>
+					<text v-if ="received_info.iscmDispatchInformationRecord.consigneeCityName==='市辖区'">{{received_info.iscmDispatchInformationRecord.consigneeRegionName}}</text>
 				</view>
 				
 			</view>
@@ -106,7 +106,7 @@
 			</view>
 		</view>
 		
-		<!-- <view>
+		<view>
 			<text>{{lng}}</text>
 			
 			<text>{{lat}}</text>
@@ -122,7 +122,7 @@
 			<text>endCountrySubdivisionCode</text>
 			<text>。。。。</text>
 			<text>{{endCountrySubdivisionCode}}</text>
-		</view> -->
+		</view>
 		
 		<view class="bars" v-if="btn_title==='装货'||this.btn_title==='发车'||this.btn_title==='签收'">
 			<!-- <view @click="letsScan">
@@ -195,7 +195,9 @@
 					"dispatchId": "",
 					"signWeight": "",
 					"leavePhoto": "",
-					"receiptPhoto": ""
+					"receiptPhoto": "",
+					pageNum: 1,
+					pageSize: 7,
 				},
 				lng :null,
 				lat :null,
@@ -222,7 +224,7 @@
 			//for calcating distance of delivery
 				uni.request({
 					//传入高德web服务端key和发货地址
-					 url: `https://restapi.amap.com/v3/geocode/geo?address=${this.received_info.iscmShipper.shipperAddress}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
+					 url: `https://restapi.amap.com/v3/geocode/geo?address=${this.received_info.iscmDispatchInformationRecord.shipperAddress}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
 					
 					success:(res)=>{
 							origin_location  = res.data.geocodes[0].location.split(",")
@@ -231,7 +233,7 @@
 														   
 							 uni.request({
 							 	//传入高德web服务端key和目的地址
-							 	 url: `https://restapi.amap.com/v3/geocode/geo?address=${this.received_info.iscmConsignee.consigneeAddress}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
+							 	 url: `https://restapi.amap.com/v3/geocode/geo?address=${this.received_info.iscmDispatchInformationRecord.consigneeAddress}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
 							 	
 							 	success:(res)=>{
 							 		
@@ -262,7 +264,7 @@
 			//解析目的地地址信息
 				uni.request({
 					//传入高德web服务端key和发货地址
-					 url: `https://restapi.amap.com/v3/geocode/geo?address=${this.received_info.iscmShipper.shipperAddress}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
+					 url: `https://restapi.amap.com/v3/geocode/geo?address=${this.received_info.iscmDispatchInformationRecord.shipperAddress}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
 					// #ifdef APP-PLUS
 					success:(res)=>{
 						
@@ -271,7 +273,7 @@
 							main.data =	this.startCountrySubdivisionCode					   
 							 uni.request({
 							 	//传入高德web服务端key和目的地址
-							 	 url: `https://restapi.amap.com/v3/geocode/geo?address=${this.received_info.iscmConsignee.consigneeAddress}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
+							 	 url: `https://restapi.amap.com/v3/geocode/geo?address=${this.received_info.iscmDispatchInformationRecord.consigneeAddress}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
 							 	
 							 	success:(res)=>{
 							 		      console.log(res,"目的地")
@@ -407,10 +409,10 @@
 						 						    const tempFilePaths = res.tempFilePaths;
 						 							
 						 							//preview the photos
-						 							uni.previewImage({
-						 							            urls: res.tempFilePaths,
+						 							// uni.previewImage({
+						 							//             urls: res.tempFilePaths,
 						 							            
-						 							        });
+						 							//         });
 						 									
 						 							
 						 							 //upload the img
@@ -441,10 +443,10 @@
 					  						    const tempFilePaths = res.tempFilePaths;
 					  							
 					  							//preview the photos
-					  							uni.previewImage({
-					  							            urls: res.tempFilePaths,
+					  							// uni.previewImage({
+					  							//             urls: res.tempFilePaths,
 					  							            
-					  							        });
+					  							//         });
 					  									
 					  							
 					  							 //upload the img
@@ -474,10 +476,10 @@
 						  						    const tempFilePaths = res.tempFilePaths;
 						  							
 						  							//preview the photos
-						  							uni.previewImage({
-						  							            urls: res.tempFilePaths,
+						  							// uni.previewImage({
+						  							//             urls: res.tempFilePaths,
 						  							            
-						  							        });
+						  							//         });
 						  									
 						  							
 						  							 //upload the img

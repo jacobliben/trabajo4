@@ -88,7 +88,7 @@
 					 placeholder="请输入备注"></input>
 					
 				</view>
-				<view>{{mes}}</view>
+				
 			</view>
 		</view>
 			
@@ -115,7 +115,7 @@
 	export default {
 		data() {
 			return {
-				mes:"",
+				
 				 percent:0,
 				 loading:false,
 				 disabled:false,
@@ -138,25 +138,109 @@
 		},
 		
 	
-		onLoad(options){
+		 onLoad(options){
 			var that = this
 		    this.received_info = uni.getStorageSync("accepted_shipping_orders")
 			this.queryParams.waybillId =   this.received_info.waybillId
 			this.btn_title = options.btn_title
-			//if chief driver has been choosen, make it appeared.
-			var chief_driver_choosen = uni.getStorageSync("chief_driver_choosen")
-			this.queryParams.firstDriverId =uni.getStorageSync("chief_driver_id")
-			if (chief_driver_choosen){
-				this.chief_driver_choosen =	chief_driver_choosen
-				this.has_chief_driver = true
-			}
-			//if vehicle has been choosen, make it appeared.
-			var vehicle_choosen = uni.getStorageSync("vehicle_choosen")
-			if (vehicle_choosen){
-				this.vehicle_choosen =	vehicle_choosen
-				this.has_vehicle = true
-			}
-			this.queryParams.vehicleId =uni.getStorageSync("vehicle_id")
+			
+			
+			
+		},
+		
+		 async onShow(){
+			 var that = this
+			 //try catch 是否有getStorageSync('chief_driver_choosen')
+			 try {
+			     const value = uni.getStorageSync('chief_driver_choosen');
+			     if (value) {
+			        
+					 //if chief driver has been choosen, make it appeared.
+					 let chief_driver_choosen = uni.getStorageSync("chief_driver_choosen")
+					 chief_driver_choosen=JSON.parse(chief_driver_choosen)
+					 
+					 this.queryParams.firstDriverId = chief_driver_choosen.driverId
+					 if (chief_driver_choosen){
+					 	this.chief_driver_choosen =	chief_driver_choosen.driverName
+					 	this.has_chief_driver = true
+					 }
+					 
+					 
+					  
+					   
+					  //try catch 是否有getStorageSync('vehicle_choosen') 
+					  try {
+					      const value = uni.getStorageSync('vehicle_choosen');
+					      if (value) {
+					          
+					            
+					          //if vehicle has been choosen, make it appeared.
+					          let vehicle_choosen = uni.getStorageSync("vehicle_choosen")
+					          vehicle_choosen =JSON.parse(vehicle_choosen)
+					        
+					          	this.vehicle_choosen =	vehicle_choosen.vehiclePlateNumber
+					          	this.has_vehicle = true
+					          	//fetch the chosen vehicleId from local storage
+					          	this.queryParams.vehicleId = vehicle_choosen.vehicleId
+					       
+					          	
+							  
+							  
+					      }else{
+							  //if vehicle has NOT been choosen, bind it with DriverId .
+							  //use the driverID and carrierID to bind the vehicle ID
+							  
+							  console.log(this.queryParams.firstDriverId,'111')
+							  const firstDriverId = this.queryParams.firstDriverId
+							    console.log(firstDriverId,'ddd')
+							   
+							   
+							   //get the carrierID, which is the userBusinessId in the userInfo
+							   const carrier = uni.getStorageSync("user_info")
+							   const carrierId = carrier.data.user.userBusinessId
+							   console.log(carrierId,'777')
+							   
+							   var authorization = uni.getStorageSync("token")
+							   const res = await this.$request({
+							   	url:`/app/dispatch/getRecentlyUsedVehicle/${carrierId}/${firstDriverId}`,
+							   	header:{
+							   		Authorization:authorization,
+							   		
+							   	},
+							   
+							   })
+							        
+							   console.log(res,'q55');  
+							    
+							   this.vehicle_choosen =	res.data.data.vehiclePlateNumber
+							   this.has_vehicle = true 
+							    //use the bound vehicle ID
+							   this.queryParams.vehicleId = res.data.data.vehicleId
+							  					          
+							  							  
+							  
+							  
+							  
+							  
+						  }
+					  } catch (e) {
+					      // error
+						 
+						  
+					  } 
+					   
+					  
+					 
+					 
+			     }
+			 } catch (e) {
+			     // error
+			 }
+			 
+			 
+			
+			
+			
 		},
 		
 		methods:{
@@ -286,9 +370,11 @@
 				 //#ifdef APP-PLUS
 				 var xhr = new plus.net.XMLHttpRequest()
 				 //正式库，危险！！！！
-				// xhr.open('POST','https://wl.xcmgzhilian.com/prod-api/app/waybill/chooseDriverAndVehicle')
+				 //xhr.open('POST','https://wl.xcmgzhilian.com/prod-api/app/waybill/chooseDriverAndVehicle')
+				//半测试版
+				 xhr.open('POST',' http://116.62.172.131:88/stage-api/app/waybill/chooseDriverAndVehicle')
 				 //测试库
-				 xhr.open('POST',' http://10.22.2.138:8080/app/waybill/chooseDriverAndVehicle')
+				// xhr.open('POST',' http://10.22.2.138:8080/app/waybill/chooseDriverAndVehicle')
 				//xhr.open('POST','http://10.22.0.136:8080/app/waybill/chooseDriverAndVehicle')
 				 xhr.setRequestHeader('Content-Type','application/json')//确定header里为Content-Type','application/json'
 				 //并防止uni.request 自动添加“charset = utf-8”
@@ -300,7 +386,7 @@
 				 xhr.onreadystatechange = function(){
 										  if (xhr.status==200){
 											 uni.showToast({
-											   	title:"操作成功",
+											   	title:"操作成功,请司机到'派车单'中进行操作",
 											   	icon:"none"	,									
 											   })
 											   

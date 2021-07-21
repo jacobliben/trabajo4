@@ -48,7 +48,7 @@
 						text:"待装货",
 						btn:"装货",
 						orderList:[],
-						
+						businessStatus:33
 					},
 					{
 					  state:1,

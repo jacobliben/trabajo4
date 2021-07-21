@@ -1,7 +1,5 @@
 {
   "navigationBarTitleText": "个人驾驶证件信息",
   "enablePullDownRefresh": false,
-  "usingComponents": {
-    "xfl-select": "/components/xfl-select/xfl-select"
-  }
+  "usingComponents": {}
 }

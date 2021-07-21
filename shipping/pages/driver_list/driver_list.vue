@@ -91,6 +91,7 @@
 <style lang="scss" scoped>
 	.head-sect{
 		width:100%;
+		height:80rpx;
 		display: flex;
 		flex-direction: row;
 	}

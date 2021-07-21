@@ -1,7 +1,35 @@
 <template>
 	<view class="vehicle-has-approved-body">
-		<scroll-view  scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
-		  lower-threshold="200" enable-flex="true">
+		
+		<view class="cu-bar search bg-white">
+			 <text class="margin-left">车船牌照号码</text>
+			<view class="search-form round">
+				<text class="cuIcon-search"></text>
+				<input placeholder="通过车船牌照号码搜索" type="text" @input="searchVehiclePlateNumber"
+				selection-start="-1"  selection-end="-1" cursor="-1" />
+			</view>
+		</view>
+		
+		 
+		
+		<view class="cu-bar search bg-white">
+			 <text class="margin-left">工作状态</text>
+			<view class="search-form round">
+				<text class="cuIcon-search"></text>
+				<picker @change="bindPickerVehicleWorkStatusChange" :value="vehicle_work_status_index" :range="vehicleWorkStatusOptions">
+				    <view class="picker-view text-lg">{{vehicleWorkStatusOptions[vehicle_work_status_index]}}</view>
+				 </picker>
+			</view>
+			
+			<view class="action">
+				<button class="cu-btn bg-green shadow-blur round" role="button"
+				aria-disabled="false" @click="searchVehicleBtn" >搜索</button>
+			</view>
+		</view>
+		
+		
+		<scroll-view  scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower" upper-threshold="250"
+		  lower-threshold="250" enable-flex="true">
 		<view v-for="(item,index) in vehicle_list" :key="index" class="one_vehicle " @click="goVehicleDetail(item)" >
 			<view class="first-row">
 				<view class="vehicle-no">{{item.vehiclePlateNumber}}</view>
@@ -37,37 +65,119 @@
 	export default{
 		data(){
 			return{
+			  load_more:true,//继续加载列表
 			  vehicle_now:"",
+			  
+			  // 工作状态字典
+			  vehicleWorkStatusOptions:[],
+			  vehicle_work_status_index:0,
+			  vehicleWorkStatusSendValue:[],
+			
+			  //车船牌照号码
+			  vehiclePlateNumber:"",
+			 
+			  // 工作状态数据
+			  vehicleWorkStatus:"", 
+			
+			  
 			  vehicle_list:[],
 			  show_not_found:false,
 			  queryParams: {
 			          pageNum: 1,
-			          pageSize:7,
+			          pageSize:6,
 			          }
 			}
 		},
 		props:['vehicle'],
+		created(){
+			
+	
+			// 工作状态字典
+			this.getVehicleWorkStatusOptions()
+			
+			},
 		mounted(){
 			
 			
 			
-			this.getVehicleList()
+			this.searchVehicle()
 		},
-		onShow(){
-			this.getVehicleList()
-			},
+		
 		components:{
 			infoNotFound
 		},	
 		methods:{
+			//按下搜索按钮
+			searchVehicleBtn(){
+				
+				this.vehicle_list =[]
+				this.queryParams.pageNum = 1
+				this.queryParams.pageSize = 1000
+				this.searchVehicle()
+			},
+			
+			// 工作状态字典
+			async getVehicleWorkStatusOptions(){
+				var that = this
+				var authorization = uni.getStorageSync("token")
+				
+				const res = await this.$request({
+					 	url:"/system/dict/data/type/vehicle_work_status",
+					 	
+					 	header:{
+					 		Authorization:authorization,
+					 	},
+					 	
+					 })
+					console.log(res,'a12');
+					 
+					 this.vehicleWorkStatusOptions = res.data.data.map(e=>e=e.dictLabel)
+					 this.vehicleWorkStatusSendValue = res.data.data.map(e=>e=e.dictValue)
+					 this.vehicleWorkStatusOptions.unshift("请选择工作状态")
+			},
+			
+			
+			
+			
+			//通过车船牌照号码搜索
+			searchVehiclePlateNumber(e){
+				this.vehiclePlateNumber = e.target.value
+				console.log(this.vehiclePlateNumber,'aas');
+			},
+			
+			
+		
+			
+			//通过工作状态搜索
+			bindPickerVehicleWorkStatusChange(e) {
+						            console.log('picker发送选择改变，携带值为工作状态', e.target.value)
+						            this.vehicle_work_status_index = e.target.value
+									
+									var vehicle_work_status_index = this.vehicle_work_status_index
+									
+									 this.vehicleWorkStatus =this.vehicleWorkStatusSendValue[vehicle_work_status_index-1]
+									 console.log (this.vehicleWorkStatus,"工作状态后台值")
+									
+						        },
+			
+			
 			upper: function(e) {
 			           console.log(e,'11111')
+					   
 			       },
 			lower: function(e) {
 			           console.log(e,'222222')
-					   this.queryParams.pageNum += this.queryParams.pageSize
-					  this.getVehicleList()
-					    },
+					    
+						setTimeout(() => {
+						//TODO这里填写你加载数据的方法
+						
+						this.queryParams.pageNum += 1
+						if (this.load_more){
+							 this.searchVehicle()
+						}
+					}, 1000)
+						
+				},
 			
 			async goVehicleDetail(item){
 				if (this.vehicle.state == 1){
@@ -102,38 +212,46 @@
 				
 			},
 			
-			async getVehicleList(){
-				this.queryParams.vehicleStatus = this.vehicle.state
-				const queryParamsVehicle= this.queryParams
-				console.log(queryParamsVehicle,"112")
-				var authorization = uni.getStorageSync("token")		
-				const res = await this.$request({
-					url:"/app/vehicle/list",
-					header:{
-						Authorization:authorization,
-					},
-					data:queryParamsVehicle
-					
-				})
-				console.log(res,"222")
-				if(res.data.total == 0){
-					setTimeout(()=>{
-						this.show_not_found = true
-					},100)
-					return
-				}
-				
-				if (this.vehicle_list.length<res.data.total){
-					this.vehicle_list =[...this.vehicle_list,...res.data.rows]
-					
-				}else{
-					uni.showToast({
-						title:"没有更多的信息了",
-						icon:"none"
-					})
-					return
-				}
-			},	
+			
+		
+			//车辆列表搜索
+			async searchVehicle(){
+						 
+							const queryParams= this.queryParams
+							const vehiclePlateNumber = this.vehiclePlateNumber
+							
+							const vehicleWorkStatus =this.vehicleWorkStatus
+							
+							
+							var authorization = uni.getStorageSync("token")		
+							const res = await this.$request({
+								url:`/app/vehicle/list?vehiclePlateNumber=${vehiclePlateNumber}&vehicleWorkStatus=${vehicleWorkStatus}`,
+								header:{
+									Authorization:authorization,
+								},
+								data:queryParams
+								
+							})
+							
+							//stop sending request
+							if (this.queryParams.pageNum*this.queryParams.pageSize>=res.data.total){
+								this.load_more = false
+							}
+						
+								if (this.vehicle_list.length<res.data.total){
+									this.vehicle_list =[...this.vehicle_list,...res.data.rows]
+									
+								}else{
+									uni.showToast({
+										title:"没有更多的信息了",
+										icon:"none"
+									})
+									return
+								}  
+								
+							
+							
+			 },
 			
 		}
 	}
@@ -144,7 +262,7 @@
 		background-color: #fff;
 	}
 	.scroll-Y{
-		height:95vh;
+		height:65vh;
 	}
 	
 	.vehicle_content{

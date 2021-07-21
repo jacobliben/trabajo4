@@ -310,7 +310,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _pattern = __webpack_require__(/*! @/util/pattern.js */ 15);
 var _mmmmImageTools = __webpack_require__(/*! @/js_sdk/mmmm-image-tools */ 315);
-var _jsBase = __webpack_require__(/*! @/js_sdk/js-base64 */ 316);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var simpleAddressHigh = function simpleAddressHigh() {Promise.all(/*! require.ensure | components/simple-address-high/simple-address */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/simple-address-high/simple-address")]).then((function () {return resolve(__webpack_require__(/*! @/components/simple-address-high/simple-address.vue */ 1012));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+var _jsBase = __webpack_require__(/*! @/js_sdk/js-base64 */ 316);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var simpleAddressHigh = function simpleAddressHigh() {Promise.all(/*! require.ensure | components/simple-address-high/simple-address */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/simple-address-high/simple-address")]).then((function () {return resolve(__webpack_require__(/*! @/components/simple-address-high/simple-address.vue */ 994));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/graceChecker.js */ 307);
 var _self;var _default =
 
@@ -388,18 +388,64 @@ var _self;var _default =
 
     //用于跳转后回显
     this.params_business = uni.getStorageSync("params_business");
-    this.tel = uni.getStorageSync("contact_phone");
+
     this.params.carrierContactsPhone = uni.getStorageSync("contact_phone");
 
   },
   mounted: function mounted() {
+
     //加载身份证或者营业执照图例
     if (this.isPerson) {
-      this.imgBusinessLicenseUrl = "/static/id_front.jpg";
+      this.imgBusinessLicenseUrl = uni.getStorageSync("carrierCardFront_reshow");
+      if (this.imgBusinessLicenseUrl == "") {
+        this.imgBusinessLicenseUrl = "/static/id_front.jpg";
+      }
 
     } else {
-      this.imgBusinessLicenseUrl = "/static/business_license.jpg";
+      this.imgBusinessLicenseUrl = uni.getStorageSync("carrierCardFront_reshow");
+      if (this.imgBusinessLicenseUrl == "") {
+        this.imgBusinessLicenseUrl = "/static/business_license.jpg";
+      }
+
     }
+
+
+    //加载身份证反面
+    if (this.isPerson) {
+      this.imgBackUrl = uni.getStorageSync("carrierCardReverse_reshow");
+      if (this.imgBackUrl == "") {
+        this.imgBackUrl = "/static/id-back.jpg";
+      }
+
+    }
+
+
+    if (!this.isPerson) {
+      //加载道路运输经营许可证
+      this.imgTransportLicenseUrl = uni.getStorageSync("carrierRoadTransportBusinessLicense_reshow");
+      if (this.imgTransportLicenseUrl == "") {
+        this.imgTransportLicenseUrl = "/static/transport_license.jpg";
+      }
+
+      //加载法人身份证正面
+      this.imglegalPersonCerFrontUrl = uni.getStorageSync("legalPersonCerFront_reshow");
+      if (this.imglegalPersonCerFrontUrl == "") {
+        this.imglegalPersonCerFrontUrl = "/static/id_front.jpg";
+      }
+
+      //加载法人身份证背面
+      this.imglegalPersonCerReverseUrl = uni.getStorageSync("legalPersonCerReverse_reshow");
+      if (this.imglegalPersonCerReverseUrl == "") {
+        this.imglegalPersonCerReverseUrl = "/static/id-back.jpg";
+      }
+    }
+
+
+
+
+
+
+
 
     //跳转时显示
     var show_validity_current = this.params_business.whetherValidForever || 2;
@@ -437,6 +483,8 @@ var _self;var _default =
       this.disabled = false;
       this.active = true;
     }
+
+    this.tel = uni.getStorageSync("contact_phone");
   },
   methods: {
     //身份证是否有截止日期
@@ -1147,6 +1195,7 @@ var _self;var _default =
       /**
          * 身份证正面或营业执照检查
          */
+
       this.params.carrierCardFront = uni.getStorageSync("carrierCardFront");
       if (this.params.carrierCardFront == null || this.params.carrierCardFront == "" || this.params.carrierCardFront.length < 1) {
         if (this.isPerson) {
@@ -1333,7 +1382,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 799:
+/***/ 795:
 /*!************************************************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/main.js?{"page":"pages%2Fcompany_business_info%2Fcompany_business_info"} ***!
   \************************************************************************************************************************************/
@@ -1349,5 +1398,5 @@ createPage(_company_business_info.default);
 
 /***/ })
 
-},[[799,"common/runtime","common/vendor"]]]);
+},[[795,"common/runtime","common/vendor"]]]);
 //# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/company_business_info/company_business_info.js.map

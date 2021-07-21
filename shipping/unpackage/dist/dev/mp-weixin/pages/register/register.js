@@ -220,7 +220,7 @@ var _company_license = _interopRequireDefault(__webpack_require__(/*! @/pages/co
 
 var _company_business_info = _interopRequireDefault(__webpack_require__(/*! @/pages/company_business_info/company_business_info */ 310));
 var _vehicle = _interopRequireDefault(__webpack_require__(/*! @/pages/vehicle/vehicle */ 319));
-var _bank = _interopRequireDefault(__webpack_require__(/*! @/pages/bank/bank */ 333));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniSegmentedControl = function uniSegmentedControl() {__webpack_require__.e(/*! require.ensure | uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control */ "uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control").then((function () {return resolve(__webpack_require__(/*! uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue */ 984));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var phoneVerifying = function phoneVerifying() {__webpack_require__.e(/*! require.ensure | components/register/phone_verifying */ "components/register/phone_verifying").then((function () {return resolve(__webpack_require__(/*! @/components/register/phone_verifying.vue */ 1005));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _bank = _interopRequireDefault(__webpack_require__(/*! @/pages/bank/bank */ 333));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniSegmentedControl = function uniSegmentedControl() {__webpack_require__.e(/*! require.ensure | uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control */ "uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control").then((function () {return resolve(__webpack_require__(/*! uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue */ 980));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var phoneVerifying = function phoneVerifying() {__webpack_require__.e(/*! require.ensure | components/register/phone_verifying */ "components/register/phone_verifying").then((function () {return resolve(__webpack_require__(/*! @/components/register/phone_verifying.vue */ 987));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   data: function data() {
     return {
@@ -813,6 +813,33 @@ var _self;var _default =
     this.params_license = uni.getStorageSync("params_license");
   },
   mounted: function mounted() {
+    if (!this.isPerson) {
+      //加载 驾驶员身份证正面
+      this.imgDriverIDFrontUrl = uni.getStorageSync("idcardFront_reshow");
+      if (this.imgDriverIDFrontUrl == "") {
+        this.imgDriverIDFrontUrl = "/static/id_front.jpg";
+      }
+
+      //加载 驾驶员身份证背面
+      this.imgDriverIDBackUrl = uni.getStorageSync("idcardBack_reshow");
+      if (this.imgDriverIDBackUrl == "") {
+        this.imgDriverIDBackUrl = "/static/id-back.jpg";
+      }
+    }
+
+    //加载 机动车驾驶证主页
+    this.imgDriverLicensePhotoUrl = uni.getStorageSync("drivingLicensePhotoFirst_reshow");
+    if (this.imgDriverLicensePhotoUrl == "") {
+      this.imgDriverLicensePhotoUrl = "/static/driving_license.jpg";
+    }
+
+    //加载 道路运输从业资格证
+    this.imgDrivingCertificateUrl = uni.getStorageSync("qualificationCertPhoto_reshow");
+    if (this.imgDrivingCertificateUrl == "") {
+      this.imgDrivingCertificateUrl = "/static/roadcert.jpg";
+    }
+
+
 
     //跳转时显示
     var driverVehicleClass = this.params_license.driverVehicleClass || "A2";
@@ -1753,7 +1780,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _pattern = __webpack_require__(/*! @/util/pattern.js */ 15);
 var _mmmmImageTools = __webpack_require__(/*! @/js_sdk/mmmm-image-tools */ 315);
-var _jsBase = __webpack_require__(/*! @/js_sdk/js-base64 */ 316);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var simpleAddressHigh = function simpleAddressHigh() {Promise.all(/*! require.ensure | components/simple-address-high/simple-address */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/simple-address-high/simple-address")]).then((function () {return resolve(__webpack_require__(/*! @/components/simple-address-high/simple-address.vue */ 1012));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+var _jsBase = __webpack_require__(/*! @/js_sdk/js-base64 */ 316);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var simpleAddressHigh = function simpleAddressHigh() {Promise.all(/*! require.ensure | components/simple-address-high/simple-address */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/simple-address-high/simple-address")]).then((function () {return resolve(__webpack_require__(/*! @/components/simple-address-high/simple-address.vue */ 994));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/graceChecker.js */ 307);
 var _self;var _default =
 
@@ -1831,18 +1858,64 @@ var _self;var _default =
 
     //用于跳转后回显
     this.params_business = uni.getStorageSync("params_business");
-    this.tel = uni.getStorageSync("contact_phone");
+
     this.params.carrierContactsPhone = uni.getStorageSync("contact_phone");
 
   },
   mounted: function mounted() {
+
     //加载身份证或者营业执照图例
     if (this.isPerson) {
-      this.imgBusinessLicenseUrl = "/static/id_front.jpg";
+      this.imgBusinessLicenseUrl = uni.getStorageSync("carrierCardFront_reshow");
+      if (this.imgBusinessLicenseUrl == "") {
+        this.imgBusinessLicenseUrl = "/static/id_front.jpg";
+      }
 
     } else {
-      this.imgBusinessLicenseUrl = "/static/business_license.jpg";
+      this.imgBusinessLicenseUrl = uni.getStorageSync("carrierCardFront_reshow");
+      if (this.imgBusinessLicenseUrl == "") {
+        this.imgBusinessLicenseUrl = "/static/business_license.jpg";
+      }
+
     }
+
+
+    //加载身份证反面
+    if (this.isPerson) {
+      this.imgBackUrl = uni.getStorageSync("carrierCardReverse_reshow");
+      if (this.imgBackUrl == "") {
+        this.imgBackUrl = "/static/id-back.jpg";
+      }
+
+    }
+
+
+    if (!this.isPerson) {
+      //加载道路运输经营许可证
+      this.imgTransportLicenseUrl = uni.getStorageSync("carrierRoadTransportBusinessLicense_reshow");
+      if (this.imgTransportLicenseUrl == "") {
+        this.imgTransportLicenseUrl = "/static/transport_license.jpg";
+      }
+
+      //加载法人身份证正面
+      this.imglegalPersonCerFrontUrl = uni.getStorageSync("legalPersonCerFront_reshow");
+      if (this.imglegalPersonCerFrontUrl == "") {
+        this.imglegalPersonCerFrontUrl = "/static/id_front.jpg";
+      }
+
+      //加载法人身份证背面
+      this.imglegalPersonCerReverseUrl = uni.getStorageSync("legalPersonCerReverse_reshow");
+      if (this.imglegalPersonCerReverseUrl == "") {
+        this.imglegalPersonCerReverseUrl = "/static/id-back.jpg";
+      }
+    }
+
+
+
+
+
+
+
 
     //跳转时显示
     var show_validity_current = this.params_business.whetherValidForever || 2;
@@ -1880,6 +1953,8 @@ var _self;var _default =
       this.disabled = false;
       this.active = true;
     }
+
+    this.tel = uni.getStorageSync("contact_phone");
   },
   methods: {
     //身份证是否有截止日期
@@ -2590,6 +2665,7 @@ var _self;var _default =
       /**
          * 身份证正面或营业执照检查
          */
+
       this.params.carrierCardFront = uni.getStorageSync("carrierCardFront");
       if (this.params.carrierCardFront == null || this.params.carrierCardFront == "" || this.params.carrierCardFront.length < 1) {
         if (this.isPerson) {
@@ -2856,7 +2932,7 @@ var components
 try {
   components = {
     uniNumberBox: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-number-box/components/uni-number-box/uni-number-box */ "uni_modules/uni-number-box/components/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-number-box/components/uni-number-box/uni-number-box.vue */ 1022))
+      return __webpack_require__.e(/*! import() | uni_modules/uni-number-box/components/uni-number-box/uni-number-box */ "uni_modules/uni-number-box/components/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-number-box/components/uni-number-box/uni-number-box.vue */ 1004))
     }
   }
 } catch (e) {
@@ -3236,6 +3312,33 @@ var _self;var _default =
     this.params_vehicle = uni.getStorageSync("params_vehicle");
   },
   mounted: function mounted() {
+    //加载车辆行驶证主副页 
+    this.imgVehicleLicenseFirstUrl = uni.getStorageSync("vehicleLicensePhotoFirst_reshow");
+    if (this.imgVehicleLicenseFirstUrl == "") {
+      this.imgVehicleLicenseFirstUrl = "/static/vehicle_license.jpg";
+    }
+
+    //加载人车合照
+    this.imgPeopleVehicleUrl = uni.getStorageSync("peopleVehiclePhoto_reshow");
+    if (this.imgPeopleVehicleUrl == "") {
+      this.imgPeopleVehicleUrl = "/static/people_vehicle.jpg";
+    }
+
+    //加载道路运输证照片
+    this.imgTransportLicenseUrl = uni.getStorageSync("vehicleRoadcertPhoto_reshow");
+    if (this.imgTransportLicenseUrl == "") {
+      this.imgTransportLicenseUrl = "/static/TransportLicense.png";
+    }
+
+    //加载挂车行驶证主副页
+    this.imgHangingCarPhotoUrl = uni.getStorageSync("trailerLicensePhotoFirst_reshow");
+    if (this.imgHangingCarPhotoUrl == "") {
+      this.imgHangingCarPhotoUrl = "/static/vehicle_license.jpg";
+    }
+
+
+
+
     //跳转时显示
     var show_energy_current = this.params_vehicle.whetherNewEnergy || 2;
     this.energy_current = show_energy_current - 1;
@@ -5379,7 +5482,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _xflSelect = _interopRequireDefault(__webpack_require__(/*! @/components/xfl-select/xfl-select.vue */ 324));
-var _pattern = __webpack_require__(/*! @/util/pattern.js */ 15);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var Multiselect = function Multiselect() {Promise.all(/*! require.ensure | node-modules/vue-multiselect/src/Multiselect */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/vue-multiselect/src/Multiselect")]).then((function () {return resolve(__webpack_require__(/*! @/node_modules/vue-multiselect/src/Multiselect.vue */ 1029));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+var _pattern = __webpack_require__(/*! @/util/pattern.js */ 15);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var Multiselect = function Multiselect() {Promise.all(/*! require.ensure | node-modules/vue-multiselect/src/Multiselect */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/vue-multiselect/src/Multiselect")]).then((function () {return resolve(__webpack_require__(/*! @/node_modules/vue-multiselect/src/Multiselect.vue */ 1011));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
 var _self;
 var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/graceChecker.js */ 307);var _default =

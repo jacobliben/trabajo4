@@ -181,8 +181,6 @@
 				this.bank_placeholder = this.received_info.bankName
 				this.branch_placeholder = this.received_info.branchBankName
 			}
-			console.log(this.received_info,'777')
-			
 			  
 		},
 		created(){

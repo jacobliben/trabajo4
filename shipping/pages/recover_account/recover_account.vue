@@ -211,16 +211,7 @@
 										 return	 										
 										} 
 										
-										//进行密码长度检查
-										if (this.params.password.length <8){
-											uni.showToast({
-												title:"密码请输入8-16位",
-												icon:"none"
-											})
-										this.contrasena = ""
-										this.recontrasena = ""	 	
-										 return	 										
-										} 
+										
 										
 										//进行密码复杂度检查
 										var psw = this.params.password

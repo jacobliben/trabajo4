@@ -1,0 +1,1 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["pages-license-license"],{"2eeb":function(e,n,l){"use strict";l.r(n);var s,c,p,u,a=l("f0c5"),i={},o=Object(a["a"])(i,s,c,!1,null,null,null,!1,p,u);n["default"]=o.exports}}]);

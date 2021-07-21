@@ -13,23 +13,26 @@
 			uni.getNetworkType({
 					success:function(res){
 						let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
-						let curRoute = routes[routes.length - 1].route //获取当前页面路由
-						uni.setStorageSync("current_page",curRoute)
-						if(res.networkType=='none'){
-							setTimeout(()=>{
-								uni.showToast({
-									icon:'none',
-									title:'网络异常,请检查网络设置!',
-									duration:2000,
-									position:'bottom'
-								})
+						if (routes.length>1){
+							let curRoute = routes[routes.length - 1].route //获取当前页面路由
+							uni.setStorageSync("current_page",curRoute)
+							if(res.networkType=='none'){
+								setTimeout(()=>{
+									uni.showToast({
+										icon:'none',
+										title:'网络异常,请检查网络设置!',
+										duration:2000,
+										position:'bottom'
+									})
+									
+									uni.reLaunch({
+										url:"/pages/no_network/no_network"
+									})
+								},20)
 								
-								uni.reLaunch({
-									url:"/pages/no_network/no_network"
-								})
-							},20)
-							
+							}
 						}
+						
 						
 					}
 				});

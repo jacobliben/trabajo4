@@ -335,18 +335,7 @@ var _info_not_found = _interopRequireDefault(__webpack_require__(/*! @/pages/inf
   props: ['vehicle'],
   mounted: function mounted() {
 
-    // this.vehicle_list=[
-    // 	{
-    // 		vehicle_no:"苏CLT332",
-    // 		vehicle_type:"半挂",
-    // 		vehicle_weight:33.5,
 
-    // 		create_time:"2021-02-22 11:01:22",
-
-    // 		consignee_address:"徐州云龙区铜山路209号",
-    // 	},
-
-    // ]
 
     this.getVehicleList();
   },
@@ -366,50 +355,67 @@ var _info_not_found = _interopRequireDefault(__webpack_require__(/*! @/pages/inf
       this.getVehicleList();
     },
 
-    goVehicleDetail: function goVehicleDetail(item) {
-      if (this.vehicle.state == 1) {
-        uni.setStorageSync('vehicle_item', item);
-        uni.navigateTo({
-          url: "/pages/add_vehicle/add_vehicle?btn_title=\u4FEE\u6539" });
+    goVehicleDetail: function goVehicleDetail(item) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var vehicleId, authorization, res, vehicle_item;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:if (!(
+                _this.vehicle.state == 1)) {_context.next = 13;break;}
+                console.log(item.vehicleId, '145');
+                vehicleId = item.vehicleId;
+                authorization = uni.getStorageSync("token");_context.next = 6;return (
 
-      } else {
-        uni.setStorageSync('vehicle_item', item);
-        uni.navigateTo({
-          url: "/pages/add_vehicle/add_vehicle?btn_title=\u67E5\u770B" });
 
-      }
+                  _this.$request({
+                    url: "/app/vehicle/getByVehicleId/" + vehicleId,
+
+                    header: {
+                      Authorization: authorization } }));case 6:res = _context.sent;
+
+
+
+                vehicle_item = res.data.data;
+                console.log(res, 'slbgw111');
+
+
+                uni.setStorageSync('vehicle_item', vehicle_item);
+                uni.navigateTo({
+                  url: "/pages/add_vehicle/add_vehicle?btn_title=\u4FEE\u6539" });_context.next = 15;break;case 13:
+
+
+                uni.setStorageSync('vehicle_item', item);
+                uni.navigateTo({
+                  url: "/pages/add_vehicle/add_vehicle?btn_title=\u67E5\u770B" });case 15:case "end":return _context.stop();}}}, _callee);}))();
+
+
 
 
     },
 
-    getVehicleList: function getVehicleList() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var queryParamsVehicle, authorization, res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
-                _this.queryParams.vehicleStatus = _this.vehicle.state;
-                queryParamsVehicle = _this.queryParams;
+    getVehicleList: function getVehicleList() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var queryParamsVehicle, authorization, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+                _this2.queryParams.vehicleStatus = _this2.vehicle.state;
+                queryParamsVehicle = _this2.queryParams;
                 console.log(queryParamsVehicle, "112");
-                authorization = uni.getStorageSync("token");_context.next = 6;return (
-                  _this.$request({
+                authorization = uni.getStorageSync("token");_context2.next = 6;return (
+                  _this2.$request({
                     url: "/app/vehicle/list",
                     header: {
                       Authorization: authorization },
 
-                    data: queryParamsVehicle }));case 6:res = _context.sent;
+                    data: queryParamsVehicle }));case 6:res = _context2.sent;
 
 
                 console.log(res, "222");if (!(
-                res.data.total == 0)) {_context.next = 11;break;}
+                res.data.total == 0)) {_context2.next = 11;break;}
                 setTimeout(function () {
-                  _this.show_not_found = true;
-                }, 100);return _context.abrupt("return");case 11:if (!(
+                  _this2.show_not_found = true;
+                }, 100);return _context2.abrupt("return");case 11:if (!(
 
 
 
-                _this.vehicle_list.length < res.data.total)) {_context.next = 15;break;}
-                _this.vehicle_list = [].concat(_toConsumableArray(_this.vehicle_list), _toConsumableArray(res.data.rows));_context.next = 17;break;case 15:
+                _this2.vehicle_list.length < res.data.total)) {_context2.next = 15;break;}
+                _this2.vehicle_list = [].concat(_toConsumableArray(_this2.vehicle_list), _toConsumableArray(res.data.rows));_context2.next = 17;break;case 15:
 
 
                 uni.showToast({
                   title: "没有更多的信息了",
-                  icon: "none" });return _context.abrupt("return");case 17:case "end":return _context.stop();}}}, _callee);}))();
+                  icon: "none" });return _context2.abrupt("return");case 17:case "end":return _context2.stop();}}}, _callee2);}))();
 
 
 

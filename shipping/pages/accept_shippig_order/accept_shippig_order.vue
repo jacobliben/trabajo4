@@ -41,18 +41,18 @@
 			<view class="person-details">
 				<view class="address-name">{{received_info.consignee_address}}</view>
 				<view class="person-nums">
-					<text>{{received_info.iscmShipper.shipperProvinceName}}</text>
-					<text v-if ="received_info.iscmShipper.shipperCityName!=='市辖区'">{{received_info.iscmShipper.shipperCityName}}</text>
-					<text v-if ="received_info.iscmShipper.shipperCityName==='市辖区'">{{received_info.iscmShipper.shipperRegionName}}</text>
+					<text>{{received_info.iscmWaybillInformationRecord.shipperProvinceName}}</text>
+					<text v-if ="received_info.iscmWaybillInformationRecord.shipperCityName!=='市辖区'">{{received_info.iscmWaybillInformationRecord.shipperCityName}}</text>
+					<text v-if ="received_info.iscmWaybillInformationRecord.shipperCityName==='市辖区'">{{received_info.iscmWaybillInformationRecord.shipperRegionName}}</text>
 					<text class="cuIcon-pullright lg text-gray margin-left margin-right"> </text>
-					<text>{{received_info.iscmConsignee.consigneeProvinceName}}</text>
+					<text>{{received_info.iscmWaybillInformationRecord.consigneeProvinceName}}</text>
 					<!-- 判断是否为“直辖市” -->
-					<text v-if ="received_info.iscmConsignee.consigneeCityName!=='市辖区'">{{received_info.iscmConsignee.consigneeCityName}}</text>
-					<text v-if ="received_info.iscmConsignee.consigneeCityName==='市辖区'">{{received_info.iscmConsignee.consigneeRegionName}}</text>
+					<text v-if ="received_info.iscmWaybillInformationRecord.consigneeCityName!=='市辖区'">{{received_info.iscmWaybillInformationRecord.consigneeCityName}}</text>
+					<text v-if ="received_info.iscmWaybillInformationRecord.consigneeCityName==='市辖区'">{{received_info.iscmWaybillInformationRecord.consigneeRegionName}}</text>
 				</view>
 				<view class="person-nums">
 					<text>装货地址： </text>
-					<text>{{received_info.iscmShipper.shipperAddress}} </text>
+					<text>{{received_info.iscmWaybillInformationRecord.shipperAddress}} </text>
 				</view>
 			</view>
 			<!-- <view>

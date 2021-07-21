@@ -1005,7 +1005,7 @@ var components
 try {
   components = {
     uniNumberBox: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-number-box/components/uni-number-box/uni-number-box */ "uni_modules/uni-number-box/components/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-number-box/components/uni-number-box/uni-number-box.vue */ 1022))
+      return __webpack_require__.e(/*! import() | uni_modules/uni-number-box/components/uni-number-box/uni-number-box */ "uni_modules/uni-number-box/components/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-number-box/components/uni-number-box/uni-number-box.vue */ 1004))
     }
   }
 } catch (e) {
@@ -1589,7 +1589,7 @@ var _self;var _default =
     this.btn_title = options.btn_title;
     if (this.btn_title == "修改" || this.btn_title == "查看") {
       this.received_info = uni.getStorageSync("vehicle_item");
-      console.log(this.received_info, '111');
+
     }
 
 
@@ -1616,11 +1616,29 @@ var _self;var _default =
 
     //导入车辆详情
     if (this.btn_title == "修改" || this.btn_title == "查看") {
-      //正式库
-      this.imgVehicleLicenseFirstUrl = 'https://wl.xcmgzhilian.com' + '/prod-api' + this.received_info.vehicleLicensePhotoFirst;
-      //测试库
-      // this.imgVehicleLicenseFirstUrl = 'http://10.22.2.138:8080' + this.received_info.vehicleLicensePhotoFirst
+      //车辆行驶证主副页 
 
+      this.imgVehicleLicenseFirstUrl = this.received_info.vehicleLicensePhotoFirst;
+      if (this.imgVehicleLicenseFirstUrl == '') {
+        this.imgVehicleLicenseFirstUrl = "/static/vehicle_license.jpg";
+      }
+      //人车合照
+      this.imgPeopleVehicleUrl = this.received_info.peopleVehiclePhoto;
+      if (this.imgPeopleVehicleUrl == '') {
+        this.imgPeopleVehicleUrl = "/static/people_vehicle.jpg";
+      }
+      //道路运输证照片
+      this.imgTransportLicenseUrl = this.received_info.vehicleRoadcertPhoto;
+      if (this.imgTransportLicenseUrl == '') {
+        this.imgTransportLicenseUrl = "/static/TransportLicense.png";
+      }
+      //挂车行驶证主副页
+      this.imgHangingCarPhotoUrl = this.received_info.trailerLicensePhotoFirst;
+      if (this.imgHangingCarPhotoUrl == '') {
+        this.imgHangingCarPhotoUrl = "/static/vehicle_license.jpg";
+      }
+
+      console.log(this.imgVehicleLicenseFirstUrl, 'reew');
       this.plate_number = this.received_info.vehiclePlateNumber;
       this.vehicleOwnName = this.received_info.vehicleOwnName;
       this.owner_type_index = this.received_info.vehicleOwnType;

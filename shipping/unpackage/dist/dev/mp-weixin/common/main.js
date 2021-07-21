@@ -39,9 +39,9 @@ _vue.default.prototype.$registCarrier = _registCarrier.myRegisterCarrier;
 _vue.default.prototype.pattern = pattern;
 
 //正式库 危险！！！
-_vue.default.prototype.BASE_URL = 'https://wl.xcmgzhilian.com' + '/prod-api';
+//Vue.prototype.BASE_URL = 'https://wl.xcmgzhilian.com' + '/prod-api'
 //测试库
-//Vue.prototype.BASE_URL = 'http://10.22.2.138:8080' 
+_vue.default.prototype.BASE_URL = 'http://10.22.2.138:8080';
 //Vue.prototype.BASE_URL = 'http://10.22.0.136:8080' 
 _App.default.mpType = 'app';
 

@@ -508,7 +508,7 @@
 			this.btn_title = options.btn_title
 			if (this.btn_title == "修改"||this.btn_title == "查看"){
 				this.received_info = uni.getStorageSync("vehicle_item")
-				console.log (this.received_info,'111')
+				
 			}
 			
 			
@@ -609,6 +609,7 @@
 			
 		},
 		methods:{
+			//用于 date picker!!!!!
 			getDate(type) {
 								            const date = new Date();
 								            let year = date.getFullYear();
@@ -776,7 +777,7 @@
 				this.car_type_list.unshift("请选择车辆类型")
 				
 				this.vehicleTypeSendValue = vehicleTypeOptions.data.data.map(e=>e.dictValue)
-					
+				
 				const vehicleType = this.received_info.vehicleType
 				
 				this.car_type_index = this.vehicleTypeSendValue.findIndex(value=>value == vehicleType) + 1

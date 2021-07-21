@@ -71,7 +71,7 @@ export const businessStatus = {
     waitGrab: 26,         //抢单中
     waitAccept: 28,       //待接收
     waitSendDispatch: 30, //待派车
-    waitAuditLoadInfo: 33,//待审核装载信息
+    waitAuditLoadInfo: 33,//待审核装载信息(待装货)
     waitDepart: 40,       //待发车
     waitSign: 50,         //待签收
     finishSign: 60,       //待审核

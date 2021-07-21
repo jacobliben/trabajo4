@@ -350,6 +350,33 @@ var _self;var _default =
     this.params_license = uni.getStorageSync("params_license");
   },
   mounted: function mounted() {
+    if (!this.isPerson) {
+      //加载 驾驶员身份证正面
+      this.imgDriverIDFrontUrl = uni.getStorageSync("idcardFront_reshow");
+      if (this.imgDriverIDFrontUrl == "") {
+        this.imgDriverIDFrontUrl = "/static/id_front.jpg";
+      }
+
+      //加载 驾驶员身份证背面
+      this.imgDriverIDBackUrl = uni.getStorageSync("idcardBack_reshow");
+      if (this.imgDriverIDBackUrl == "") {
+        this.imgDriverIDBackUrl = "/static/id-back.jpg";
+      }
+    }
+
+    //加载 机动车驾驶证主页
+    this.imgDriverLicensePhotoUrl = uni.getStorageSync("drivingLicensePhotoFirst_reshow");
+    if (this.imgDriverLicensePhotoUrl == "") {
+      this.imgDriverLicensePhotoUrl = "/static/driving_license.jpg";
+    }
+
+    //加载 道路运输从业资格证
+    this.imgDrivingCertificateUrl = uni.getStorageSync("qualificationCertPhoto_reshow");
+    if (this.imgDrivingCertificateUrl == "") {
+      this.imgDrivingCertificateUrl = "/static/roadcert.jpg";
+    }
+
+
 
     //跳转时显示
     var driverVehicleClass = this.params_license.driverVehicleClass || "A2";
@@ -980,7 +1007,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 800:
+/***/ 796:
 /*!************************************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/main.js?{"page":"pages%2Fcompany_license%2Fcompany_license"} ***!
   \************************************************************************************************************************/
@@ -996,5 +1023,5 @@ createPage(_company_license.default);
 
 /***/ })
 
-},[[800,"common/runtime","common/vendor"]]]);
+},[[796,"common/runtime","common/vendor"]]]);
 //# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/company_license/company_license.js.map
