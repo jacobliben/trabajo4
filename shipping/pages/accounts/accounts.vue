@@ -263,8 +263,6 @@
 					   
 			       			 this.imgAvatarUrl ="/static/user.png"
 							  
-							  
-							  console.log(this.user,"vvv");
 			       }
 				   
 				   const user = this.user 
@@ -272,28 +270,28 @@
 				   const user_permissions = user.data.permissions
 				   
 				   let result_shipping_order = user_permissions.findIndex(ele => ele === 'iscm:waybill:list')
-				   console.log (result_shipping_order,'99ds44')
+				   
 				   if (result_shipping_order == -1){
 				   	this.show_shipping_order = false
 				   	
 				   }
 				   
 				   let result_vehicle = user_permissions.findIndex(ele => ele === 'iscm:vehicle:list')
-				   console.log (result_vehicle,'99ds')
+				   
 				   if (result_vehicle == -1){
 				   	this.show_vehicle = false
 				   	
 				   }
 				   
 				   let result_driver = user_permissions.findIndex(ele => ele === 'iscm:driver:list')
-				   console.log (result_driver,'99ds')
+				   
 				   if (result_driver == -1){
 				   	this.show_driver = false
 				   	
 				   }
 				   
 				   let result_bankcard = user_permissions.findIndex(ele => ele === 'iscm:carrierBankcard:list')
-				   console.log (result_bankcard,'99ds')
+				  
 				   if (result_bankcard == -1){
 				   	this.show_bankcard = false
 				   	
@@ -353,12 +351,6 @@
 										  async success(res) {
 										    const tempFilePaths = res.tempFilePaths;
 											
-											//preview the photos
-											// uni.previewImage({
-											//             urls: res.tempFilePaths,
-											            
-											//         });
-													
 											
 											 //upload the img
 											 _self.imgAvatarUrl = tempFilePaths[0]
@@ -391,13 +383,10 @@
 											   					success: (res) => {
 											   					 
 																uni.showToast({title:"保存成功!", });	 
-											   					 console.log('请求成功_______________',res)
+											   					
 											   					  
 											   					},
-											   					fail:(err)=>{
-											   						console.log('请求失败_______________',err)
-																	
-											   					}
+											   					
 											   				})
 											   
 											}
@@ -506,7 +495,7 @@
 				this.show_vehicle = true
 				this.show_bankcard = true
 				
-				uni.navigateTo({
+				uni.reLaunch({
 					url:'/pages/login/login'
 				})
 				// // #ifdef APP-PLUS 

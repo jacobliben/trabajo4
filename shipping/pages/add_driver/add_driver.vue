@@ -607,12 +607,7 @@
 							
 					//#endif												 
 													 
-													 
-				 									 //preview the photos
-				 									 // uni.previewImage({
-				 									 //             urls: res.tempFilePaths,
-				 									             
-				 									 //         });
+													
 				 								
 				 									 //upload the img 
 				 									_self.imgDriverIDFrontUrl = tempFilePaths[0]

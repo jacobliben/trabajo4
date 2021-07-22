@@ -104,7 +104,7 @@
 							title:"该手机号尚未注册",
 							icon:"none"
 						})
-						 this.tel_num = ""
+						// this.tel_num = ""
 						this.codeDisabled = true
 						//if the phone has been registered, go sending the verifying code
 					}else{
@@ -117,7 +117,7 @@
 						title:"手机号格式不正确,请重输",
 						icon:"none"
 					})
-					 this.tel_num = ""
+					 //this.tel_num = ""
 					this.codeDisabled = true
 				}
 			},
@@ -182,12 +182,7 @@
 						                                        
 						                                          errorMsg:"手机号格式有误"
 						                                       },
-						                                       {
-																   name:"verify_code",
-						                                           rule:/^[0-9a-zA-Z]{4,10}$/,
-						                                           errorMsg:"验证码格式有误"
-						                                       }
-						                                  
+						                                      
 						                ];
 										
 										//进行验证码长度检查
@@ -196,7 +191,7 @@
 												title:"验证码须4位,请输入",
 												icon:"none"
 											})
-											this.veri_code = ""
+											//this.veri_code = ""
 										 return	 										
 										} 
 										
@@ -206,8 +201,8 @@
 												title:"两次密码需一致",
 												icon:"none"
 											})
-										 this.contrasena = ""
-										 this.recontrasena = ""	 
+										 // this.contrasena = ""
+										 // this.recontrasena = ""	 
 										 return	 										
 										} 
 										
@@ -223,7 +218,7 @@
 															         	title:"密码长度8~16位,必须包含数字,字母",
 																		icon:"none"
 															         })
-										           this.contrasena = ""
+										          // this.contrasena = ""
 												  
 													return
 																	 

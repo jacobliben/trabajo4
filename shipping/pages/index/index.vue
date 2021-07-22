@@ -17,10 +17,7 @@
 				<image src="/static/client-service.png" style="width:50rpx;height:50rpx;" mode="aspectFit"></image>
 				<view class="text-gray">客服</view>
 			</view>
-		   <!-- <view class="search-form radius">
-		      <text class="cuIcon-search"></text>
-		      <input type="text" placeholder="搜索货源,始发地,目的地" confirm-type="search"></input>
-		    </view> -->
+		  
 			
 			<view @click="goMessage">
 				<!-- below is the messages numbers -->
@@ -133,8 +130,12 @@
 					  <view class="one-icon" hover-class="one-icon-hover" @click="logout">
 						  
 					  					  <image src="/static/molecula.png" mode="aspectFit"></image>
+										   <!-- #ifdef MP-WEIXIN -->
 					  			<navigator open-type="exit" target="miniProgram"><text>退出</text></navigator>
-										  
+										      <!-- #endif -->
+											 <!-- #ifndef MP-WEIXIN --> 
+											 <text>退出</text>
+											   <!-- #endif -->
 					  </view>
 			   </view>
 		   </view>
@@ -274,10 +275,10 @@
 				this.user = resUserInfo	 
 			
 			   const user = this.user
-			   console.log (user.data.permissions,'ds')
+			   
 			   const user_permissions = user.data.permissions
 			   let result_shipping_order = user_permissions.findIndex(ele => ele === 'iscm:waybill:list')
-			   console.log (result_shipping_order,'99ds')
+			 
 			   if (result_shipping_order == -1){
 			   	this.show_shipping_order = false
 			   	
@@ -335,10 +336,10 @@
 				this.user = resUserInfo	 
 			
 			   const user = this.user
-			   console.log (user.data.permissions,'ds11')
+			  
 			   const user_permissions = user.data.permissions
 			   let result_shipping_order = user_permissions.findIndex(ele => ele === 'iscm:waybill:list')
-			   console.log (result_shipping_order,'99ds11')
+			  
 			   if (result_shipping_order == -1){
 			   	this.show_shipping_order = false
 			   	
@@ -376,24 +377,7 @@
 				})
 			}
 						
-			this.shipping_info_list=[
-						   {
-							   place_of_delivery:"南京栖霞",
-							   place_of_destiny:"徐州下淀",
-							    goods:"润滑油 500吨",
-								vehicle:"13米高栏车",
-								price_num:9800,
-								
-						   },
-						   {
-							   place_of_delivery:"上海外高桥",
-							   place_of_destiny:"徐州杨庄",
-							    goods:"车架 50吨",
-								vehicle:"10米高栏车",
-								price_num:7800, 
-							
-						   },
-			]
+			
 			this.getShippingInfoList()
 					 
 			var that = this
@@ -449,29 +433,6 @@
 							});
 			}
 			
-			
-			
-			
-			
-						
-						// // #ifdef APP-PLUS 
-						// //开启保活通知
-						// var main = plus.android.runtimeMainActivity();
-						// // var Intent = plus.android.importClass('android.content.Intent');  
-						// // var intent = new Intent();  
-						// // intent.setClassName(main, "io.dcloud.UNIACABF38.MyService2");  
-						// // main.startService(intent);
-						// var res=main.getResData();//直接调用自定义Activity中的getResData方法
-						// console.log(res);
-						// this.mn = res+"1"
-						
-						// //定义一个MainActivity 看传值是否成功
-						// // var mainAct = plus.android.importClass('io.dcloud.UNIACABF38.MainActivity');
-						// // var mainAct = new mainAct();  
-						// // var res=mainAct.getResData();//直接调用自定义Activity中的getResData方法
-						// // console.log(res);
-						// // this.mn = res
-						// // #endif
 		},
 		
 		onHide(){
@@ -494,10 +455,7 @@
 									 	
 									 })
 								this.un_read_msg = resMsg.data.total
-								console.log(resMsg,'slbgw111')
 								
-								
-									
 								
 							},
 			//判断用户是否授权
@@ -671,7 +629,7 @@
 				//restore the original shipping order status
 				this.show_shipping_order = true
 			 	
-			 	uni.navigateTo({
+			 	uni.reLaunch({
 			 		url:'/pages/login/login'
 			 	})  
 			 

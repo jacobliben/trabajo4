@@ -205,12 +205,17 @@
 					  	 	data:queryParams
 					  	 })
 				
-					     console.log(res,'mmm');
+					    
 					  if(res.data.total == 0){
 					  	setTimeout(()=>{
 					  		this.show_not_found = true
 					  	},30)
 					  	return
+					  }
+					  
+					  //stop sending request
+					  if (this.queryParams.pageNum*this.queryParams.pageSize>=res.data.total){
+					  	this.load_more = false
 					  }
 					  
 					  if (this.despatching_pending_list.length<res.data.total){

@@ -19,9 +19,7 @@
 				</view>
 			</view>
 			
-			<!-- <view   class="right-first-row">
-				<button type="primary" class="detail-btn" plain size="mini" @click="goShippingOrderDetails">运单状态和详情</button>
-			</view> -->
+		
 		</view>
 		
 		
@@ -190,15 +188,15 @@
 							  //if vehicle has NOT been choosen, bind it with DriverId .
 							  //use the driverID and carrierID to bind the vehicle ID
 							  
-							  console.log(this.queryParams.firstDriverId,'111')
+							 
 							  const firstDriverId = this.queryParams.firstDriverId
-							    console.log(firstDriverId,'ddd')
+							  
 							   
 							   
 							   //get the carrierID, which is the userBusinessId in the userInfo
 							   const carrier = uni.getStorageSync("user_info")
 							   const carrierId = carrier.data.user.userBusinessId
-							   console.log(carrierId,'777')
+							  
 							   
 							   var authorization = uni.getStorageSync("token")
 							   const res = await this.$request({
@@ -210,7 +208,7 @@
 							   
 							   })
 							        
-							   console.log(res,'q55');  
+							
 							    
 							   this.vehicle_choosen =	res.data.data.vehiclePlateNumber
 							   this.has_vehicle = true 
@@ -218,9 +216,6 @@
 							   this.queryParams.vehicleId = res.data.data.vehicleId
 							  					          
 							  							  
-							  
-							  
-							  
 							  
 						  }
 					  } catch (e) {
@@ -230,8 +225,6 @@
 					  } 
 					   
 					  
-					 
-					 
 			     }
 			 } catch (e) {
 			     // error

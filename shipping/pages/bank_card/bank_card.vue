@@ -44,21 +44,6 @@
 						text:"结算管理",
 						orderList:[]
 					},
-					// {
-					//   state:2,
-					//   text:"审核中",
-					//   orderList:[]
-					// },
-					// {
-					//   state:3,
-					//   text:"未通过",
-					//   orderList:[]
-					// },
-					// {
-					//   state:3,
-					//   text:"未认证",
-					//   orderList:[]
-					// },
 					
 				],
 			};
@@ -76,7 +61,7 @@
 			
 			tabClick(index){
 				this.tabCurrentIndex = index
-				console.log(this.tabCurrentIndex,'1wqw')
+				
 			},
 			
 			addBankcard(){

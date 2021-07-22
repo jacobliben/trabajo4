@@ -183,7 +183,7 @@
 					 	},
 					 	
 					 })
-					console.log(res,'a12');
+					
 					 
 					 this.driverWorkStatusOptions = res.data.data.map(e=>e=e.dictLabel)
 					 this.driverWorkStatusSendValue = res.data.data.map(e=>e=e.dictValue)
@@ -203,7 +203,7 @@
 					 	},
 					 	
 					 })
-					console.log(res,'345');
+				
 					
 					  this.driverVehicleClassOptions = res.data.data.map(e=>e=e.dictLabel)
 					
@@ -218,13 +218,13 @@
 			//通过姓名搜索
 			searchDriverName(e){
 				this.driverName = e.target.value
-				console.log(this.driverName,'aas');
+				
 			},
 			
 			//通过身份证号码搜索
 			searchDriverIdNumber(e){
 				this.driverIdNumber = e.target.value
-				console.log(this.driverIdNumber,'c112');
+				
 			},
 			
 			
@@ -242,7 +242,7 @@
 			//通过手机号码搜索					
 			searchDriverPhone(e){
 				this.driverPhone= e.target.value
-				console.log(this.driverPhone,'sa2');
+			
 			
 			},
 			
@@ -261,7 +261,7 @@
 			           
 			       },
 			lower: function(e) {
-			           console.log(e,'222222')
+			          
 					   
 					   setTimeout(() => {
 					   
@@ -310,7 +310,7 @@
 									url:`/app/driver/list?driverName=${driverName}&driverIdNumber=${driverIdNumber}&driverPhone=${driverPhone}`,
 									header:{
 										Authorization:authorization,
-										// "Content-Type": "application/json",
+										
 									},
 									data:queryParams
 									
@@ -322,7 +322,7 @@
 								}
 									
 									
-								console.log(res,'q55');  
+								
 								if (this.drivers_list.length<res.data.total){
 									this.drivers_list =[...this.drivers_list,...res.data.rows]
 									

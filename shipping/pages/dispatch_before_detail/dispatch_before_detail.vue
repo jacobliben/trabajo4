@@ -74,6 +74,7 @@
 	export default{
 		data(){
 			return{
+			   load_more:true,//继续加载列表
 			  scrollTop: 0,
 			  despatching_pending_list:[],
 			  show_not_found:false,
@@ -84,7 +85,7 @@
 			  canDispatch:null,
 			   queryParams: {
 			             pageNum: 1,
-			             pageSize: 7,
+			             pageSize: 5,
 			             
 			           },
 			}
@@ -131,8 +132,15 @@
 			 upper: function(e) {
 			        },
 			 lower: function(e) {
-						this.queryParams.pageNum += this.queryParams.pageSize
-						this.getDespatchingPendingList()
+				        setTimeout(() => {
+				        
+				        //TODO这里填写你加载数据的方法
+				        
+				        this.queryParams.pageNum += 1
+				        if (this.load_more){
+				          this.getDespatchingPendingList()
+				        }
+				        }, 1000)
 			        },
 			        
 			goUploadFiles(item){
@@ -185,6 +193,11 @@
 					  		this.show_not_found = true
 					  	},30)
 					  	return
+					  }
+					  
+					  //stop sending request
+					  if (this.queryParams.pageNum*this.queryParams.pageSize>=res.data.total){
+					  	this.load_more = false
 					  }
 					  
 					  if (this.despatching_pending_list.length<res.data.total){

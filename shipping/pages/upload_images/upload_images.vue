@@ -108,7 +108,7 @@
 		
 		<view>
 			<text>{{lng}}</text>
-			
+			<text>、、、、</text>
 			<text>{{lat}}</text>
 		</view>
 		
@@ -188,6 +188,9 @@
 				tachar_order:false,		
 				received_info:{},
 				btn_title:"",
+				
+				shippingNoteInfos:[],//运单信息数组
+
 				//是否可以“发车”，“签收”等
 				canDispatch:null,
 				short_distance:null,
@@ -372,13 +375,7 @@
 					const resChoosePhoto= await this.$photo({
 											  async success(res) {
 											    const tempFilePaths = res.tempFilePaths;
-												
-												//preview the photos
-												// uni.previewImage({
-												//             urls: res.tempFilePaths,
-												            
-												//         });
-														
+											
 												
 												 //upload the img
 												 _self.imgGoodsUrl = tempFilePaths[0]
@@ -407,13 +404,7 @@
 						 const resChoosePhoto= await this.$photo({
 						 						  async success(res) {
 						 						    const tempFilePaths = res.tempFilePaths;
-						 							
-						 							//preview the photos
-						 							// uni.previewImage({
-						 							//             urls: res.tempFilePaths,
-						 							            
-						 							//         });
-						 									
+						 						
 						 							
 						 							 //upload the img
 						 							 _self.imgOrderUrl = tempFilePaths[0]
@@ -441,14 +432,7 @@
 					  const resChoosePhoto= await this.$photo({
 					  						  async success(res) {
 					  						    const tempFilePaths = res.tempFilePaths;
-					  							
-					  							//preview the photos
-					  							// uni.previewImage({
-					  							//             urls: res.tempFilePaths,
-					  							            
-					  							//         });
-					  									
-					  							
+					  						
 					  							 //upload the img
 					  							 _self.imgOrderUrl = tempFilePaths[0]
 					  							 
@@ -599,6 +583,49 @@
 							})
 							return
 						} 
+						
+						//向监管SDK发信息
+						
+						 const shippingNoteNumber = this.received_info.dispatchNo
+						 const serialNumber = "0000"
+						 
+						const startCountrySubdivisionCode = this.startCountrySubdivisionCode                                                             
+						const endCountrySubdivisionCode = this.endCountrySubdivisionCode
+						
+						this.shippingNoteInfos[0] = shippingNoteNumber
+						this.shippingNoteInfos[1] = serialNumber
+						this.shippingNoteInfos[2] = startCountrySubdivisionCode
+						this.shippingNoteInfos[3] = endCountrySubdivisionCode
+						
+						console.log(this.shippingNoteInfos,'1112');
+						
+						const shippingNoteInfos = this.shippingNoteInfos
+						
+						//#ifdef APP-PLUS
+						  //启动前台服务/SDK监管(专为传值！！！！)
+						 //获取宿主上下文
+						   var main = plus.android.runtimeMainActivity();
+						    //通过反射获取Android的Intent对象
+						   var Intent = plus.android.importClass("android.content.Intent");
+						   //通过宿主上下文创建 intent
+						   var intent = new Intent(main.getIntent());
+						   //设置要开启的Activity包类路径  com.HBuilder.integrate.MainActivity换掉你自己的界面
+						   intent.setClassName(main, "io.dcloud.UNIACABF38.ServiceStart");
+						 
+						   //向原生界面传值操作
+						   intent.putExtra("shippingNoteNumber",shippingNoteInfos.shippingNoteNumber);
+						   //开启新的界面
+						   main.startService(intent);
+						
+						
+						//#endif
+						
+						
+						
+						
+						
+						
+						
 						
 						const res = await this.$request({
 							url:"/app/dispatch/departDispatch",

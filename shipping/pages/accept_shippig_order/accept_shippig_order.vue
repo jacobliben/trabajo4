@@ -55,26 +55,9 @@
 					<text>{{received_info.iscmWaybillInformationRecord.shipperAddress}} </text>
 				</view>
 			</view>
-			<!-- <view>
-				<view class="phone-new">进场</view>
-				
-			</view> -->
+			
 			
 		</view>
-		<!-- 
-		<view class="person">
-			<image src="/static/chronometer.png" mode="aspectFit" class="person-img"></image>
-			<view class="person-details">
-				<view class="person-name">收发货地之间</view>
-				<view class="person-nums">
-					<text class="cellphone">最短距离约 {{short_distance}} 公里 </text>
-				</view>
-			</view>
-			<view class="flex right-navigate"  @click="goMap">
-				<image src="/static/navigate.png" mode="aspectFit" class="navi"></image>
-				<text class="navi-text">导航</text>
-			</view>
-		</view> -->
 		
 		
 		  
@@ -137,7 +120,7 @@
 							 	 url: `https://restapi.amap.com/v3/geocode/geo?address=${this.received_info.consignee_address}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
 							 	
 							 	success:(res)=>{
-							 		console.log(res,'geo')
+							 		
 							 			 destiny_location  = res.data.geocodes[0].location.split(",")
 							 			  destiny_latitude =parseFloat(destiny_location[1]) 
 							 			  destiny_longitude = parseFloat(destiny_location[0])

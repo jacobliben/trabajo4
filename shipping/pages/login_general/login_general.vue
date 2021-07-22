@@ -19,7 +19,7 @@
 		data() {
 			return {
 				current:0,
-				//items:["公司账号登录","个人账号登录"]
+			
 			};
 		},
 		mounted(){

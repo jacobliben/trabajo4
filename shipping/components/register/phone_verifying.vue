@@ -6,7 +6,7 @@
 			<view class="name">手机号<text class="red">*</text></view>
 			
 			  <input type="number" maxlength="11" placeholder="请输入11位手机号码" :value="tel_num"
-			    name="cellphone"  focus 
+			    name="cellphone"  focus
 				 @input="getCellphone" @blur="checkPhone">
 				
 		</view> 
@@ -106,8 +106,6 @@
 				show_id_hint: false,
 				show_legal_id_hint: false,
 					  
-					  
-					  
 				disabled:true,
 				active:false,
 				checked:false,
@@ -132,7 +130,7 @@
 			
 			
 			this.params_phone = uni.getStorageSync("params_phone")
-			 console.log(this.params_business,"222")
+			
 			
 			
 		},
@@ -156,7 +154,7 @@
 				
 				this.tel_num = e.target.value
 				this.params.phonenumber = e.target.value
-				//console.log(this.params,'988')
+				
 				if (this.isPerson){
 					uni.setStorageSync("phone_verifying_cellphone",this.params.phonenumber)
 					uni.setStorageSync("contact_phone",this.params.phonenumber)
@@ -171,9 +169,12 @@
 			
 			async checkPhone(){
 				var that = this
-			
+			    
+				if (!that.params.phonenumber){
+					return
+				} 
 				
-				if (this.params.phonenumber.length ==11){
+				if (that.params.phonenumber.length ==11){
 					const res = await this.$request({
 						url:"/validUser",
 						method: "POST",
@@ -209,7 +210,7 @@
 					})
 					
 					 this.codeDisabled = true
-					 this.tel_num = ""
+					 //this.tel_num = ""
 				}
 			},
 			getVerifyCode(e){
@@ -229,7 +230,7 @@
 					method: "GET",
 					
 				})
-				console.log(res,0)
+				
 				if(res.data.code!=200){
 					uni.showToast({
 						title:"该登录号已存在,请10s后重选",
@@ -273,7 +274,7 @@
 			                   this.checked = !this.checked;
 							   this.disabled=!this.disabled
 							   this.active=!this.active
-							   console.log(this.checked,"111")
+							  
 							   if(this.checked===true){
 								   this.params.prot = true
 							   }else{
@@ -288,7 +289,7 @@
 			},
 			checkPassword(){
 				var psw = this.params.password
-				console.log (psw,'1122')
+				
 				  var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
 				
 				if(!reg.test(psw)){
@@ -318,8 +319,7 @@
 					 	title:res.data.msg,
 					 	icon:"none"
 					 })
-					 console.log(this.params.phonenumber,"11231")
-					 console.log(res,"1231")
+					
 					   this.codeDisabled = true;
 					    var count = 60;
 					         var resend = setInterval(function () {
@@ -342,32 +342,6 @@
 				
 			 },
 			formSubmit: function(e) {
-										console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
-						                //定义表单规则
-						          //       var rule = [
-						          //                              {name:"cellphone",
-																// checkType : "phoneno",
-						                                        
-						          //                                 errorMsg:"手机号格式不正确"
-						          //                              },
-						          //                              {
-																//    name:"verify_code",
-						          //                                  rule:/^[0-9a-zA-Z]{4,10}$/,
-						          //                                  errorMsg:"验证码格式不正确"
-						          //                              },
-															 //   {
-															 //   		name:"nickname",
-																// 	checkRule:"2,15",														   name:"verify_code",
-															 //       rule:/^[0-9a-zA-Z]{2,16}$/,
-															 //       errorMsg:"登录号应至少为2个字符"
-															 //   },
-															 //   {
-															 //   		name:"password",														   name:"verify_code",
-															 //       rule:/^[0-9a-zA-Z]{8,16}$/,
-															 //       errorMsg:"密码长度8-16个字符"
-															 //   },
-						                                  
-						          //       ];
 										
 										//进行验证码长度检查
 										if (this.params.code == null || this.params.code==""||this.params.code.length !=4){
@@ -432,29 +406,7 @@
 										uni.setStorageSync("params_phone",this.params)
 										this.$emit('register_phone_params',this.params)
 										
-											// var formData = e.detail.value;
-											// //var checkRes = graceChecker.check(formData, rule);
-											// if(checkRes&&this.is_correct){
-												
-											//   //  uni.showToast({title:"验证通过!", icon:"none"});
-												
-											// 	this.params.the_step =2
-												
-											// 	this.params.active_two_step= true
-											// 	uni.setStorageSync("params_phone",this.params)
-											// 	this.$emit('register_phone_params',this.params)
-												
-											// }else{
-											// 	console.log(graceChecker,1543)
-											// 	if(graceChecker.error!=""||graceChecker.error!=null){
-											// 		//uni.showToast({ title: graceChecker.error, icon: "none" });
-											// 	}else{
-											// 		uni.showToast({ title: "填写有误,请修改", icon: "none" });
-											// 	}
-											    
-											// }
-										
-						                
+											
 										
 									},
 		}

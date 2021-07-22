@@ -61,8 +61,6 @@
 				 },
 				 
 				 radioChange(e){
-					 console.log(e.detail.value,'12345')
-					 
 					 if(e.detail.value){
 						this.params.disabled = false
 						 this.params.active = true

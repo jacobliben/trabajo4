@@ -84,7 +84,6 @@
 		},
 		async mounted(){
 			
-			console.log(this.now_state,'955')
 			uni.setNavigationBarTitle({
 				title:`${this.now_state.text}`
 			})
@@ -102,10 +101,10 @@
 			   	  	 	
 			   	  	 })
 			const user = resUserInfo		 
-			console.log (user.data.permissions,'ds')
+			
 			const user_permissions = user.data.permissions
 			let result = user_permissions.findIndex(ele => ele === 'iscm:waybill:list')
-			console.log (result,'99ds')
+			
 			if (result == -1){
 				this.show_not_found = true
 				
@@ -139,15 +138,7 @@
 				    phoneNumber: phone ,
 					
 				});
-				 // var Intent = plus.android.importClass("android.content.Intent");  
-				 //    var Uri = plus.android.importClass("android.net.Uri");  
-				 //    // 获取主Activity对象的实例  
-				 //    var main = plus.android.runtimeMainActivity();  
-				 //    // 创建Intent  
-				 //    var uri = Uri.parse("13783712192"); // 这里可修改电话号码  
-				 //    var call = new Intent("android.intent.action.CALL",uri);  
-				 //    // 调用startActivity方法拨打电话  
-				 //    main.startActivity( call );  
+				
 			},
 			 goAcceptShippingOrder(item){
 				var that = this

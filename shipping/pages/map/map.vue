@@ -6,9 +6,7 @@
 						:latitude="latitude" :longitude="longitude" 
 						:markers="covers" :polyline="polyline">
 		                </map>
-						<!-- <text>{{lng}}</text>
-						<text>------</text>
-						<text>{{lat}}</text> -->
+						
 		            </view>
 		        </view>
 	</view>

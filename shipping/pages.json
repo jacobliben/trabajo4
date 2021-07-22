@@ -13,7 +13,8 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "徐工智联"
+				"navigationBarTitleText": "徐工智联",
+				"enablePullDownRefresh": false
 			}
 		},
 		{
@@ -607,15 +608,7 @@
             }
             
         }
-        ,{
-            "path" : "pages/register_driver/register_driver",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "个体司机注册",
-                "enablePullDownRefresh": false
-            }
-            
-        }
+        
         ,{
             "path" : "pages/personal_business_info/personal_business_info",
             "style" :                                                                                    
@@ -625,15 +618,7 @@
             }
             
         }
-        ,{
-            "path" : "pages/license/license",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "个人驾驶证件信息",
-                "enablePullDownRefresh": false
-            }
-            
-        }
+       
         ,{
             "path" : "pages/vehicle/vehicle",
             "style" :                                                                                    
@@ -797,15 +782,7 @@
             }
             
         }
-        ,{
-            "path" : "pages/11/11",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
+      
         ,{
             "path" : "pages/dispatch_before/dispatch_before",
             "style" :                                                                                    

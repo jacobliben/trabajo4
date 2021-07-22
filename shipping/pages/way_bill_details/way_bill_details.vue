@@ -5,12 +5,7 @@
 		            <view v-show="current === 0">
 		                <detail :passed_info="detailed_info" :btn_title = "btn_title"></detail>
 		            </view>
-		           <!-- <view v-show="current === 1">
-		                <shipping-current-state :btn_title = "btn_title"></shipping-current-state>
-		            </view>
-					<view v-show="current === 2">
-					    <accounts-detail></accounts-detail>
-					</view> -->
+		           
 		        </view>
 	</view>
 </template>
@@ -25,9 +20,7 @@
 		data() {
 			return {
 				current:0,
-				// items:["派车单详情",
-				// // "派车单状态","账单明细",
-				// ],
+				
 				btn_title:'',
 				detailed_info:{},
 			};
@@ -41,9 +34,9 @@
 		},
 		onLoad(options){
 			 this.detailed_info = uni.getStorageSync("upload_item")
-			 console.log(this.detailed_info,"777")
+			
 			 this.btn_title = options.btn_title
-			console.log(this.btn_title,"mm")
+			
 		},
 		methods:{
 			 onClickItem(res){

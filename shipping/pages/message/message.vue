@@ -22,15 +22,6 @@
 						<view>阅读时间：{{item.readingTime}}</view>
 						<view>创建人名称：{{item.createBy}}</view>
 					</view>
-					<!--<view>
-						<text class="shipper">运费：{{item.carrierRates}}元</text>
-					</view>
-					<view>
-						<text class="shipper">创建人：{{item.createBy}}</text>
-					</view>
-					<view>
-						<text class="create_time">发货人联系电话:{{item.iscmShipper.shipperPhone}}</text>		
-					</view> -->
 					
 				</view>
 				
@@ -116,10 +107,10 @@
 		},
 		methods:{
 			upper: function(e) {
-			           console.log(e,'11111')
+			         
 			       },
 			lower: function(e) {
-			           console.log(e,'222222')
+			          
 									this.queryParams.pageNum += this.queryParams.pageSize
 									this.getMessageList()
 			       },
@@ -132,7 +123,7 @@
 				this.msg_content = item.messageContent
 			    var authorization = uni.getStorageSync("token")
 				const msgID = item.msgId
-				console.log (msgID,'1v1')
+			
 				//将该信息标为“已读”
 				let markReadMsg = await this.$request({
 					 	url:"/iscm/msg/markRead/" + msgID,
@@ -185,7 +176,7 @@
 						 	
 						 })
 					this.message_list = resMsg.data.rows
-					console.log(resMsg,'slbgw111')
+					
 					
 					//如果后台请求消息数为0，直接告知没有消息
 					if(resMsg.data.total == 0){
@@ -215,7 +206,7 @@
 						 	
 						 })
 					this.message_list = resMsg.data.rows
-					console.log(resMsg,'slbgw111')
+					
 					
 					
 					//如果后台请求消息数为0，直接告知没有消息

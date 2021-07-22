@@ -557,7 +557,7 @@
 									this.imgHangingCarPhotoUrl = "/static/vehicle_license.jpg"
 								}
 								
-								console.log (this.imgVehicleLicenseFirstUrl,'reew')
+								
 								 this.plate_number = this.received_info.vehiclePlateNumber
 								 this.vehicleOwnName = this.received_info.vehicleOwnName
 								 this.owner_type_index = this.received_info.vehicleOwnType
@@ -1425,13 +1425,7 @@
 				    }
 				   });
 								 
-								 uploadTask.onProgressUpdate(function (res) {
-								       _self.percent = res.progress;
-								       console.log('上传进度' + res.progress);
-								       console.log('已经上传的数据长度' + res.totalBytesSent);
-								       console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend);
-								      });
-							
+								
 				  },
 				  error : function(e){
 				   console.log(e);
@@ -1449,22 +1443,7 @@
 								},
 				  success: function (res) {
 				   const tempFilePaths = res.tempFilePaths;
-								
-								 //preview the photos
-								 // uni.previewImage({
-								 //             urls: res.tempFilePaths,
-								 //             longPressActions: {
-								 //                 itemList: ['发送给朋友', '保存图片', '收藏'],
-								 //                 success: function(data) {
-								 //                     console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
-								 					
-								 //                 },
-								 //                 fail: function(err) {
-								 //                     console.log(err.errMsg);
-								 //                 }
-								 //             }
-								 //         });
-								
+							
 								 //upload the img 
 								_self.imgDraggingTransportPhotoUrl = tempFilePaths[0]
 								
@@ -1491,12 +1470,7 @@
 				    }
 				   });
 								 
-								 uploadTask.onProgressUpdate(function (res) {
-								       _self.percent = res.progress;
-								       console.log('上传进度' + res.progress);
-								       console.log('已经上传的数据长度' + res.totalBytesSent);
-								       console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend);
-								      });
+								
 							
 				  },
 				  error : function(e){
@@ -1855,7 +1829,7 @@
 								},
 								
 							})
-							console.log(res,"加车")
+						
 							if(res.data.msg ="操作成功"){
 								uni.showToast({
 									title:res.data.msg,

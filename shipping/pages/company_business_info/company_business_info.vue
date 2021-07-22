@@ -549,7 +549,7 @@
 												
 											})
 											
-											console.log(identify_res,"1123fdsgds")
+											
 											
 											 
 											 _self.legal_person_id = identify_res.data.data.num
@@ -580,7 +580,7 @@
 															
 														})
 														
-														console.log(identify_res.data.data,"1123fdsgds")
+														
 														//改变input 显示
 														_self.legal_person_id = identify_res.data.data.num							
 														//改变params					
@@ -590,11 +590,6 @@
 							//#endif													
 																									 
 													
-													//preview the photos
-													// uni.previewImage({
-													//             urls: res.tempFilePaths,
-													            
-													//         });
 															
 													
 													 //upload the img 
@@ -621,11 +616,7 @@
 										 						  async success(res) {
 										 						    const tempFilePaths = res.tempFilePaths;
 										 							
-										 							//preview the photos
-										 							// uni.previewImage({
-										 							//             urls: res.tempFilePaths,
-										 							            
-										 							//         });
+										 							
 										  						  							
 										  	  //upload the img 
 										  	_self.imglegalPersonCerReverseUrl = tempFilePaths[0]
@@ -651,13 +642,6 @@
 					  						    const tempFilePaths = res.tempFilePaths;
 					  							
 												
-					  							//preview the photos
-					  							// uni.previewImage({
-					  							//             urls: res.tempFilePaths,
-					  							            
-					  							//         });
-					  									
-					  							
 					  							//upload the img
 					  							_self.imgBackUrl = tempFilePaths[0]
 					  							
@@ -699,7 +683,7 @@
 							  		 
 							  		let base64 = uni.arrayBufferToBase64(ress.data);
 							  		base64 = 'data:image/jpeg;base64,' + base64 //不加上这串字符，在访问页面无法显示
-							  		console.log(base64,'1991')
+							  		
 							  		var fileUrl
 							  		
 							  		_self.params.fileUrl = base64 
@@ -715,7 +699,7 @@
 							  			
 							  		})
 							  		
-							  		console.log(identify_res.data.data,"1123fdsgds")
+							  		
 							  		//input 显示的值
 							  		_self.number_front = identify_res.data.data.reg_num 
 							  		_self.detail_address = identify_res.data.data.address
@@ -753,7 +737,7 @@
 							  								
 							  							})
 							  							
-							  							console.log(identify_res.data.data,"1123fdsgds")
+							  							
 							  							//改变input 显示
 							  							_self.number_front = identify_res.data.data.reg_num
 							  							_self.detail_address = identify_res.data.data.address
@@ -769,11 +753,7 @@
 							  //#endif		
 																					   
 							  														 
-							  								 //preview the photos
-							  								 // uni.previewImage({
-							  								 //             urls: res.tempFilePaths,
-							  								      
-							  								 //         });
+							  								
 							  							
 							  								 //upload the img 
 							  								_self.imgBusinessLicenseUrl = tempFilePaths[0]
@@ -818,7 +798,7 @@
 												
 											})
 											
-											console.log(identify_res.data.data,"1123fdsgds")
+											
 											//改变input 显示
 																		_self.company_name = identify_res.data.data.name
 																		 _self.number_front = identify_res.data.data.num
@@ -865,7 +845,7 @@
 																
 															})
 															
-															console.log(identify_res.data.data,"1123fdsgds")
+															
 															//改变input 显示
 																						_self.company_name = identify_res.data.data.name
 																						 _self.number_front = identify_res.data.data.num
@@ -893,11 +873,7 @@
 								//#endif
 								
 																																		                   
-							  								 //preview the photos
-							  								 // uni.previewImage({
-							  								 //             urls: res.tempFilePaths,
-							  								      
-							  								 //         });
+							  								
 							  							
 							  								 //upload the img 
 							  								_self.imgBusinessLicenseUrl = tempFilePaths[0]
@@ -920,13 +896,7 @@
 						                              * 道路运输经营许可证
 						                              */
 													 const tempFilePaths = res.tempFilePaths;
-						  								 console.log(tempFilePaths,"876")
 						  								 
-						  								 //preview the photos
-						  								 // uni.previewImage({
-						  								 //             urls: res.tempFilePaths,
-						  								      
-						  								 //         });
 						  							
 						  								 //upload the img 
 						  								_self.imgTransportLicenseUrl = tempFilePaths[0]
@@ -951,7 +921,7 @@
 			},
 			
 			cancelLicense(e){
-				console.log(e,"199")
+				
 				if(e.currentTarget.dataset.index=="legal_person_cer_front"){
 					this.imglegalPersonCerFrontUrl ="/static/id_front.jpg",
 					setTimeout(()=>{

@@ -394,7 +394,7 @@
 				 						
 				 	 async success(res) {
 				 	  const tempFilePaths = res.tempFilePaths;
-				 	console.log(tempFilePaths,"876")
+				 	
 				 	//识别	
 					
 					//#ifdef H5							 
@@ -404,7 +404,7 @@
 						responseType: 'arraybuffer',
 												  															
 						success: async ress =>{
-							 console.log(tempFilePaths,"12876")
+							
 							let base64 = uni.arrayBufferToBase64(ress.data);
 							base64 = 'data:image/jpeg;base64,' + base64 //不加上这串字符，在访问页面无法显示
 							
@@ -423,7 +423,7 @@
 												  																	
 											})
 												  																
-								console.log(identify_res.data.data,"1123fdsgds-driver")
+								
 								//input 显示的值
 								 _self.driver_name = identify_res.data.data.name 
 								_self.driver_id = identify_res.data.data.num
@@ -457,7 +457,7 @@
 													
 												})
 												
-												console.log(identify_res.data.data,"1123fdsgds")
+												
 												//input 显示的值
 												 _self.driver_name = identify_res.data.data.name 
 												_self.driver_id = identify_res.data.data.num
@@ -473,11 +473,6 @@
 												 
 													 
 													 
-				 									 //preview the photos
-				 									 // uni.previewImage({
-				 									 //             urls: res.tempFilePaths,
-				 									             
-				 									 //         });
 				 								
 				 									 //upload the img 
 				 									_self.imgDriverIDFrontUrl = tempFilePaths[0]
@@ -507,13 +502,9 @@
 					 					
 					  async success(res) {
 					   const tempFilePaths = res.tempFilePaths;
-					 								 console.log(tempFilePaths,"876")
+					 								
 					 								 
-					 								 //preview the photos
-					 								 // uni.previewImage({
-					 								 //             urls: res.tempFilePaths,
-					 								             
-					 								 //         });
+					 							
 					 							
 					 								//upload the img
 					 								_self.imgDriverIDBackUrl = tempFilePaths[0]
@@ -551,7 +542,7 @@
 								 	responseType: 'arraybuffer',
 								 							  															
 								 	success: async ress =>{
-								 		 console.log(tempFilePaths,"12876")
+								 		
 								 		let base64 = uni.arrayBufferToBase64(ress.data);
 								 		base64 = 'data:image/jpeg;base64,' + base64 //不加上这串字符，在访问页面无法显示
 								 		
@@ -569,7 +560,7 @@
 								 						},
 								 							  																	
 								 							})
-											console.log(identify_res,"1123fdsgds")
+											
 								 																							
 								 																							 
 								 			_self.params.driverVehicleClass = identify_res.data.data.vehicle_type
@@ -604,7 +595,7 @@
 								 								
 								 							})
 								 							
-								 							console.log(identify_res.data.data,"1123fdsgds")
+								 							
 								 							_self.params.driverVehicleClass = identify_res.data.data.vehicle_type
 								 							if (_self.params.driverVehicleClass === "A2"){
 								 							     _self. index = 0
@@ -616,12 +607,7 @@
 								 //#endif	
 						 
 								 
-								 //preview the photos
-								 // uni.previewImage({
-								 //             urls: res.tempFilePaths,
-								             
-								 //         });
-									
+								
 									//upload the img
 									_self.imgDriverLicensePhotoUrl = tempFilePaths[0]
 									
@@ -645,11 +631,7 @@
 						  async success(res) {
 							  const tempFilePaths = res.tempFilePaths;
 							  
-							  //preview the photos
-							  // uni.previewImage({
-							  //             urls: res.tempFilePaths,
-							              
-							  //         });
+							  
 									  
 								//upload the img
 								_self.imgDrivingCertificateUrl = tempFilePaths[0]
@@ -801,11 +783,7 @@
 									   }
 									  
 									   
-									 
-									   
-									   
-									   
-										console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
+										
 						                //定义表单规则
 						                var rule = [
 						                                       {name:"cellphone",
