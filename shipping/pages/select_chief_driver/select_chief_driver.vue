@@ -230,13 +230,13 @@
 			
 			//通过工作状态搜索
 			bindPickerDriverWorkStatusChange(e) {
-						            console.log('picker发送选择改变，携带值为驾驶员状态', e.target.value)
+						            
 						            this.driver_work_status_index = e.target.value
 									
 									var driver_work_status_index = this.driver_work_status_index
 									
 									 this.driverWorkStatus =this.driverWorkStatusSendValue[driver_work_status_index-1]
-									 console.log (this.driverWorkStatus,"驾驶员状态后台值")
+									
 									
 						        },
 			//通过手机号码搜索					
@@ -248,13 +248,13 @@
 			
 			//通过准驾车型搜索
 			// bindPickerDriverVehicleClassChange(e) {
-			// 			            console.log('picker发送选择改变，携带值为准驾车型', e.target.value)
+			
 			// 			            this.driver_vehicle_class_index = e.target.value
 									
 			// 						var driver_vehicle_class_index = this.driver_vehicle_class_index
 									
 			// 						 this.driverVehicleClass =this.driverVehicleClassOptions[driver_vehicle_class_index]
-			// 						 console.log (this.driverVehicleClass,"准驾车型后台值")
+			
 					
 			// },				
 			upper: function(e) {

@@ -102,7 +102,7 @@
 			// uni.login({
 			// 	provider:"weixin",
 			// 	success:(loginRes)=>{
-			// 		console.log("login", loginRes.code)
+		
 			// 		that.code = loginRes.code
 			// 		uni.hideLoading()
 			// 	}

@@ -914,9 +914,7 @@
 				  			
 							
 				  },
-				  error : function(e){
-				   console.log(e);
-				  }
+				 
 				 });
 			},
 			
@@ -1181,7 +1179,7 @@
 					
 					 this.params.carrierContactsPhone = this.tel
 				
-										console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
+										
 						               uni.setStorageSync("params_business",this.params)
 						                
 										this.params.the_step =3

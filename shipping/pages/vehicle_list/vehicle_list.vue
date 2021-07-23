@@ -74,7 +74,7 @@
 			
 			tabClick(index){
 				this.tabCurrentIndex = index
-				console.log(this.tabCurrentIndex,'1wqw')
+				
 			},
 			
 			addVehicle(){

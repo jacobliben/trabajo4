@@ -225,12 +225,12 @@
 				
 			},
 			bindBankClassPickerChange(e) {
-			            console.log('picker发送选择改变，携带值为', e.target.value)
+			            
 			            this.bank_class_index = e.target.value
 						this.params.carrierBankcardCategory = 1
 			        },
 			bindAccountTypePickerChange(e) {
-			            console.log('picker发送选择改变01，携带值为', e.target.value)
+			           
 			            this.account_type_index = e.target.value
 						if(e.target.value== 0){
 							
@@ -241,7 +241,7 @@
 						}
 			        },
 			bindPickerDefaultAccountChange(e) {
-			            console.log('picker发送选择改变，携带值为Default', e.target.value)
+			            
 			            this.default_account_index = e.target.value
 						this.params.carrierBankcardIsDefault = e.target.value
 						//enable the btn
@@ -309,7 +309,7 @@
 			},
 			//银行选择 已经不用！！！！
 			bindPickerChange: function(e) {
-			            console.log('picker发送选择改变，携带值为bank', e.target.value)
+			           
 			            this.index = e.target.value
 					
 						this.params.bankCode=this.list_code[this.index-1]
@@ -327,7 +327,7 @@
 							this.branch_index = this.branch_list.findIndex(value=>value == branchBankName)
 							
 						}else if(this.btn_title == "添加"){
-							console.log('picker发送选择改变，携带值为branch', e.target.value)
+							
 							this.branch_index = e.target.value
 							
 							this.params.branchBankName = this.branch_list[this.branch_index]

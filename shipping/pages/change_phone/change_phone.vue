@@ -139,7 +139,7 @@
 			},
 			
 			async formSubmit(e) {
-										console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
+										
 						                //定义表单规则
 						                var rule = [
 						                                       {name:"cellphone",
@@ -188,7 +188,7 @@
 											    	
 											    })
 												
-												console.log (res, "183")
+												
 												if (res.data.code == 200){
 													uni.reLaunch({
 														url:"/pages/login_general/login_general"

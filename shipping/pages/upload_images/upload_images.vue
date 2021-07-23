@@ -12,7 +12,15 @@
 				<view class="details_weight">
 					<!-- <text>20托盘</text>
 					<text>|</text> -->
-					<text>{{received_info.dispatchGoodsWeight}}吨</text>
+					<text>货物重量 : {{received_info.dispatchGoodsWeight}}吨</text>
+					<!-- <text>|</text>
+					<text>150立方</text> -->
+				</view>
+				
+				<view class="details_weight" v-if="btn_title==='查看'||btn_title==='查阅'||btn_title==='签收'">
+					<!-- <text>20托盘</text>
+					<text>|</text> -->
+					<text>发车时间 : {{received_info.departureTime}}</text>
 					<!-- <text>|</text>
 					<text>150立方</text> -->
 				</view>
@@ -106,7 +114,7 @@
 			</view>
 		</view>
 		
-		<view>
+		<!-- <view>
 			<text>{{lng}}</text>
 			<text>、、、、</text>
 			<text>{{lat}}</text>
@@ -122,7 +130,7 @@
 			<text>endCountrySubdivisionCode</text>
 			<text>。。。。</text>
 			<text>{{endCountrySubdivisionCode}}</text>
-		</view>
+		</view> -->
 		
 		<view class="bars" v-if="btn_title==='装货'||this.btn_title==='发车'||this.btn_title==='签收'">
 			<!-- <view @click="letsScan">
@@ -279,7 +287,7 @@
 							 	 url: `https://restapi.amap.com/v3/geocode/geo?address=${this.received_info.iscmDispatchInformationRecord.consigneeAddress}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
 							 	
 							 	success:(res)=>{
-							 		      console.log(res,"目的地")
+							 		     
 							 			 this.endCountrySubdivisionCode  = res.data.geocodes[0].adcode
 							 			  
 										 
@@ -597,25 +605,25 @@
 						this.shippingNoteInfos[2] = startCountrySubdivisionCode
 						this.shippingNoteInfos[3] = endCountrySubdivisionCode
 						
-						console.log(this.shippingNoteInfos,'1112');
+						
 						
 						const shippingNoteInfos = this.shippingNoteInfos
 						
 						//#ifdef APP-PLUS
-						  //启动前台服务/SDK监管(专为传值！！！！)
-						 //获取宿主上下文
-						   var main = plus.android.runtimeMainActivity();
-						    //通过反射获取Android的Intent对象
-						   var Intent = plus.android.importClass("android.content.Intent");
-						   //通过宿主上下文创建 intent
-						   var intent = new Intent(main.getIntent());
-						   //设置要开启的Activity包类路径  com.HBuilder.integrate.MainActivity换掉你自己的界面
-						   intent.setClassName(main, "io.dcloud.UNIACABF38.ServiceStart");
+						 //  //启动前台服务/SDK监管(专为传值！！！！)
+						 // //获取宿主上下文
+						 //   var main = plus.android.runtimeMainActivity();
+						 //    //通过反射获取Android的Intent对象
+						 //   var Intent = plus.android.importClass("android.content.Intent");
+						 //   //通过宿主上下文创建 intent
+						 //   var intent = new Intent(main.getIntent());
+						 //   //设置要开启的Activity包类路径  com.HBuilder.integrate.MainActivity换掉你自己的界面
+						 //   intent.setClassName(main, "io.dcloud.UNIACABF38.ServiceStart");
 						 
-						   //向原生界面传值操作
-						   intent.putExtra("shippingNoteNumber",shippingNoteInfos.shippingNoteNumber);
-						   //开启新的界面
-						   main.startService(intent);
+						 //   //向原生界面传值操作
+						 //   intent.putExtra("shippingNoteNumber",shippingNoteInfos.shippingNoteNumber);
+						 //   //开启新的界面
+						 //   main.startService(intent);
 						
 						
 						//#endif
@@ -636,7 +644,7 @@
 							},
 							
 						})
-						console.log(res,"发车")
+						
 						if (res.data.msg =="操作成功"){
 							uni.showToast({
 								title:"操作成功"
@@ -683,7 +691,7 @@
 							},
 							
 						})
-						console.log(res,"签收")
+						
 						if (res.data.msg =="操作成功"){
 							uni.showToast({
 								title:"操作成功"
@@ -768,7 +776,7 @@
   }
   .person{
 	  width: 100%;
-	  height:180rpx;
+	 
 	  border-top:1px solid #f4f4f4;
 	  padding:10rpx;
 	  display: flex;

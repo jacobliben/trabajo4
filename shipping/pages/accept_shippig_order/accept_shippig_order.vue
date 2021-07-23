@@ -4,8 +4,8 @@
 			<view class="left-first-row">
 				<view class="shipping_num">{{received_info.waybillNo}}</view>
 				<view class="details">
-					<view>货物名称：{{received_info.shipping_goods_name}}</view>
-					<view>货物类型：{{received_info.shipping_goods_name}}</view>
+					<view>货物名称：{{received_info.iscmSource.goodsName}}</view>
+					<view>货物类型：{{received_info.iscmSource.goodsType}}</view>
 					<view>包装类型：{{received_info.packageType}}</view>
 				</view>
 				
@@ -89,7 +89,8 @@
 				imgOrderUrl:"/static/camera-scan.png",
 				tachar_scan:false,
 				tachar_goods:false,
-				tachar_order:false,		
+				tachar_order:false,	
+				get_info:{},
 				received_info:{},
 				btn_title:"",
 				short_distance:null,
@@ -98,10 +99,25 @@
 		},
 		
 	
-		onLoad(options){
+		async onLoad(options){
 			var that = this
-		    this.received_info = uni.getStorageSync("accepted_shipping_orders")
-		
+		    this.get_info = uni.getStorageSync("accepted_shipping_orders")
+		     console.log(this.get_info,'hhh');
+			 const waybillId= this.get_info.waybillId
+			 var authorization = uni.getStorageSync("token")
+			 
+			 const resSource = await this.$request({
+			 	 	url:`/app/waybill/getWaybillVo/${waybillId}`,
+			 	 	
+			 	 	header:{
+			 	 		Authorization:authorization,
+						
+			 	 	},
+					
+			 	 	
+			 	 })
+			 console.log(resSource,'789');
+			 this.received_info = resSource.data.data
 			this.btn_title = options.btn_title
 			
 			//for calcating distance of delivery
@@ -166,11 +182,10 @@
 			
 			async accept(){
 				var waybillID = this.received_info.waybillId
-				console.log(waybillID,"789")
-				console.log(this.btn_title,"7289")
+				
 				 var authorization = uni.getStorageSync("token")
 				 
-				 // if (this.btn_title=="接受运单"){
+				
 					 const res = await this.$request({
 					 	 	url:`/app/waybill/waybillAccept/${waybillID}`,
 					 	 	

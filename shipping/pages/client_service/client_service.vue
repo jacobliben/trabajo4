@@ -228,7 +228,7 @@
 			// 回答问题的业务逻辑
 			answer(id){
 				// 这里应该传入问题的id,模拟就用index代替了
-				console.log(id)
+				
 				
 			},
 			sendMsg(){

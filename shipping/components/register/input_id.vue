@@ -50,7 +50,7 @@
 			},
 			
 			formSubmit: function(e) {
-										console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
+										
 						                //定义表单规则
 						                var rule = [
 						                                       {name:"name",

@@ -87,7 +87,7 @@
 			 		<text class="name">货物名称</text>		 
 			 </view>
 			 <view>
-				   <text class="ref-name margin-right">{{passed_info.goodsName}}</text>
+				   <text class="ref-name margin-right">{{passed_info.iscmSource.goodsName}}</text>
 			 		<!-- 	<text class="cuIcon-right lg text-gray"></text>	 -->
 			 </view>
 		 </view>
@@ -118,8 +118,8 @@
 		 			 	<text class="name">承运人</text>			 
 		 			 </view>
 		 			 <view>
-		 			 	<!-- <text class="ref-name">{{passed_info.iscmCarrier.carrierName}}</text> 			 
-		 			 			<text class="cuIcon-right lg text-gray"></text>	 -->		 
+		 			 	 <text class="ref-name">{{passed_info.iscmCarrier.carrierName}}</text> 			 
+		 			 			<!--<text class="cuIcon-right lg text-gray"></text>	 -->		 
 		 			 </view>
 		 </view>
 		 
@@ -206,22 +206,22 @@
 		 </view> -->
 		 
 		  <view class="current-state">发货人信息</view>
-		 <view class="cu-form-group">
+		 <!-- <view class="cu-form-group">
 			 <view>
 			 	<text class="name">发货人(公司)</text>			 
 			 </view>
 			 <view>
 			 	<text class="ref-name">{{passed_info.iscmWaybillInformationRecord.shipperName}}</text>			 
-			 		<!--	<text class="cuIcon-right lg text-gray"></text>	 -->		 
+			 			 
 			 </view>
-		 </view>
+		 </view> -->
 		 
 		 <view class="cu-form-group" @click="goShipperDetail">
 		 			 <view>
 		 			 	<text class="name">托运人</text>			 
 		 			 </view>
 		 			 <view>
-		 			 	<text class="ref-name">{{passed_info.iscmWaybillInformationRecord.companyName}}</text>			 
+		 			 	<text class="ref-name">{{passed_info.iscmWaybillInformationRecord.shipper}}</text>			 
 		 			 		<!-- 	<text class="cuIcon-right lg text-gray"></text>	 -->		 
 		 			 </view>
 		 </view>
@@ -231,7 +231,7 @@
 			 	<text class="name">发货联系人</text>			 
 			 </view>
 			 <view>
-			 	<text class="ref-name">{{passed_info.shipper}}</text>			 
+			 	<text class="ref-name">{{passed_info.iscmWaybillInformationRecord.shipperName}}</text>			 
 			 		<!-- 	<text class="cuIcon-right lg text-gray"></text>	 -->		 
 			 </view>
 		 </view>
@@ -272,7 +272,7 @@
 			 	<text class="name">收货联系人</text>			 
 			 </view>
 			 <view>
-			 	<text class="ref-name">{{passed_info.consignee}}</text>			 
+			 	<text class="ref-name">{{passed_info.iscmWaybillInformationRecord.consigneeName}}</text>			 
 			 		<!-- 	<text class="cuIcon-right lg text-gray"></text>	 -->		 
 			 </view>
 		 </view>
@@ -426,7 +426,7 @@
 		},
 		props:["passed_info","btn_title"],
 		mounted(){
-			console.log(this.passed_info,"fff")
+			
 		},
 		methods:{
 			goWayBillDetail(){

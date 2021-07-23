@@ -82,7 +82,7 @@
 							},
 							
 						})
-						console.log(res,"绑车")
+						
 						if(res.data.msg ="车辆和承运人已存在对应关系"){
 							uni.showToast({
 								title:"成功," + res.data.msg,

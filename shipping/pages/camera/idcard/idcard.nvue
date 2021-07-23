@@ -156,7 +156,7 @@ export default {
 			   
 			    sourceType: ['camera'], 
 			    success: function (res) {
-			        console.log(JSON.stringify(res.tempFilePaths));
+			        
 					
 					_this.snapshotsrc = res.tempFilePaths[0];
 							_this.stopPreview();

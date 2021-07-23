@@ -52,7 +52,7 @@
 		},
 		methods:{
 			goArticle(item){
-				console.log(item,'98')
+				
 				const {url} = item
 					uni.navigateTo({
 						url

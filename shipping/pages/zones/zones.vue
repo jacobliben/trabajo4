@@ -50,7 +50,7 @@
 						    type: 'gcj02',
 							geocode:true,//设置该参数为true可直接获取经纬度及城市信息
 						    success: function (res) {
-								console.log(res.city,"121")
+								
 								
 								that.locationValue = res.address.province + res.address.city;
 						    },

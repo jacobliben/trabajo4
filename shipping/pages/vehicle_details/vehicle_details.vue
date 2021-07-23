@@ -168,7 +168,7 @@
 			},
 			
 			bindTextAreaBlur (e) {
-			            console.log(e.detail.value)
+			         
 			},
 			//get the result from the dropdown
 			getPlateColor(e){
@@ -193,20 +193,7 @@
 				  success: function (res) {
 				   const tempFilePaths = res.tempFilePaths;
 								 
-								 //preview the photos
-								 // uni.previewImage({
-								 //             urls: res.tempFilePaths,
-								 //             longPressActions: {
-								 //                 itemList: ['发送给朋友', '保存图片', '收藏'],
-								 //                 success: function(data) {
-								 //                     console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
-								 					
-								 //                 },
-								 //                 fail: function(err) {
-								 //                     console.log(err.errMsg);
-								 //                 }
-								 //             }
-								 //         });
+								
 							
 								 //upload the img 
 								_self.imgTractorTrailerDrivingCertificateUrl = tempFilePaths[0]
@@ -229,17 +216,10 @@
 				    }
 				   });
 								 
-								 uploadTask.onProgressUpdate(function (res) {
-								       _self.percent = res.progress;
-								       console.log('上传进度' + res.progress);
-								       console.log('已经上传的数据长度' + res.totalBytesSent);
-								       console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend);
-								      });
+								
 							
 				  },
-				  error : function(e){
-				   console.log(e);
-				  }
+				  
 				 });
 			},
 			
@@ -255,20 +235,7 @@
 				  success: function (res) {
 				   const tempFilePaths = res.tempFilePaths;
 								
-								 //preview the photos
-								 // uni.previewImage({
-								 //             urls: res.tempFilePaths,
-								 //             longPressActions: {
-								 //                 itemList: ['发送给朋友', '保存图片', '收藏'],
-								 //                 success: function(data) {
-								 //                     console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
-								 					
-								 //                 },
-								 //                 fail: function(err) {
-								 //                     console.log(err.errMsg);
-								 //                 }
-								 //             }
-								 //         });
+							
 								
 								 //upload the img 
 								_self.imgTrailerDrivingCertificateUrl = tempFilePaths[0]
@@ -296,17 +263,10 @@
 				    }
 				   });
 								 
-								 uploadTask.onProgressUpdate(function (res) {
-								       _self.percent = res.progress;
-								       console.log('上传进度' + res.progress);
-								       console.log('已经上传的数据长度' + res.totalBytesSent);
-								       console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend);
-								      });
+								
 							
 				  },
-				  error : function(e){
-				   console.log(e);
-				  }
+				  
 				 });
 			},
 			
@@ -323,21 +283,7 @@
 				   const tempFilePaths = res.tempFilePaths;
 								
 								 
-								 //preview the photos
-								 // uni.previewImage({
-								 //             urls: res.tempFilePaths,
-								 //             longPressActions: {
-								 //                 itemList: ['发送给朋友', '保存图片', '收藏'],
-								 //                 success: function(data) {
-								 //                     console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
-								 					
-								 //                 },
-								 //                 fail: function(err) {
-								 //                     console.log(err.errMsg);
-								 //                 }
-								 //             }
-								 //         });
-								
+							
 								 //upload the img 
 								_self.imgTractorDrivingCertificateUrl = tempFilePaths[0]
 								
@@ -364,17 +310,10 @@
 				    }
 				   });
 								 
-								 uploadTask.onProgressUpdate(function (res) {
-								       _self.percent = res.progress;
-								       console.log('上传进度' + res.progress);
-								       console.log('已经上传的数据长度' + res.totalBytesSent);
-								       console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend);
-								      });
+								
 							
 				  },
-				  error : function(e){
-				   console.log(e);
-				  }
+				  
 				 });
 			},
 			

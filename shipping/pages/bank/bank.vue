@@ -184,12 +184,12 @@
 		methods:{
 			
 			bindBankClassPickerChange(e) {
-			            console.log('picker发送选择改变，携带值为', e.target.value)
+			           
 			            this.bank_class_index = e.target.value
 						this.params.carrierBankcardCategory = 1
 			        },
 			bindPickerChange: function(e) {
-			            console.log('picker发送选择改变，携带值为', e.target.value)
+			            
 			            this.index = e.target.value
 						
 						this.params.bankCode=this.list_code[this.index-1]
@@ -285,7 +285,7 @@
 			    },
 			
 			async formSubmit(e){
-						console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
+						
 						//定义表单规则
 						var rule = [
 						                       {name:"cellphone",
@@ -392,7 +392,7 @@
 						
 						
 						var form = this.form
-						console.log( form, "form")
+						
 						form = JSON.stringify(form)
 						
 					

@@ -27,7 +27,7 @@
 					      delta: 1
 					  }); 
 				   }else{
-					    console.log(res.networkType);
+					  
 				   }
 				   
 				});

@@ -158,7 +158,7 @@
 					 	},
 					 	
 					 })
-					console.log(res,'jj12');
+					
 					 
 					 this.vehicleNetStatusOptions = res.data.data.map(e=>e=e.dictLabel)
 					 this.vehicleNetStatusSendValue = res.data.data.map(e=>e=e.dictValue)
@@ -179,7 +179,7 @@
 					 	},
 					 	
 					 })
-					console.log(res,'a12');
+					
 					 
 					 this.vehicleWorkStatusOptions = res.data.data.map(e=>e=e.dictLabel)
 					 this.vehicleWorkStatusSendValue = res.data.data.map(e=>e=e.dictValue)
@@ -191,40 +191,40 @@
 			//通过车船牌照号码搜索
 			searchVehiclePlateNumber(e){
 				this.vehiclePlateNumber = e.target.value
-				console.log(this.driverName,'aas');
+				
 			},
 			
 			
 			//通过车辆入网状态搜索
 			bindPickerVehicleNetStatusChange(e) {
-						            console.log('picker发送选择改变，携带值为工作状态', e.target.value)
+						          
 						            this.vehicle_net_status_index = e.target.value
 									
 									var vehicle_net_status_index = this.vehicle_net_status_index
 									
 									 this.vehicleNetStatus =this.vehicleNetStatusSendValue[vehicle_net_status_index-1]
-									 console.log (this.vehicleNetStatus,"工作状态后台值")
+									
 									
 						        },
 			
 			//通过工作状态搜索
 			bindPickerVehicleWorkStatusChange(e) {
-						            console.log('picker发送选择改变，携带值为工作状态', e.target.value)
+						           
 						            this.vehicle_work_status_index = e.target.value
 									
 									var vehicle_work_status_index = this.vehicle_work_status_index
 									
 									 this.vehicleWorkStatus =this.vehicleWorkStatusSendValue[vehicle_work_status_index-1]
-									 console.log (this.vehicleWorkStatus,"工作状态后台值")
+									
 									
 						        },
 			
 			
 			upper: function(e) {
-			           console.log(e,'11111')
+			          
 			       },
 			lower: function(e) {
-			           console.log(e,'222222')
+			          
 					    
 						setTimeout(() => {
 						//TODO这里填写你加载数据的方法
@@ -275,7 +275,7 @@
 								this.load_more = false
 							}
 							     
-							console.log(res,'q55');  
+							
 							if (this.vehicle_list.length<res.data.total){
 								this.vehicle_list =[...this.vehicle_list,...res.data.rows]
 								

@@ -31,7 +31,7 @@ function PlanningRoute(start, end, _waypoints, result, fail) {
 		destination: end,
 		waypoints: _waypoints,
 		success: function(data) {
-			console.log(data,'777')
+			
 			var points = [];
 			if (data.paths && data.paths[0] && data.paths[0].steps) {
 				var steps = data.paths[0].steps;

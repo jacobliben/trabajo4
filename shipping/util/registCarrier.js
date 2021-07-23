@@ -34,7 +34,7 @@ export const myRegisterCarrier = (form)=>{
 		})
 	}).then(
 	    value=>{
-		console.log(value,'221')
+		
 		uni.showToast({
 			title:value.data.msg,
 			 duration: 3000,

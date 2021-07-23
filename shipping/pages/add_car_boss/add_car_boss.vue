@@ -66,7 +66,7 @@
 			 checkboxChange: function (e) {
 			                var items = this.items,
 			                    values = e.detail.value;
-								console.log(e)
+								
 			                for (var i = 0, lenI = items.length; i < lenI; ++i) {
 			                    const item = items[i]
 			                    if(values.includes(item.value)){
@@ -92,7 +92,7 @@
 							        data: "您好，黄贤勇现在添加您为车老板，您可以接受或者拒绝"
 							      });
 								uni.onSocketMessage(function (res) {
-								  console.log('收到服务器内容：' + res.data);
+								 
 								});  
 								  
 							});

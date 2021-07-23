@@ -168,6 +168,9 @@
                     "key" : ""
                 }
             }
+        },
+        "router" : {
+            "mode" : "history"
         }
     }
 }

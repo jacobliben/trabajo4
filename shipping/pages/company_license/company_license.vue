@@ -309,7 +309,7 @@
 				})
 			},
 			bindPickerChange(e) {
-			            console.log('picker发送选择改变，携带值为 准驾车型', e.target.value)
+			           
 			            this.index = e.target.value
 						if (this.index == 0){
 							this.params.driverVehicleClass = "A2"
@@ -362,8 +362,7 @@
 					  this.params.drivercertValidPeriodTo = e.target.value
 					   this.driver_cert_expiry_date_has_input = true
 				  }
-			     //       console.log(this.params.driving_certificate_begin_date,"begin_date")
-					   // console.log(this.params.driving_certificate_expiry_date,"expiry_date")
+			    
 			        },
 		     getDate(type) {
 					            const date = new Date();
@@ -487,9 +486,7 @@
 				 									})		
 				 	 
 				 	 },
-				 	 error : function(e){
-				 	  console.log(e);
-				 	 }
+				 	
 				 	});
 				 }else if(e.currentTarget.dataset.index=="driver_id_back"){
 					 uni.chooseImage({
@@ -519,9 +516,7 @@
 					 								})		
 					  
 					  },
-					  error : function(e){
-					   console.log(e);
-					  }
+					  
 					 });
 				 }else if(e.currentTarget.dataset.index=="driver_license_photo_first"){
 					 /**

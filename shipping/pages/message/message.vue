@@ -149,7 +149,7 @@
 				uni.setClipboardData({
 				    data:data,
 				    success: function () {
-				        console.log('success');
+				      
 						uni.showToast({
 							title:"copy"
 						})

@@ -7,7 +7,7 @@
 		// #endif	
 		},
 		onShow: function() {
-			//console.log('App Show')
+			
 			
 			//if there is no network
 			uni.getNetworkType({
@@ -101,7 +101,7 @@
 
 		},
 		onHide: function() {
-			//console.log('App Hide')
+			
 		},
 		globalData:{
 			

@@ -189,7 +189,7 @@
 			// 		 	},
 					 	
 			// 		 })
-			// 		console.log(res,'qqs');
+			
 					 
 			// 		 this.driverStatusOptions = res.data.data.map(e=>e=e.dictLabel)
 			// 		 this.driverStatusSendValue = res.data.data.map(e=>e=e.dictValue)
@@ -209,7 +209,7 @@
 			// 		 	},
 					 	
 			// 		 })
-			// 		console.log(res,'a12');
+			
 					 
 			// 		 this.driverWorkStatusOptions = res.data.data.map(e=>e=e.dictLabel)
 			// 		 this.driverWorkStatusSendValue = res.data.data.map(e=>e=e.dictValue)
@@ -229,7 +229,7 @@
 			// 		 	},
 					 	
 			// 		 })
-			// 		console.log(res,'345');
+			
 					
 			// 		  this.driverVehicleClassOptions = res.data.data.map(e=>e=e.dictLabel)
 					
@@ -241,65 +241,65 @@
 			//通过姓名搜索
 			searchDriverName(e){
 				this.driverName = e.target.value
-				console.log(this.driverName,'aas');
+				
 			},
 		
 			//通过身份证号码搜索
 			searchDriverIdNumber(e){
 				this.driverIdNumber = e.target.value
-				console.log(this.driverIdNumber,'c112');
+				
 			},
 			//通过驾驶员状态搜索
 			// bindPickerDriverStatusChange(e) {
-			// 			            console.log('picker发送选择改变，携带值为驾驶员状态', e.target.value)
+		
 			// 			            this.driver_status_index = e.target.value
 									
 			// 						var driver_status_index = this.driver_status_index
 									
 			// 						 this.driverStatus =this.driverStatusSendValue[driver_status_index-1]
-			// 						 console.log (this.driverStatus,"驾驶员状态后台值")
+			
 									
 			// 			        },
 			//通过工作状态搜索
 			// bindPickerDriverWorkStatusChange(e) {
-			// 			            console.log('picker发送选择改变，携带值为驾驶员状态', e.target.value)
+			
 			// 			            this.driver_work_status_index = e.target.value
 									
 			// 						var driver_work_status_index = this.driver_work_status_index
 									
 			// 						 this.driverWorkStatus =this.driverWorkStatusSendValue[driver_work_status_index-1]
-			// 						 console.log (this.driverWorkStatus,"驾驶员状态后台值")
+			
 									
 			// 			        },
 			//通过手机号码搜索					
 			searchDriverPhone(e){
 				this.driverPhone= e.target.value
-				console.log(this.driverPhone,'sa2');
+				
 			
 			},
 			
 			//通过准驾车型搜索
 			// bindPickerDriverVehicleClassChange(e) {
-			// 			            console.log('picker发送选择改变，携带值为准驾车型', e.target.value)
+			
 			// 			            this.driver_vehicle_class_index = e.target.value
 									
 			// 						var driver_vehicle_class_index = this.driver_vehicle_class_index
 									
 			// 						 this.driverVehicleClass =this.driverVehicleClassOptions[driver_vehicle_class_index]
-			// 						 console.log (this.driverVehicleClass,"准驾车型后台值")
+			
 					
 			// },					
 			
 			upper: function(e) {
-			           console.log(e,'11111')
+			          
 			       },
 			lower: function(e) {
-			           console.log(e,'222222')
+			           
 					   
 					   setTimeout(() => {
 					   
 					   //TODO这里填写你加载数据的方法
-					   // this.queryParams.pageNum += this.queryParams.pageSize
+					  
 					   
 					   this.queryParams.pageNum += 1
 					   if (this.load_more){

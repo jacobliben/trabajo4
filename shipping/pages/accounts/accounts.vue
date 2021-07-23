@@ -185,24 +185,12 @@
 			   	  	 	},
 			   	  	 	
 			   	  	 })
-					 
+					
 				this.user = resUserInfo	 
+				
+			
 			      const user = resUserInfo			
-			       			 //正式库，危险
-			           // this.imgAvatarUrl = 'https://wl.xcmgzhilian.com' + '/prod-api' + this.user.data.user.avatar
-			       			 //半测试版
-			       			this.imgAvatarUrl = 'http://116.62.172.131:88' + '/stage-api' + this.user.data.user.avatar
-			       			 //测试库
-			       // this.imgAvatarUrl = 'http://10.22.2.138:8080' + this.user.data.user.avatar
-			       //this.imgAvatarUrl = 'http://10.22.0.136:8080' + this.user.data.user.avatar
-			       
-			       //如果后台没有传入avatar,就用local 的avatar展示
-			       if (this.imgAvatarUrl ==""){
-			       			  this.imgAvatarUrl ="/static/user.png"
-							  
-			       }
-				   
-				   
+			   
 				   
 				   const user_permissions = user.data.permissions
 				   

@@ -112,7 +112,7 @@
 			
 			
 			async formSubmit(e) {
-										console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
+										
 						                //定义表单规则
 						                var rule = [
 						                                      
@@ -151,7 +151,7 @@
 						                //进行表单检查
 										var authorization = uni.getStorageSync("token")
 										
-											console.log(this.params,'113')
+											
 											var oldPassword = this.old_contrasena
 											var newPassword = this.contrasena
 												
@@ -167,7 +167,7 @@
 											    	
 											    })
 												
-												console.log (res_code, "1183")
+												
 												
 												 if(res_code.data.code == 200){
 												 	uni.showToast({

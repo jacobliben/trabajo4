@@ -45,8 +45,8 @@
 				navList:[
 					{
 						state:0,
-						text:"待装货",
-						btn:"装货",
+						text:"待检验",
+						btn:"查验",
 						orderList:[],
 						businessStatus:33
 					},
@@ -127,7 +127,7 @@
 			//从后台请求表单数据
 			 async getLists(){  
 				 var Authorization = uni.getStorageSync("token")
-				 console.log(Authorization,"999")
+				 
 				const res = await this.$request({
 					url:"/iscm/dispatch/92",
 					
@@ -135,7 +135,7 @@
 						"Authorization":Authorization
 					}
 				})
-				console.log(res,'978')
+				
 			},
 			
 		}

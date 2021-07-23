@@ -442,7 +442,7 @@ export default {
 							});
 						},
 						fail: (ev) => {
-							console.log(ev);
+							
 						},
 						complete: () => {
 							uni.hideLoading();

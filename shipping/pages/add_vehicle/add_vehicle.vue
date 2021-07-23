@@ -633,17 +633,17 @@
 						},
 			//	车辆能源类型		
 			bindPickerEnergyTypeChange(e) {
-						            console.log('picker发送选择改变，携带值为EnergyType', e.target.value)
+						            
 						            this.energy_type_index = e.target.value
 									
 									var vehicle_energy_type_index = this.energy_type_index
-									console.log (this.energy_type_index,"车辆能源类型后台序数")
+									
 									 this.params.vehicleEnergyType =this.vehicleEnergyTypeSendValue[vehicle_energy_type_index-1]
-									 console.log (this.params.vehicleEnergyType,"车辆能源类型后台值")
+									
 						        },
 			//车主类型									
 			bindPickerTypeChange(e) {
-						            console.log('picker发送选择改变，携带值为车主类型', e.target.value)
+						            
 						            this.owner_type_index = e.target.value
 									
 									this.params.vehicleOwnType =  this.owner_type_index
@@ -652,13 +652,13 @@
 			
 			//车辆类型
 			bindPickerCarTypeChange(e) {
-						            console.log('picker发送选择改变，携带值为车辆类型', e.target.value)
+						          
 						            this.car_type_index = e.target.value
 									
 									var car_type_index = this.car_type_index
 									
 									 this.params.vehicleType =this.vehicleTypeSendValue[car_type_index-1]
-									 console.log (this.params.vehicleType,"车辆类型后台值")
+									
 									
 						        },		
 			//将base64位图片上传,之后identifying要用
@@ -678,7 +678,7 @@
 				})
 			},
 			bindPickerColorChange(e) {
-			            console.log('picker发送选择改变，携带值为', e)
+			           
 			            this.plate_color_index = e.target.value
 						if (e.target.value == 0){
 							this.params.vehiclePlateColor =  "2"
@@ -687,7 +687,7 @@
 						this.params.vehiclePlateColor =  "2"
 			        },
 			bindPickerChange(e) {
-			            console.log('picker发送选择改变01，携带值为', e.target.value)
+			           
 			            this.plate_type_index = e.target.value
 						if(e.target.value== 0){
 							this.params.vehiclePlateType = "02"
@@ -698,7 +698,7 @@
 						}
 			        },
 			bindPickercargoBoxLengthChange(e){
-						            console.log('picker发送选择改变，携带值为BoxLength', e.target.value)
+						          
 						            this.box_length_index = e.target.value
 									const box_length_index = this.box_length_index -1 // substract 1 to make the index matches
 									this.params.cargoBoxLength = this.vehicleCargoBoxLengthSendValue[box_length_index]
@@ -706,7 +706,7 @@
 						        },	
 												
 			bindPickercargoBoxTypeChange(e){
-						            console.log('picker发送选择改变，携带值为BoxType', e.target.value)
+						           
 						            this.box_type_index = e.target.value
 									this.params.cargoBoxType = e.target.value
 						        },	
@@ -813,7 +813,7 @@
 			},
 			
 			radioEnergyChange(e){
-				console.log(e.target.value,'energy')
+				
 				if(e.target.value==="new"){
 					this.energy_type ="新能源"
 					this.params.whetherNewEnergy =1
@@ -827,7 +827,7 @@
 			
 			
 			radioCarChange(e){
-				console.log(e.target.value,'car')
+				
 				if(e.target.value=="ordinary"){
 					this.is_ordinary = true
 					this.params.vehicleSpecies = 103
@@ -995,7 +995,7 @@
 										
 									})
 									
-									console.log(identify_res,"1123fdsgds")														  																
+																					  																
 																							  																
 																																							
 									//改变input 显示																														 
@@ -1040,7 +1040,7 @@
 															
 														})
 														
-														console.log(identify_res.data.data,"1123fdsgds")
+
 														//改变input 显示
 														_self.vin = identify_res.data.data.vin
 														_self.plate_number = identify_res.data.data.plate_num
@@ -1063,11 +1063,7 @@
 							//#endif			
 							
 							
-							//preview the photos
-							// uni.previewImage({
-							//             urls: res.tempFilePaths,
-							            
-							//         });
+							
 									
 							
 							 //upload the img 
@@ -1093,11 +1089,7 @@
 					 						  async success(res) {
 					 						    const tempFilePaths = res.tempFilePaths;
 					 							
-					 							//preview the photos
-					 							// uni.previewImage({
-					 							//             urls: res.tempFilePaths,
-					 							            
-					 							//         });
+					 							
 					 									
 					 							
 					 							 //upload the img 
@@ -1124,11 +1116,7 @@
 					 						  async success(res) {
 					 						    const tempFilePaths = res.tempFilePaths;
 					 							
-					 							//preview the photos
-					 							// uni.previewImage({
-					 							//             urls: res.tempFilePaths,
-					 							            
-					 							//         });
+					 							
 					 									
 					 							
 					 							//upload the img
@@ -1180,7 +1168,7 @@
 															
 														})
 														
-														console.log(identify_res,"1123fdsgds")																			  																
+																															  																
 																																	  																
 																																																	
 														//改变input 显示
@@ -1224,7 +1212,7 @@
 																				
 																			})
 																			
-																			console.log(identify_res.data.data,"1123fdsgds")
+																			
 																			//改变input 显示
 																			_self.vin = identify_res.data.data.vin
 																			_self.plate_number = identify_res.data.data.plate_num
@@ -1249,11 +1237,7 @@
 												
 												
 												
-					 							//preview the photos
-					 							// uni.previewImage({
-					 							//             urls: res.tempFilePaths,
-					 							            
-					 							//         });
+					 							
 					 									
 					 							
 					 						//upload the img
@@ -1281,11 +1265,7 @@
 											  async success(res) {
 											    const tempFilePaths = res.tempFilePaths;
 												
-												//preview the photos
-												// uni.previewImage({
-												//             urls: res.tempFilePaths,
-												            
-												//         });
+												
 														
 												
 											//upload the img
@@ -1320,20 +1300,7 @@
 				   const tempFilePaths = res.tempFilePaths;
 							
 								 
-								 //preview the photos
-								 // uni.previewImage({
-								 //             urls: res.tempFilePaths,
-								 //             longPressActions: {
-								 //                 itemList: ['发送给朋友', '保存图片', '收藏'],
-								 //                 success: function(data) {
-								 //                     console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
-								 					
-								 //                 },
-								 //                 fail: function(err) {
-								 //                     console.log(err.errMsg);
-								 //                 }
-								 //             }
-								 //         });
+								 
 							
 								 //upload the img 
 								_self.imgDriverLicenseUrl = tempFilePaths[0]
@@ -1356,17 +1323,9 @@
 				    }
 				   });
 								 
-								 uploadTask.onProgressUpdate(function (res) {
-								       _self.percent = res.progress;
-								       console.log('上传进度' + res.progress);
-								       console.log('已经上传的数据长度' + res.totalBytesSent);
-								       console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend);
-								      });
-							
+								
 				  },
-				  error : function(e){
-				   console.log(e);
-				  }
+				  
 				 });
 			},
 			
@@ -1384,20 +1343,7 @@
 				  success: function (res) {
 				   const tempFilePaths = res.tempFilePaths;
 								
-								 //preview the photos
-								 // uni.previewImage({
-								 //             urls: res.tempFilePaths,
-								 //             longPressActions: {
-								 //                 itemList: ['发送给朋友', '保存图片', '收藏'],
-								 //                 success: function(data) {
-								 //                     console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
-								 					
-								 //                 },
-								 //                 fail: function(err) {
-								 //                     console.log(err.errMsg);
-								 //                 }
-								 //             }
-								 //         });
+								
 								
 								 //upload the img 
 								_self.imgDraggingCarPhotoUrl = tempFilePaths[0]
@@ -1427,9 +1373,7 @@
 								 
 								
 				  },
-				  error : function(e){
-				   console.log(e);
-				  }
+				 
 				 });
 			},
 			uploadDraggingTransportPhoto(){
@@ -1473,9 +1417,7 @@
 								
 							
 				  },
-				  error : function(e){
-				   console.log(e);
-				  }
+				  
 				 });
 			},
 		
@@ -1638,7 +1580,7 @@
 								 
 					        }else if(regExpNewEnergy.test(car_no)){
 								if (this.energy_type=="新能源"){
-									console.log("车牌号正确")
+									
 									
 									uni.setStorageSync("params_vehicle",this.params)
 									this.$emit('register_vehicle_params',this.params)
@@ -1652,7 +1594,7 @@
 					            
 							}else if(regExpNOTNewEnergy.test(car_no)){
 								if (this.energy_type=="非新能源"){
-									console.log("车牌号正确")
+									
 									
 									uni.setStorageSync("params_vehicle",this.params)
 									this.$emit('register_vehicle_params',this.params)
@@ -1864,7 +1806,7 @@
 						},
 						
 					})
-					console.log(resEdit,"改车")
+					
 					if(resEdit.data.msg ="操作成功"){
 						uni.showToast({
 							title:resEdit.data.msg,

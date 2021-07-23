@@ -11,7 +11,7 @@ const store = new Vuex.Store({
 		login(state, provider) {//改变登录状态  
 		            state.hasLogin = true  
 		            state.uerInfo.token = provider.token  
-					 console.log( state.uerInfo.token,"123")
+					
 		            uni.setStorage({//将用户信息保存在本地  
 		                key: 'uerInfo',  
 		                data: provider  

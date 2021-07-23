@@ -128,7 +128,7 @@
 						  this.canDispatch = true
 			}else if (this.btn_text ==="签收"&& user_permissions.includes("iscm:dispatch:sign") ){
 						  this.canDispatch = true
-			}else if (this.btn_text ==="装货"&& user_permissions.includes("iscm:dispatch:sign") ){
+			}else if (this.btn_text ==="查验"&& user_permissions.includes("iscm:dispatch:sign") ){
 						  this.canDispatch = true
 			}
 			

@@ -112,10 +112,16 @@
 			 <view class="cu-form-group">
 			  						     <view class="name">车辆类型 <text class="star">*</text></view>
 			  						     <view class="ref-name">
-			  								<picker @change="bindPickerCarTypeChange" :value="car_type_index" :range="car_type_list">
+			  								<picker @change="bindPickerCarTypeChange" :value="car_type_index" :range="car_type_list" v-if="!car_type_identified">
 			  								                      <view class="picker-view text-lg">{{car_type_list[car_type_index]}}</view>
 			  								 </picker>
+											 
+											 <view  v-if="car_type_identified" style="font-size:30rpx;color:#333;margin-right:25rpx;" @click="car_type_identified=false;car_type_index=0">
+												 {{car_type_identified_input}}
+											 </view>
 			  							 </view>
+										 
+										 
 			  </view>
 			  
 			  
@@ -254,6 +260,10 @@
 			           format: true
 			       })
 			return {
+				//车辆类型是否已经被识别
+				car_type_identified:false,
+				//车辆类型被识别出的结果
+				car_type_identified_input:"",
 				//是否个人
 				isPerson: false,
 				disabled:true,
@@ -300,9 +310,11 @@
 				plate_type_index:1,
 				plate_color_index:0,
 				vehicleOwnTypeOptions: [],
+				vehicleOwnTypeSendValue: [],
 				owner_type_list: [],
 				owner_type_index:0,
 				vehicleTypeOptions: [],
+				vehicleTypeSendValue:[],
 				car_type_list: [],
 				car_type_index:0,
 				list: [
@@ -441,7 +453,12 @@
 				this.plate_type_index= 2
 			}
 			 this.vehicleOwnName = this.params_vehicle.vehicleOwnName||""
-			
+			 //专用于“车辆类型”识别时回显
+			 this.car_type_identified = this.params_vehicle.car_type_identified||false
+			 if(this.car_type_identified){
+				 this.car_type_identified_input = this.params_vehicle.car_type_identified_input||""
+			 }
+			 
 			this.vehicleBrands = this.params_vehicle.vehicleBrands ||""
 			this.vehicle_weight = this.params_vehicle.vehicleLadenWeight ||""
 			this.rating_weight = this.params_vehicle.vehicleTonnage ||""
@@ -496,7 +513,7 @@
 				})
 			},
 			bindPickerColorChange(e) {
-			            console.log('picker发送选择改变，携带值为', e)
+			           
 			            this.plate_color_index = e.target.value
 						if (e.target.value == 0){
 							this.params.vehiclePlateColor =  "2"
@@ -505,7 +522,7 @@
 						this.params.vehiclePlateColor =  "2"
 			        },
 			bindPickerChange(e) {
-			            console.log('picker发送选择改变01，携带值为', e.target.value)
+			           
 			            this.plate_type_index = e.target.value
 						if(e.target.value== 0){
 							this.params.vehiclePlateType = "02"
@@ -517,7 +534,7 @@
 			        },
 					
 			bindPickercargoBoxLengthChange(e){
-						           console.log('picker发送选择改变，携带值为BoxLength', e.target.value)
+						           
 						           this.box_length_index = e.target.value
 						           const box_length_index = this.box_length_index -1 // substract 1 to make the index matches
 						           this.params.cargoBoxLength = this.vehicleCargoBoxLengthSendValue[box_length_index]
@@ -534,11 +551,16 @@
 			async getVehicleOwnTypeOptions(){
 				const vehicleOwnTypeOptions = await this.$getRegistDicts("vehicle_own_type")
 				this.vehicleOwnTypeOptions = vehicleOwnTypeOptions.data.data.map(e=>e.dictLabel)
-				
+				this.vehicleOwnTypeSendValue = vehicleOwnTypeOptions.data.data.map(e=>e.dictValue)
+				console.log (vehicleOwnTypeOptions,'111')
 				this.owner_type_list = this.vehicleOwnTypeOptions
 				this.owner_type_list.unshift("请选择车主类型")
 				
 			     this.owner_type_index = this.params_vehicle.vehicleOwnType||""
+				 
+				 const vehicleOwnType = this.params_vehicle.vehicleOwnType
+				
+				 this.owner_type_index = this.vehicleOwnTypeSendValue.findIndex(value=>value == vehicleOwnType) + 1
 			},
 			
 			// 车辆类型字典
@@ -549,7 +571,8 @@
 				this.car_type_list.unshift("请选择车辆类型")
 				
 				this.vehicleTypeSendValue = vehicleTypeOptions.data.data.map(e=>e.dictValue)
-				
+				console.log (vehicleTypeOptions,'1111')
+				console.log (this.vehicleTypeSendValue,'2222')
 				const vehicleType = this.params_vehicle.vehicleType
 				
 				this.car_type_index = this.vehicleTypeSendValue.findIndex(value=>value == vehicleType) + 1
@@ -574,7 +597,7 @@
 			//货箱长度
 			async getVehicleCargoBoxLengthOptions(){
 				const vehicleCargoBoxLengthOptions = await this.$getRegistDicts("vehicle_length")
-				console.log(this.vehicleCargoBoxLengthOptions,"货箱长度")
+				
 				this.vehicleCargoBoxLengthOptions = vehicleCargoBoxLengthOptions
 				this.vehicleCargoBoxLengthOptions = this.vehicleCargoBoxLengthOptions.data.data.map(e=>e.dictLabel)
 				this.box_length_list = this.vehicleCargoBoxLengthOptions
@@ -597,7 +620,7 @@
 			
 			
 			radioCarChange(e){
-				console.log(e.target.value,'car')
+				
 				if(e.target.value=="ordinary"){
 					this.is_ordinary = true
 					this.params.vehicleSpecies = 103
@@ -624,22 +647,22 @@
 						
 			//车主类型
 			bindPickerTypeChange(e) {
-						            console.log('picker发送选择改变，携带值为车主类型', e.target.value)
+						           
 						            this.owner_type_index = e.target.value
 									
 									this.params.vehicleOwnType =  this.owner_type_index
-									
+									 console.log (this.params.vehicleOwnType,'222')
 						        },	
 			//车辆类型
 			bindPickerCarTypeChange(e) {
-						            console.log('picker发送选择改变，携带值为车辆类型', e.target.value)
+						            console.log (e,'123')
 						            this.car_type_index = e.target.value
 									
 									var car_type_index = this.car_type_index
 									
 									 this.params.vehicleType =this.vehicleTypeSendValue[car_type_index-1]
-									 console.log (this.params.vehicleType,"车辆类型后台值")
-									
+									console.log (this.params.vehicleType,'1123')
+									this.car_type_identified = false
 						        },
 																
 			bindDateChange: function(e) {
@@ -760,18 +783,40 @@
 										
 									})
 									
-									console.log(identify_res,"1123fdsgds")														  																
+									console.log(identify_res,"333");											  																
 																							  																
 																																							
 									//改变input 显示																														 
 									_self.vin = identify_res.data.data.vin
 									_self.plate_number = identify_res.data.data.plate_num
 									_self.vehicleBrands = identify_res.data.data.model
+									_self.vehicleOwnName = identify_res.data.data.owner
+									//车辆类型被识别出的结果
+									_self.car_type_identified_input = identify_res.data.data.vehicle_type
+									if (_self.car_type_identified_input){
+										_self.car_type_identified = true
+									}
+									const carTypeIdentified = _self.car_type_identified_input
+									_self.car_type_index = _self.vehicleTypeOptions.findIndex(value=>value == carTypeIdentified)
+									console.log(_self.car_type_index,"vvv");
 									
 									//改变params		
 									_self.params.vehicleVincode = _self.vin	
 									_self.params.vehiclePlateNumber = _self.plate_number																				
-									_self.params.vehicleBrands = _self.vehicleBrands																					
+									_self.params.vehicleBrands = _self.vehicleBrands
+									_self.params.vehicleOwnName = _self.vehicleOwnName
+									
+									_self.params.car_type_identified_input = _self.car_type_identified_input//用于“车辆类型”回显				
+									_self.params.car_type_identified = true	//用于“车辆类型”回显
+									if (_self.car_type_identified){
+										const carTypeIndex= _self.car_type_index
+										console.log(carTypeIndex,"v96");
+										 const vehicleTypeSendValue= _self.vehicleTypeSendValue
+										 console.log(vehicleTypeSendValue,"v97");
+										_self.params.vehicleType = vehicleTypeSendValue[carTypeIndex-1]
+										console.log(_self.params.vehicleType,"v98");
+									}																		
+																											
 								}
 							})	
 							//#endif
@@ -797,16 +842,17 @@
 															
 														})
 														
-														console.log(identify_res.data.data,"1123fdsgds")
+														
 														//改变input 显示
 														_self.vin = identify_res.data.data.vin
 														_self.plate_number = identify_res.data.data.plate_num
 														_self.vehicleBrands = identify_res.data.data.model
-														
+														_self.vehicleOwnName = identify_res.data.data.owner
 														//改变params		
 														_self.params.vehicleVincode = _self.vin	
 														_self.params.vehiclePlateNumber = _self.plate_number
-														_self.params.vehicleBrands = _self.vehicleBrands	
+														_self.params.vehicleBrands = _self.vehicleBrands
+														_self.params.vehicleOwnName = _self.vehicleOwnName
 							                        })
 									
 							//#endif			
@@ -912,7 +958,7 @@
 													responseType: 'arraybuffer',
 																			  															
 													success: async ress =>{
-														 console.log(tempFilePaths,"12876")
+														
 														let base64 = uni.arrayBufferToBase64(ress.data);
 														base64 = 'data:image/jpeg;base64,' + base64 //不加上这串字符，在访问页面无法显示
 														var fileUrl
@@ -929,7 +975,7 @@
 															
 														})
 														
-														console.log(identify_res,"1123fdsgds")																			  																
+																																  																
 																																	  																
 																																																	
 														//改变input 显示
@@ -966,7 +1012,7 @@
 																				
 																			})
 																			
-																			console.log(identify_res.data.data,"1123fdsgds")
+																			
 																			//改变input 显示
 																			_self.vin = identify_res.data.data.vin
 																			_self.plate_number = identify_res.data.data.plate_num
@@ -1054,20 +1100,7 @@
 				   const tempFilePaths = res.tempFilePaths;
 								
 								 
-								 //preview the photos
-								 // uni.previewImage({
-								 //             urls: res.tempFilePaths,
-								 //             longPressActions: {
-								 //                 itemList: ['发送给朋友', '保存图片', '收藏'],
-								 //                 success: function(data) {
-								 //                     console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
-								 					
-								 //                 },
-								 //                 fail: function(err) {
-								 //                     console.log(err.errMsg);
-								 //                 }
-								 //             }
-								 //         });
+								
 							
 								 //upload the img 
 								_self.imgDriverLicenseUrl = tempFilePaths[0]
@@ -1090,17 +1123,10 @@
 				    }
 				   });
 								 
-								 uploadTask.onProgressUpdate(function (res) {
-								       _self.percent = res.progress;
-								       console.log('上传进度' + res.progress);
-								       console.log('已经上传的数据长度' + res.totalBytesSent);
-								       console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend);
-								      });
+							
 							
 				  },
-				  error : function(e){
-				   console.log(e);
-				  }
+				  
 				 });
 			},
 			
@@ -1119,20 +1145,7 @@
 				   const tempFilePaths = res.tempFilePaths;
 								
 								 
-								 //preview the photos
-								 // uni.previewImage({
-								 //             urls: res.tempFilePaths,
-								 //             longPressActions: {
-								 //                 itemList: ['发送给朋友', '保存图片', '收藏'],
-								 //                 success: function(data) {
-								 //                     console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
-								 					
-								 //                 },
-								 //                 fail: function(err) {
-								 //                     console.log(err.errMsg);
-								 //                 }
-								 //             }
-								 //         });
+								
 								
 								 //upload the img 
 								_self.imgDraggingCarPhotoUrl = tempFilePaths[0]
@@ -1160,12 +1173,7 @@
 				    }
 				   });
 								 
-								 uploadTask.onProgressUpdate(function (res) {
-								       _self.percent = res.progress;
-								       console.log('上传进度' + res.progress);
-								       console.log('已经上传的数据长度' + res.totalBytesSent);
-								       console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend);
-								      });
+							
 							
 				  },
 				  error : function(e){
@@ -1186,20 +1194,7 @@
 				   const tempFilePaths = res.tempFilePaths;
 								 
 								 
-								 //preview the photos
-								 // uni.previewImage({
-								 //             urls: res.tempFilePaths,
-								 //             longPressActions: {
-								 //                 itemList: ['发送给朋友', '保存图片', '收藏'],
-								 //                 success: function(data) {
-								 //                     console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
-								 					
-								 //                 },
-								 //                 fail: function(err) {
-								 //                     console.log(err.errMsg);
-								 //                 }
-								 //             }
-								 //         });
+								
 								
 								 //upload the img 
 								_self.imgDraggingTransportPhotoUrl = tempFilePaths[0]
@@ -1227,17 +1222,10 @@
 				    }
 				   });
 								 
-								 uploadTask.onProgressUpdate(function (res) {
-								       _self.percent = res.progress;
-								       console.log('上传进度' + res.progress);
-								       console.log('已经上传的数据长度' + res.totalBytesSent);
-								       console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend);
-								      });
+								
 							
 				  },
-				  error : function(e){
-				   console.log(e);
-				  }
+				  
 				 });
 			},
 		
@@ -1418,7 +1406,7 @@
 							 
 				        }else if(regExpNewEnergy.test(car_no)){
 							if (this.energy_type=="新能源"){
-								console.log("车牌号正确")
+								
 								
 								
 							}else{
@@ -1432,7 +1420,7 @@
 				            
 						}else if(regExpNOTNewEnergy.test(car_no)){
 							if (this.energy_type=="非新能源"){
-								console.log("车牌号正确")
+							
 							
 							}else{
 								uni.showToast({

@@ -263,43 +263,7 @@
 			},
 			
 			formSubmit: function(e) {
-										console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
-						                //定义表单规则
-						    //             var rule = [
-						    //                                    {name:"cellphone",
-										// 						checkType : "phoneno",
-						                                        
-						    //                                       errorMsg:"电话号码格式有误"
-						    //                                    },
-						    //                                    {
-										// 						   name:"verify_code",
-						    //                                        rule:/^[0-9a-zA-Z]{4,10}$/,
-						    //                                        errorMsg:"验证码格式有误"
-						    //                                    },
-										// 					   {
-										// 					   		name:"nickname",
-										// 							checkRule:"2,15",														   name:"verify_code",
-										// 					       rule:/^[0-9a-zA-Z]{8,16}$/,
-										// 					       errorMsg:"姓名应至少为2个字符"
-										// 					   },
-										// 					   {
-										// 					   		name:"password",														   name:"verify_code",
-										// 					       rule:/^[0-9a-zA-Z]{8,16}$/,
-										// 					       errorMsg:"密码长度8-16个字符"
-										// 					   },
-						                                  
-						    //             ];
-						    //             //进行表单检查
-										
-										// 	var formData = e.detail.value;
-										// 	var checkRes = graceChecker.check(formData, rule);
-										// 	if(checkRes){
-												
-										// 	    uni.showToast({title:"验证通过!", icon:"none"});
-												
-										// 	}else{
-										// 	    uni.showToast({ title: graceChecker.error, icon: "none" });
-										// 	}
+							
 										
 						                this.params.active_three_step=true
 										this.params.the_step =3

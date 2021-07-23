@@ -77,7 +77,7 @@
 						    type: 'gcj02',
 							geocode:true,//设置该参数为true可直接获取经纬度及城市信息
 						    success: function (res) {
-								console.log(res,"121")    
+								
 								 start_longitude  =res.longitude
 							     start_latitude   = res.latitude
 								start_location = res.longitude + res.latitude;

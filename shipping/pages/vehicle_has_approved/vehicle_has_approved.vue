@@ -97,8 +97,8 @@
 			
 			},
 		mounted(){
-			
-			
+			console.log(this.vehicle,'1998');
+			this.queryParams.vehicleStatus = this.vehicle.state
 			
 			this.searchVehicle()
 		},
@@ -129,7 +129,7 @@
 					 	},
 					 	
 					 })
-					console.log(res,'a12');
+					
 					 
 					 this.vehicleWorkStatusOptions = res.data.data.map(e=>e=e.dictLabel)
 					 this.vehicleWorkStatusSendValue = res.data.data.map(e=>e=e.dictValue)
@@ -142,7 +142,7 @@
 			//通过车船牌照号码搜索
 			searchVehiclePlateNumber(e){
 				this.vehiclePlateNumber = e.target.value
-				console.log(this.vehiclePlateNumber,'aas');
+				
 			},
 			
 			
@@ -150,23 +150,23 @@
 			
 			//通过工作状态搜索
 			bindPickerVehicleWorkStatusChange(e) {
-						            console.log('picker发送选择改变，携带值为工作状态', e.target.value)
+						           
 						            this.vehicle_work_status_index = e.target.value
 									
 									var vehicle_work_status_index = this.vehicle_work_status_index
 									
 									 this.vehicleWorkStatus =this.vehicleWorkStatusSendValue[vehicle_work_status_index-1]
-									 console.log (this.vehicleWorkStatus,"工作状态后台值")
+									
 									
 						        },
 			
 			
 			upper: function(e) {
-			           console.log(e,'11111')
+			          
 					   
 			       },
 			lower: function(e) {
-			           console.log(e,'222222')
+			          
 					    
 						setTimeout(() => {
 						//TODO这里填写你加载数据的方法
@@ -181,7 +181,7 @@
 			
 			async goVehicleDetail(item){
 				if (this.vehicle.state == 1){
-					console.log (item.vehicleId,'145')
+					
 					const vehicleId = item.vehicleId
 					var authorization = uni.getStorageSync("token")
 					
@@ -195,7 +195,7 @@
 							 	
 							 })
 						const vehicle_item = res.data.data
-						console.log(res,'slbgw111')
+						
 						
 						
 					uni.setStorageSync('vehicle_item',vehicle_item)

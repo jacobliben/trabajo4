@@ -416,7 +416,7 @@
 		},
 		props:["passed_info","btn_title"],
 		mounted(){
-			console.log(this.passed_info,"fff")
+			
 		},
 		methods:{
 			goWayBillDetail(){

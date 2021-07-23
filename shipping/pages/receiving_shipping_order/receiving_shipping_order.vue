@@ -23,7 +23,7 @@
 						<text v-if ="item.iscmWaybillInformationRecord.consigneeCityName==='市辖区'">{{item.iscmWaybillInformationRecord.consigneeRegionName}}</text>
 					</view>
 					<view>
-						<view class="goods_name">货物名称：{{item.goodsName}}</view>		
+						<view class="goods_name">货物名称：{{item.iscmSource.goodsName}}</view>		
 						<view>货物重量：{{item.goodsWeight}}吨</view>
 						<view>目前剩余重量：{{item.surplusGoodsWeight}}吨</view>
 					</view>
@@ -181,14 +181,14 @@
 					 	data:queryParams
 					 })
 				
-				console.log(res,'555');
+				
 				if(res.data.total == 0){
 					setTimeout(()=>{
 						this.show_not_found = true
 					},30)
 					return
 				}
-				
+				 console.log(res,'55447');
 				if (this.receiving_shipping_order_list.length<res.data.total){
 					this.receiving_shipping_order_list =[...this.receiving_shipping_order_list,...res.data.rows]
 					this.show_not_found = false

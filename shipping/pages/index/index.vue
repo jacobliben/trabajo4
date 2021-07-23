@@ -584,8 +584,7 @@
 			 	    onlyFromCamera: true,
 			 		
 			 	    success:async function (res) {
-			 	        console.log('条码类型：' + res.scanType);
-			 	        console.log('条码内容：' + res.result);
+			 	        
 						//after scaning ,send the QR UUID to inform the server the scanning  
 						
 						 var status =3

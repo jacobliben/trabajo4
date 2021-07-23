@@ -42,13 +42,13 @@ export const myPhoto = (options)=>{
 	}).then(
 	    value=>{
 			
-		console.log(value,'111ok')
+		
 		
 		
 		var photo_reshow = JSON.parse(value.data).url  //仅用于注册时回显
 		var photo_file =JSON.parse(value.data).fileName
 		
-		console.log(photo_file,'fileName')
+		
 		
 		if (options.url == "dispatch-receipt-"){
 			//签收 单据

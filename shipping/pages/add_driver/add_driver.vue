@@ -411,7 +411,7 @@
 				})
 			},
 			bindPickerChange(e) {
-			            console.log('picker发送选择改变，携带值为 准驾车型', e.target.value)
+			            
 			            this.index = e.target.value
 						if (this.index == 0){
 							this.params.driverVehicleClass = "A2"
@@ -495,8 +495,7 @@
 					  this.params.idcardValidPeriodTo = e.target.value
 					  this.id_expiry_date_has_input = true
 				  }
-			     //       console.log(this.params.driving_certificate_begin_date,"begin_date")
-					   // console.log(this.params.driving_certificate_expiry_date,"expiry_date")
+			     
 			        },
 		     getDate(type) {
 					            const date = new Date();
@@ -732,7 +731,7 @@
 								 								
 								 							})
 								 							
-								 							console.log(identify_res.data.data,"1123fdsgds")
+								 							
 								 							_self.params.driverVehicleClass = identify_res.data.data.vehicle_type
 								 							if (_self.params.driverVehicleClass === "A2"){
 								 							     _self. index = 0
@@ -940,7 +939,7 @@
 																	   } 
 																	   
 																	   
-																		console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
+																		
 														                //定义表单规则
 														                var rule = [
 														                                       {name:"cellphone",
@@ -958,7 +957,7 @@
 																				if(checkRes){
 																					var authorization = uni.getStorageSync("token")
 																					var  form = this.params
-																					console.log(form,'518')
+																					
 																					
 																					
 																					const res = await this.$request({
@@ -971,7 +970,7 @@
 																						},
 																						
 																					})
-																					console.log(res,"加司机")
+																					
 																					if(res.data.msg ="操作成功"){
 																						uni.showToast({
 																							title:res.data.msg,
@@ -1004,7 +1003,7 @@
 								var modify_received_info= this.received_info
 								var modify_form = {}
 								Object.assign(modify_form,modify_params,modify_received_info)
-								console.log(modify_form,"521")
+								
 								
 								uni.showToast({
 									title:"正在修改中...",
@@ -1022,7 +1021,7 @@
 									
 								})
 								
-								console.log(resEdit,"改司机")
+								
 								
 								if(resEdit.data.msg ="操作成功"){
 									uni.showToast({
