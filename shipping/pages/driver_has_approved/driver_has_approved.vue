@@ -160,6 +160,8 @@
 			//this.getDriverVehicleClassOptions() 
 			 },
 		mounted(){
+			console.log(this.vehicle,'1999');
+			
 			this.searchDriver()
 		},
 		
@@ -330,7 +332,7 @@
 				
 				//司机列表搜索
 				async searchDriver(){
-							 
+							 this.queryParams.driverStatus = this.vehicle.state
 								const queryParams= this.queryParams
 								const driverName = this.driverName
 								

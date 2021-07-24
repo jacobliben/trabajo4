@@ -85,7 +85,7 @@
 			  <view class="cu-form-group">
 			  			     <view class="name">车船牌照号码 <text class="star">*</text></view>
 			  			     <view class="ref-name">
-			  					<input type="text" placeholder="请输入车船牌照号码" maxlength="10"
+			  					<input type="text" placeholder="挂车牌照不能作为注册车辆标识" maxlength="10"
 								 @input ="getCarNo" :value="plate_number">
 			  				 </view>
 			  </view>
@@ -335,12 +335,12 @@
 				                },
 				                {
 				                    value: 'semi-camion',
-				                    name: '半挂车',
+				                    name: '半挂牵引车',
 				                  
 				                },
 				                
 				            ],
-				 car_current: 1,
+				 car_current: 0,
 				 energy_items: [{
 				                    value: "1",
 				                    name: '新能源'
@@ -552,7 +552,7 @@
 				const vehicleOwnTypeOptions = await this.$getRegistDicts("vehicle_own_type")
 				this.vehicleOwnTypeOptions = vehicleOwnTypeOptions.data.data.map(e=>e.dictLabel)
 				this.vehicleOwnTypeSendValue = vehicleOwnTypeOptions.data.data.map(e=>e.dictValue)
-				console.log (vehicleOwnTypeOptions,'111')
+				
 				this.owner_type_list = this.vehicleOwnTypeOptions
 				this.owner_type_list.unshift("请选择车主类型")
 				
@@ -571,8 +571,7 @@
 				this.car_type_list.unshift("请选择车辆类型")
 				
 				this.vehicleTypeSendValue = vehicleTypeOptions.data.data.map(e=>e.dictValue)
-				console.log (vehicleTypeOptions,'1111')
-				console.log (this.vehicleTypeSendValue,'2222')
+				
 				const vehicleType = this.params_vehicle.vehicleType
 				
 				this.car_type_index = this.vehicleTypeSendValue.findIndex(value=>value == vehicleType) + 1
@@ -651,17 +650,17 @@
 						            this.owner_type_index = e.target.value
 									
 									this.params.vehicleOwnType =  this.owner_type_index
-									 console.log (this.params.vehicleOwnType,'222')
+									 
 						        },	
 			//车辆类型
 			bindPickerCarTypeChange(e) {
-						            console.log (e,'123')
+						            
 						            this.car_type_index = e.target.value
 									
 									var car_type_index = this.car_type_index
 									
 									 this.params.vehicleType =this.vehicleTypeSendValue[car_type_index-1]
-									console.log (this.params.vehicleType,'1123')
+									
 									this.car_type_identified = false
 						        },
 																
@@ -783,7 +782,7 @@
 										
 									})
 									
-									console.log(identify_res,"333");											  																
+																	  																
 																							  																
 																																							
 									//改变input 显示																														 
@@ -798,7 +797,7 @@
 									}
 									const carTypeIdentified = _self.car_type_identified_input
 									_self.car_type_index = _self.vehicleTypeOptions.findIndex(value=>value == carTypeIdentified)
-									console.log(_self.car_type_index,"vvv");
+									
 									
 									//改变params		
 									_self.params.vehicleVincode = _self.vin	
@@ -810,12 +809,26 @@
 									_self.params.car_type_identified = true	//用于“车辆类型”回显
 									if (_self.car_type_identified){
 										const carTypeIndex= _self.car_type_index
-										console.log(carTypeIndex,"v96");
+										
 										 const vehicleTypeSendValue= _self.vehicleTypeSendValue
-										 console.log(vehicleTypeSendValue,"v97");
+										
 										_self.params.vehicleType = vehicleTypeSendValue[carTypeIndex-1]
-										console.log(_self.params.vehicleType,"v98");
-									}																		
+										
+									}
+									
+									
+									//通过车牌号最后一位是否为“挂”来判断是否为挂车,禁止挂车车牌
+									var str = _self.plate_number.substr(-1)
+									
+									 if(str == "挂"){
+														  uni.showToast({
+														   	title:"挂车牌照不能作为注册车辆标识",
+														  	icon:"none"
+														   })
+														  _self.plate_number = ""
+														  _self.params.vehiclePlateNumber= ""
+														  return
+									 }																		
 																											
 								}
 							})	
@@ -848,21 +861,53 @@
 														_self.plate_number = identify_res.data.data.plate_num
 														_self.vehicleBrands = identify_res.data.data.model
 														_self.vehicleOwnName = identify_res.data.data.owner
+														//车辆类型被识别出的结果
+														_self.car_type_identified_input = identify_res.data.data.vehicle_type
+														if (_self.car_type_identified_input){
+															_self.car_type_identified = true
+														}
+														const carTypeIdentified = _self.car_type_identified_input
+														_self.car_type_index = _self.vehicleTypeOptions.findIndex(value=>value == carTypeIdentified)
+														
+														
 														//改变params		
 														_self.params.vehicleVincode = _self.vin	
 														_self.params.vehiclePlateNumber = _self.plate_number
 														_self.params.vehicleBrands = _self.vehicleBrands
 														_self.params.vehicleOwnName = _self.vehicleOwnName
+														
+														_self.params.car_type_identified_input = _self.car_type_identified_input//用于“车辆类型”回显
+														_self.params.car_type_identified = true	//用于“车辆类型”回显
+														if (_self.car_type_identified){
+															const carTypeIndex= _self.car_type_index
+															
+															 const vehicleTypeSendValue= _self.vehicleTypeSendValue
+															
+															_self.params.vehicleType = vehicleTypeSendValue[carTypeIndex-1]
+															
+														}
+														
+														
+														//通过车牌号最后一位是否为“挂”来判断是否为挂车,禁止挂车车牌
+														var str = _self.plate_number.substr(-1)
+														
+														 if(str == "挂"){
+																			  uni.showToast({
+																			   	title:"挂车牌照不能作为注册车辆标识",
+																			  	icon:"none"
+																			   })
+																			  _self.plate_number = ""
+																			  _self.params.vehiclePlateNumber= ""
+																			  return
+														 }						
+														
+														
 							                        })
 									
 							//#endif			
 							
 							
-							//preview the photos
-							// uni.previewImage({
-							//             urls: res.tempFilePaths,
-							            
-							//         });
+						
 									
 							
 							 //upload the img 
@@ -1029,11 +1074,7 @@
 												
 												
 												
-					 							//preview the photos
-					 							// uni.previewImage({
-					 							//             urls: res.tempFilePaths,
-					 							            
-					 							//         });
+					 							
 					 									
 					 							
 					 						//upload the img
@@ -1061,11 +1102,7 @@
 											  async success(res) {
 											    const tempFilePaths = res.tempFilePaths;
 												
-												//preview the photos
-												// uni.previewImage({
-												//             urls: res.tempFilePaths,
-												            
-												//         });
+												
 														
 												
 											//upload the img
@@ -1356,7 +1393,7 @@
 				
 				//进行车辆类型检查
 				if (this.params.vehicleSpecies == null || this.params.vehicleSpecies ==""|| this.params.vehicleSpecies.length<1){
-					 	this.params.vehicleSpecies =	303								
+					 	this.params.vehicleSpecies =	103								
 				} 
 				
 				//进行牌照类型检查

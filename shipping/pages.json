@@ -421,7 +421,7 @@
             "path" : "pages/accept_shippig_order/accept_shippig_order",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "订单接收",
+                "navigationBarTitleText": "运单接收",
                 "enablePullDownRefresh": false
             }
             

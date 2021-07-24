@@ -32,7 +32,7 @@
 		<view v-else></view>
 		
 		
-		<view v-if ="passed_info.dispatchNo =null ">
+		<view v-if ="false">
 			<view class="current-state" >派车单信息</view>
 			 <view class="cu-form-group"
 			  @click="goWayBillDetail"
@@ -58,9 +58,9 @@
 		</view>
 		<view v-else></view>
 		
-		 <view  v-if ="passed_info.waybillNo =null">
+		 <view  >
 			 <view class="current-state">运单信息</view>
-			  <view class="cu-form-group" @click="goShippingOrderNumberDetail">
+			  <view class="cu-form-group" >
 			 	 <view>
 			 		 <text class="name">运单编号</text>
 			 	 </view>
@@ -75,11 +75,11 @@
 			 	</view>
 			 	<view>
 			 		 <text class="ref-name">待接收</text>
-			 			 	<text class="cuIcon-right lg text-gray"></text>	 	 
+			 				 
 			 	</view>    
 			  </view>
 		 </view>
-		<view v-else></view>
+		
 		 
 		 <view class="current-state">货物信息</view>
 		 <view class="cu-form-group">

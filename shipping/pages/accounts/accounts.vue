@@ -5,7 +5,7 @@
 						  <view class="lg-pic" 
 						  @click="uploadAvatar"
 						  >
-							  <image  :src="imgAvatarUrl"  mode="" class="lg-pic"></image>
+							  <image  :src="imgAvatarUrl"   class="lg-pic"></image>
 							  <image src="/static/tachar.png" mode="aspectFit" @click="cancelAvatar"
 							   class="tachar" v-if="tachar_avatar"></image>
 						  </view>
@@ -18,14 +18,14 @@
 		</view>
 		<view class="cu-form-group" hover-class="one-icon-hover" @click="goWayBill">
 				      <view>
-						  <image src="/static/way-bill.png" mode="" class="sm-pic"></image>
+						  <image src="/static/way-bill.png"  class="sm-pic"></image>
 						  <text>我的派车单</text>
 					  </view>
 					<text class="cuIcon-right lg text-gray"></text>
 		</view>
 	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goShipping" v-if="show_shipping_order">
 		      <view>
-				  <image src="/static/folder.png" mode="" class="sm-pic"></image>
+				  <image src="/static/folder.png"  class="sm-pic"></image>
 				  <text>我的运单</text>
 			  </view>
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -34,7 +34,7 @@
 	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goLoading">
 		  
 		  <view>
-		        <image src="/static/despatching.png" mode="" class="sm-pic"></image>
+		        <image src="/static/despatching.png"  class="sm-pic"></image>
 	   			<text>确认装货</text>
 			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -43,7 +43,7 @@
 	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goDespatching">
 	   		  
 	   		  <view>
-	   		        <image src="/static/globe.png" mode="" class="sm-pic"></image>
+	   		        <image src="/static/globe.png"  class="sm-pic"></image>
 	   			<text>确认发车</text>
 	   			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -51,7 +51,7 @@
 	   
 	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goReceiving">
 	   		   <view>
-	   		        <image src="/static/box.png" mode="" class="sm-pic"></image>
+	   		        <image src="/static/box.png"  class="sm-pic"></image>
 	   			<text>确认签收</text>
 	   			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -59,7 +59,7 @@
 	   
 	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goDispatchBefore" v-if="show_dispatch_before" >
 	   		   <view>
-	   		        <image src="/static/billboard.png" mode="" class="sm-pic"></image>
+	   		        <image src="/static/billboard.png"  class="sm-pic"></image>
 	   			<text>历史派车单</text>
 	   			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -67,7 +67,7 @@
 	   
 	   <view class="cu-form-group" v-if="false">
 		   <view>
-		        <image src="/static/card.png" mode="" class="sm-pic"></image>
+		        <image src="/static/card.png"  class="sm-pic"></image>
 	   			<text>结算申请</text>
 			</view>		
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -75,7 +75,7 @@
 	   
 	   <view class="cu-form-group" v-if="false">
 		   <view>
-		        <image src="/static/boy.png" mode="" class="sm-pic"></image>
+		        <image src="/static/boy.png"  class="sm-pic"></image>
 	   			<text>发货人管理</text>
 			</view>
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -83,7 +83,7 @@
 	   
 	   <view class="cu-form-group" @click="goAddCarBoss" v-if="false">
 		   <view>
-		        <image src="/static/vr.png" mode="" class="sm-pic"></image>
+		        <image src="/static/vr.png"  class="sm-pic"></image>
 	   			<text>车老板列表</text>
 			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -91,7 +91,7 @@
 	   
 	   <view class="cu-form-group" v-if="false">
 		   	<view>
-				<image src="/static/bill.png" mode="" class="sm-pic"></image>
+				<image src="/static/bill.png"  class="sm-pic"></image>
 	   			<text>违约单</text>
 			</view> 
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -99,7 +99,7 @@
 	   
 	   <view class="cu-form-group" @click="goVehicle"  v-if="show_vehicle">
 		   <view>
-		   	    <image src="/static/cars.png" mode="" class="sm-pic"></image>
+		   	    <image src="/static/cars.png"  class="sm-pic"></image>
 				<text>车辆管理</text>
 			</view> 
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -107,7 +107,7 @@
 	   
 	   <view class="cu-form-group" @click="goBankCard" v-if="show_bankcard">
 	   		   <view>
-	   		   	    <image src="/static/archive.png" mode="" class="sm-pic"></image>
+	   		   	    <image src="/static/archive.png"  class="sm-pic"></image>
 	   				<text>银行卡管理</text>
 	   			</view> 
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -115,7 +115,7 @@
 	   
 	   <view class="cu-form-group" @click="goDriver" v-if="show_driver">
 	   		   <view>
-	   		   	    <image src="/static/driver.png" mode="" class="sm-pic"></image>
+	   		   	    <image src="/static/driver.png"  class="sm-pic"></image>
 	   				<text>司机管理</text>
 	   			</view> 
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -123,7 +123,7 @@
 	   
 	   <view class="cu-form-group" @click="goPersonalInfo">
 		   <view>
-		   	    <image src="/static/brain.png" mode="" class="sm-pic"></image>
+		   	    <image src="/static/brain.png"  class="sm-pic"></image>
 	   			<text>个人资料</text>
 			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -131,7 +131,7 @@
 	   
 	   <view class="cu-form-group" @click="goMember"  v-if="false">
 	   		   <view>
-	   		   	    <image src="/static/medal.png" mode="" class="sm-pic"></image>
+	   		   	    <image src="/static/medal.png"  class="sm-pic"></image>
 	   			<text>承运人会员管理</text>
 	   			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -139,7 +139,7 @@
 	   
 	   <view class="cu-form-group" v-if="false">
 		   <view>
-		   	    <image src="/static/money.png" mode="" class="sm-pic"></image>
+		   	    <image src="/static/money.png"  class="sm-pic"></image>
 	   			<text>我的钱包</text>
 			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -147,7 +147,7 @@
 	   
 	   <view class="cu-form-group" @click="logout">
 	   		   <view>
-	   		   	    <image src="/static/wrench.png" mode="" class="sm-pic" ></image>
+	   		   	    <image src="/static/wrench.png"  class="sm-pic" ></image>
 	   			<text>退出登录</text>
 	   			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>

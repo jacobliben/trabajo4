@@ -98,7 +98,7 @@
 			},
 		mounted(){
 			console.log(this.vehicle,'1998');
-			this.queryParams.vehicleStatus = this.vehicle.state
+			
 			
 			this.searchVehicle()
 		},
@@ -216,7 +216,7 @@
 		
 			//车辆列表搜索
 			async searchVehicle(){
-						 
+						 this.queryParams.vehicleStatus = this.vehicle.state
 							const queryParams= this.queryParams
 							const vehiclePlateNumber = this.vehiclePlateNumber
 							

@@ -44,7 +44,7 @@
 							
 						
 						<button type="default" size="default" 
-						data-index='111'  class="receive-btn radius" @click="goAcceptShippingOrder(item)">{{now_state.text}}</button>
+						data-index='111'  class="receive-btn radius" @click="goAcceptShippingOrder(item)">{{now_state.btn}}</button>
 					</view>	
 			</view>
 			
@@ -142,10 +142,11 @@
 			},
 			 goAcceptShippingOrder(item){
 				var that = this
+				const waybillId = item.waybillId
 				uni.setStorageSync('accepted_shipping_orders',item)
 				if(this.now_state.text==="运单接收"){
 					uni.navigateTo({
-						url:`/pages/accept_shippig_order/accept_shippig_order?btn_title=${that.now_state.btn}`
+						url:`/pages/accept_shippig_order/accept_shippig_order?btn_title=${that.now_state.btn}&waybillId=${waybillId}`
 					})
 				}else if (this.now_state.text==="分配运力"){
 					uni.navigateTo({

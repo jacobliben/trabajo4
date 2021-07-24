@@ -41,7 +41,7 @@
 						state_pending:"待接受",
 						orderList:[],
 						waybillStatus:this.$waitAccept,
-						btn:"接受运单",
+						btn:"接受",
 					},
 					{
 					  state:1,
@@ -49,7 +49,7 @@
 					  state_pending:"待分配",
 					  orderList:[],
 					  waybillStatus:this.$waitSendDispatch,
-					  btn:"分配运力",
+					  btn:"分配",
 					},
 					
 				]

@@ -6,7 +6,7 @@
 				<view class="details">
 					<view>货物名称：{{received_info.iscmSource.goodsName}}</view>
 					<view>货物类型：{{received_info.iscmSource.goodsType}}</view>
-					<view>包装类型：{{received_info.packageType}}</view>
+					<view>包装类型：{{packageType}}</view>
 				</view>
 				
 				<view class="details_weight">
@@ -95,15 +95,19 @@
 				btn_title:"",
 				short_distance:null,
 				
+				// 包装类型字典
+				packageType:"",
+				packageTypeOptions: [], 
+				packageTypeSendValue: [],
+				package_type_index:0,	
 			};
 		},
 		
 	
 		async onLoad(options){
 			var that = this
-		    this.get_info = uni.getStorageSync("accepted_shipping_orders")
-		     console.log(this.get_info,'hhh');
-			 const waybillId= this.get_info.waybillId
+			
+			 const waybillId= options.waybillId
 			 var authorization = uni.getStorageSync("token")
 			 
 			 const resSource = await this.$request({
@@ -116,8 +120,13 @@
 					
 			 	 	
 			 	 })
-			 console.log(resSource,'789');
+			
 			 this.received_info = resSource.data.data
+		     console.log(this.received_info,'777')
+			 
+			 // 包装类型字典
+			 this.getPackageTypeOptions()
+			 
 			this.btn_title = options.btn_title
 			
 			//for calcating distance of delivery
@@ -166,11 +175,43 @@
 				
 		},
 		mounted(){
-			uni.setNavigationBarTitle({
-				title:`${this.btn_title}`
-			})
+			
 		},
 		methods:{
+			// 包装类型字典
+			async getPackageTypeOptions(){
+				var that = this
+				var authorization = uni.getStorageSync("token")
+				
+				const res = await this.$request({
+					 	url:"/system/dict/data/type/package_type",
+					 	
+					 	header:{
+					 		Authorization:authorization,
+					 	},
+					 	
+					 })
+					
+					
+					this.packageTypeOptions = res.data.data.map(e =>e=e.dictLabel)
+					
+					 
+					//  this.package_type_list= this.packageTypeOptions
+					 this.packageTypeSendValue = res.data.data.map(e=>e.dictValue)	 
+					
+					const packageType = that.received_info.packageType
+					 
+					
+					
+					this.package_type_index = this.packageTypeSendValue.findIndex(value=>value == packageType) 
+					
+					
+					 
+					const packageTypeIndex = this.package_type_index
+					 this.packageType = this.packageTypeOptions[packageTypeIndex]
+			},
+			
+			
 			goShippingOrderDetails(){
 				
 				uni.navigateTo({
@@ -182,7 +223,7 @@
 			
 			async accept(){
 				var waybillID = this.received_info.waybillId
-				
+				console.log(waybillID,'999');
 				 var authorization = uni.getStorageSync("token")
 				 
 				
@@ -195,10 +236,16 @@
 					 	 	
 					 	 })
 					
-				
+				console.log(res,'mmm');
 				uni.reLaunch({
 								url:"/pages/shipping_order/shipping_order"
 							})
+							
+							
+							
+							
+							
+							
 			},
 				
 				
@@ -259,7 +306,7 @@
   }
   .person{
 	  width: 100%;
-	  height:180rpx;
+	 
 	  border-top:1px solid #f4f4f4;
 	  padding:10rpx;
 	  display: flex;
