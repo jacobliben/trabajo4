@@ -1,0 +1,260 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "徐工智联"
+			},
+			 "permission": {
+			    "scope.userLocation": {
+			      "desc": "你的位置信息将用于计算收发货地之间的距离" // 高速公路行驶持续后台定位
+			    }
+			  }
+		}
+	    
+        ,{
+            "path" : "pages/accounts/accounts",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/shipping_order/shipping_order",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "货源列表",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/personal_info/personal_info",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人资料",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/change_phone/change_phone",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "更换手机",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/change_password/change_password",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "更换密码",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/profile/profile",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "基本资料",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/tel_login/tel_login",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "短信登录",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/recover_account/recover_account",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "找回账号密码",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/making_shipping_order/making_shipping_order",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/info_not_found/info_not_found",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/info_center/info_center",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "消息中心",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/message/message",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/choose_identity/choose_identity",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "注册 选定身份角色",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/register/register",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/phone_verifying/phone_verifying",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/terms/terms",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/begin_order/begin_order",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "货源/下单详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/begin_shipping_order/begin_shipping_order",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/select_consignor_contact/select_consignor_contact",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "选择发货联系人",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/choose_order_type/choose_order_type",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/batch_ordering/batch_ordering",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "批量货模式",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/ordinary_ordering/ordinary_ordering",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "普通货模式",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTitleText":"徐工智联",
+		"navigationBarTextStyle": "black",
+		"navigationBarBackgroundColor": "#f8f8f8",
+		"onReachBottomDistance": 200,
+		"enablePullDownRefresh": true
+		
+	},
+	"tabBar":{
+		"list":[
+			{"text":"首页",
+			"pagePath":"pages/index/index",
+			"iconPath":"/static/home.png",
+			"selectedIconPath":"static/home-selected.png"
+			},
+			{"text":"货源列表",
+			"pagePath":"pages/shipping_order/shipping_order",
+			"iconPath":"static/shipping-order.png",
+			"selectedIconPath":"static/shipping-orders-selected.png"
+			},
+			// {"text":"货源下单",
+			// "pagePath":"pages/begin_order/begin_order",
+			// "iconPath":"static/orders.png",
+			// "selectedIconPath":"static/orders-selected.png"
+			// },
+			{"text":"货源下单",
+			"pagePath":"pages/choose_order_type/choose_order_type",
+			"iconPath":"static/orders.png",
+			"selectedIconPath":"static/orders-selected.png"
+			},
+			{"text":"我的",
+			"pagePath":"pages/accounts/accounts",
+			"iconPath":"/static/me.png",
+			"selectedIconPath":"static/me-selected.png"
+			}
+		],
+		"selectedColor":"#fd6801",
+		"color":"#c8c7cc",
+		"backgroundColor":"#fff"
+	}
+}
