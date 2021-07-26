@@ -216,13 +216,49 @@
             }
             
         }
+        ,{
+            "path" : "pages/cada_shipping_order/cada_shipping_order",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "货源详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/select_consignee_contact/select_consignee_contact",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/ordinary_consignor_contact/ordinary_consignor_contact",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/ordinary_consignee_contact/ordinary_consignee_contact",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTitleText":"徐工智联",
 		"navigationBarTextStyle": "black",
 		"navigationBarBackgroundColor": "#f8f8f8",
 		"onReachBottomDistance": 200,
-		"enablePullDownRefresh": true
+		"enablePullDownRefresh": false
 		
 	},
 	"tabBar":{

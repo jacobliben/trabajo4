@@ -260,16 +260,14 @@
 		
 		<view class="cu-form-group margin-top"  >
 			<text class="name">计价方式<text class="red">*</text></text>
-					<input type="text" maxlength="16"  placeholder="元/吨" 
-					  selection-start="-1" selection-end="-1" cursor="-1" disabled
-						   @input="" v-if="show_yuan_ton" >
-					<picker @change="bindPickerSettlementTypeChange" :value="settlement_type_index" :range="sourceSettlementMethodOptions" v-if="show_multi_choice">
-					       <view class="picker-view text-lg">{{sourceSettlementMethodOptions[settlement_type_index]}}</view>
-					 </picker>	   
 					
-					<input type="text" maxlength="16"  placeholder="包车"
-					  selection-start="-1" selection-end="-1" cursor="-1" disabled
-						   @input="" v-if="show_whole_car" >	   
+					<picker @change="bindPickerSettlementTypeChange" :value="settlement_type_index" :range="sourceSettlementMethodOptions"  v-if="show_multi_choice">
+					       <view class="picker-view text-lg">{{sourceSettlementMethodOptions[settlement_type_index]}}</view>
+					 </picker>	 
+					   
+					 <input type="text" maxlength="16"  placeholder="包车"
+					   selection-start="-1" selection-end="-1" cursor="-1" disabled
+					 	   @input="" v-if="show_whole_car" >	   
 		</view>
 		
 		<view class="cu-form-group margin-top">
@@ -374,10 +372,10 @@
 		</view>
 		
 		<view class="btn-row">
-			             <button class="next-btn bg-gradual-blue round" v-if="show_btn"
+			             <button class="next-btn bg-gradual-blue round" 
 			                @click="makeDraft">草稿</button> 
 							 <button class="next-btn round" :class="{'bg-gradual-green':active}"
-							 :disabled="disabled" v-if="show_btn"
+							 :disabled="disabled" 
 							  form-type="submit">提交</button>
 							   <button class="next-btn bg-gradual-green round" 
 						 @click="backward">关闭</button> 
@@ -461,10 +459,10 @@
 				sourceSettlementMethodOptions: [],
 				settlementTypeSendValue:[],
 				settlement_type_index:0,
-				//计价方式 (元/吨)
-				show_yuan_ton:true,
+				
+				
 				//计价方式 (多选)
-				show_multi_choice:false,
+				show_multi_choice:true,
 				//计价方式 (包车)
 				show_whole_car:false,
 				//单价
@@ -532,95 +530,9 @@
 			 // 计价方式字典
 			 this.getSourceSettlementMethodOptions()
 			 
-			 
-		   //通过前页面判断是否该显示货源单号的详情(回显)
-		   let pages = getCurrentPages();//页面对象
-		   console.log(pages,'dubg');
-		   //如果只有1个页栈,说明是直接由index页跳转至"货源下单"
-		   if (pages.length == 1) {
-			   console.log(this.now_state,'985');
-			   if (this.now_state.state == 0){
-				   this.showOrderType = false //批量货模式下，不显示“下单方式”
-				   //计价方式 (元/吨)
-				   this.show_yuan_ton=true//批量货模式下
-				   //计价方式 (多选)
-				   this.show_multi_choice = false//批量货模式下
-				   //计价方式 (包车)
-				   this.show_whole_car = false//批量货模式下
-			   }else if (this.now_state.state == 1){
-				   this.showOrderType =true //普通货模式下
-				   //计价方式 (元/吨)
-				   this.show_yuan_ton= false//普通货模式下，先显示“单价”
-				   //计价方式 (多选)
-				   this.show_multi_choice = true//普通货模式下，先显示“单价”
-				   //计价方式 (包车)
-				   this.show_whole_car = false//普通货模式下，先显示“单价”
-				   
-			   }
-		     // return 
-			 //不显示任何回显
-		   } 
+	
 		   
 		   
-		   let prevpage = pages[pages.length - 2];//上一个页面对象
-		   
-		   				if (prevpage.route == "pages/shipping_order/shipping_order") {
-		   					
-		   					 //“货源下单”里货源单号的详情(回显)
-		   					this.orderSourceDetail = uni.getStorageSync("making_shipping_order_detail")
-		   					
-		   					
-		   					 const orderWay = this.orderSourceDetail.orderWay
-		   					
-		   					 if (orderWay== 3){
-		   									  this.showOrderType = false
-		   					 }else if (orderWay< 3){
-		   									   this.sourceOrderWay_current = orderWay -1
-		   					 }
-		   					this.goodsName = this.orderSourceDetail.goodsName
-		   					this.goodsWeight = this.orderSourceDetail.goodsWeight
-		   								
-		   					this.packageNumber = this.orderSourceDetail.packageNumber
-		   					
-		   					
-		   					
-		   					
-		   					//装货开始时间
-		   					if (this.orderSourceDetail.assignSendTime){
-		   									                        
-		   														 this.assignSendTimeDate = this.orderSourceDetail.assignSendTime.split(" ")[0]||this.getDate({format: true})
-		   																	 this.assignSendTimeTime = this.orderSourceDetail.assignSendTime.split(" ")[1]||this.getDate({format: true})
-		   														 this.assignSendTimeDate_has_input = true
-		   																	 this.assignSendTimeTime_has_input = true
-		   					}
-		   					
-		   					//装货截止时间
-		   					if (this.orderSourceDetail.assignEndTime){
-		   														this.assignEndTimeDate = this.orderSourceDetail.assignEndTime.split(" ")[0]||this.getDate({format: true})
-		   														this.assignEndTimeTime = this.orderSourceDetail.assignEndTime.split(" ")[1]||this.getDate({format: true})
-		   														this.assignEndTimeDate_has_input = true
-		   														this.assignEndTimeTime_has_input = true
-		   					}
-		   					
-		   					this.unitPrice = this.orderSourceDetail.unitPrice   
-		   					this.consignorRates = this.orderSourceDetail.consignorRates
-		   					this.goodsUnitPrice = this.orderSourceDetail.goodsUnitPrice
-		   					this.goodsFee = this.orderSourceDetail.goodsFee
-		   					this.customNumber = this.orderSourceDetail.customNumber
-		   					this.pickMonadPhone = this.orderSourceDetail.pickMonadPhone
-		   					this.settlementPhone = this.orderSourceDetail.settlementPhone
-		   					this.sourceQuantity = this.orderSourceDetail.sourceQuantity
-		   					this.specifyCarrierStatus = this.orderSourceDetail.specifyCarrierStatus
-		   					if (this.specifyCarrierStatus==1){
-		   									this.assign_carrier_current =0
-		   					}else if (this.specifyCarrierStatus==1){
-		   									 this.assign_carrier_current =1
-		   					}
-		   					this.checked = this.orderSourceDetail.isTemplate
-		   					
-		   					
-		   					
-		   				} else if (prevpage.route == "pages/select_consignor_contact/select_consignor_contact") {
 		   					
 							//不显示回显
 							
@@ -662,7 +574,7 @@
 							 }
 							
 							
-		   				}
+		   				
 		   
 			 
 			 
@@ -673,29 +585,7 @@
 		
 		mounted(){
 			
-			const in_batch_order = uni.getStorageSync("in_batch_order")
-			const in_ordinary_order = uni.getStorageSync("in_ordinary_order")
-			if (in_batch_order){
-				uni.setNavigationBarTitle({
-					title:`批量货模式`
-				})
-			} else if(in_ordinary_order){
-				uni.setNavigationBarTitle({
-					title:`普通货模式`
-				})
-			
-			}
-			
-			//通过前页面判断是否该显示“草稿”和“提交”按钮
-			let pages = getCurrentPages();//页面对象
-			let prevpage = pages[pages.length - 2];//上一个页面对象
-			console.log( prevpage.route,'8755')//上一个页面路由地址
-							if (prevpage.route == "pages/shipping_order/shipping_order") {
-								this.show_btn = false
-							} else if (prevpage.route == "pages/index/index"){
-								this.show_btn = true
-							}
-			
+		
 			
 			// 下单方式字典
 			this.getSourceOrderWayOptions()
@@ -771,15 +661,13 @@
 				console.log(e.target.value,'aq');
 				
 				if (e.target.value=="1"){
-					//计价方式 (元/吨)
-					this.show_yuan_ton = false 
+					
 					//计价方式 (多选)
 					this.show_multi_choice= true
 					//计价方式 (包车)
 					this.show_whole_car= false 
 				}else if (e.target.value=="2"){
-					//计价方式 (元/吨)
-					this.show_yuan_ton = false 
+					
 					//计价方式 (多选)
 					this.show_multi_choice= false  
 					//计价方式 (包车)
@@ -920,7 +808,7 @@
 			goSelectConsignorContact(){
 				
 				uni.navigateTo({
-					url:"/pages/select_consignor_contact/select_consignor_contact?papel=consignor"
+					url:"/pages/ordinary_consignor_contact/ordinary_consignor_contact"
 				})
 				
 			},
@@ -929,7 +817,7 @@
 			goSelectConsigneeContact(){
 				
 				uni.navigateTo({
-					url:"/pages/select_consignor_contact/select_consignor_contact?papel=consignee"
+					url:"/pages/ordinary_consignee_contact/ordinary_consignee_contact"
 				})
 				
 			},
@@ -1222,30 +1110,11 @@
 			},
 			//后退
 			backward(){
-				let pages = getCurrentPages();//页面对象
 				
-				if (pages.length == 1) {
 					uni.switchTab({
 						url:"/pages/choose_order_type/choose_order_type"
 					})
-				} 
-				 
-				 
-				let prevpage = pages[pages.length - 2];//上一个页面对象
-				console.log( prevpage.route,'8766')//上一个页面路由地址
-				
-				
-								if (prevpage.route == "pages/shipping_order/shipping_order") {
-									uni.switchTab({
-										url:"/pages/shipping_order/shipping_order"
-									})
-								} else  {
-									
-									uni.switchTab({
-										url: '/pages/choose_order_type/choose_order_type',
-									})
-								} 
-								
+							
 			},
 			makeDraft(e){
 				//如果不选择，传入默认值

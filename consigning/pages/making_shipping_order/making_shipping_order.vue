@@ -190,7 +190,7 @@
 			goShippingOrderSourceDetail(item){
 				uni.setStorageSync("making_shipping_order_detail", item)
 				uni.navigateTo({
-					url:"/pages/begin_shipping_order/begin_shipping_order",
+					url:"/pages/cada_shipping_order/cada_shipping_order",
 				})
 			}
 			

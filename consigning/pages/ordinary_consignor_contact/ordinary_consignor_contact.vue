@@ -230,7 +230,7 @@
 					   setTimeout(
 					      ()=>{
 					   						 uni.navigateTo({
-					   						  url:"/pages/batch_ordering/batch_ordering",
+					   						  url:"/pages/ordinary_ordering/ordinary_ordering",
 					   						 })
 					   					 },30
 					   )

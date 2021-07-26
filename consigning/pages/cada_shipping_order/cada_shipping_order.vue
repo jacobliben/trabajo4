@@ -1,7 +1,25 @@
 <template>
 	<view class="page">
 	  <form @submit="formSubmit" method="post" enctype="multipart/form-data" >
-		 
+		  <view class="cu-form-group margin-top" v-if="showOrderType" >
+		  	
+		  	<view class="name">下单方式<text class="red">*</text></view>
+		    
+			<view class="ref-name">
+													<radio-group class="truck-type" @change="radioSourceOrderWayChange">
+													                <label class="cell-flex" v-for="(item, index) in sourceOrderWayOptions" 
+																			:key="item.dictValue">
+													                    <view>
+																			
+													                        <radio :value="item.dictValue" :checked="index === sourceOrderWay_current" />
+													                    </view>
+													                    <view>{{item.dictLabel}}</view>
+													                </label>
+													 </radio-group>
+			</view>	  
+		  	    
+		  </view> 
+		  
 		  
 		 <view class="current-state margin-top">
 		 		<text >收发地</text>
@@ -12,42 +30,40 @@
 			<view class="name">发货联系人<text class="red">*</text></view>
                 
 			     <view class="person-nums">
-			       <view v-if ="has_consignor_contact">
-				        <view> {{consignor_contact_choosen}}</view>
+			       <view>
+				        <text> {{consignor_contact_choosen}}</text>
 				   </view>
-			        <view v-if ="!has_consignor_contact" class="cellphone">请选择发货联系人</view>
+			       
 			     </view>
-				 <view><image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image></view>
+				 
 		</view> 
 		
-		<view class="cu-form-group margin-top" @click="goSelectConsignorContact" v-if ="has_consignor_contact">
+		<view class="cu-form-group margin-top" >
 			<!-- 发货人电话 -->
 			<view class="name"><image src="/static/phone-new.png" mode="widthFix" class="sm-icon" ></view>
 		        
 			     <view class="person-nums">
-			       <view v-if ="has_consignor_contact">
-				       
+			       <view>
 						 <view> 
-						 
-						 <text>{{consignor_contact_phone}}</text> 
+						   <text>{{consignor_contact_phone}}</text> 
 						 </view>
 				   </view>
-			        <view v-if ="!has_consignor_contact" class="cellphone">请选择发货联系人</view>
+			       
 			     </view>
 				 <view></image></view>
 		</view> 
 		
 		
-		<view class="cu-form-group margin-top" @click="goSelectConsignorContact" v-if ="has_consignor_contact" >
+		<view class="cu-form-group margin-top">
 			<!-- 发货人地址 -->
 			<view class="name"><image src="/static/positioning.png" mode="widthFix" class="sm-icon" ></view>
 		        
 			     <view class="person-nums">
-			       <view v-if ="has_consignor_contact">
+			       <view>
 				       
 						 <view> {{consignor_contact_address}}</view>
 				   </view>
-			        <view v-if ="!has_consignor_contact" class="cellphone">请选择发货联系人</view>
+			        
 			     </view>
 				 <view></view>
 		</view> 
@@ -56,43 +72,43 @@
 			<image src="/static/downward.svg" mode="widthFix" class="sm-icon" >
 		</view>
 		
-		<view class="cu-form-group" @click="goSelectConsigneeContact"  >
+		<view class="cu-form-group">
 			<view class="name">收货联系人 <text class="red">*</text></view>
 			
 			<view class="person-nums">
-			  <text v-if ="has_consignee_contact">{{consignee_contact_choosen}}</text>
-			   <text v-if ="!has_consignee_contact" class="cellphone">请选择收货联系人</text>
+			  <text>{{consignee_contact_choosen}}</text>
+			   
 			</view>
-			<view><image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image></view>
+			
 		</view>
 		
-		<view class="cu-form-group margin-top" @click="goSelectConsigneeContact" v-if ="has_consignee_contact">
+		<view class="cu-form-group margin-top">
 			<!-- 收货人电话 -->
 			<view class="name"><image src="/static/phone-new.png" mode="widthFix" class="sm-icon" ></view>
 		        
 			     <view class="person-nums">
-			       <view v-if ="has_consignee_contact">
+			       <view>
 				       
 						 <view> 
 						 
 						 <text>{{consignee_contact_phone}}</text> 
 						 </view>
 				   </view>
-			        <view v-if ="!has_consignee_contact" class="cellphone">请选择收货联系人</view>
+			        
 			     </view>
 				 <view></image></view>
 		</view> 
 		
-		<view class="cu-form-group margin-top" @click="goSelectConsigneeContact" v-if ="has_consignee_contact" >
+		<view class="cu-form-group margin-top">
 			<!-- 收货人地址 -->
 			<view class="name"><image src="/static/positioning.png" mode="widthFix" class="sm-icon" ></view>
 		        
 			     <view class="person-nums">
-			       <view v-if ="has_consignee_contact">
+			       <view>
 				       
 						 <view> {{consignee_contact_address}}</view>
 				   </view>
-			        <view v-if ="!has_consignee_contact" class="cellphone">请选择收货联系人</view>
+			        
 			     </view>
 				 <view></view>
 		</view> 
@@ -107,7 +123,7 @@
 			
 					<input type="text" maxlength="16"  placeholder="请输入货物名称" 
 					  selection-start="-1" selection-end="-1" cursor="-1" :value="goodsName"
-						   @input="getGoodsName" >
+						disabled   @input="getGoodsName" >
 					
 				
 		</view>
@@ -116,7 +132,7 @@
 			<text class="name">货物重量(吨)<text class="red">*</text></text>
 			 <input type="digit" maxlength="16"  name="password" placeholder="请输入货物重量" 
 			 selection-start="-1" selection-end="-1" cursor="-1" :value="goodsWeight"
-			  @input="getGoodsWeight"  >
+			 disabled @input="getGoodsWeight"  >
 		</view>
 		
 		
@@ -124,7 +140,7 @@
 		<view class="cu-form-group"  >
 			<text class="name">货物分类 <text class="red">*</text></text>
 			
-		     <picker @change="bindPickerGoodsTypeChange" :value="goods_type_index" :range="goods_type_list">
+		     <picker disabled @change="bindPickerGoodsTypeChange" :value="goods_type_index" :range="goods_type_list">
 		                           <view class="picker-view text-lg">{{goods_type_list[goods_type_index]}}</view>
 		      </picker>
 		</view>
@@ -133,13 +149,13 @@
 			<text class="name">货物件数</text>
 			<input type="text" maxlength="16" name="password"  
 			placeholder="请输入货物件数" :value="packageNumber"
-			 selection-start="-1" selection-end="-1" cursor="-1"    @input="getPackageNumber">
+			 selection-start="-1" selection-end="-1" cursor="-1"  disabled  @input="getPackageNumber">
 			
 		</view>
 		
 		<view class="cu-form-group" >
 			<text class="name">包装类型<text class="red">*</text></text>
-			<picker @change="bindPickerPackageTypeChange" :value="package_type_index" :range="package_type_list">
+			<picker disabled @change="bindPickerPackageTypeChange" :value="package_type_index" :range="package_type_list">
 			                      <view class="picker-view text-lg">{{package_type_list[package_type_index]}}</view>
 			 </picker>
 			
@@ -152,26 +168,27 @@
 		
 		<view class="cu-form-group margin-top"  style="width:60%;">
 			<text class="name">车型选择</text>
-			    <checkbox-group @change="checkboxCargoBoxTypeChange">
-			                   <label  v-for="item in cargoBoxTypeOptions" :key="item.dictValue">
-			                        <view>
-			                           <checkbox :value="item.dictValue" :checked="item.checked" />
-			                        </view>
-			                       <view>{{item.dictLabel}}</view>
-			                   </label>
-			               </checkbox-group>
+			   
+				<text v-for = "item in cargoBoxType ">
+					<text v-if="item.cargoBoxType==5">标箱</text>
+					<text v-if="item.cargoBoxType==2">高栏</text>
+					<text v-if="item.cargoBoxType==1">平板</text>
+					<text v-if="item.cargoBoxType==3">低平板</text>
+					<text v-if="item.cargoBoxType==4">轴线车</text>
+					<text v-if="item.cargoBoxType==6">厢式</text>
+					<text v-if="item.cargoBoxType==7">飞翼车</text>
+					<text v-if="item.cargoBoxType==8">自卸车</text>
+					
+				</text>		   
 		</view>
 		
 		<view class="cu-form-group margin-top"  style="width:60%;">
 			<text class="name">车长选择</text>
-			    <checkbox-group @change="checkboxVehicleLengthsChange">
-			                   <label  v-for="item in vehicleLengthOptions" :key="item.dictValue">
-			                        <view>
-			                           <checkbox :value="item.dictValue" :checked="item.checked" />
-			                        </view>
-			                       <view>{{item.dictLabel}}</view>
-			                   </label>
-			               </checkbox-group>
+			    <text v-for = "item in vehicleLengthList ">
+			    	<text>{{item}}m</text>
+			    	
+			    	
+			    </text>	
 		</view>
 		
 		<view class="current-state margin-top">
@@ -244,35 +261,42 @@
 			<text class="name">计价方式<text class="red">*</text></text>
 					<input type="text" maxlength="16"  placeholder="元/吨" 
 					  selection-start="-1" selection-end="-1" cursor="-1" disabled
-						    />
+						   @input="" v-if="show_yuan_ton" >
+					<picker @change="bindPickerSettlementTypeChange" :value="settlement_type_index" :range="sourceSettlementMethodOptions" v-if="show_multi_choice">
+					       <view class="picker-view text-lg">{{sourceSettlementMethodOptions[settlement_type_index]}}</view>
+					 </picker>	   
+					
+					<input type="text" maxlength="16"  placeholder="包车"
+					  selection-start="-1" selection-end="-1" cursor="-1" disabled
+						   @input="" v-if="show_whole_car" >	   
 		</view>
 		
 		<view class="cu-form-group margin-top">
 			<text class="name">运费单价(元)<text class="red">*</text></text>
 					<input type="digit" maxlength="10"  placeholder="运费单价不能小于0" 
 					  selection-start="-1" selection-end="-1" cursor="-1" 
-					:value="unitPrice"	   @input="getUnitPrice" >
+					:value="unitPrice"	disabled  @input="getUnitPrice" >
 		</view>
 		
 		<view class="cu-form-group margin-top">
 			<text class="name">运费金额(元)<text class="red">*</text></text>
 					<input type="digit" maxlength="10"  placeholder="请输入运费金额" 
 					  selection-start="-1" selection-end="-1" cursor="-1" 
-					:value="consignorRates"	   @input="getConsignorRates" >
+					:value="consignorRates"	  disabled @input="getConsignorRates" >
 		</view>
 		
 		<view class="cu-form-group margin-top">
 			<text class="name">货值单价(元/吨)</text>
 					<input type="digit" maxlength="10"  placeholder="请输入货值单价(元/吨)" 
 					  selection-start="-1" selection-end="-1" cursor="-1" 
-					:value="goodsUnitPrice"	   @input="getGoodsUnitPrice"  >
+					:value="goodsUnitPrice"	disabled   @input="getGoodsUnitPrice"  >
 		</view>
 		
 		<view class="cu-form-group margin-top">
 			<text class="name">整车货值(元)</text>
 					<input type="digit" maxlength="10"  placeholder="请输入整车货值(元)" 
 					  selection-start="-1" selection-end="-1" cursor="-1" 
-					:value="goodsFee"	   @input="getGoodsFee" >
+					:value="goodsFee" disabled	   @input="getGoodsFee" >
 		</view>
 		
 		<view class="cu-form-group margin-top ">
@@ -288,14 +312,14 @@
 			<text class="name">自定义编号</text>
 			 <input type="text" maxlength="16"   placeholder="请输入自定义编号" 
 			 selection-start="-1" selection-end="-1" cursor="-1"
-			:value="customNumber"  @input="getCustomNumber" >
+			:value="customNumber" disabled @input="getCustomNumber" >
 		</view>
 		
 		<view class="cu-form-group"  >
 			<text class="name">摘单咨询电话</text>
 			 <input type="number" maxlength="16"   placeholder="请输入摘单咨询电话" 
 			 selection-start="-1" selection-end="-1" cursor="-1"
-			:value="pickMonadPhone"  @input="getPickMonadPhone" >
+			:value="pickMonadPhone" disabled @input="getPickMonadPhone" >
 		</view>
 		
 		
@@ -303,14 +327,14 @@
 			<text class="name">结算咨询电话</text>
 			 <input type="number" maxlength="16"   placeholder="请输入结算咨询电话" 
 			 selection-start="-1" selection-end="-1" cursor="-1"
-			:value="settlementPhone"  @input="getSettlementPhone" >
+			:value="settlementPhone" disabled @input="getSettlementPhone" >
 		</view>
 		
 		<view class="cu-form-group">
 					     <view class="name">发单数</view>
 					     <view class="ref-name">
 										 <uni-number-box class="picker-view text-lg"
-										  :min="1" :max="99" @change="getSourceQuantity" v-model = "sourceQuantity"></uni-number-box>
+										disabled  :min="1" :max="99" @change="getSourceQuantity" v-model = "sourceQuantity"></uni-number-box>
 							 
 						 </view>
 		</view>
@@ -334,7 +358,7 @@
 			<text class="name">选择承运人<text class="red">*</text></text>
 			 <input type="number" maxlength="16"   placeholder="请输入承运人名称,证件号或手机号" 
 			 selection-start="-1" selection-end="-1" cursor="-1"
-			:value="pickMonadPhone"  @input="getPickMonadPhone" >
+			:value="pickMonadPhone" disabled @input="getPickMonadPhone" >
 		</view>
 		
 		<view class="cu-form-group">
@@ -349,11 +373,7 @@
 		</view>
 		
 		<view class="btn-row">
-			             <button class="next-btn bg-gradual-blue round" v-if="show_btn"
-			                @click="makeDraft">草稿</button> 
-							 <button class="next-btn round" :class="{'bg-gradual-green':active}"
-							 :disabled="disabled" v-if="show_btn"
-							  form-type="submit">提交</button>
+			           
 							   <button class="next-btn bg-gradual-green round" 
 						 @click="backward">关闭</button> 
 		</view>
@@ -370,7 +390,8 @@
 			       })
 				   
 			return{
-				form:"",
+				
+				
 				//是否显示下单方式
 				showOrderType:true,
 				now_state:this.transporte_state,
@@ -411,10 +432,13 @@
 				packageNumber:"",
 				//车辆类型字典
 				 cargoBoxTypeOptions: [],
-				 
+				 cargoBoxTypeLabel: [],
+				 cargoBoxTypeSendValue: [],
+				 cargoBoxType: [],
+				 cargo_box_type_index:0,
 				 //车长字典
 				 vehicleLengthOptions: [],
-				
+				vehicleLengthList: [],
 				//装货开始日期
 				assignSendTimeDate: currentDate,
 				assignSendTimeDate_has_input:false,
@@ -490,10 +514,155 @@
 				
 			}
 		},
-		
+		async created(){
+			
+			
+			
+			//用于正常显示，勿删！！！！
+			// 下单方式字典
+			this.getSourceOrderWayOptions()
+			  // 货物分类字典
+			 this.getGoodsTypeOptions()
+			 // 包装类型字典
+			 this.getPackageTypeOptions()
+			 //车辆类型字典
+			 this.getCargoBoxTypeOptions()
+			 //车长字典
+			 this.getVehicleLengthOptions()
+			 // 计价方式字典
+			 this.getSourceSettlementMethodOptions()
+			 
+			 
+		   //通过前页面判断是否该显示货源单号的详情(回显)
+		   let pages = getCurrentPages();//页面对象
+		 
+		   //如果只有1个页栈,说明是直接由index页跳转至"货源下单"
+		   if (pages.length == 1) {
+			  
+			   if (this.now_state.state == 0){
+				   this.showOrderType = false //批量货模式下，不显示“下单方式”
+				   //计价方式 (元/吨)
+				   this.show_yuan_ton=true//批量货模式下
+				   //计价方式 (多选)
+				   this.show_multi_choice = false//批量货模式下
+				   //计价方式 (包车)
+				   this.show_whole_car = false//批量货模式下
+			   }else if (this.now_state.state == 1){
+				   this.showOrderType =true //普通货模式下
+				   //计价方式 (元/吨)
+				   this.show_yuan_ton= false//普通货模式下，先显示“单价”
+				   //计价方式 (多选)
+				   this.show_multi_choice = true//普通货模式下，先显示“单价”
+				   //计价方式 (包车)
+				   this.show_whole_car = false//普通货模式下，先显示“单价”
+				   
+			   }
+		     // return 
+			 //不显示任何回显
+		   } 
+		   
+		   
+		   
+		   					
+		   					 //“货源下单”里货源单号的详情(回显)
+		   					this.orderSourceDetail = uni.getStorageSync("making_shipping_order_detail")
+		   					console.log(this.orderSourceDetail,'mv');
+		   					
+							const sourceId = this.orderSourceDetail.sourceId
+							
+							var authorization = uni.getStorageSync("token")
+							
+							const res = await this.$request({
+								 	url:`/app/source/getSourceVo/${sourceId}`,
+								 	
+								 	header:{
+								 		Authorization:authorization,
+								 	},
+								 	
+								 })
+						
+							
+							this.orderSourceDetail = res.data.data
+							console.log(this.orderSourceDetail,'211');
+							
+							this.consignor_contact_choosen = this.orderSourceDetail.iscmSourceInformationRecord.shipperName
+							this.consignor_contact_phone = this.orderSourceDetail.iscmSourceInformationRecord.shipperPhone
+							this.consignor_contact_address = this.orderSourceDetail.iscmSourceInformationRecord.shipperAddress
+							
+							this.consignee_contact_choosen = this.orderSourceDetail.iscmSourceInformationRecord.consigneeName
+							this.consignee_contact_phone = this.orderSourceDetail.iscmSourceInformationRecord.consigneePhone
+							this.consignee_contact_address = this.orderSourceDetail.iscmSourceInformationRecord.consigneeAddress
+							
+						
+							this.cargoBoxType = this.orderSourceDetail.iscmSourceCargoBoxTypeList
+							this.vehicleLengthList = this.orderSourceDetail.iscmSourceVehicleLengthList.map(e=>e=e.vehicleLength)
+							console.log(this.vehicleLengthList,'vehicleLengthList');
+					
+							
+							 
+							
+							///////////
+							
+		   					 const orderWay = this.orderSourceDetail.orderWay
+		   					
+		   					 if (orderWay== 3){
+		   									  this.showOrderType = false
+		   					 }else if (orderWay< 3){
+		   									   this.sourceOrderWay_current = orderWay -1
+		   					 }
+		   					this.goodsName = this.orderSourceDetail.goodsName
+		   					this.goodsWeight = this.orderSourceDetail.goodsWeight
+		   								
+		   					this.packageNumber = this.orderSourceDetail.packageNumber
+		   					
+		   					
+		   					
+		   					
+		   					//装货开始时间
+		   					if (this.orderSourceDetail.assignSendTime){
+		   									                        
+		   														 this.assignSendTimeDate = this.orderSourceDetail.assignSendTime.split(" ")[0]||this.getDate({format: true})
+		   																	 this.assignSendTimeTime = this.orderSourceDetail.assignSendTime.split(" ")[1]||this.getDate({format: true})
+		   														 this.assignSendTimeDate_has_input = true
+		   																	 this.assignSendTimeTime_has_input = true
+		   					}
+		   					
+		   					//装货截止时间
+		   					if (this.orderSourceDetail.assignEndTime){
+		   														this.assignEndTimeDate = this.orderSourceDetail.assignEndTime.split(" ")[0]||this.getDate({format: true})
+		   														this.assignEndTimeTime = this.orderSourceDetail.assignEndTime.split(" ")[1]||this.getDate({format: true})
+		   														this.assignEndTimeDate_has_input = true
+		   														this.assignEndTimeTime_has_input = true
+		   					}
+		   					
+		   					this.unitPrice = this.orderSourceDetail.unitPrice   
+		   					this.consignorRates = this.orderSourceDetail.consignorRates
+		   					this.goodsUnitPrice = this.orderSourceDetail.goodsUnitPrice
+		   					this.goodsFee = this.orderSourceDetail.goodsFee
+		   					this.customNumber = this.orderSourceDetail.customNumber
+		   					this.pickMonadPhone = this.orderSourceDetail.pickMonadPhone
+		   					this.settlementPhone = this.orderSourceDetail.settlementPhone
+		   					this.sourceQuantity = this.orderSourceDetail.sourceQuantity
+		   					this.specifyCarrierStatus = this.orderSourceDetail.specifyCarrierStatus
+		   					if (this.specifyCarrierStatus==1){
+		   									this.assign_carrier_current =0
+		   					}else if (this.specifyCarrierStatus==1){
+		   									 this.assign_carrier_current =1
+		   					}
+		   					this.checked = this.orderSourceDetail.isTemplate
+		   					
+		   					
+		   					
+		   				 
+		   
+			 
+			 
+			 
+			 
+			 
+		},
 		
 		mounted(){
-			
 			
 			
 			
@@ -510,43 +679,6 @@
 			 this.getVehicleLengthOptions()
 			 // 计价方式字典
 			 this.getSourceSettlementMethodOptions()
-			
-			//发货联系人
-			let consignor_contact = uni.getStorageSync("consignor_contact")
-			consignor_contact=JSON.parse(consignor_contact)
-			
-			 console.log( consignee_contact,'mmvv');
-			
-			if (consignor_contact){
-				this.consignor_contact_choosen =consignor_contact.shipperName
-				this.consignor_contact_id = consignor_contact.shipperId
-			
-				this.consignor_contact_address = consignor_contact.shipperAddress
-				this.consignor_contact_phone = consignor_contact.shipperPhone
-				
-				this.params.shipperId = this.consignor_contact_id
-				this.has_consignor_contact = true
-			}else{
-				this.has_consignor_contact = false//尚未选择发货联系人
-			}
-			
-			
-			//收货联系人
-			 let consignee_contact = uni.getStorageSync("consignee_contact")
-			 consignee_contact=JSON.parse(consignee_contact)
-			 console.log( consignee_contact,'2997');
-			 
-			 if (consignee_contact){
-			 	this.consignee_contact_choosen =consignee_contact.consigneeName
-			 	this.consignee_contact_id = consignee_contact.consigneeId
-			 	this.consignee_contact_address = consignee_contact.consigneeAddress
-			 	this.consignee_contact_phone = consignee_contact.consigneePhone
-			 	
-				this.params.consigneeId = this.consignee_contact_id
-			 	this.has_consignee_contact = true
-			 }else{
-			 	this.has_consignee_contact = false//尚未选择收货联系人
-			 }
 			
 							
 			//是否显示下单方式				
@@ -609,13 +741,15 @@
 				console.log(e.target.value,'aq');
 				
 				if (e.target.value=="1"){
-					
+					//计价方式 (元/吨)
+					this.show_yuan_ton = false 
 					//计价方式 (多选)
 					this.show_multi_choice= true
 					//计价方式 (包车)
 					this.show_whole_car= false 
 				}else if (e.target.value=="2"){
-					
+					//计价方式 (元/吨)
+					this.show_yuan_ton = false 
 					//计价方式 (多选)
 					this.show_multi_choice= false  
 					//计价方式 (包车)
@@ -643,6 +777,19 @@
 					
 					 this.goods_type_list= this.goodsTypeOptions
 					this.goodsTypeSendValue = res.data.data.map(e=>e.dictValue)	 
+					
+					//通过页面层次判断是否该显示货源单号的详情(回显)
+					
+					let pages = getCurrentPages();//页面对象
+					let prevpage = pages[pages.length - 2];//上一个页面对象
+					console.log( prevpage ,'8766')//上一个页面路由地址
+					
+									if (prevpage.route == "pages/shipping_order/shipping_order") {
+										const goodsType = this.orderSourceDetail.goodsType
+										
+										this.goods_type_index = this.goodsTypeSendValue.findIndex(value=>value == goodsType) 
+									}
+					
 					
 					
 			},
@@ -696,8 +843,10 @@
 					 })
 					
 					 this.cargoBoxTypeOptions = res.data.data
-				
-					
+					 this.cargoBoxTypeLabel = this.cargoBoxTypeOptions.map(e=>e=e.dictLabel)
+				       this.cargoBoxTypeSendValue = this.cargoBoxTypeOptions.map(e=>e=e.dictValue)
+					console.log(this.cargoBoxTypeLabel,"cargoBoxTypeLabel");
+					console.log(this.cargoBoxTypeSendValue,"cargoBoxTypeSendValue");
 			},
 			
 			//车长字典
@@ -734,6 +883,7 @@
 					 	
 					 })
 					
+					
 					 this.sourceSettlementMethodOptions = res.data.data.map(e=>e.dictLabel)
 					 this.settlementTypeSendValue = res.data.data.map(e=>e.dictValue)
 					
@@ -742,7 +892,7 @@
 			goSelectConsignorContact(){
 				
 				uni.navigateTo({
-					url:"/pages/select_consignor_contact/select_consignor_contact"
+					url:"/pages/select_consignor_contact/select_consignor_contact?papel=consignor"
 				})
 				
 			},
@@ -751,7 +901,7 @@
 			goSelectConsigneeContact(){
 				
 				uni.navigateTo({
-					url:"/pages/select_consignee_contact/select_consignee_contact"
+					url:"/pages/select_consignor_contact/select_consignor_contact?papel=consignee"
 				})
 				
 			},
@@ -783,25 +933,25 @@
 						},						
 			//货物分类选择
 			bindPickerGoodsTypeChange(e) {
-						            console.log('picker发送选择改变，携带值为货物类型', e.target.value)
+						           
 						            this.goods_type_index = e.target.value
 									
 									var goods_type_index = this.goods_type_index
 									
 									 this.params.goodsType =this.goodsTypeSendValue[goods_type_index]
-									 console.log (this.params.goodsType,"货物类型后台值")
+									
 									
 						        },	
 			
 			//包装类型选择
 			bindPickerPackageTypeChange(e) {
-						            console.log('picker发送选择改变，携带值为货物类型', e.target.value)
+						          
 						            this.package_type_index = e.target.value
 									
 									var package_type_index = this.package_type_index
 									
 									 this.params.packageType =this.packageTypeSendValue[package_type_index]
-									console.log (this.params.packageType,"包装类型后台值")
+									
 									
 						        },	
 								
@@ -817,7 +967,7 @@
 			                        this.$set(item,'checked',false)
 			                    }
 			                }
-							console.log(values,'er32');
+							
 							this.params.vehicleLengths = values
 			            
 			        },
@@ -833,7 +983,7 @@
 			                        this.$set(item,'checked',false)
 			                    }
 			                }
-							console.log(values,'as1232');
+						
 							this.params.cargoBoxType = values
 			            
 			        },	
@@ -865,10 +1015,10 @@
 														 // this.assignSendTimeDate = new Date()
 													  // }
 													 this.assignSendTime =  this.assignSendTimeDate +" "+  this.assignSendTimeTime
-													 this.params.assignSendTime =  this.assignSendTime
+													 this.params.assignSendTime =  this.params.assignSendTimeDate +" "+  this.params.assignSendTimeTime
 													  
 				      								  this.assignSendTimeTime_has_input = true
-													 console.log(Date.parse(this.assignSendTime),'qe'); 
+													
 				      }else if(e.currentTarget.dataset.index=="assignEndTimeTime"){
 				      								  //装货截止时刻
 				      								  this.assignEndTimeTime = e.target.value
@@ -879,7 +1029,7 @@
 													  this.params.assignEndTime =  this.params.assignEndTimeDate +" "+ this.params.assignEndTimeTime 
 				      								  this.assignEndTimeTime_has_input = true
 													  
-													  console.log(Date.parse(this.assignEndTime),'ke');
+
 														  
 													  if (Date.parse(this.assignSendTime)> Date.parse(this.assignEndTime)){
 														  uni.showToast({
@@ -895,13 +1045,13 @@
 			        },
 			//计价方式						   
 			bindPickerSettlementTypeChange(e) {
-						            console.log('picker发送选择改变，携带值为计价方式', e.target.value)
+						            
 						            this.settlement_type_index = e.target.value
 									
 									var settlement_type_index = this.package_type_index
 									
 									 this.params.settlementMethod =this.settlementTypeSendValue[settlement_type_index]
-									console.log (this.params.settlementMethod,"计价方式后台值")
+									
 									
 						        },	   
 									   
@@ -1044,16 +1194,29 @@
 			},
 			//后退
 			backward(){
+				let pages = getCurrentPages();//页面对象
 				
-				
-				
+				if (pages.length == 1) {
 					uni.switchTab({
 						url:"/pages/choose_order_type/choose_order_type"
 					})
-			
+				} 
 				 
 				 
+				let prevpage = pages[pages.length - 2];//上一个页面对象
+
 				
+				
+								if (prevpage.route == "pages/shipping_order/shipping_order") {
+									uni.switchTab({
+										url:"/pages/shipping_order/shipping_order"
+									})
+								} else  {
+									
+									uni.switchTab({
+										url: '/pages/choose_order_type/choose_order_type',
+									})
+								} 
 								
 			},
 			makeDraft(e){
@@ -1116,33 +1279,19 @@
 										}
 										
 										var authorization = uni.getStorageSync("token")
+										var  form = this.params
 										
-										this.form = this.params
-										
-										let formData = new FormData();
-										
-										 for (let key in this.form) {
-										                if (this.form[key]) {
-										                  formData.append(key, this.form[key]);
-										                }
-										              }
-										var  form = this.form
-										formData.append("cargoBoxType", this.cargoBoxType);
-										              formData.append("vehicleLengths", this.vehicleLengths);
-										              formData.append("isTemplate", this.isTemplate);
-										console.log(formData,"formData")
-										console.log(form,"form")
 										const res = await this.$request({
 											url:"/app/source/add",
 											method: "POST",
 											data:form,
 											header:{
 												Authorization:authorization,
-												"Content-Type": "multipart/form-data;charset=utf-8"
+												"Content-Type": "multipart/form-data;"
 											},
 											
 										})
-										console.log(res,"加司机")
+									
 										
 										
 										try {
@@ -1151,9 +1300,7 @@
 										} catch (e) {
 										    // error
 										}
-										// uni.switchTab({
-										// 	url:"/pages/choose_order_type/choose_order_type"
-										// })
+										
 									},
 		}
 	}
