@@ -85,24 +85,7 @@
 				hidePass:true
 			}
 		},
-		onLoad(){
-			var that = this 
-			// uni.showLoading({
-			// 	title:"登录中"
-			// })
-			
-			// uni.login({
-			// 	provider:"weixin",
-			// 	success:(loginRes)=>{
-			// 		console.log("login", loginRes.code)
-			// 		that.code = loginRes.code
-			// 		uni.hideLoading()
-			// 	}
-			// })
-			
-			
-		},
-	    
+		
 		methods: {
 			 
 			getUserAccount(e){

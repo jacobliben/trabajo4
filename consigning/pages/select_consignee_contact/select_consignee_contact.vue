@@ -176,7 +176,7 @@
 			//通过托运人会员名称搜索
 			searchConsignorName(e){
 				this.consignorName = e.target.value
-				console.log(this.consignorName,'aas');
+				
 			},
 		
 			
@@ -186,17 +186,17 @@
 			//通过收货人证件号搜索
 			searchConsigneePertNumber(e){
 				this.consigneePertNumber = e.target.value
-				console.log(this.consigneePertNumber,'bbs');
+				
 			},
 			//通过收货联系人搜索
 			searchConsigneeName(e){
 				this.consigneeName = e.target.value
-				console.log(this.consigneeName,'ccs');
+				
 			},
 			//通过收货联系方式搜索
 			searchConsigneePhone(e){
 				this.consigneePhone = e.target.value
-				console.log(this.consigneePhone,'dds');
+				
 			},
 			
 			
@@ -213,19 +213,12 @@
 			         if (this.load_more){
 			           this.searchConsignee()
 			         }
-			         					  
-			         
 			         }, 1000)
 					 
-					 
-					 
-					 
-					  
 			       },
 			radioChange: function(evt) {
 				
-				 
-					    console.log (evt,'911')
+					   
 					   uni.setStorageSync("consignee_contact", evt.target.value)
 					   
 					   setTimeout(
@@ -255,7 +248,7 @@
 								url:`/app/consignee/list/?consignorName=${consignorName}&consigneePertNumber=${consigneePertNumber}&consigneeName=${consigneeName}&consigneePhone=${consigneePhone}`,
 								header:{
 									Authorization:authorization,
-									// "Content-Type": "application/json",
+								
 								},
 								data:queryParams
 								

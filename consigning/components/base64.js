@@ -70,7 +70,6 @@ const _tidyB64 = (s) => s.replace(/[^A-Za-z0-9\+\/]/g, '');
  * polyfill version of `btoa`
  */
 const btoaPolyfill = (bin) => {
-    // console.log('polyfilled');
     let u32, c0, c1, c2, asc = '';
     const pad = bin.length % 3;
     for (let i = 0; i < bin.length;) {
@@ -192,7 +191,7 @@ const btou = (b) => b.replace(re_btou, cb_btou);
  * polyfill version of `atob`
  */
 const atobPolyfill = (asc) => {
-    // console.log('polyfilled');
+   
     asc = asc.replace(/\s+/g, '');
     if (!b64re.test(asc))
         throw new TypeError('malformed base64.');

@@ -107,11 +107,11 @@
 		},
 		methods:{
 			upper: function(e) {
-			           console.log(e,'11111')
+			          
 			       },
 			lower: function(e) {
-			           console.log(e,'222222')
-									this.queryParams.pageNum += this.queryParams.pageSize
+			         
+									this.queryParams.pageNum +=1
 									this.getMessageList()
 			       },
 			async showModal(item){
@@ -123,7 +123,7 @@
 				this.msg_content = item.messageContent
 			    var authorization = uni.getStorageSync("token")
 				const msgID = item.msgId
-				console.log (msgID,'1v1')
+				
 				//将该信息标为“已读”
 				let markReadMsg = await this.$request({
 					 	url:"/iscm/msg/markRead/" + msgID,
@@ -149,7 +149,7 @@
 				uni.setClipboardData({
 				    data:data,
 				    success: function () {
-				        console.log('success');
+				       
 						uni.showToast({
 							title:"copy"
 						})
@@ -176,7 +176,7 @@
 						 	
 						 })
 					this.message_list = resMsg.data.rows
-					console.log(resMsg,'slbgw111')
+				
 					
 					//如果后台请求消息数为0，直接告知没有消息
 					if(resMsg.data.total == 0){
@@ -206,7 +206,7 @@
 						 	
 						 })
 					this.message_list = resMsg.data.rows
-					console.log(resMsg,'slbgw111')
+					
 					
 					
 					//如果后台请求消息数为0，直接告知没有消息

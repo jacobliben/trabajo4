@@ -35,7 +35,7 @@
 		},
 		onLoad(options){
 		    this.user = uni.getStorageSync("user_info")
-			 console.log(this.user,'123')
+			
 		    this.old_nickname = this.user.data.user.nickName
 			this.email = this.user.data.user.email
 		},
@@ -58,9 +58,7 @@
 			
 			async formSubmit(e) {
 				var that = this
-										console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
-						                
-						                
+									
 						                //进行表单检查
 										var authorization = uni.getStorageSync("token")
 										

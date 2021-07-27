@@ -1,7 +1,7 @@
 <template>
 	<view class="page">
 	  <form @submit="formSubmit" method="post" enctype="multipart/form-data" >
-		  <view class="cu-form-group margin-top" v-if="showOrderType" >
+		  <view class="cu-form-group margin-top">
 		  	
 		  	<view class="name">下单方式<text class="red">*</text></view>
 		    
@@ -372,13 +372,15 @@
 		</view>
 		
 		<view class="btn-row">
-			             <button class="next-btn bg-gradual-blue round" 
-			                @click="makeDraft">草稿</button> 
+			             <!-- <button class="next-btn bg-gradual-blue round" 
+			                @click="makeDraft">草稿</button> -->
+							<button class="next-btn bg-gradual-green round"
+							@click="backward">关闭</button> 
+							
 							 <button class="next-btn round" :class="{'bg-gradual-green':active}"
 							 :disabled="disabled" 
 							  form-type="submit">提交</button>
-							   <button class="next-btn bg-gradual-green round" 
-						 @click="backward">关闭</button> 
+							
 		</view>
        </form>
 	</view>	
@@ -393,9 +395,9 @@
 			       })
 				   
 			return{
-				//是否显示下单方式
-				showOrderType:true,
-				now_state:this.transporte_state,
+				//显示下单方式
+				orderWay:"",
+				
 				//“货源下单”里货源单号的详情
 				orderSourceDetail:"",
 				 // 下单方式
@@ -532,10 +534,6 @@
 			 
 	
 		   
-		   
-		   					
-							//不显示回显
-							
 							//发货联系人
 							let consignor_contact = uni.getStorageSync("consignor_contact")
 							consignor_contact=JSON.parse(consignor_contact)
@@ -559,7 +557,7 @@
 							//收货联系人
 							 let consignee_contact = uni.getStorageSync("consignee_contact")
 							 consignee_contact=JSON.parse(consignee_contact)
-							 console.log( consignee_contact,'2997');
+							 
 							 
 							 if (consignee_contact){
 							 	this.consignee_contact_choosen =consignee_contact.consigneeName
@@ -600,18 +598,8 @@
 			 // 计价方式字典
 			 this.getSourceSettlementMethodOptions()
 			
-							
-			//是否显示下单方式				
-			
-			if (this.now_state.state ==0){
-				this.showOrderType = false
-			}else{
-				this.showOrderType = true
-			}
-			
-			
 		},
-		props:["transporte_state","index_key"],
+		props:["index_key"],
 		computed: {
 		      
 		        endDate() {
@@ -656,18 +644,18 @@
 			
 			//指定下单方式
 			radioSourceOrderWayChange(e){
-			
-			    this.params.orderWay= e.target.value
+			    console.log(e,'zx');
+			   
 				console.log(e.target.value,'aq');
 				
-				if (e.target.value=="1"){
-					
+				if (e.target.value== "1"){
+					this.params.orderWay= 1
 					//计价方式 (多选)
 					this.show_multi_choice= true
 					//计价方式 (包车)
 					this.show_whole_car= false 
-				}else if (e.target.value=="2"){
-					
+				}else if (e.target.value== "2"){
+					this.params.orderWay= 2
 					//计价方式 (多选)
 					this.show_multi_choice= false  
 					//计价方式 (包车)
@@ -696,19 +684,6 @@
 					 this.goods_type_list= this.goodsTypeOptions
 					this.goodsTypeSendValue = res.data.data.map(e=>e.dictValue)	 
 					
-					//通过页面层次判断是否该显示货源单号的详情(回显)
-					
-					let pages = getCurrentPages();//页面对象
-					let prevpage = pages[pages.length - 2];//上一个页面对象
-					console.log( prevpage ,'8766')//上一个页面路由地址
-					
-									if (prevpage.route == "pages/shipping_order/shipping_order") {
-										const goodsType = this.orderSourceDetail.goodsType
-										
-										this.goods_type_index = this.goodsTypeSendValue.findIndex(value=>value == goodsType) 
-									}
-					
-					
 					
 			},
 			
@@ -734,15 +709,7 @@
 					this.packageTypeSendValue = res.data.data.map(e=>e.dictValue)	 
 					
 					
-					//通过页面层次判断是否该显示货源单号的详情(回显)
-					const pages = getCurrentPages();
-									if (pages.length === 2) {
-										const packageType = this.orderSourceDetail.packageType
-										
-										this.package_type_index = this.packageTypeSendValue.findIndex(value=>value == packageType) 
-									}
-					
-					
+			
 			},
 			
 			
@@ -799,7 +766,7 @@
 					 	
 					 })
 					
-					 console.log(res,'1111');
+					
 					 this.sourceSettlementMethodOptions = res.data.data.map(e=>e.dictLabel)
 					 this.settlementTypeSendValue = res.data.data.map(e=>e.dictValue)
 					
@@ -829,6 +796,7 @@
 			getGoodsWeight(e){
 				             this.goodsWeight = e.target.value
 							this.params.goodsWeight = e.target.value
+							this.params.remainingGoodsWeight = e.target.value
 							
 							//计算运费金额
 							if (this.params.unitPrice != null || this.params.unitPrice!=""||this.params.unitPrice.length >0){
@@ -884,7 +852,7 @@
 			                    }
 			                }
 							console.log(values,'er32');
-							this.params.vehicleLengths = values
+							this.params.cargoBoxType = values
 			            
 			        },
 			//车长选择
@@ -900,7 +868,7 @@
 			                    }
 			                }
 							console.log(values,'as1232');
-							this.params.cargoBoxType = values
+							this.params.vehicleLengths = values
 			            
 			        },	
 			bindDateChange: function(e) {
@@ -1066,7 +1034,10 @@
 			            },
 						
 			sendDefault(e){
-				
+				//进行货物分类检查,默认值
+				if (this.params.orderWay == null || this.params.orderWay==""||this.params.orderWay.length <1){
+						this.params.orderWay = 1					
+				} 
 				
 				
 				//进行货物分类检查,默认值
@@ -1119,14 +1090,19 @@
 			makeDraft(e){
 				//如果不选择，传入默认值
 				this.sendDefault()
-				
+				this.params.sourceStatus = 0
 				uni.setStorageSync('draft',this.params)
+				this.formSubmit()
 			},						
 			formSubmit:async function(e) {
-										console.log(this.params,'14555')
+									
 						               
 									   //如果不选择，传入默认值
 									   this.sendDefault()
+									   
+									   //保存为草稿状态该属性传空,正常下单传10,具体参考业务状态常量
+									   this.params.sourceStatus = 10
+									   
 										
 										//进行货物名称检查
 										if (this.params.goodsName == null || this.params.goodsName==""||this.params.goodsName.length <1){
@@ -1181,15 +1157,125 @@
 										const res = await this.$request({
 											url:"/app/source/add",
 											method: "POST",
-											data:form,
 											header:{
 												Authorization:authorization,
-												"Content-Type": "multipart/form-data;"
+												"Content-Type": "multipart/form-data; boundary=XXX"
 											},
 											
+											data:'\r\n--XXX' +
+											 '\r\nContent-Disposition: form-data; name="shipperId"' +
+											 '\r\n' +
+											 '\r\n' + this.params.shipperId +
+											 '\r\n--XXX' +
+											 '\r\nContent-Disposition: form-data; name="consigneeId"' +
+													 '\r\n' +
+											 '\r\n' + this.params.consigneeId +
+											'\r\n--XXX' +
+													 '\r\nContent-Disposition: form-data; name="cargoBoxType"' +
+													  '\r\n' +
+													 '\r\n' + this.params.cargoBoxType +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="isTemplate"' +
+													 '\r\n' +
+													'\r\n' + this.params.isTemplate +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="vehicleLengths"' +
+													 '\r\n' +
+													'\r\n' + this.params.vehicleLengths +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="sourceStatus"' +
+													 '\r\n' +
+													'\r\n' + this.params.sourceStatus +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="goodsName"' +
+													 '\r\n' +
+													'\r\n' + this.params.goodsName +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="goodsType"' +
+													 '\r\n' +
+													'\r\n' + this.params.goodsType +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="goodsWeight"' +
+													 '\r\n' +
+													'\r\n' + this.params.goodsWeight +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="packageNumber"' +
+													 '\r\n' +
+													'\r\n' + this.params.packageNumber +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="packageType"' +
+													 '\r\n' +
+													'\r\n' + this.params.packageType +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="consignorRates"' +
+													 '\r\n' +
+													'\r\n' + this.params.consignorRates +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="assignSendTime"' +
+													 '\r\n' +
+													'\r\n' + this.params.assignSendTime +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="assignEndTime"' +
+													 '\r\n' +
+													'\r\n' + this.params.assignEndTime +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="customNumber"' +
+													 '\r\n' +
+													'\r\n' + this.params.customNumber +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="pickMonadPhone"' +
+													 '\r\n' +
+													'\r\n' + this.params.pickMonadPhone +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="settlementPhone"' +
+													 '\r\n' +
+													'\r\n' + this.params.settlementPhone +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="settlementMethod"' +
+													 '\r\n' +
+													'\r\n' + this.params.settlementMethod +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="unitPrice"' +
+													 '\r\n' +
+													'\r\n' + this.params.unitPrice +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="sourceQuantity"' +
+													 '\r\n' +
+													'\r\n' + this.params.sourceQuantity +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="orderWay"' +
+													 '\r\n' +
+													'\r\n' + this.params.orderWay +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="remainingGoodsWeight"' +
+													 '\r\n' +
+													'\r\n' + this.params.remainingGoodsWeight +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="specifyCarrierStatus"' +
+													 '\r\n' +
+													'\r\n' + this.params.specifyCarrierStatus +
+													// '\r\n--XXX' +
+													// '\r\nContent-Disposition: form-data; name="specifyCarrierId"' +
+													//  '\r\n' +
+													// '\r\n' + this.params.specifyCarrierId +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="goodsUnitPrice"' +
+													 '\r\n' +
+													'\r\n' + this.params.goodsUnitPrice +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="goodsFee"' +
+													 '\r\n' +
+													'\r\n' + this.params.goodsFee +
+													'\r\n--XXX--' 
+																						
+													
+											
 										})
-										console.log(res,"加司机")
 										
+										
+										uni.showToast({
+											title:"提交成功！"
+										})
 										
 										try {
 										    uni.removeStorageSync('consignor_contact');
@@ -1197,6 +1283,10 @@
 										} catch (e) {
 										    // error
 										}
+										
+										uni.switchTab({
+											url:"/pages/choose_order_type/choose_order_type"
+										})
 										
 									},
 		}

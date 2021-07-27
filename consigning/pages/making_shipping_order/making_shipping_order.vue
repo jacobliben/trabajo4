@@ -163,7 +163,7 @@
 					 	},
 					 	data:queryParams
 					 })
-				console.log(res,'11');
+				
 				
 				if(res.data.total == 0){
 					setTimeout(()=>{

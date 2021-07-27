@@ -5,7 +5,7 @@
 					<text class="title">手机号码</text>
 					<input type="number" maxlength="11" name="cellphone"
 					 placeholder="请输入您的电话号码" :value="tel_num"
-					  focus @input="getmobile"  @blur="checkPhone">
+					   @input="getmobile"  @blur="checkPhone">
 					  <text></text>
 				</view>
 				<view class="cu-form-group" >
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-	var  graceChecker = require("../../components/graceui-dataChecker/graceChecker.js")
+	
 	export default{
 		data(){
 			return{
@@ -174,7 +174,7 @@
 			},
 			
 			async formSubmit(e) {
-										console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
+									
 						                //定义表单规则
 						                var rule = [
 						                                       {name:"cellphone",
@@ -242,9 +242,9 @@
 										
 											var formData = e.detail.value;
 											var data = this.params
-											var checkRes = graceChecker.check(formData, rule);
 											
-											if(checkRes){
+											
+											
 												
 											    uni.showToast({title:"验证通过!", icon:"none"});
 												
@@ -258,14 +258,7 @@
 												 uni.reLaunch({
 												 	url:"/pages/login/login"
 												 })
-											}else{
-												if(graceChecker.error!= ""){
-													 uni.showToast({ title: graceChecker.error, icon: "none" });
-												}else{
-													uni.showToast({title:"格式有误!", icon:"none"});
-												}
-											   
-											}
+										
 										
 									},
 		}

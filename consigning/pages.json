@@ -126,60 +126,8 @@
             }
             
         }
-        ,{
-            "path" : "pages/choose_identity/choose_identity",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "注册 选定身份角色",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/register/register",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/phone_verifying/phone_verifying",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/terms/terms",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/begin_order/begin_order",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "货源/下单详情",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/begin_shipping_order/begin_shipping_order",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
+       
+       
         ,{
             "path" : "pages/select_consignor_contact/select_consignor_contact",
             "style" :                                                                                    

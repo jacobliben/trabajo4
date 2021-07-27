@@ -16,29 +16,32 @@
 						  <view class="user-accounts"> 账号： {{user.data.user.phonenumber}}</view>
 					  </view>
 		</view>
-		<view class="cu-form-group" hover-class="one-icon-hover" @click="goWayBill">
+		
+		<view class="cu-form-group" hover-class="one-icon-hover" @click="goShippingOrder">
+				  
+				  <view>
+				        <image src="/static/despatching.png" mode="" class="sm-pic"></image>
+					<text>货源列表</text>
+					</view>	
+					<image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image>
+		</view>
+		
+		<view class="cu-form-group" hover-class="one-icon-hover" @click="goBatchOrdering">
 				      <view>
 						  <image src="/static/way-bill.png" mode="" class="sm-pic"></image>
-						  <text>我的派车单</text>
+						  <text>货源下单 (批量货模式)</text>
 					  </view>
 					<image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image>
 		</view>
-	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goShipping">
+	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goOrdinaryOrdering">
 		      <view>
 				  <image src="/static/folder.png" mode="" class="sm-pic"></image>
-				  <text>我的运单</text>
+				  <text>货源下单 (普通货模式)</text>
 			  </view>
 	   			<image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image>
 	   </view>
 	   
-	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goLoading">
-		  
-		  <view>
-		        <image src="/static/despatching.png" mode="" class="sm-pic"></image>
-	   			<text>确认装货</text>
-			</view>	
-	   			<image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image>
-	   </view>
+	   
 	   
 	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goDespatching">
 	   		  
@@ -57,13 +60,6 @@
 	   			<image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image>
 	   </view>
 	   
-	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goDispatchBefore" v-if="show_dispatch_before" >
-	   		   <view>
-	   		        <image src="/static/billboard.png" mode="" class="sm-pic"></image>
-	   			<text>历史派车单</text>
-	   			</view>	
-	   			<image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image>
-	   </view>
 	   
 	   <view class="cu-form-group" v-if="false">
 		   <view>
@@ -81,34 +77,7 @@
 	   			<image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image>
 	   </view>
 	   
-	   <view class="cu-form-group" @click="goAddCarBoss" v-if="false">
-		   <view>
-		        <image src="/static/vr.png" mode="" class="sm-pic"></image>
-	   			<text>车老板列表</text>
-			</view>	
-	   			<image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image>
-	   </view>
-	   
-	   <view class="cu-form-group" v-if="false">
-		   	<view>
-				<image src="/static/bill.png" mode="" class="sm-pic"></image>
-	   			<text>违约单</text>
-			</view> 
-	   			<image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image>
-	   </view>
-	   
-	   
-	   
-	   <view class="cu-form-group" @click="goBankCard" v-if="true">
-	   		   <view>
-	   		   	    <image src="/static/archive.png" mode="" class="sm-pic"></image>
-	   				<text>银行卡管理</text>
-	   			</view> 
-	   			<image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image>
-	   </view>
-	   
 	  
-	   
 	   <view class="cu-form-group" @click="goPersonalInfo">
 		   <view>
 		   	    <image src="/static/brain.png" mode="" class="sm-pic"></image>
@@ -117,22 +86,7 @@
 	   			<image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image>
 	   </view>
 	   
-	   <view class="cu-form-group" @click="goMember"  v-if="false">
-	   		   <view>
-	   		   	    <image src="/static/medal.png" mode="" class="sm-pic"></image>
-	   			<text>承运人会员管理</text>
-	   			</view>	
-	   			<image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image>
-	   </view>
-	   
-	   <view class="cu-form-group" v-if="false">
-		   <view>
-		   	    <image src="/static/money.png" mode="" class="sm-pic"></image>
-	   			<text>我的钱包</text>
-			</view>	
-	   			<image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image>
-	   </view>
-	   
+	  
 	   <view class="cu-form-group" @click="logout">
 	   		   <view>
 	   		   	    <image src="/static/wrench.png" mode="" class="sm-pic" ></image>
@@ -151,7 +105,7 @@
 				user:"",
 				imgAvatarUrl:"/static/user.png",
 				tachar_avatar:false,
-				show_dispatch_before:false,
+				
 				params:{},
 			}
 		},
@@ -179,15 +133,6 @@
 				})
 			}
 			
-			//判定是否“历史派车单”
-			if(this.user.data.permissions.includes("iscm:dispatch:list")&&this.user.data.roles.includes("defaultPersonalCarrier"))
-			    this.show_dispatch_before = true
-			else if(this.user.data.roles.includes("admin") )
-				 this.show_dispatch_before = true
-			else if(this.user.data.permissions.includes("iscm:dispatch:list")&&this.user.data.roles.includes("defaultDriver") )
-				 this.show_dispatch_before = true	 
-			else
-			    this.show_dispatch_before = false
 			//正式库 危险！！！
 			//this.imgAvatarUrl = uni.getStorageSync("user_avatar")||'https://wl.xcmgzhilian.com' + '/prod-api' + this.user.data.user.avatar	
 			//测试库
@@ -204,13 +149,6 @@
 				const resChoosePhoto= await this.$photo({
 										  async success(res) {
 										    const tempFilePaths = res.tempFilePaths;
-											
-											//preview the photos
-											// uni.previewImage({
-											//             urls: res.tempFilePaths,
-											            
-											//         });
-													
 											
 											 //upload the img
 											 _self.imgAvatarUrl = tempFilePaths[0]
@@ -239,15 +177,8 @@
 											   						
 											   					},
 											   					success: (res) => {
-											   					 
-																uni.showToast({title:"保存成功!", });	 
-											   					 console.log('请求成功_______________',res)
-											   					  
+																uni.showToast({title:"保存成功!", });
 											   					},
-											   					fail:(err)=>{
-											   						console.log('请求失败_______________',err)
-																	
-											   					}
 											   				})
 											   
 											}
@@ -269,28 +200,23 @@
 					url:'/pages/way_bill/way_bill'
 				})
 			},
-			goShipping(){
+			goShippingOrder(){
 				uni.switchTab({
 					url:'/pages/shipping_order/shipping_order'
 				})
 			},
-			goLoading(){
-				uni.setStorageSync("nav_state","loading")
-				uni.switchTab({
-					url:`/pages/way_bill/way_bill`
+			
+			goBatchOrdering(){
+				
+				uni.navigateTo({
+					url:`/pages/batch_ordering/batch_ordering`
 				})
 			},
-			goDespatching(){
-				uni.setStorageSync("nav_state","dispatching")
-				uni.switchTab({
-					url:`/pages/way_bill/way_bill`
-				})
-			},
-			goReceiving(){
-				uni.setStorageSync("nav_state","receiving")
-				uni.switchTab({
+			goOrdinaryOrdering(){
+				
+				uni.navigateTo({
 					
-					url:`/pages/way_bill/way_bill`
+					url:`/pages/ordinary_ordering/ordinary_ordering`
 				})
 			},
 			goDispatchBefore(){
@@ -300,38 +226,12 @@
 				})
 			},
 			
-			
-			goVehicle(){
-				uni.navigateTo({
-					url:'/pages/vehicle_list/vehicle_list'
-				})
-			},
-			goBankCard(){
-				uni.navigateTo({
-					url:'/pages/bank_card/bank_card'
-				})
-			},
-			goDriver(){
-				uni.navigateTo({
-					url:'/pages/driver_list/driver_list'
-				})
-			},
 			goPersonalInfo(){
 				uni.navigateTo({
 					url:'/pages/personal_info/personal_info'
 				})
 			},
 			
-			goMember(){
-				uni.navigateTo({
-					url:'/pages/member/member'
-				})
-			},
-			goAddCarBoss(){
-				uni.navigateTo({
-					url:'/pages/add_car_boss/add_car_boss'
-				})
-			},
 			
 			logout(){
 				

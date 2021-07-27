@@ -215,13 +215,6 @@
 										  async success(res) {
 										    const tempFilePaths = res.tempFilePaths;
 											
-											//preview the photos
-											// uni.previewImage({
-											//             urls: res.tempFilePaths,
-											            
-											//         });
-													
-											
 											 //upload the img
 											 _self.imgAvatarUrl = tempFilePaths[0]
 											   uni.setStorageSync("user_avatar",_self.imgAvatarUrl)
@@ -251,7 +244,7 @@
 											   					success: (res) => {
 											   					 
 																uni.showToast({title:"保存成功!", });	 
-											   					 console.log('请求成功_______________',res)
+											   					
 											   					  setTimeout(()=>{
 											   					  	uni.reLaunch({
 											   					  		url:`/pages/accounts/accounts?avatar=${_self.imgAvatarUrl}`
@@ -260,10 +253,7 @@
 											          			
 											   						
 											   					},
-											   					fail:(err)=>{
-											   						console.log('请求失败_______________',err)
-																	
-											   					}
+											   					
 											   				})
 											   
 											}

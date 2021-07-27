@@ -37,7 +37,7 @@
 </template>
 
 <script>
-	var  graceChecker = require("../../components/graceui-dataChecker/graceChecker.js")
+
 	export default{
 		data(){
 			return{
@@ -139,7 +139,7 @@
 			},
 			
 			async formSubmit(e) {
-										console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
+										
 						                //定义表单规则
 						                var rule = [
 						                                       {name:"cellphone",
@@ -171,12 +171,12 @@
 										    var formData = e.detail.value;
 											var phone = this.phone
 											var code = this.code
-											var checkRes = graceChecker.check(formData, rule);
+											
 											
 											
 											var authorization = uni.getStorageSync("token")
 											
-											if(checkRes){
+										
 												
 											    const res = await this.$request({
 											    	url:`/system/user/profile/updateUserPhone?phone=${phone}&code=${code}`,
@@ -188,7 +188,7 @@
 											    	
 											    })
 												
-												console.log (res, "183")
+												
 												if (res.data.code == 200){
 													uni.reLaunch({
 														url:"/pages/login_general/login_general"
@@ -197,14 +197,7 @@
 													uni.showToast({title:res.data.msg, icon:"none"});
 												}
 												 
-											}else{
-												if(graceChecker.error!= ""){
-													 uni.showToast({ title: graceChecker.error, icon: "none" });
-												}else{
-													uni.showToast({title:"格式有误!", icon:"none"});
-												}
-											   
-											}
+											
 										
 									},
 		}

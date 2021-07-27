@@ -1,12 +1,12 @@
 <template>
 	<view class="page">
 	  <form @submit="formSubmit" method="post" enctype="multipart/form-data" >
-		  <view class="cu-form-group margin-top" v-if="showOrderType" >
+		  <view class="cu-form-group margin-top"  >
 		  	
 		  	<view class="name">下单方式<text class="red">*</text></view>
 		    
 			<view class="ref-name">
-													<radio-group class="truck-type" @change="radioSourceOrderWayChange">
+													<!-- <radio-group class="truck-type" @change="radioSourceOrderWayChange">
 													                <label class="cell-flex" v-for="(item, index) in sourceOrderWayOptions" 
 																			:key="item.dictValue">
 													                    <view>
@@ -15,7 +15,8 @@
 													                    </view>
 													                    <view>{{item.dictLabel}}</view>
 													                </label>
-													 </radio-group>
+													 </radio-group> -->
+					<view>{{order_way}}</view>								 
 			</view>	  
 		  	    
 		  </view> 
@@ -392,8 +393,8 @@
 			return{
 				
 				
-				//是否显示下单方式
-				showOrderType:true,
+				//显示下单方式
+				order_way:"",
 				now_state:this.transporte_state,
 				//“货源下单”里货源单号的详情
 				orderSourceDetail:"",
@@ -567,6 +568,14 @@
 		   					 //“货源下单”里货源单号的详情(回显)
 		   					this.orderSourceDetail = uni.getStorageSync("making_shipping_order_detail")
 		   					console.log(this.orderSourceDetail,'mv');
+							
+							if (this.orderSourceDetail.orderWay ==1){
+								this.order_way = "普通货模式(单价)"
+							}else if (this.orderSourceDetail.orderWay ==2){
+								this.order_way = "普通货模式(包车)"
+							}else if (this.orderSourceDetail.orderWay ==3){
+								this.order_way = "批量货模式"
+							}
 		   					
 							const sourceId = this.orderSourceDetail.sourceId
 							
@@ -583,7 +592,6 @@
 						
 							
 							this.orderSourceDetail = res.data.data
-							console.log(this.orderSourceDetail,'211');
 							
 							this.consignor_contact_choosen = this.orderSourceDetail.iscmSourceInformationRecord.shipperName
 							this.consignor_contact_phone = this.orderSourceDetail.iscmSourceInformationRecord.shipperPhone
@@ -596,11 +604,8 @@
 						
 							this.cargoBoxType = this.orderSourceDetail.iscmSourceCargoBoxTypeList
 							this.vehicleLengthList = this.orderSourceDetail.iscmSourceVehicleLengthList.map(e=>e=e.vehicleLength)
-							console.log(this.vehicleLengthList,'vehicleLengthList');
+							
 					
-							
-							 
-							
 							///////////
 							
 		   					 const orderWay = this.orderSourceDetail.orderWay
@@ -738,8 +743,7 @@
 			radioSourceOrderWayChange(e){
 			
 			    this.params.orderWay= e.target.value
-				console.log(e.target.value,'aq');
-				
+			
 				if (e.target.value=="1"){
 					//计价方式 (元/吨)
 					this.show_yuan_ton = false 
@@ -778,17 +782,11 @@
 					 this.goods_type_list= this.goodsTypeOptions
 					this.goodsTypeSendValue = res.data.data.map(e=>e.dictValue)	 
 					
-					//通过页面层次判断是否该显示货源单号的详情(回显)
 					
-					let pages = getCurrentPages();//页面对象
-					let prevpage = pages[pages.length - 2];//上一个页面对象
-					console.log( prevpage ,'8766')//上一个页面路由地址
-					
-									if (prevpage.route == "pages/shipping_order/shipping_order") {
-										const goodsType = this.orderSourceDetail.goodsType
+					const goodsType = this.orderSourceDetail.goodsType
 										
-										this.goods_type_index = this.goodsTypeSendValue.findIndex(value=>value == goodsType) 
-									}
+					this.goods_type_index = this.goodsTypeSendValue.findIndex(value=>value == goodsType) 
+									
 					
 					
 					
@@ -816,13 +814,11 @@
 					this.packageTypeSendValue = res.data.data.map(e=>e.dictValue)	 
 					
 					
-					//通过页面层次判断是否该显示货源单号的详情(回显)
-					const pages = getCurrentPages();
-									if (pages.length === 2) {
-										const packageType = this.orderSourceDetail.packageType
+				
+					const packageType = this.orderSourceDetail.packageType
 										
-										this.package_type_index = this.packageTypeSendValue.findIndex(value=>value == packageType) 
-									}
+					this.package_type_index = this.packageTypeSendValue.findIndex(value=>value == packageType) 
+									
 					
 					
 			},
@@ -845,8 +841,7 @@
 					 this.cargoBoxTypeOptions = res.data.data
 					 this.cargoBoxTypeLabel = this.cargoBoxTypeOptions.map(e=>e=e.dictLabel)
 				       this.cargoBoxTypeSendValue = this.cargoBoxTypeOptions.map(e=>e=e.dictValue)
-					console.log(this.cargoBoxTypeLabel,"cargoBoxTypeLabel");
-					console.log(this.cargoBoxTypeSendValue,"cargoBoxTypeSendValue");
+					
 			},
 			
 			//车长字典

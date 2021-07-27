@@ -178,22 +178,22 @@
 			//通过托运人会员名称搜索
 			searchConsignorName(e){
 				this.consignorName = e.target.value
-				console.log(this.consignorName,'aas');
+				
 			},
 			//通过发货人证件号搜索
 			searchShipperPertNumber(e){
 				this.shipperPertNumber = e.target.value
-				console.log(this.shipperPertNumber,'bbs');
+				
 			},
 			//通过发货联系人搜索
 			searchShipperName(e){
 				this.shipperName = e.target.value
-				console.log(this.shipperName,'ccs');
+				
 			},
 			//通过发货联系方式搜索
 			searchShipperPhone(e){
 				this.shipperPhone = e.target.value
-				console.log(this.shipperPhone,'dds');
+				
 			},
 			
 			
@@ -263,7 +263,7 @@
 								this.load_more = false
 							}
 							
-				console.log(res,'q55');  
+				
 				if (this.consignor_list.length<res.data.total){
 					this.consignor_list =[...this.consignor_list,...res.data.rows]
 					

@@ -16,7 +16,7 @@
 				<view class="user-password" v-if="hidePass">
 					<text class="cuIcon-lock text-style text-blue"></text>
 					<input type="text" placeholder="请输入验证码"  @input="getUserVerifyCode" class="password-input">
-					<button  @click="getVerifyCode" :disabled="codeDisabled" role="button"  class="cu-btn bg-gradual-green shadow text-get round"  >
+					<button  @click="getVerifyCode" :disabled="codeDisabled" role="button"  class="this-btn bg-gradual-green shadow text-get round"  >
 						<text class="text-df">{{codeText}}</text>
 					</button>
 					
@@ -31,9 +31,6 @@
 			
 		
 		<view class="more-choices margin-top">
-			<!-- <view>
-				<navigator url="/pages/choose_identity/choose_identity" ><text class="choices">立即注册</text></navigator>
-			</view> -->
 			
 			<view class="change-pass">
 				<navigator url="/pages/login/login"><text class="no-use-more">密码登录</text></navigator>
@@ -312,8 +309,10 @@
 					 align-items: center;
 		}
 		
-		 .button-hover{
-			  transform: scale(1.2);
-		 }
+		.this-btn{
+			font-size:50rpx;
+			height: 64upx;
+			line-height: 1;
+		}
 	 
 </style>

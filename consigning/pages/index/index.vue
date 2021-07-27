@@ -260,28 +260,9 @@
 									 	
 									 })
 								this.un_read_msg = resMsg.data.total
-								console.log(resMsg,'slbgw111')
-								
-								
-									
 								
 							},
-			//判断用户是否授权
-			async requestAndroidPermission(permisionID) {
-			    var result = await permision.requestAndroidPermission(permisionID)
-			    var strStatus
-			    if (result == 1) {
-			        strStatus = "已获得授权"
-			    } else if (result == 0) {
-			        strStatus = "未获得授权"
-			    } else {
-			        strStatus = "被永久拒绝权限"
-			    }
-			    uni.showModal({
-			        content: permisionID + strStatus,
-			        showCancel: false
-			    });
-			},
+			
 			
 			
 			async getShippingInfoList(){
@@ -298,7 +279,7 @@
 					 	},
 					 	data:queryParams
 					 })
-				console.log(res,'vv');
+				
 				
 				if(!res.data.rows||res.data.rows.length ==0){
 					this.show_shipping_list = false
@@ -386,8 +367,7 @@
 			 	    onlyFromCamera: true,
 			 		
 			 	    success:async function (res) {
-			 	        console.log('条码类型：' + res.scanType);
-			 	        console.log('条码内容：' + res.result);
+			 	       
 						//after scaning ,send the QR UUID to inform the server the scanning  
 						
 						 var status =3
