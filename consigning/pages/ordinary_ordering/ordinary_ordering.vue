@@ -168,7 +168,7 @@
 				<text >运载工具要求</text>
 		</view>
 		
-		<view class="cu-form-group margin-top"  style="width:60%;">
+		<view class="cu-form-group margin-top">
 			<text class="name">车型选择</text>
 			    <checkbox-group @change="checkboxCargoBoxTypeChange">
 			                   <label  v-for="item in cargoBoxTypeOptions" :key="item.dictValue">
@@ -180,7 +180,7 @@
 			               </checkbox-group>
 		</view>
 		
-		<view class="cu-form-group margin-top"  style="width:60%;">
+		<view class="cu-form-group margin-top">
 			<text class="name">车长选择</text>
 			    <checkbox-group @change="checkboxVehicleLengthsChange">
 			                   <label  v-for="item in vehicleLengthOptions" :key="item.dictValue">
@@ -1357,7 +1357,10 @@
 			 color:#000;
 			 width:30%;
 	}
-	
+	.ref-name{
+			 color:#ccc;
+			  width:70%;
+	}
 	
 	.text-blue1{
 		color:#429bff;

@@ -2,11 +2,7 @@
 	<view class="content">
 	
 		<view class="cu-bar search first-row margin-top">
-			
-		       <view @click="letsScan">
-		       	<image src="/static/scan.png" class="sm-icon" mode="aspectFit"></image>
-		       	<view class="text-gray" >扫码</view>
-		       </view>
+		
 		  
 			<view @click="phoneCall">
 				<image src="/static/client-service.png" class="sm-icon" mode="aspectFit"></image>
@@ -70,7 +66,7 @@
 					  <view class="one-icon" hover-class="one-icon-hover" @click="logout">
 						  
 					  					  <image src="/static/molecula.png" mode="aspectFit"></image>
-					  			<navigator open-type="exit" target="miniProgram"><text>退出</text></navigator>
+					  			             <text>退出</text>
 										  
 					  </view>
 			   </view>
@@ -223,24 +219,7 @@
 				})
 			}
 						
-			this.shipping_info_list=[
-						   {
-							   place_of_delivery:"南京栖霞",
-							   place_of_destiny:"徐州下淀",
-							    goods:"润滑油 500吨",
-								vehicle:"13米高栏车",
-								price_num:9800,
-								
-						   },
-						   {
-							   place_of_delivery:"上海外高桥",
-							   place_of_destiny:"徐州杨庄",
-							    goods:"车架 50吨",
-								vehicle:"10米高栏车",
-								price_num:7800, 
-							
-						   },
-			]
+			
 			this.getShippingInfoList()
 			
 				
@@ -395,28 +374,21 @@
 			 	try {
 			 	    uni.removeStorageSync('token');
 			 		uni.removeStorageSync('user_info');
+					uni.removeStorageSync('avatar');
 			 		this.user = ""
 			 	} catch (e) {
 			 	    // error
 			 	}
 				
-				//同步清理本地数据缓存
-				try {
-				    uni.clearStorageSync();
-				} catch (e) {
-				    // error
-				}
+				
 				
 			 	
-			 	uni.navigateTo({
+			 	uni.reLaunch({
 			 		url:'/pages/login/login'
 			 	})  
 			 
 			 	
-			 	// // #ifdef APP-PLUS 
-				 
-			 	// plus.runtime.quit();  
-			 	// // #endif
+			 	
 			 }
 		}
 	}

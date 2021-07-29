@@ -36,21 +36,14 @@
 				tabCurrentIndex:0,
 				navList:[
 					{
-						state:0,
-						text:"待审核",
+						state:1,
+						text:"我的货源",
 						state_pending:"待接受",
 						orderList:[],
 						waybillStatus:this.$waitAccept,
-						btn:"待审核",
+						btn:"审核通过",
 					},
-					{
-					  state:1,
-					  text:"审核不通过",
-					  state_pending:"待分配",
-					  orderList:[],
-					  waybillStatus:this.$waitSendDispatch,
-					  btn:"审核不通过",
-					},
+					
 					
 				]
 			};
@@ -63,18 +56,6 @@
 			this.tabCurrentIndex = 0
 		},
 		onShow(){
-			this.nav_state = uni.getStorageSync("nav_state")
-			if (this.nav_state==="order-distributing"){
-				
-				
-				this.tabClick(1)
-			}else if (this.nav_state==="order-receiving"){
-				
-				
-				this.tabClick(0)
-			}else{
-				this.tabClick(0)
-			}
 			
 		},
 		

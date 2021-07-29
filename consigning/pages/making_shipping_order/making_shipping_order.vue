@@ -35,7 +35,7 @@
 						<text class="shipper">创建人：{{item.createBy}}</text>
 					</view>
 					<view>
-						<text class="create_time">发货人联系电话:{{item.pickMonadPhone}}</text>		
+						<text class="create_time">收货人联系电话:{{item.iscmSourceInformationRecord.consigneePhone}}</text>		
 					</view>
 					
 				</view>
@@ -68,6 +68,9 @@
 	export default{
 		data(){
 			return{
+				load_more:true,//继续加载列表
+				
+				
 				// 审核状态字典 
 			  sourceAuditStatusOptions: [],
 			  // 审核状态字典的dictValue
@@ -80,7 +83,7 @@
 			  now_state:this.transporte_state,
 			  queryParams: {
 			            pageNum: 1,
-			            pageSize: 10,
+			            pageSize: 3,
 			          },
 			}
 		},
@@ -94,9 +97,7 @@
 			},
 		mounted(){
 			
-			uni.setNavigationBarTitle({
-				title:`${this.now_state.text}`
-			})
+			
 		    //货源
 			this.getMakingShippingOrderList()
 		},
@@ -124,8 +125,18 @@
 			          
 			       },
 			lower: function(e) {
-									this.queryParams.pageNum += this.queryParams.pageSize
-									this.getMakingShippingOrderList()
+				      setTimeout(() => {
+				      
+				      //TODO这里填写你加载数据的方法
+				      
+				      this.queryParams.pageNum += 1
+				      if (this.load_more){
+				        this.getMakingShippingOrderList()
+				      }
+				      					  
+				      
+				      }, 1000)
+			
 			       },
 			       
 			phoneCall(phone){
@@ -151,7 +162,7 @@
 			
 			//货源
 			 async getMakingShippingOrderList(){
-			     
+			  
 				var queryParams= this.queryParams
 				var authorization = uni.getStorageSync("token")
 				
@@ -172,6 +183,11 @@
 					return
 				}
 				
+				//stop sending request
+				if (this.queryParams.pageNum*this.queryParams.pageSize>=res.data.total){
+					this.load_more = false
+				}
+				
 				if (this.making_shipping_order_list.length<res.data.total){
 					this.making_shipping_order_list =[...this.making_shipping_order_list,...res.data.rows]
 					this.show_not_found = false
@@ -183,7 +199,7 @@
 					
 				}
 			  
-				uni.setStorageSync("making_shipping_order_list",this.making_shipping_order_list)
+				//uni.setStorageSync("making_shipping_order_list",this.making_shipping_order_list)
 			},
 			
 			//访问该货源单详情

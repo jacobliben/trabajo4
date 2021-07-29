@@ -270,7 +270,7 @@
 		 justify-content: space-between;
 		 width:80%;
 		 margin-left:10%;
-		 font-size:30rpx;
+		 font-size:35rpx;
 		  .choices{
 			   color:#aaa;
 		  }

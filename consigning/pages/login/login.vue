@@ -8,18 +8,18 @@
 			<view class="login-inputs radius">
 				<view class="user-login">
 					<image src="/static/user.svg" mode="widthFix" class="sm-icon" ></image>
-					<input type="text" placeholder="请输入用户账号"   focus @input="getUserAccount" class="account-input">
+					<input type="text" placeholder="请输入用户账号" :value="username"   focus @input="getUserAccount" class="account-input">
 					
 				</view>
 				<view class="user-password" v-if="hidePass">
 					<image src="/static/lock.svg" mode="widthFix" class="sm-icon" ></image>
-					<input type="text" placeholder="请输入用户密码"  password @input="getUserpassword" class="password-input">
+					<input type="text" placeholder="请输入用户密码" :value="password" password @input="getUserpassword" class="password-input">
 					
 					<image src="/static/eyes_hover.svg" mode="widthFix" class="sm-icon" @click="hidePass=!hidePass"></image>
 				</view>
 				<view class="user-password" v-if="!hidePass">
 					<image src="/static/lock.svg" mode="widthFix" class="sm-icon" ></image>
-					<input type="text" placeholder="请输入用户密码"   @input="getUserpassword" class="password-input">
+					<input type="text" placeholder="请输入用户密码" :value="password"  @input="getUserpassword" class="password-input">
 					
 					<image src="/static/eyes.svg" mode="widthFix" class="sm-icon" @click="hidePass=!hidePass"></image>
 				</view>
@@ -31,14 +31,11 @@
 		
 		
 		<view class="more-choices margin-top">
-			<!-- <view>
-				<navigator url="/pages/choose_identity/choose_identity" ><text class="choices">立即注册</text></navigator>
-			</view> -->
-			
+			   <view class="change-pass">
+			   	<navigator url="/pages/tel_login/tel_login"><text class="no-use-more">短信登录</text></navigator>
+			   </view>
 		    
-				<view class="change-pass">
-					<navigator url="/pages/tel_login/tel_login"><text class="no-use-more">短信登录</text></navigator>
-				</view>
+				
 				
 				<view class="change-pass">
 					<navigator url="/pages/recover_account/recover_account"><text class="choices">忘记密码？</text></navigator> 
@@ -82,45 +79,35 @@
 				userAccount:"",
 				userPassword:"",
 				code:"",
-				hidePass:true
+				hidePass:true,
+				
+				username:"",
+				password:"",
+				
 			}
 		},
-		
+		mounted() {
+			
+				this.username = uni.getStorageSync("username")
+				this.password = uni.getStorageSync("password")
+			
+			
+		},
 		methods: {
 			 
 			getUserAccount(e){
-			
-				this.userAccount = Base64.encode(e.target.value)
+				this.username = e.target.value
+				
+				uni.setStorageSync("username",this.username)
 				
 				
 			},
 			
 			getUserpassword(e){
+				this.password = e.target.value
 				
-				var CRYPTOJSKEY = "paj2ksAc1pWeOgT621zcKQ==";
+				uni.setStorageSync("password",this.password)
 				
-				// 加密
-				function encrypt(plaintText) {
-				  let options = {
-				    mode: CryptoJS.mode.ECB,
-				    padding: CryptoJS.pad.Pkcs7
-				  };
-				  let key = CryptoJS.enc.Utf8.parse(CRYPTOJSKEY);
-				  let encryptedData = CryptoJS.AES.encrypt(plaintText, key, options);
-				  return encryptedData.toString();
-				}
-				
-				
-				function repeatedlyEncrypt(plaintText, numbers) {
-				  plaintText = plaintText;
-				  for (let i = 0; i < numbers; i++) {
-				    plaintText = encrypt(plaintText);
-				  }
-				  return plaintText;
-				}
-				var result = repeatedlyEncrypt(e.target.value,10)
-				
-				this.userPassword = result 
 			},
 			wechatLogin(){
 				uni.switchTab({
@@ -129,6 +116,38 @@
 			},
 			
 			 async formSubmit(){
+				 //encode the username
+				 this.userAccount = Base64.encode(this.username)
+				 
+				 //encode the password
+				 var CRYPTOJSKEY = "paj2ksAc1pWeOgT621zcKQ==";
+				 
+				 // 加密
+				 function encrypt(plaintText) {
+				   let options = {
+				     mode: CryptoJS.mode.ECB,
+				     padding: CryptoJS.pad.Pkcs7
+				   };
+				   let key = CryptoJS.enc.Utf8.parse(CRYPTOJSKEY);
+				   let encryptedData = CryptoJS.AES.encrypt(plaintText, key, options);
+				   return encryptedData.toString();
+				 }
+				 
+				 
+				 function repeatedlyEncrypt(plaintText, numbers) {
+				   plaintText = plaintText;
+				   for (let i = 0; i < numbers; i++) {
+				     plaintText = encrypt(plaintText);
+				   }
+				   return plaintText;
+				 }
+				 var result = repeatedlyEncrypt(this.password,10)
+				 
+				 this.userPassword = result 
+				 
+				 
+				 //use the encoded username and password to login
+				 
 				 const user_data = {
 				 	username:this.userAccount,
 				 	password:this.userPassword
@@ -266,16 +285,16 @@
 		 justify-content: space-between;
 		 width:80%;
 		 margin-left:10%;
-		 font-size:30rpx;
+		 font-size:35rpx;
 		  .choices{
 			   color:#aaa;
-			   font-size:30rpx;
+			   font-size:35rpx;
 		  }
 		  
 		  .no-use-more{
 			  color:#0081FF;
 			  margin-right:10rpx;
-			  font-size:30rpx;
+			  font-size:35rpx;
 		  }
 		  .change-phone{
 			  color:#aaa;
@@ -356,7 +375,10 @@
 		 .one-login-icon-letter{
 			 color:#999;
 		 }
-		 
+		 .radio-btn{
+			 width:5rpx;
+			 height:5rpx;
+		 }
 	 }
 	 
 	 

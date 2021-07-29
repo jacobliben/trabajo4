@@ -42,33 +42,6 @@
 	   </view>
 	   
 	   
-	   
-	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goDespatching">
-	   		  
-	   		  <view>
-	   		        <image src="/static/globe.png" mode="" class="sm-pic"></image>
-	   			<text>确认发车</text>
-	   			</view>	
-	   			<image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image>
-	   </view>
-	   
-	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goReceiving">
-	   		   <view>
-	   		        <image src="/static/box.png" mode="" class="sm-pic"></image>
-	   			<text>确认签收</text>
-	   			</view>	
-	   			<image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image>
-	   </view>
-	   
-	   
-	   <view class="cu-form-group" v-if="false">
-		   <view>
-		        <image src="/static/card.png" mode="" class="sm-pic"></image>
-	   			<text>结算申请</text>
-			</view>		
-	   			<image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image>
-	   </view>
-	   
 	   <view class="cu-form-group" v-if="false">
 		   <view>
 		        <image src="/static/boy.png" mode="" class="sm-pic"></image>
@@ -90,9 +63,9 @@
 	   <view class="cu-form-group" @click="logout">
 	   		   <view>
 	   		   	    <image src="/static/wrench.png" mode="" class="sm-pic" ></image>
-	   			<text>退出登录</text>
+	   			<text>退出登录  (不保存用户名和密码)</text>
 	   			</view>	
-	   			<image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image>
+	   			
 	   </view>
 	</view>
 </template>

@@ -177,7 +177,7 @@
             "path" : "pages/select_consignee_contact/select_consignee_contact",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "选择收货人",
                 "enablePullDownRefresh": false
             }
             
@@ -186,7 +186,7 @@
             "path" : "pages/ordinary_consignor_contact/ordinary_consignor_contact",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "选择发货人",
                 "enablePullDownRefresh": false
             }
             
@@ -221,11 +221,7 @@
 			"iconPath":"static/shipping-order.png",
 			"selectedIconPath":"static/shipping-orders-selected.png"
 			},
-			// {"text":"货源下单",
-			// "pagePath":"pages/begin_order/begin_order",
-			// "iconPath":"static/orders.png",
-			// "selectedIconPath":"static/orders-selected.png"
-			// },
+			
 			{"text":"货源下单",
 			"pagePath":"pages/choose_order_type/choose_order_type",
 			"iconPath":"static/orders.png",

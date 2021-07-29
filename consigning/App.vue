@@ -16,7 +16,7 @@
 	
 body {
 	background-color: #fff;
-	font-size: 28upx;
+	font-size: 35rpx;
 	color: #333333;
 	font-family: Helvetica Neue, Helvetica, sans-serif;
 }

@@ -150,7 +150,7 @@
 				<text >运载工具要求</text>
 		</view>
 		
-		<view class="cu-form-group margin-top"  style="width:60%;">
+		<view class="cu-form-group margin-top">
 			<text class="name">车型选择</text>
 			    <checkbox-group @change="checkboxCargoBoxTypeChange">
 			                   <label  v-for="item in cargoBoxTypeOptions" :key="item.dictValue">
@@ -162,7 +162,7 @@
 			               </checkbox-group>
 		</view>
 		
-		<view class="cu-form-group margin-top"  style="width:60%;">
+		<view class="cu-form-group margin-top" >
 			<text class="name">车长选择</text>
 			    <checkbox-group @change="checkboxVehicleLengthsChange">
 			                   <label  v-for="item in vehicleLengthOptions" :key="item.dictValue">
@@ -332,10 +332,10 @@
 		
 		<view class="cu-form-group" v-if="show_carrier_selections" >
 			<text class="name">选择承运人<text class="red">*</text></text>
-			 <input type="number" maxlength="16"   placeholder="请输入承运人名称,证件号或手机号" 
+			<input type="number" maxlength="16"   placeholder="请输入承运人名称,证件号或手机号" 
 			 selection-start="-1" selection-end="-1" cursor="-1"
-			:value="pickMonadPhone"  @input="getPickMonadPhone" >
-		</view>
+			:value="carrier"  @input="getCarrierName" >
+		</view>	
 		
 		<view class="cu-form-group">
 		<checkbox-group @change.prevent="checkboxChange" >
@@ -349,8 +349,7 @@
 		</view>
 		
 		<view class="btn-row">
-			            <!-- <button class="next-btn bg-gradual-blue round" v-if="show_btn"
-			                @click="makeDraft">草稿</button> -->
+			           
 							 <button class="next-btn bg-gradual-green round"
 							 @click="backward">关闭</button> 
 							 
@@ -372,6 +371,8 @@
 			       })
 				   
 			return{
+				
+				
 				form:"",
 				//是否显示下单方式
 				showOrderType:true,
@@ -478,7 +479,11 @@
 				assign_carrier_current: 0,		   
 				
 				show_carrier_selections:false,
-						   
+				//选择承运人
+				//candidates:["上海","广州","东京","南京","徐州"],
+				candidates:[],
+				carrier:"",	
+					   
 				active:false,
 				checked:false,
 				disabled:false,
@@ -512,6 +517,7 @@
 			 this.getVehicleLengthOptions()
 			 // 计价方式字典
 			 this.getSourceSettlementMethodOptions()
+			
 			
 			//发货联系人
 			let consignor_contact = uni.getStorageSync("consignor_contact")
@@ -599,7 +605,7 @@
 			radioSourceOrderWayChange(e){
 			
 			    this.params.orderWay= e.target.value
-				console.log(e.target.value,'aq');
+				
 				
 				if (e.target.value=="1"){
 					
@@ -618,7 +624,7 @@
 										
 			 // 货物分类字典
 			async getGoodsTypeOptions(){
-				var that = this
+				
 				var authorization = uni.getStorageSync("token")
 				
 				const res = await this.$request({
@@ -642,7 +648,7 @@
 			
 			// 包装类型字典
 			async getPackageTypeOptions(){
-				var that = this
+				
 				var authorization = uni.getStorageSync("token")
 				
 				const res = await this.$request({
@@ -668,7 +674,7 @@
 			
 			//车辆类型字典
 			async getCargoBoxTypeOptions(){
-				var that = this
+				
 				var authorization = uni.getStorageSync("token")
 				
 				const res = await this.$request({
@@ -687,7 +693,7 @@
 			
 			//车长字典
 			async getVehicleLengthOptions(){
-				var that = this
+				
 				var authorization = uni.getStorageSync("token")
 				
 				const res = await this.$request({
@@ -964,6 +970,37 @@
 				}
 				
 			},	
+			
+			
+			
+			
+			//承运人
+			 getCarrierName(e){
+				
+				this.carrier = e.target.value
+				const carrierName = this.carrier
+				this.searchCarrierName(carrierName)
+				
+			},
+			
+			//承运人搜索
+			async searchCarrierName(carrierName){
+				
+				
+				
+				var authorization = uni.getStorageSync("token")
+				
+				const res = await this.$request({
+					 	url:`/app/carrier/getCarrierByCarrierName/${carrierName}`,
+					 	
+					 	header:{
+					 		Authorization:authorization,
+					 	},
+					 	
+					 })
+				console.log(res,'11q');	
+				
+			},
 			//是否保存为货源模板,true:保存为货源模板,false不保存为货源模板
 			checkboxChange(e) {
 			                

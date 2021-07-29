@@ -5,17 +5,7 @@
 		  	
 		  	<view class="name">下单方式<text class="red">*</text></view>
 		    
-			<view class="ref-name">
-													<!-- <radio-group class="truck-type" @change="radioSourceOrderWayChange">
-													                <label class="cell-flex" v-for="(item, index) in sourceOrderWayOptions" 
-																			:key="item.dictValue">
-													                    <view>
-																			
-													                        <radio :value="item.dictValue" :checked="index === sourceOrderWay_current" />
-													                    </view>
-													                    <view>{{item.dictLabel}}</view>
-													                </label>
-													 </radio-group> -->
+			<view class="ref-name">			
 					<view>{{order_way}}</view>								 
 			</view>	  
 		  	    
@@ -167,7 +157,7 @@
 				<text >运载工具要求</text>
 		</view>
 		
-		<view class="cu-form-group margin-top"  style="width:60%;">
+		<view class="cu-form-group margin-top">
 			<text class="name">车型选择</text>
 			   
 				<text v-for = "item in cargoBoxType ">
@@ -183,7 +173,7 @@
 				</text>		   
 		</view>
 		
-		<view class="cu-form-group margin-top"  style="width:60%;">
+		<view class="cu-form-group margin-top">
 			<text class="name">车长选择</text>
 			    <text v-for = "item in vehicleLengthList ">
 			    	<text>{{item}}m</text>
@@ -263,7 +253,7 @@
 					<input type="text" maxlength="16"  placeholder="元/吨" 
 					  selection-start="-1" selection-end="-1" cursor="-1" disabled
 						   @input="" v-if="show_yuan_ton" >
-					<picker @change="bindPickerSettlementTypeChange" :value="settlement_type_index" :range="sourceSettlementMethodOptions" v-if="show_multi_choice">
+					<picker disabled @change="bindPickerSettlementTypeChange" :value="settlement_type_index" :range="sourceSettlementMethodOptions" v-if="show_multi_choice">
 					       <view class="picker-view text-lg">{{sourceSettlementMethodOptions[settlement_type_index]}}</view>
 					 </picker>	   
 					
@@ -343,15 +333,8 @@
 		<view class="cu-form-group">
 					     <view class="name">是否指定承运人</view>
 					     <view class="ref-name">
-										<radio-group class="truck-type" @change="radioAssignCarrierChange">
-										                <label class="cell-flex" v-for="(item, index) in assign_carrier_items" 
-																:key="item.value">
-										                    <view>
-										                        <radio :value="item.value" :checked="index === assign_carrier_current" />
-										                    </view>
-										                    <view>{{item.name}}</view>
-										                </label>
-										 </radio-group>
+										
+										 <view>{{specify_carrier_status}}</view>	
 						 </view>
 		</view>
 		
@@ -362,15 +345,11 @@
 			:value="pickMonadPhone" disabled @input="getPickMonadPhone" >
 		</view>
 		
-		<view class="cu-form-group">
-		<checkbox-group @change.prevent="checkboxChange" >
-		  <label class="acuerdo">
-			<checkbox :checked="checked"/>
-				<view >
-					保存为常用货源
-				</view>
-			</label>  
-		</checkbox-group>
+		<view class="cu-form-group" v-if="checked">
+		
+		 <view>
+			保存为常用货源
+		 </view>
 		</view>
 		
 		<view class="btn-row">
@@ -533,34 +512,7 @@
 			 // 计价方式字典
 			 this.getSourceSettlementMethodOptions()
 			 
-			 
-		   //通过前页面判断是否该显示货源单号的详情(回显)
-		   let pages = getCurrentPages();//页面对象
-		 
-		   //如果只有1个页栈,说明是直接由index页跳转至"货源下单"
-		   if (pages.length == 1) {
-			  
-			   if (this.now_state.state == 0){
-				   this.showOrderType = false //批量货模式下，不显示“下单方式”
-				   //计价方式 (元/吨)
-				   this.show_yuan_ton=true//批量货模式下
-				   //计价方式 (多选)
-				   this.show_multi_choice = false//批量货模式下
-				   //计价方式 (包车)
-				   this.show_whole_car = false//批量货模式下
-			   }else if (this.now_state.state == 1){
-				   this.showOrderType =true //普通货模式下
-				   //计价方式 (元/吨)
-				   this.show_yuan_ton= false//普通货模式下，先显示“单价”
-				   //计价方式 (多选)
-				   this.show_multi_choice = true//普通货模式下，先显示“单价”
-				   //计价方式 (包车)
-				   this.show_whole_car = false//普通货模式下，先显示“单价”
-				   
-			   }
-		     // return 
-			 //不显示任何回显
-		   } 
+		
 		   
 		   
 		   
@@ -571,10 +523,33 @@
 							
 							if (this.orderSourceDetail.orderWay ==1){
 								this.order_way = "普通货模式(单价)"
+								
+								//计价方式 (元/吨)
+								this.show_yuan_ton= false//普通货模式下，先显示“单价”
+								//计价方式 (多选)
+								this.show_multi_choice = true//普通货模式下，先显示“单价”
+								//计价方式 (包车)
+								this.show_whole_car = false//普通货模式下，先显示“单价”
 							}else if (this.orderSourceDetail.orderWay ==2){
+								
 								this.order_way = "普通货模式(包车)"
+								
+								//计价方式 (元/吨)
+								this.show_yuan_ton= false//普通货模式下，先显示“包车”
+								//计价方式 (多选)
+								this.show_multi_choice = false//普通货模式下，先显示“包车”
+								//计价方式 (包车)
+								this.show_whole_car = true//普通货模式下，先显示“包车”
+								
 							}else if (this.orderSourceDetail.orderWay ==3){
 								this.order_way = "批量货模式"
+								
+								//计价方式 (元/吨)
+								this.show_yuan_ton=true//批量货模式下
+								//计价方式 (多选)
+								this.show_multi_choice = false//批量货模式下
+								//计价方式 (包车)
+								this.show_whole_car = false//批量货模式下
 							}
 		   					
 							const sourceId = this.orderSourceDetail.sourceId
@@ -650,9 +625,9 @@
 		   					this.sourceQuantity = this.orderSourceDetail.sourceQuantity
 		   					this.specifyCarrierStatus = this.orderSourceDetail.specifyCarrierStatus
 		   					if (this.specifyCarrierStatus==1){
-		   									this.assign_carrier_current =0
-		   					}else if (this.specifyCarrierStatus==1){
-		   									 this.assign_carrier_current =1
+		   									this.specify_carrier_status ="不指定"
+		   					}else if (this.specifyCarrierStatus==2){
+		   									 this.specify_carrier_status ="指定"
 		   					}
 		   					this.checked = this.orderSourceDetail.isTemplate
 		   					
@@ -1001,14 +976,7 @@
 				      if(e.currentTarget.dataset.index=="assignSendTimeTime"){
 				      								  this.assignSendTimeTime = e.target.value
 				      								  this.params.assignSendTimeTime = e.target.value
-													  //装货开始总
-													  // if (this.assignSendTimeDate == undefined
-													  //    || this.assignSendTimeDate == null 
-														 // || this.assignSendTimeDate == ""
-														 // || this.assignSendTimeDate.length <1
-													  // ){
-														 // this.assignSendTimeDate = new Date()
-													  // }
+													  
 													 this.assignSendTime =  this.assignSendTimeDate +" "+  this.assignSendTimeTime
 													 this.params.assignSendTime =  this.params.assignSendTimeDate +" "+  this.params.assignSendTimeTime
 													  
@@ -1144,159 +1112,15 @@
 			                
 			            },
 						
-			sendDefault(e){
-				
-				
-				
-				//进行货物分类检查,默认值
-				if (this.params.goodsType == null || this.params.goodsType==""||this.params.goodsType.length <1){
-						this.params.goodsType = "1700"					
-				} 
-				
-				//进行包装类型检查,默认值
-				if (this.params.packageType == null || this.params.packageType==""||this.params.packageType.length <1){
-						this.params.packageType = "OT"				
-				} 
-				
-				
-				//进行计价方式检查,默认值
-				if (this.params.settlementMethod == null || this.params.settlementMethod ==""||this.params.settlementMethod.length <1){
-						//计价方式 (元/吨)
-						if (this.show_yuan_ton=true){
-							this.params.settlementMethod =  "2"
-						}
-						//计价方式 (多选)
-						if (this.show_multi_choice=false){
-							this.params.settlementMethod =  "2"
-						}
-						//计价方式 (包车)
-						if (this.show_whole_car=false){
-							this.params.settlementMethod = "1"
-						}						
-				}
-				//进行发单数检查,默认值
-				if (this.params.sourceQuantity == null || this.params.sourceQuantity==""||this.params.sourceQuantity.length <1){
-					
-					this.params.sourceQuantity = "1"
-													
-				} 
-				//进行是否指定承运人检查,默认值
-				if (this.params.specifyCarrierStatus == null || this.params.specifyCarrierStatus==""||this.params.specifyCarrierStatus.length !=4){
-					
-					this.params.specifyCarrierStatus = "1"
-				 										
-				} 
-			},
+			
 			//后退
 			backward(){
-				let pages = getCurrentPages();//页面对象
 				
-				if (pages.length == 1) {
 					uni.switchTab({
-						url:"/pages/choose_order_type/choose_order_type"
+						url:"/pages/shipping_order/shipping_order"
 					})
-				} 
-				 
-				 
-				let prevpage = pages[pages.length - 2];//上一个页面对象
-
-				
-				
-								if (prevpage.route == "pages/shipping_order/shipping_order") {
-									uni.switchTab({
-										url:"/pages/shipping_order/shipping_order"
-									})
-								} else  {
-									
-									uni.switchTab({
-										url: '/pages/choose_order_type/choose_order_type',
-									})
-								} 
-								
 			},
-			makeDraft(e){
-				//如果不选择，传入默认值
-				this.sendDefault()
-				
-				uni.setStorageSync('draft',this.params)
-			},						
-			formSubmit:async function(e) {
-										console.log(this.params,'14555')
-						               
-									   //如果不选择，传入默认值
-									   this.sendDefault()
-										
-										//进行货物名称检查
-										if (this.params.goodsName == null || this.params.goodsName==""||this.params.goodsName.length <1){
-											uni.showToast({
-												title:"未输入货物名称, 请输入",
-												icon:"none"
-											})
-											return									
-										} 
-										
-										//进行货物重量检查
-										if (this.params.goodsWeight == null || this.params.goodsWeight==""||this.params.goodsWeight.length <1){
-											uni.showToast({
-												title:"未输入货物重量, 请输入",
-												icon:"none"
-											})
-											return									
-										} 
-										
-										//进行装货开始时间检查
-										if (this.params.assignSendTime == null || this.params.assignSendTime==""||this.params.assignSendTime.length <1){
-											uni.showToast({
-												title:"未输入装货开始时间, 请输入",
-												icon:"none"
-											})
-											return									
-										}
-										
-										//进行装货截止时间检查
-										if (this.params.assignEndTime == null || this.params.assignEndTime==""||this.params.assignEndTime.length <1){
-											uni.showToast({
-												title:"未输入装货截止时间, 请输入",
-												icon:"none"
-											})
-											return									
-										}
-										
-										
-										
-										//进行运费单价检查
-										if (this.params.unitPrice == null || this.params.unitPrice==""||this.params.unitPrice.length <1){
-											uni.showToast({
-												title:"未输入运费单价, 请输入",
-												icon:"none"
-											})
-											return									
-										}
-										
-										var authorization = uni.getStorageSync("token")
-										var  form = this.params
-										
-										const res = await this.$request({
-											url:"/app/source/add",
-											method: "POST",
-											data:form,
-											header:{
-												Authorization:authorization,
-												"Content-Type": "multipart/form-data;"
-											},
-											
-										})
-									
-										
-										
-										try {
-										    uni.removeStorageSync('consignor_contact');
-											 uni.removeStorageSync('consignee_contact');
-										} catch (e) {
-										    // error
-										}
-										
-									},
+			
 		}
 	}
 </script>

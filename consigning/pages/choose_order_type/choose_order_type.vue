@@ -40,27 +40,13 @@
 				
 			};
 		},
-		onLoad() {
-			//同步清理本地数据缓存
-			try {
-			    uni.clearStorageSync();
-			} catch (e) {
-			    // error
-			}
-		},
+		
 		
 		onShow() {
-			//同步清理本地数据缓存
-			// try {
-			//     uni.clearStorageSync();
-			// } catch (e) {
-			//     // error
-			// }
+			
 		},
 		methods:{
 			goBatchOrder(){
-			
-							
 							uni.navigateTo({
 								url:"/pages/batch_ordering/batch_ordering"
 							})
@@ -69,9 +55,6 @@
 			
 			
 			goOrdinaryOrder(){
-				
-							
-							
 							uni.navigateTo({
 								url:"/pages/ordinary_ordering/ordinary_ordering"
 							})
