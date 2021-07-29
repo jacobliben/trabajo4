@@ -5,7 +5,7 @@
 				<view class="shipping_num">{{received_info.waybillNo}}</view>
 				<view class="details">
 					<view>货物名称：{{received_info.iscmSource.goodsName}}</view>
-					<view>货物类型：{{received_info.iscmSource.goodsType}}</view>
+					<view>货物类型：{{goodsType}}</view>
 					<view>包装类型：{{packageType}}</view>
 				</view>
 				
@@ -95,8 +95,16 @@
 				btn_title:"",
 				short_distance:null,
 				
+				// 货物分类字典
+				goodsType:"",
+				goodsTypeOptions: [],
+				goodsTypeSendValue: [],
+				goods_type_list: [],
+				goods_type_index:0,	
+				
 				// 包装类型字典
 				packageType:"",
+				
 				packageTypeOptions: [], 
 				packageTypeSendValue: [],
 				package_type_index:0,	
@@ -126,6 +134,10 @@
 			 
 			 // 包装类型字典
 			 this.getPackageTypeOptions()
+			 // 货物分类字典
+			 this.getGoodsTypeOptions()
+			 
+			 
 			 
 			this.btn_title = options.btn_title
 			
@@ -178,6 +190,36 @@
 			
 		},
 		methods:{
+			// 货物分类字典
+			async getGoodsTypeOptions(){
+				var that = this
+				var authorization = uni.getStorageSync("token")
+				
+				const res = await this.$request({
+					 	url:"/system/dict/data/type/goods_type",
+					 	
+					 	header:{
+					 		Authorization:authorization,
+					 	},
+					 	
+					 })
+					
+					 
+				  this.goodsTypeOptions = res.data.data.map(e =>e=e.dictLabel)
+				  this.goodsTypeSendValue = res.data.data.map(e=>e.dictValue)
+				
+				   
+				   const goodsType = that.received_info.iscmSource.goodsType
+				   
+					 this.goods_type_index = this.goodsTypeSendValue.findIndex(value=>value == goodsType) 
+					const goodsTypeIndex = this.goods_type_index
+					
+					const goodsTypeOptions = this.goodsTypeOptions
+					this.goodsType = goodsTypeOptions[goodsTypeIndex]
+				
+				 
+					},
+			
 			// 包装类型字典
 			async getPackageTypeOptions(){
 				var that = this
@@ -196,7 +238,7 @@
 					this.packageTypeOptions = res.data.data.map(e =>e=e.dictLabel)
 					
 					 
-					//  this.package_type_list= this.packageTypeOptions
+					
 					 this.packageTypeSendValue = res.data.data.map(e=>e.dictValue)	 
 					
 					const packageType = that.received_info.packageType

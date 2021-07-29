@@ -399,7 +399,7 @@
 					   //#ifdef APP-PLUS
 					   var xhr = new plus.net.XMLHttpRequest()
 					   //正式库,危险！！！
-					  // xhr.open('POST',' https://wl.xcmgzhilian.com/prod-api/registCarrier')
+					   //xhr.open('POST',' https://wl.xcmgzhilian.com/prod-api/registCarrier')
 					  //半测试版
 					   xhr.open('POST',' http://116.62.172.131:88/stage-api/registCarrier')
 					   //测试库

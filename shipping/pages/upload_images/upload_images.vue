@@ -79,7 +79,7 @@
 					
 					<input class="cellphone"
 					placeholder-style="margin-left:5%;font-size:16rpx;color:#ddd;"
-					type="number" maxlength="20"
+					type="number" maxlength="20" :value="signed_weight"
 					 placeholder="请输入签收货物重量(吨)" @input="getSignWeight"></input>
 					
 				</view>
@@ -196,7 +196,7 @@
 				tachar_order:false,		
 				received_info:{},
 				btn_title:"",
-				
+				signed_weight:"",
 				shippingNoteInfos:[],//运单信息数组
 
 				//是否可以“发车”，“签收”等
@@ -229,7 +229,7 @@
 		onLoad(options){
 			var that = this
 		    this.received_info = uni.getStorageSync("upload_item")
-
+             this.signed_weight = this.received_info.dispatchGoodsWeight
 			this.btn_title = options.btn_title
 			
 			//for calcating distance of delivery

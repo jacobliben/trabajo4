@@ -89,11 +89,19 @@
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
-	   <view class="cu-form-group" v-if="false">
+	   <view class="cu-form-group" @click="goInquiry" >
 		   	<view>
 				<image src="/static/bill.png"  class="sm-pic"></image>
-	   			<text>违约单</text>
+	   			<text>询价单</text>
 			</view> 
+	   			<text class="cuIcon-right lg text-gray"></text>
+	   </view>
+	   
+	   <view class="cu-form-group" @click="goQuote" >
+	   		   	<view>
+	   				<image src="/static/document.png"  class="sm-pic"></image>
+	   			<text>报价单</text>
+	   			</view> 
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
@@ -424,6 +432,21 @@
 				
 				uni.navigateTo({
 					url:'/pages/dispatch_before_detail/dispatch_before_detail'
+				})
+			},
+			
+			goInquiry(){
+				
+				uni.navigateTo({
+					url:'/pages/inquiry/inquiry'
+				})
+			},
+			
+			
+			goQuote(){
+				
+				uni.navigateTo({
+					url:'/pages/quote/quote'
 				})
 			},
 			

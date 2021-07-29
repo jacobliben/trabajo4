@@ -866,6 +866,33 @@
             }
             
         }
+        ,{
+            "path" : "pages/inquiry/inquiry",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "询价单",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/quote/quote",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "报价单",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/cada_inquiry/cada_inquiry",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "报价详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTitleText":"徐工智联",
