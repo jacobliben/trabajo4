@@ -971,7 +971,7 @@
 																						
 																					})
 																					
-																					if(res.data.msg ="操作成功"){
+																					if(res.data.msg =="操作成功"){
 																						uni.showToast({
 																							title:res.data.msg,
 																							

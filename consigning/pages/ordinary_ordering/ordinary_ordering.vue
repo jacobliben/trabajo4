@@ -170,7 +170,7 @@
 		
 		<view class="cu-form-group margin-top">
 			<text class="name">车型选择</text>
-			    <checkbox-group @change="checkboxCargoBoxTypeChange">
+			    <checkbox-group @change="checkboxCargoBoxTypeChange" class="to-center">
 			                   <label  v-for="item in cargoBoxTypeOptions" :key="item.dictValue">
 			                        <view>
 			                           <checkbox :value="item.dictValue" :checked="item.checked" />
@@ -182,7 +182,7 @@
 		
 		<view class="cu-form-group margin-top">
 			<text class="name">车长选择</text>
-			    <checkbox-group @change="checkboxVehicleLengthsChange">
+			    <checkbox-group @change="checkboxVehicleLengthsChange" class="to-center">
 			                   <label  v-for="item in vehicleLengthOptions" :key="item.dictValue">
 			                        <view>
 			                           <checkbox :value="item.dictValue" :checked="item.checked" />
@@ -355,9 +355,14 @@
 		
 		<view class="cu-form-group" v-if="show_carrier_selections" >
 			<text class="name">选择承运人<text class="red">*</text></text>
-			 <input type="number" maxlength="16"   placeholder="请输入承运人名称,证件号或手机号" 
+			 <input type="text" maxlength="16"   placeholder="请输入承运人名称" 
 			 selection-start="-1" selection-end="-1" cursor="-1"
-			:value="pickMonadPhone"  @input="getPickMonadPhone" >
+			:value="carrier"  @input="getCarrierName" >
+		</view>
+		
+		<view class="cu-form-group" v-if="show_carrier_hint"  @click="inputCarrier">
+			<text class="hint-name">可选择承运人提示</text>
+		     <text class="hint-name" >{{carrier_hint}}</text>
 		</view>
 		
 		<view class="cu-form-group">
@@ -500,6 +505,11 @@
 				assign_carrier_current: 0,		   
 				
 				show_carrier_selections:false,
+				
+				show_carrier_hint:false,
+				carrier_hint:"",
+					
+				carrier:"",	
 						   
 				active:false,
 				checked:false,
@@ -1020,6 +1030,50 @@
 				}
 				
 			},	
+			
+			//承运人
+			 getCarrierName(e){
+				var that = this
+				this.carrier = e.target.value
+				const carrierName = this.carrier
+				console.log (carrierName,'11qss')
+				
+				var authorization = uni.getStorageSync("token")
+				
+				uni.request({
+				    url: 'http://10.22.2.138:8080/app/carrier/getCarrierByCarrierName/'+carrierName,
+				   
+				    header:{
+				   	  Authorization:authorization,
+				     },
+				    success: (res) => {
+				        console.log(res, '11qm');
+				        
+						if (res.data.code=="200"){
+							that.show_carrier_hint = true
+							
+							that.carrier_hint = res.data.data[0].carrierName 
+							+ "   " +  res.data.data[0].carrierContactsPhone 
+							
+							that.specifyCarrierId = res.data.data[0].carrierId
+						}else{
+							that.show_carrier_hint = false
+						}
+				    }
+				});
+				
+				
+			},
+			
+			inputCarrier(){
+				
+				this.carrier = this.carrier_hint
+				this.show_carrier_hint = false
+			},
+			
+			
+			
+			
 			//是否保存为货源模板,true:保存为货源模板,false不保存为货源模板
 			checkboxChange(e) {
 			                
@@ -1254,10 +1308,10 @@
 													'\r\nContent-Disposition: form-data; name="specifyCarrierStatus"' +
 													 '\r\n' +
 													'\r\n' + this.params.specifyCarrierStatus +
-													// '\r\n--XXX' +
-													// '\r\nContent-Disposition: form-data; name="specifyCarrierId"' +
-													//  '\r\n' +
-													// '\r\n' + this.params.specifyCarrierId +
+													'\r\n--XXX' +
+													'\r\nContent-Disposition: form-data; name="specifyCarrierId"' +
+													 '\r\n' +
+													'\r\n' + this.params.specifyCarrierId +
 													'\r\n--XXX' +
 													'\r\nContent-Disposition: form-data; name="goodsUnitPrice"' +
 													 '\r\n' +
@@ -1358,7 +1412,7 @@
 			 width:30%;
 	}
 	.ref-name{
-			 color:#ccc;
+			 color:#333;
 			  width:70%;
 	}
 	
@@ -1515,5 +1569,13 @@
 		display: flex;
 		flex-direction: row;
 		margin-right: 20rpx;
+	}
+	
+	.hint-name{
+		color:#ccc
+	}
+	
+	.to-center{
+		margin-right:50%;
 	}
 </style>

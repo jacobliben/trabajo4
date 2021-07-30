@@ -20,7 +20,7 @@
 		<view class="cu-form-group" hover-class="one-icon-hover" @click="goShippingOrder">
 				  
 				  <view>
-				        <image src="/static/despatching.png" mode="" class="sm-pic"></image>
+				        <image src="/static/despatching.png"  class="sm-pic"></image>
 					<text>货源列表</text>
 					</view>	
 					<image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image>
@@ -28,7 +28,7 @@
 		
 		<view class="cu-form-group" hover-class="one-icon-hover" @click="goBatchOrdering">
 				      <view>
-						  <image src="/static/way-bill.png" mode="" class="sm-pic"></image>
+						  <image src="/static/way-bill.png"  class="sm-pic"></image>
 						  <text>货源下单 (批量货模式)</text>
 					  </view>
 					<image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image>

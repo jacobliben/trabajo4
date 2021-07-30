@@ -6,20 +6,28 @@
 		<view v-for="(item,index) in inquiry_list" :key="index" class="one_waybill " >
 			<view class="first-row">
 				<view>
+				 
 				<text selectable>询价单: {{item.enquiryNo}}</text>
 				<text class="copy" @click="copy(item.enquiryNo)">复制</text>
 				
 				</view>
 				
-				 <text class="waybill_state">询价状态:{{enquiryStatusOptions[enquiryStatusSendValue.findIndex(value=>value == item.enquiryStatus)]}}</text>
+				 <text class="waybill_state">
+					 
+					 <text>询价状态:</text>
+					  <text>
+						 {{enquiryStatusOptions[enquiryStatusSendValue.findIndex(value=>value == item.enquiryStatus)]}} 
+					  </text>
+					
+				</text>
 			</view>
 			<view class="waybill_details">
 				<view class="shipping_content">
-				<!-- 	<view>
-						<text class="goods_name">报价状态 :{{quoteStatusOptions[item.iscmQuote.quoteStatus-1]}}</text>
+					<view>
+						<text class="goods_name text-green" v-if="item.iscmQuote!=null&&item.iscmQuote.quoteStatus==1">报价状态 : 已报价</text>
 			
-						<text class="goods_name" v-if="item.iscmQuote.quoteStatus==2">报价状态 : 未报价</text> 
-					</view> -->
+						<text class="goods_name text-red" v-if="item.iscmQuote==null||item.iscmQuote.quoteStatus==2">报价状态 : 未报价</text> 
+					</view>
 					
 					<view>
 						<text class="goods_name">下单方式 : {{sourceOrderWayOptions[item.orderWay-1]}}</text>
@@ -31,11 +39,11 @@
 				   
 					<view>
 						 <image src="/static/begin-time.svg" mode="aspectFit" class="sm-pic" ></image>
-						<text class="create_time">询价开始:{{item.startTime}}</text>		
+						<text class="create_time border-red">询价开始: <text>{{item.startTime}}</text> </text>		
 					</view>
 					<view>
 						<image src="/static/end-time.svg" mode="aspectFit" class="sm-pic" ></image>
-						<text class="create_time">询价结束:{{item.stopTime}}</text>		
+						<text class="create_time border-red">询价结束: <text>{{item.stopTime}}</text> </text>		
 					</view>
 					
 					<view>
@@ -47,9 +55,7 @@
 				</view>
 				
 				    <view class="actions">
-						<!-- <view hover-class="one-icon-hover">
-						  <image src="/static/phone.png"  class="phone-img"  @click="phoneCall(item.iscmDispatchInformationRecord.consigneePhone)"></image>	
-						</view> -->
+						 <image src="/static/ing.svg" class="bg-pic" v-if="item.enquiryStatus==2"  ></image>	
 						<button type="default" size="default" 
 						 class="receive-btn radius"
 						  @click="quote(item)">报价</button>
@@ -150,11 +156,11 @@
 			async getEnquiryStatusOptions(){
 				const enquiryStatusOptions = await this.$getRegistDicts("enquiry_status")
 				
-				console.log(enquiryStatusOptions,'enquiryStatus');
+				
 				this.enquiryStatusOptions = enquiryStatusOptions.data.data.map(e=>e.dictLabel)
-				console.log(this.enquiryStatusOptions,'enquiryStatusOptions');
+				
 				this.enquiryStatusSendValue = enquiryStatusOptions.data.data.map(e=>e.dictValue)
-				console.log(this.enquiryStatusSendValue,'enquiryStatusSendValue');
+				
 				
 			},				
 					
@@ -164,9 +170,9 @@
 			async getQuoteStatusOptions(){
 				const quoteStatusOptions = await this.$getRegistDicts("quote_status")
 				
-				console.log(quoteStatusOptions,'ccc');
+				
 				this.quoteStatusOptions = quoteStatusOptions.data.data.map(e=>e.dictLabel)
-				console.log(this.quoteStatusOptions,'cccs');
+				
 				
 				
 			},		
@@ -175,22 +181,22 @@
 			async getSourceOrderWayOptions(){
 				const sourceOrderWayOptions = await this.$getRegistDicts("iscm_source_order_way")
 				
-				console.log(sourceOrderWayOptions,'sourceOrder');
+				
 				this.sourceOrderWayOptions = sourceOrderWayOptions.data.data.map(e=>e.dictLabel)
-				console.log(this.sourceOrderWayOptions,'sourceOrderWayOptions');
+				
 				this.sourceOrderWaySendValue = sourceOrderWayOptions.data.data.map(e=>e.dictValue)
-				console.log(this.sourceOrderWaySendValue,'sourceOrderWaySendValue');
+				
 			},		
 			
 			//计价方式
 			async getSettlementMethodOptions(){
 				const settlementMethodOptions = await this.$getRegistDicts("source_settlement_method")
 				
-				console.log(settlementMethodOptions,'settlementMethod');
+				
 				this.settlementMethodOptions = settlementMethodOptions.data.data.map(e=>e.dictLabel)
-				console.log(this.settlementMethodOptions,'settlementMethodOptions');
+				
 				this.settlementMethodSendValue = settlementMethodOptions.data.data.map(e=>e.dictValue)
-				console.log(this.settlementMethodSendValue,'settlementMethodSendValue');
+			
 			},		
 					
 			        
@@ -295,13 +301,16 @@
 		margin-left:5%;
 		margin-bottom:20rpx;
 		.first-row{
-			padding:20rpx;
+			
+			padding:10rpx;
 			display: flex;
 			flex-direction: row;
 			justify-content: space-between;
 			.waybill_state{
+				
 				font-size:22rpx;
 				color:#aaa;
+				width:30%;
 			}
 		}
 		.waybill_details{
@@ -315,10 +324,15 @@
 				margin-right:10rpx;
 			}
 			.goods_name{
-				margin-right:180rpx
+				margin-right:20rpx
 			}
 			.cuIcon-move{
 				margin:0 10rpx 0 10rpx;
+			}
+			
+			.shipping_content{
+				
+				width:80%;
 			}
 			
 			.actions{
@@ -341,20 +355,8 @@
 				font-size:18rpx ;
 			}
 			
-			.phone-img{
-				width:100%;
-				height:100rpx;	
-			}
 			
-			/* #ifdef H5 */
-			.phone-img{
-				width:50%;
-				height: 50%;
-					margin:0 auto;
-					display: block;
-					
-			}
-			/* #endif */
+			
 		}
 		.address{
 			border-top:1rpx solid #ccc;
@@ -368,5 +370,16 @@
 			 width:35rpx;
 			 height:35rpx;
 			 margin-right:10rpx;
+	}
+	
+	.bg-pic{
+		
+			 width:85rpx;
+			 height:85rpx;
+			 margin-right:1rpx;
+	}
+	
+	.border-red{
+		border-bottom: 1rpx solid #f00;
 	}
 </style>

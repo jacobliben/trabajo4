@@ -18,12 +18,12 @@
 				<view class="shipping_content">
 					 <view>
 						 <image src="/static/quote.svg" mode="aspectFit" class="sm-pic" ></image>
-					 	<text class="goods_name">报价信息 : {{item.quotePrice}} 元</text>
+					 	<text class="goods_name concern">报价信息 : {{item.quotePrice}} 元</text>
 					 </view>
 					 
 					 <view>
 						 <image src="/static/weight.svg" mode="aspectFit" class="sm-pic" ></image>
-					 	<text class="goods_name">运输重量 :{{item.transportWeight}} 吨</text>
+					 	<text class="goods_name concern">运输重量 :{{item.transportWeight}} 吨</text>
 					 </view>
 					 
 					 <view>
@@ -31,10 +31,14 @@
 					 	<text class="goods_name">运输天数 : {{item.transportDays}} 天</text>
 					 </view>
 					 
-					 
+					
 					 <view>
-					 	<text class="goods_name">是否被接受 : {{isAcceptedOptions[isAcceptedSendValue.findIndex(value=>value == item.isBidding)]}}</text>
+					 	<text class="goods_name">是否中标 : {{isBiddingOptions[isBiddingSendValue.findIndex(value=>value == item.isBidding)]}}</text>
 					 </view>
+					 
+					 <!-- <view>
+					 	<text class="goods_name">是否中标 : {{isAcceptedOptions[isAcceptedSendValue.findIndex(value=>value == item.isBidding)]}}</text>
+					 </view> -->
 					 
 					<view>
 						<text class="goods_name">下单方式 : {{sourceOrderWayOptions[item.orderWay-1]}}</text>
@@ -59,12 +63,8 @@
 				</view>
 				
 				    <view class="actions">
-						<!-- <view hover-class="one-icon-hover">
-						  <image src="/static/phone.png"  class="phone-img"  @click="phoneCall(item.iscmDispatchInformationRecord.consigneePhone)"></image>	
-						</view> -->
-						<button type="default" size="default" 
-						 class="receive-btn radius"
-						  @click="quote(item)">报价</button>
+						
+						
 					</view>
 				
 			</view>
@@ -88,6 +88,10 @@
 		data(){
 			return{
 			  load_more:true,//继续加载列表
+			  
+			   // 是否中标字典
+			   isBiddingOptions: [],
+			   isBiddingSendValue:[],
 			  // 是否被接受状态字典
 			  isAcceptedOptions: ["未报价","已被接受","未被接受","报价无效","未决定接受任何报价"],
 			  isAcceptedSendValue: ["-1","1","2","3","4"],
@@ -105,8 +109,8 @@
 			  quote_list:[],
 			  show_not_found:false,
 		      now_state:this.transporte_state,
-			  state_text:"",
-			  btn_text:"",
+			 
+			
 			  //是否可以“发车”，“签收”等
 			  canDispatch:null,
 			   queryParams: {
@@ -121,6 +125,8 @@
 			infoNotFound
 		},
 		created() {
+			// 是否中标字典
+			this.getIsBiddingOptions()
 			// 报价状态字典
 			this.getQuoteStatusOptions()
 			// 下单方式字典
@@ -132,8 +138,8 @@
 		mounted(){
 			
 				this.now_state = "11"
-				this.state_text ="11"
-				this.btn_text ="11"
+				
+			
 			
 				
 				
@@ -166,15 +172,30 @@
 						
 			        },
 					
+			// 是否中标字典
+			async getIsBiddingOptions(){
+				const isBiddingOptions = await this.$getRegistDicts("is_bidding")
+				
+				console.log(isBiddingOptions,'isBidding');
+				this.isBiddingOptions = isBiddingOptions.data.data.map(e=>e.dictLabel)
+				console.log(this.isBiddingOptions,'isBiddingOptions');
+				this.isBiddingSendValue = isBiddingOptions.data.data.map(e=>e.dictValue)
+				console.log(this.isBiddingSendValue,'isBiddingSendValue');
+				
+			},					
+					
+					
+					
+					
 			// 报价状态字典
 			async getQuoteStatusOptions(){
 				const quoteStatusOptions = await this.$getRegistDicts("quote_status")
 				
-				console.log(quoteStatusOptions,'quoteStatus');
+				
 				this.quoteStatusOptions = quoteStatusOptions.data.data.map(e=>e.dictLabel)
-				console.log(this.quoteStatusOptions,'quoteStatusOptions');
+				
 				this.quoteStatusSendValue = quoteStatusOptions.data.data.map(e=>e.dictValue)
-				console.log(this.quoteStatusSendValue,'quoteStatusSendValue');
+				
 				
 			},			
 					
@@ -184,22 +205,22 @@
 			 async getSourceOrderWayOptions(){
 			 	const sourceOrderWayOptions = await this.$getRegistDicts("iscm_source_order_way")
 			 	
-			 	console.log(sourceOrderWayOptions,'sourceOrder');
+			 	
 			 	this.sourceOrderWayOptions = sourceOrderWayOptions.data.data.map(e=>e.dictLabel)
-			 	console.log(this.sourceOrderWayOptions,'sourceOrderWayOptions');
+			 	
 			 	this.sourceOrderWaySendValue = sourceOrderWayOptions.data.data.map(e=>e.dictValue)
-			 	console.log(this.sourceOrderWaySendValue,'sourceOrderWaySendValue');
+			 	
 			 },		
 			 
 			 //计价方式
 			 async getSettlementMethodOptions(){
 			 	const settlementMethodOptions = await this.$getRegistDicts("source_settlement_method")
 			 	
-			 	console.log(settlementMethodOptions,'settlementMethod');
+			 	
 			 	this.settlementMethodOptions = settlementMethodOptions.data.data.map(e=>e.dictLabel)
-			 	console.log(this.settlementMethodOptions,'settlementMethodOptions');
+			 	
 			 	this.settlementMethodSendValue = settlementMethodOptions.data.data.map(e=>e.dictValue)
-			 	console.log(this.settlementMethodSendValue,'settlementMethodSendValue');
+			 	
 			 },		
 				
 					
@@ -248,7 +269,7 @@
 					  	 	},
 					  	 	data:queryParams
 					  	 })
-				       console.log(res,'quote_list');
+				      
 					    
 					  if(res.data.total == 0){
 					  	setTimeout(()=>{
@@ -333,7 +354,7 @@
 			}
 			
 			.actions{
-				width:20%;
+				width:5%;
 				position:relative;
 				.cuIcon-phone{
 					transform: scale(8);
@@ -357,15 +378,7 @@
 				height:100rpx;	
 			}
 			
-			/* #ifdef H5 */
-			.phone-img{
-				width:50%;
-				height: 50%;
-					margin:0 auto;
-					display: block;
-					
-			}
-			/* #endif */
+			
 		}
 		.address{
 			border-top:1rpx solid #ccc;
@@ -375,7 +388,10 @@
 		
 	}
 	
-	
+	.concern{
+		padding-bottom: 3rpx;
+		border-bottom: 3rpx solid #1296db;
+	}
 	.sm-pic{
 			 width:35rpx;
 			 height:35rpx;

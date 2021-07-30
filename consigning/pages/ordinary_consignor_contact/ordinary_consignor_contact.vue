@@ -259,12 +259,13 @@
 				})
 				   
 					                   //stop sending request
-							if (this.queryParams.pageNum*this.queryParams.pageSize>=res.data.total){
+				if (this.queryParams.pageNum*this.queryParams.pageSize>=res.data.total){
 								this.load_more = false
 							}
-							
 				
-				if (this.consignor_list.length<res.data.total){
+				if (res.data.total  <= this.queryParams.pageSize){
+					this.consignor_list = res.data.rows
+				}else if (this.consignor_list.length<res.data.total){
 					this.consignor_list =[...this.consignor_list,...res.data.rows]
 					
 				}else{

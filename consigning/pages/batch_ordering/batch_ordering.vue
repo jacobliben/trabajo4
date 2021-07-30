@@ -152,7 +152,7 @@
 		
 		<view class="cu-form-group margin-top">
 			<text class="name">车型选择</text>
-			    <checkbox-group @change="checkboxCargoBoxTypeChange">
+			    <checkbox-group @change="checkboxCargoBoxTypeChange" class="to-center" >
 			                   <label  v-for="item in cargoBoxTypeOptions" :key="item.dictValue">
 			                        <view>
 			                           <checkbox :value="item.dictValue" :checked="item.checked" />
@@ -164,7 +164,7 @@
 		
 		<view class="cu-form-group margin-top" >
 			<text class="name">车长选择</text>
-			    <checkbox-group @change="checkboxVehicleLengthsChange">
+			    <checkbox-group @change="checkboxVehicleLengthsChange" class="to-center">
 			                   <label  v-for="item in vehicleLengthOptions" :key="item.dictValue">
 			                        <view>
 			                           <checkbox :value="item.dictValue" :checked="item.checked" />
@@ -179,7 +179,7 @@
 		</view>
 		
 		<view class="cu-form-group" >
-			<text class="name">装货开始时间<text class="red">*</text></text>
+			<text class="name">装货开始<text class="red">*</text></text>
 			<!-- 日期 -->
 			<view v-if="assignSendTimeDate_has_input" >
 				 <picker  mode="date"  :value="assignSendTimeDate"   :end="endDate" @change="bindDateChange" data-index="assignSendTimeDate">
@@ -209,16 +209,16 @@
 		</view>
 		
 		<view class="cu-form-group" >
-			<text class="name">装货截止时间<text class="red">*</text></text>
+			<text class="name">装货截止<text class="red">*</text></text>
 			<!-- 日期 -->
-			<view >
+			<view  >
 				 <picker v-if="assignEndTimeDate_has_input" mode="date"  :value="assignEndTimeDate"   :end="endDate" @change="bindDateChange" data-index="assignEndTimeDate">
-				      <view class="picker-view text-lg">{{assignEndTimeDate}}</view>
+				      <view  class="picker-view text-lg">{{assignEndTimeDate}}</view>
 				 </picker>
 			</view>
 			<view @click="assignEndTimeDate_has_input = true"  >
 				
-				 <view  class="picker-view text-lg"  v-if="!assignEndTimeDate_has_input" >选择装货截止日期</view>
+				 <view class="picker-view text-lg"  v-if="!assignEndTimeDate_has_input" >选择装货截止日期</view>
 			</view>
 		</view>
 		
@@ -332,9 +332,14 @@
 		
 		<view class="cu-form-group" v-if="show_carrier_selections" >
 			<text class="name">选择承运人<text class="red">*</text></text>
-			<input type="number" maxlength="16"   placeholder="请输入承运人名称,证件号或手机号" 
+			<input type="text" maxlength="16"   placeholder="请输入承运人名称" 
 			 selection-start="-1" selection-end="-1" cursor="-1"
 			:value="carrier"  @input="getCarrierName" >
+		</view>	
+		
+		<view class="cu-form-group" v-if="show_carrier_hint"  @click="inputCarrier">
+			<text class="hint-name">可选择承运人提示</text>
+		     <text class="hint-name" >{{carrier_hint}}</text>
 		</view>	
 		
 		<view class="cu-form-group">
@@ -479,9 +484,10 @@
 				assign_carrier_current: 0,		   
 				
 				show_carrier_selections:false,
-				//选择承运人
-				//candidates:["上海","广州","东京","南京","徐州"],
-				candidates:[],
+				
+				show_carrier_hint:false,
+				carrier_hint:"",
+					
 				carrier:"",	
 					   
 				active:false,
@@ -976,31 +982,44 @@
 			
 			//承运人
 			 getCarrierName(e){
-				
+				var that = this
 				this.carrier = e.target.value
 				const carrierName = this.carrier
-				this.searchCarrierName(carrierName)
-				
-			},
-			
-			//承运人搜索
-			async searchCarrierName(carrierName){
-				
-				
+				console.log (carrierName,'11qss')
 				
 				var authorization = uni.getStorageSync("token")
 				
-				const res = await this.$request({
-					 	url:`/app/carrier/getCarrierByCarrierName/${carrierName}`,
-					 	
-					 	header:{
-					 		Authorization:authorization,
-					 	},
-					 	
-					 })
-				console.log(res,'11q');	
+				uni.request({
+				    url: 'http://10.22.2.138:8080/app/carrier/getCarrierByCarrierName/'+carrierName,
+				   
+				    header:{
+				   	  Authorization:authorization,
+				     },
+				    success: (res) => {
+				        console.log(res, '11qm');
+				        
+						if (res.data.code=="200"){
+							that.show_carrier_hint = true
+							
+							that.carrier_hint = res.data.data[0].carrierName 
+							+ "   " +  res.data.data[0].carrierContactsPhone 
+							
+							that.specifyCarrierId = res.data.data[0].carrierId
+						}else{
+							that.show_carrier_hint = false
+						}
+				    }
+				});
+				
 				
 			},
+			
+			inputCarrier(){
+				
+				this.carrier = this.carrier_hint
+				this.show_carrier_hint = false
+			},
+			
 			//是否保存为货源模板,true:保存为货源模板,false不保存为货源模板
 			checkboxChange(e) {
 			                
@@ -1244,10 +1263,10 @@
 		'\r\nContent-Disposition: form-data; name="specifyCarrierStatus"' +
 		 '\r\n' +
 		'\r\n' + this.params.specifyCarrierStatus +
-		// '\r\n--XXX' +
-		// '\r\nContent-Disposition: form-data; name="specifyCarrierId"' +
-		//  '\r\n' +
-		// '\r\n' + this.params.specifyCarrierId +
+		'\r\n--XXX' +
+		'\r\nContent-Disposition: form-data; name="specifyCarrierId"' +
+		 '\r\n' +
+		'\r\n' + this.params.specifyCarrierId +
 		'\r\n--XXX' +
 		'\r\nContent-Disposition: form-data; name="goodsUnitPrice"' +
 		 '\r\n' +
@@ -1263,7 +1282,7 @@
 										
 										
 										
-										console.log(res,"加货源")
+										console.log(res,"加batch_ordering")
 										
 										uni.showToast({
 											title:"提交成功！"
@@ -1503,5 +1522,13 @@
 		display: flex;
 		flex-direction: row;
 		margin-right: 20rpx;
+	}
+	
+	.hint-name{
+		color:#ccc
+	}
+	
+	.to-center{
+		margin-right:50%;
 	}
 </style>

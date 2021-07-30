@@ -276,7 +276,7 @@
 					
 					 this.params.driverIdNumber = this.params.carrierCertNum; // 司机身份证号 = 承运人号码
 					this.params.driverPhone = this.params.phonenumber;       // 司机手机号 = 承运人手机号
-					this.params.userName = this.params.phonenumber;          // 用户名 = 承运人手机号
+					//this.params.userName = this.params.phonenumber;          // 用户名 = 承运人手机号
 					this.params.driverName = this.params.carrierName;        // 司机名称 = 承运人名称
 					this.params.idcardFront = this.params.carrierCardFront;  // 司机身份信息 = 承运人信息
 					this.params.idcardBack = this.params.carrierCardReverse; // 司机身份信息 = 承运人信息            

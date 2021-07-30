@@ -265,8 +265,10 @@
 							if (this.queryParams.pageNum*this.queryParams.pageSize>=res.data.total){
 								this.load_more = false
 							}
-							  
-							if (this.consignee_list.length<res.data.total){
+							
+							if (res.data.total <= this.queryParams.pageSize){
+								this.consignee_list = res.data.rows
+							}else if (this.consignee_list.length<res.data.total){
 								this.consignee_list =[...this.consignee_list,...res.data.rows]
 								
 							}else{

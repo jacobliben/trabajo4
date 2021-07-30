@@ -89,7 +89,7 @@
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
-	   <view class="cu-form-group" @click="goInquiry" >
+	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goInquiry" v-if="show_shipping_order" >
 		   	<view>
 				<image src="/static/bill.png"  class="sm-pic"></image>
 	   			<text>询价单</text>
@@ -97,7 +97,7 @@
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
-	   <view class="cu-form-group" @click="goQuote" >
+	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goQuote" v-if="show_shipping_order">
 	   		   	<view>
 	   				<image src="/static/document.png"  class="sm-pic"></image>
 	   			<text>报价单</text>
