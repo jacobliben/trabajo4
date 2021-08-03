@@ -156,7 +156,7 @@
 	   <view class="cu-form-group" @click="logout">
 	   		   <view>
 	   		   	    <image src="/static/wrench.png"  class="sm-pic" ></image>
-	   			<text>退出登录</text>
+	   			<text>退出登录(不保存用户名和密码)</text>
 	   			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>

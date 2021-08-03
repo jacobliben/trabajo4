@@ -51,7 +51,6 @@
 }
 .person.data-v-760b2d74 {
   width: 100%;
-  height: 180rpx;
   border-top: 1px solid #f4f4f4;
   padding: 10rpx;
   display: -webkit-box;

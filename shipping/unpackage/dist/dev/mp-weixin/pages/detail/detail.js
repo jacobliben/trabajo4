@@ -539,16 +539,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 var _default =
 {
   data: function data() {
@@ -558,7 +548,7 @@ var _default =
   },
   props: ["passed_info", "btn_title"],
   mounted: function mounted() {
-    console.log(this.passed_info, "fff");
+
   },
   methods: {
     goWayBillDetail: function goWayBillDetail() {

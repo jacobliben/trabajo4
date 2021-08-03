@@ -170,7 +170,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 457:
+/***/ 464:
 /*!**********************************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/main.js?{"page":"pages%2Finfo_not_found%2Finfo_not_found"} ***!
   \**********************************************************************************************************************/
@@ -186,5 +186,5 @@ createPage(_info_not_found.default);
 
 /***/ })
 
-},[[457,"common/runtime","common/vendor"]]]);
+},[[464,"common/runtime","common/vendor"]]]);
 //# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/info_not_found/info_not_found.js.map

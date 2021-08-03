@@ -340,9 +340,7 @@
 		
 		<view class="cu-form-group" v-if="show_carrier_selections" >
 			<text class="name">选择承运人<text class="red">*</text></text>
-			 <input type="number" maxlength="16"   placeholder="请输入承运人名称,证件号或手机号" 
-			 selection-start="-1" selection-end="-1" cursor="-1"
-			:value="pickMonadPhone" disabled @input="getPickMonadPhone" >
+			 <view>{{specifyCarrierName}}</view>
 		</view>
 		
 		<view class="cu-form-group" v-if="checked">
@@ -480,7 +478,8 @@
 				assign_carrier_current: 0,		   
 				
 				show_carrier_selections:false,
-						   
+				specifyCarrierId:"",	
+				specifyCarrierName:"",	   
 				active:false,
 				checked:false,
 				disabled:false,
@@ -567,7 +566,7 @@
 						
 							
 							this.orderSourceDetail = res.data.data
-							
+							console.log(this.orderSourceDetail,'orderSourceDetail');
 							this.consignor_contact_choosen = this.orderSourceDetail.iscmSourceInformationRecord.shipperName
 							this.consignor_contact_phone = this.orderSourceDetail.iscmSourceInformationRecord.shipperPhone
 							this.consignor_contact_address = this.orderSourceDetail.iscmSourceInformationRecord.shipperAddress
@@ -628,6 +627,9 @@
 		   									this.specify_carrier_status ="不指定"
 		   					}else if (this.specifyCarrierStatus==2){
 		   									 this.specify_carrier_status ="指定"
+											 this.show_carrier_selections = true
+											  this.specifyCarrierName = this.orderSourceDetail.specifyCarrier.carrierName
+											
 		   					}
 		   					this.checked = this.orderSourceDetail.isTemplate
 		   					

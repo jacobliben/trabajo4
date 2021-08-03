@@ -89,7 +89,7 @@
 				margin-bottom: 10rpx;
 			}
 			.desc{
-				font-size: 25rpx;
+				font-size: 30rpx;
 				
 				margin-bottom: 10rpx;
 			}

@@ -173,13 +173,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _login = _interopRequireDefault(__webpack_require__(/*! @/pages/login/login */ 25));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniSegmentedControl = function uniSegmentedControl() {__webpack_require__.e(/*! require.ensure | uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control */ "uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control").then((function () {return resolve(__webpack_require__(/*! uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue */ 980));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _login = _interopRequireDefault(__webpack_require__(/*! @/pages/login/login */ 25));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniSegmentedControl = function uniSegmentedControl() {__webpack_require__.e(/*! require.ensure | uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control */ "uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control").then((function () {return resolve(__webpack_require__(/*! uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue */ 1000));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   data: function data() {
     return {
-      current: 0
-      //items:["公司账号登录","个人账号登录"]
-    };
+      current: 0 };
+
+
   },
   mounted: function mounted() {
     uni.setNavigationBarTitle({
@@ -413,7 +413,10 @@ var Base64 = _base.default.Base64;var _default =
       userAccount: "",
       userPassword: "",
       code: "",
-      hidePass: true };
+      hidePass: true,
+
+      username: "",
+      password: "" };
 
   },
   onLoad: function onLoad() {
@@ -425,7 +428,7 @@ var Base64 = _base.default.Base64;var _default =
     // uni.login({
     // 	provider:"weixin",
     // 	success:(loginRes)=>{
-    // 		console.log("login", loginRes.code)
+
     // 		that.code = loginRes.code
     // 		uni.hideLoading()
     // 	}
@@ -433,61 +436,41 @@ var Base64 = _base.default.Base64;var _default =
 
 
   },
+  onShow: function onShow() {var _this2 = this;
+    uni.getSystemInfo({
+      success: function success(res) {
+
+        //检测当前平台，如果是安卓则启动安卓更新  
+        if (res.platform == "android") {
+          _this2.AndroidCheckUpdate();
+        }
+      } });
+
+  },
+
+  mounted: function mounted() {
+
+    this.username = uni.getStorageSync("username");
+    this.password = uni.getStorageSync("password");
+
+
+  },
 
   methods: _objectSpread({
-    go: function go() {
-      // 	uni.navigateTo({
-      // 	url:"/pages/11/11"
-      // 	  })
 
-      // // //Android 获取camera
-      // var main = plus.android.runtimeMainActivity();
-      //    //通过反射获取Android的Intent对象
-      //   var Intent = plus.android.importClass("android.content.Intent");
-      //   //通过宿主上下文创建 intent
-      //   var intent = new Intent(main.getIntent());
-      //   //设置要开启的Activity包类路径  com.HBuilder.integrate.MainActivity换掉你自己的界面
-      //   intent.setClassName(main, "io.dcloud.UNIACABF38.Camera");
-      //   //开启新的任务栈 （跨进程）
-      //   intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      //   //开启新的界面
-      //   main.startActivity(intent);
-
-
-    },
     getUserAccount: function getUserAccount(e) {
-      //this.userAccount = e.target.value
-      this.userAccount = Base64.encode(e.target.value);
+      this.username = e.target.value;
+
+      uni.setStorageSync("username", this.username);
 
 
     },
 
     getUserpassword: function getUserpassword(e) {
+      this.password = e.target.value;
 
-      var CRYPTOJSKEY = "paj2ksAc1pWeOgT621zcKQ==";
+      uni.setStorageSync("password", this.password);
 
-      // 加密
-      function encrypt(plaintText) {
-        var options = {
-          mode: _cryptoJs.default.mode.ECB,
-          padding: _cryptoJs.default.pad.Pkcs7 };
-
-        var key = _cryptoJs.default.enc.Utf8.parse(CRYPTOJSKEY);
-        var encryptedData = _cryptoJs.default.AES.encrypt(plaintText, key, options);
-        return encryptedData.toString();
-      }
-
-
-      function repeatedlyEncrypt(plaintText, numbers) {
-        plaintText = plaintText;
-        for (var i = 0; i < numbers; i++) {
-          plaintText = encrypt(plaintText);
-        }
-        return plaintText;
-      }
-      var result = repeatedlyEncrypt(e.target.value, 10);
-
-      this.userPassword = result;
     },
     wechatLogin: function wechatLogin() {
       uni.switchTab({
@@ -495,34 +478,66 @@ var Base64 = _base.default.Base64;var _default =
 
     },
 
-    formSubmit: function formSubmit() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var user_data, res, token, resUserInfo;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+    formSubmit: function formSubmit() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var CRYPTOJSKEY,
+
+
+
+
+
+
+
+        encrypt,
+
+
+
+
+
+
+
+
+
+
+        repeatedlyEncrypt, result, user_data, res, token, resUserInfo;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:repeatedlyEncrypt = function _repeatedlyEncrypt(plaintText, numbers) {
+                  plaintText = plaintText;
+                  for (var i = 0; i < numbers; i++) {
+                    plaintText = encrypt(plaintText);
+                  }
+                  return plaintText;
+                };encrypt = function _encrypt(plaintText) {var options = { mode: _cryptoJs.default.mode.ECB, padding: _cryptoJs.default.pad.Pkcs7 };var key = _cryptoJs.default.enc.Utf8.parse(CRYPTOJSKEY);var encryptedData = _cryptoJs.default.AES.encrypt(plaintText, key, options);return encryptedData.toString();}; //encode the username
+                _this3.userAccount = Base64.encode(_this3.username); //encode the password
+                CRYPTOJSKEY = "paj2ksAc1pWeOgT621zcKQ=="; // 加密
+                result = repeatedlyEncrypt(_this3.password, 10);_this3.userPassword = result;
+
+
+                //use the encoded username and password to login
+
                 user_data = {
-                  username: _this.userAccount,
-                  password: _this.userPassword };_context.next = 3;return (
+                  username: _this3.userAccount,
+                  password: _this3.userPassword };_context.next = 9;return (
 
 
-                  _this.$request({
+                  _this3.$request({
                     url: "/login",
                     method: "POST",
-                    data: user_data }));case 3:res = _context.sent;
+                    data: user_data }));case 9:res = _context.sent;
 
 
 
                 token = "Bearer " + res.data.token;
                 uni.setStorageSync('token', token);if (!(
 
-                res.data.code == 200)) {_context.next = 16;break;}
+                res.data.code == 200)) {_context.next = 22;break;}
                 uni.showToast({
                   title: "欢迎",
                   icon: "none" });
 
 
                 //get this user's permission rights 
-                _context.next = 10;return _this.$request({
+                _context.next = 16;return _this3.$request({
                   url: "/getInfo",
 
                   header: {
-                    Authorization: token } });case 10:resUserInfo = _context.sent;
+                    Authorization: token } });case 16:resUserInfo = _context.sent;
 
 
 
@@ -543,14 +558,14 @@ var Base64 = _base.default.Base64;var _default =
                       url: "/pages/index/index" });
 
                   }, 800);
-                }_context.next = 17;break;case 16:
+                }_context.next = 23;break;case 22:
 
 
 
 
                 uni.showToast({
                   title: res.data.msg,
-                  icon: "none" });case 17:case "end":return _context.stop();}}}, _callee);}))();
+                  icon: "none" });case 23:case "end":return _context.stop();}}}, _callee);}))();
 
 
 
@@ -558,6 +573,46 @@ var Base64 = _base.default.Base64;var _default =
 
     },
     formReset: function formReset() {
+
+    },
+
+    /**
+                  * 安卓应用的检测更新实现
+                  */
+    AndroidCheckUpdate: function AndroidCheckUpdate() {
+      var _this = this;
+      uni.request({
+        //请求地址，设置为自己的服务器链接
+        url: GLOBAL.DOMAIN_URL + '/uniapi/checkAndroidVersion.html',
+        //method: 'GET',  
+        data: {},
+        success: function success(resMz) {
+          var server_version = resMz.data.data.version;
+          var currTimeStamp = resMz.data.data.timestamp;
+          // 判断缓存时间
+          uni.getStorage({
+            key: 'tip_version_update_time',
+            success: function success(res) {
+              var lastTimeStamp = res.data;
+              //定义提醒的时间间隔，避免烦人的一直提示，一个小时：3600；一天：86400
+              var tipTimeLength = 3600;
+              if (lastTimeStamp + tipTimeLength > currTimeStamp) {
+                //避免多次提醒，不要更新
+                console.log("避免多次提醒，不要更新");
+              } else {
+                //重新设置时间戳
+                _this.setStorageForAppVersion(currTimeStamp);
+                //进行版本型号的比对 以及下载更新请求
+                _this.checkVersionToLoadUpdate(server_version, _this.version);
+              }
+            },
+            fail: function fail(res) {
+              _this.setStorageForAppVersion(currTimeStamp);
+            } });
+
+        },
+        fail: function fail() {},
+        complete: function complete() {} });
 
     } },
 

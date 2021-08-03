@@ -6,7 +6,7 @@
 		  <scroll-view v-for ="(item,index) in navList" :key="index" enable-flex="true"
 		  class="nav-item" :class="{current: tabCurrentIndex === index }" 
 		  @click ="tabClick(index)" scroll-x="true"  scroll-left="120">
-		  	<text>{{item.text}}</text>
+		  	<text>{{item.btn}}</text>
 		  </scroll-view>
 	  </view>
 		
@@ -36,13 +36,24 @@
 				tabCurrentIndex:0,
 				navList:[
 					{
-						state:1,
+						state:20,
 						text:"我的货源",
-						state_pending:"待接受",
-						orderList:[],
-						waybillStatus:this.$waitAccept,
-						btn:"审核通过",
+						
+						btn:"待发布",
 					},
+					{
+						state:10,
+						text:"我的货源",
+						
+						btn:"待审核",
+					},
+					{
+						state:90,
+						text:"我的货源",
+						
+						btn:"完成已评价",
+					},
+					
 					
 					
 				]

@@ -220,7 +220,7 @@ var _company_license = _interopRequireDefault(__webpack_require__(/*! @/pages/co
 
 var _company_business_info = _interopRequireDefault(__webpack_require__(/*! @/pages/company_business_info/company_business_info */ 310));
 var _vehicle = _interopRequireDefault(__webpack_require__(/*! @/pages/vehicle/vehicle */ 319));
-var _bank = _interopRequireDefault(__webpack_require__(/*! @/pages/bank/bank */ 333));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniSegmentedControl = function uniSegmentedControl() {__webpack_require__.e(/*! require.ensure | uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control */ "uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control").then((function () {return resolve(__webpack_require__(/*! uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue */ 980));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var phoneVerifying = function phoneVerifying() {__webpack_require__.e(/*! require.ensure | components/register/phone_verifying */ "components/register/phone_verifying").then((function () {return resolve(__webpack_require__(/*! @/components/register/phone_verifying.vue */ 987));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _bank = _interopRequireDefault(__webpack_require__(/*! @/pages/bank/bank */ 333));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniSegmentedControl = function uniSegmentedControl() {__webpack_require__.e(/*! require.ensure | uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control */ "uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control").then((function () {return resolve(__webpack_require__(/*! uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue */ 1000));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var phoneVerifying = function phoneVerifying() {__webpack_require__.e(/*! require.ensure | components/register/phone_verifying */ "components/register/phone_verifying").then((function () {return resolve(__webpack_require__(/*! @/components/register/phone_verifying.vue */ 1007));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   data: function data() {
     return {
@@ -901,7 +901,7 @@ var _self;var _default =
       });
     },
     bindPickerChange: function bindPickerChange(e) {
-      console.log('picker发送选择改变，携带值为 准驾车型', e.target.value);
+
       this.index = e.target.value;
       if (this.index == 0) {
         this.params.driverVehicleClass = "A2";
@@ -954,8 +954,7 @@ var _self;var _default =
         this.params.drivercertValidPeriodTo = e.target.value;
         this.driver_cert_expiry_date_has_input = true;
       }
-      //       console.log(this.params.driving_certificate_begin_date,"begin_date")
-      // console.log(this.params.driving_certificate_expiry_date,"expiry_date")
+
     },
     getDate: function getDate(type) {
       var date = new Date();
@@ -986,7 +985,7 @@ var _self;var _default =
 
                   success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
                               tempFilePaths = res.tempFilePaths;
-                              console.log(tempFilePaths, "876");
+
                               //识别	
 
 
@@ -1065,28 +1064,21 @@ var _self;var _default =
 
 
 
-                              //preview the photos
-                              // uni.previewImage({
-                              //             urls: res.tempFilePaths,
-
-                              //         });
 
                               //upload the img 
                               _self.imgDriverIDFrontUrl = tempFilePaths[0];
 
                               //make the tachar img appear
-                              _self.tachar_driver_id_front = true;_context.next = 6;return (
+                              _self.tachar_driver_id_front = true;_context.next = 5;return (
 
                                 _self.$upload({
                                   url: _pattern.ossLocation.driver.front,
-                                  file_path: tempFilePaths[0] }));case 6:resPhoto = _context.sent;case 7:case "end":return _context.stop();}}}, _callee);}))();
+                                  file_path: tempFilePaths[0] }));case 5:resPhoto = _context.sent;case 6:case "end":return _context.stop();}}}, _callee);}))();
 
 
 
-                  },
-                  error: function error(e) {
-                    console.log(e);
                   } });_context5.next = 21;break;case 5:if (!(
+
 
                 e.currentTarget.dataset.index == "driver_id_back")) {_context5.next = 9;break;}
                 uni.chooseImage({
@@ -1099,30 +1091,24 @@ var _self;var _default =
 
                   success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
                               tempFilePaths = res.tempFilePaths;
-                              console.log(tempFilePaths, "876");
 
-                              //preview the photos
-                              // uni.previewImage({
-                              //             urls: res.tempFilePaths,
 
-                              //         });
+
 
                               //upload the img
                               _self.imgDriverIDBackUrl = tempFilePaths[0];
 
                               //make the tachar img appear
-                              _self.tachar_driver_id_back = true;_context2.next = 6;return (
+                              _self.tachar_driver_id_back = true;_context2.next = 5;return (
 
                                 _self.$upload({
                                   url: _pattern.ossLocation.driver.reverse,
-                                  file_path: tempFilePaths[0] }));case 6:resPhoto = _context2.sent;case 7:case "end":return _context2.stop();}}}, _callee2);}))();
+                                  file_path: tempFilePaths[0] }));case 5:resPhoto = _context2.sent;case 6:case "end":return _context2.stop();}}}, _callee2);}))();
 
 
 
-                  },
-                  error: function error(e) {
-                    console.log(e);
                   } });_context5.next = 21;break;case 9:if (!(
+
 
                 e.currentTarget.dataset.index == "driver_license_photo_first")) {_context5.next = 17;break;}
                 /**
@@ -1208,11 +1194,6 @@ var _self;var _default =
 
 
 
-                                //preview the photos
-                                // uni.previewImage({
-                                //             urls: res.tempFilePaths,
-
-                                //         });
 
                                 //upload the img
                                 _self.imgDriverLicensePhotoUrl = tempFilePaths[0];
@@ -1237,11 +1218,7 @@ var _self;var _default =
                     success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
                                 tempFilePaths = res.tempFilePaths;
 
-                                //preview the photos
-                                // uni.previewImage({
-                                //             urls: res.tempFilePaths,
 
-                                //         });
 
                                 //upload the img
                                 _self.imgDrivingCertificateUrl = tempFilePaths[0];
@@ -1394,10 +1371,6 @@ var _self;var _default =
 
 
 
-
-
-
-      console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value));
       //定义表单规则
       var rule = [
       { name: "cellphone",
@@ -1780,7 +1753,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _pattern = __webpack_require__(/*! @/util/pattern.js */ 15);
 var _mmmmImageTools = __webpack_require__(/*! @/js_sdk/mmmm-image-tools */ 315);
-var _jsBase = __webpack_require__(/*! @/js_sdk/js-base64 */ 316);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var simpleAddressHigh = function simpleAddressHigh() {Promise.all(/*! require.ensure | components/simple-address-high/simple-address */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/simple-address-high/simple-address")]).then((function () {return resolve(__webpack_require__(/*! @/components/simple-address-high/simple-address.vue */ 994));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+var _jsBase = __webpack_require__(/*! @/js_sdk/js-base64 */ 316);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var simpleAddressHigh = function simpleAddressHigh() {Promise.all(/*! require.ensure | components/simple-address-high/simple-address */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/simple-address-high/simple-address")]).then((function () {return resolve(__webpack_require__(/*! @/components/simple-address-high/simple-address.vue */ 1014));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/graceChecker.js */ 307);
 var _self;var _default =
 
@@ -2185,11 +2158,6 @@ var _self;var _default =
 
 
 
-                                //preview the photos
-                                // uni.previewImage({
-                                //             urls: res.tempFilePaths,
-
-                                //         });
 
 
                                 //upload the img 
@@ -2216,11 +2184,7 @@ var _self;var _default =
                     success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
                                 tempFilePaths = res.tempFilePaths;
 
-                                //preview the photos
-                                // uni.previewImage({
-                                //             urls: res.tempFilePaths,
 
-                                //         });
 
                                 //upload the img 
                                 _self.imglegalPersonCerReverseUrl = tempFilePaths[0];
@@ -2244,13 +2208,6 @@ var _self;var _default =
                   _this.$photo({
                     success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
                                 tempFilePaths = res.tempFilePaths;
-
-
-                                //preview the photos
-                                // uni.previewImage({
-                                //             urls: res.tempFilePaths,
-
-                                //         });
 
 
                                 //upload the img
@@ -2364,11 +2321,7 @@ var _self;var _default =
 
 
 
-                    //preview the photos
-                    // uni.previewImage({
-                    //             urls: res.tempFilePaths,
 
-                    //         });
 
                     //upload the img 
                     _self.imgBusinessLicenseUrl = tempFilePaths[0];
@@ -2488,11 +2441,7 @@ var _self;var _default =
 
 
 
-                    //preview the photos
-                    // uni.previewImage({
-                    //             urls: res.tempFilePaths,
 
-                    //         });
 
                     //upload the img 
                     _self.imgBusinessLicenseUrl = _tempFilePaths[0];
@@ -2504,49 +2453,41 @@ var _self;var _default =
 
                       _self.$upload({
                         url: _pattern.ossLocation.carrier.front,
-                        file_path: _tempFilePaths[0] }));case 15:_resPhoto = _context5.sent;case 16:_context5.next = 26;break;case 18:if (!(
+                        file_path: _tempFilePaths[0] }));case 15:_resPhoto = _context5.sent;case 16:_context5.next = 25;break;case 18:if (!(
 
 
 
 
 
-                    e.currentTarget.dataset.index == "transport_license")) {_context5.next = 26;break;}
+                    e.currentTarget.dataset.index == "transport_license")) {_context5.next = 25;break;}
                     /**
                                                                                                          * 道路运输经营许可证
                                                                                                          */
                     _tempFilePaths2 = res.tempFilePaths;
-                    console.log(_tempFilePaths2, "876");
 
-                    //preview the photos
-                    // uni.previewImage({
-                    //             urls: res.tempFilePaths,
-
-                    //         });
 
                     //upload the img 
                     _self.imgTransportLicenseUrl = _tempFilePaths2[0];
 
                     //make the tachar img appear
-                    _self.tachar_transport_license = true;_context5.next = 25;return (
+                    _self.tachar_transport_license = true;_context5.next = 24;return (
 
 
                       _self.$upload({
                         url: _pattern.ossLocation.carrier.road,
-                        file_path: _tempFilePaths2[0] }));case 25:_resPhoto2 = _context5.sent;case 26:case "end":return _context5.stop();}}}, _callee5);}))();
+                        file_path: _tempFilePaths2[0] }));case 24:_resPhoto2 = _context5.sent;case 25:case "end":return _context5.stop();}}}, _callee5);}))();
 
 
 
 
 
-        },
-        error: function error(e) {
-          console.log(e);
         } });
+
 
     },
 
     cancelLicense: function cancelLicense(e) {
-      console.log(e, "199");
+
       if (e.currentTarget.dataset.index == "legal_person_cer_front") {
         this.imglegalPersonCerFrontUrl = "/static/id_front.jpg",
         setTimeout(function () {
@@ -2806,7 +2747,7 @@ var _self;var _default =
 
       this.params.carrierContactsPhone = this.tel;
 
-      console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value));
+
       uni.setStorageSync("params_business", this.params);
 
       this.params.the_step = 3;
@@ -2932,7 +2873,7 @@ var components
 try {
   components = {
     uniNumberBox: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-number-box/components/uni-number-box/uni-number-box */ "uni_modules/uni-number-box/components/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-number-box/components/uni-number-box/uni-number-box.vue */ 1004))
+      return __webpack_require__.e(/*! import() | uni_modules/uni-number-box/components/uni-number-box/uni-number-box */ "uni_modules/uni-number-box/components/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-number-box/components/uni-number-box/uni-number-box.vue */ 1024))
     }
   }
 } catch (e) {
@@ -2956,6 +2897,16 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      _vm.car_type_identified = false
+      _vm.car_type_index = 0
+    }
+
+    _vm.e1 = function($event) {
+      _vm.driving_cert_expiry_date_has_input = true
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -3192,19 +3143,76 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _xflSelect = _interopRequireDefault(__webpack_require__(/*! @/components/xfl-select/xfl-select.vue */ 324));
 var _pattern = __webpack_require__(/*! @/util/pattern.js */ 15);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}
 var _self;var _default =
 
 {
   data: function data() {
+
+    var currentDate = this.getDate({
+      format: true });
+
     return {
+      //车辆类型是否已经被识别
+      car_type_identified: false,
+      //车辆类型被识别出的结果
+      car_type_identified_input: "",
       //是否个人
       isPerson: false,
       disabled: true,
       active: false,
       //显示车牌号
       plate_number: "",
+      vehicleOwnName: "",
       params: {
         the_step: 4,
         active_one_step: true,
@@ -3243,6 +3251,14 @@ var _self;var _default =
       is_ordinary: false,
       plate_type_index: 1,
       plate_color_index: 0,
+      vehicleOwnTypeOptions: [],
+      vehicleOwnTypeSendValue: [],
+      owner_type_list: [],
+      owner_type_index: 0,
+      vehicleTypeOptions: [],
+      vehicleTypeSendValue: [],
+      car_type_list: [],
+      car_type_index: 0,
       list: [
       '黄牌'
       // '蓝牌',
@@ -3261,12 +3277,12 @@ var _self;var _default =
 
       {
         value: 'semi-camion',
-        name: '半挂车' }],
+        name: '半挂牵引车' }],
 
 
 
 
-      car_current: 1,
+      car_current: 0,
       energy_items: [{
         value: "1",
         name: '新能源' },
@@ -3290,9 +3306,18 @@ var _self;var _default =
       vehicleCargoBoxLengthOptions: [],
 
       // 货箱长度传给后台的值
-      vehicleCargoBoxLengthSendValue: [] };
+      vehicleCargoBoxLengthSendValue: [],
+      //行驶证失效日期
+      driving_cert_expiry_date: currentDate,
+      driving_cert_expiry_date_has_input: false };
 
   },
+  computed: {
+
+    endDate: function endDate() {
+      return this.getDate('end');
+    } },
+
   components: {},
 
 
@@ -3303,6 +3328,8 @@ var _self;var _default =
     this.params.whetherNewEnergy = 2;
 
     this.getCarTypes();
+    this.getVehicleOwnTypeOptions();
+    this.getVehicleTypeOptions();
     this.getVehiclePlateTypeOptions();
     this.getVehiclePlateColorOptions();
     this.getVehicleEnergyTypeOptions();
@@ -3351,6 +3378,13 @@ var _self;var _default =
       this.car_current = 1;
     }
 
+    //行驶证失效日期
+    if (this.params_vehicle.vehicleLicenseExpireDate) {
+      this.driving_cert_expiry_date = this.params_vehicle.vehicleLicenseExpireDate || this.getDate({ format: true });
+      this.driving_cert_expiry_date_has_input = true;
+    }
+
+
 
     this.plate_number = this.params_vehicle.vehiclePlateNumber || "";
     if (this.params_vehicle.vehiclePlateType == "02") {
@@ -3360,6 +3394,13 @@ var _self;var _default =
     } else if (this.params_vehicle.vehiclePlateType == "99") {
       this.plate_type_index = 2;
     }
+    this.vehicleOwnName = this.params_vehicle.vehicleOwnName || "";
+    //专用于“车辆类型”识别时回显
+    this.car_type_identified = this.params_vehicle.car_type_identified || false;
+    if (this.car_type_identified) {
+      this.car_type_identified_input = this.params_vehicle.car_type_identified_input || "";
+    }
+
     this.vehicleBrands = this.params_vehicle.vehicleBrands || "";
     this.vehicle_weight = this.params_vehicle.vehicleLadenWeight || "";
     this.rating_weight = this.params_vehicle.vehicleTonnage || "";
@@ -3380,6 +3421,23 @@ var _self;var _default =
     }
   },
   methods: {
+    //用于 date picker!!!!!
+    getDate: function getDate(type) {
+      var date = new Date();
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var day = date.getDate();
+
+      if (type === 'start') {
+        year = year - 60;
+      } else if (type === 'end') {
+        year = year + 20;
+      }
+      month = month > 9 ? month : '0' + month;;
+      day = day > 9 ? day : '0' + day;
+      return "".concat(year, "-").concat(month, "-").concat(day);
+    },
+
     //将base64位图片上传,之后identifying要用
 
     detailImage: function detailImage(path, callback) {
@@ -3397,7 +3455,7 @@ var _self;var _default =
       });
     },
     bindPickerColorChange: function bindPickerColorChange(e) {
-      console.log('picker发送选择改变，携带值为', e);
+
       this.plate_color_index = e.target.value;
       if (e.target.value == 0) {
         this.params.vehiclePlateColor = "2";
@@ -3406,7 +3464,7 @@ var _self;var _default =
       this.params.vehiclePlateColor = "2";
     },
     bindPickerChange: function bindPickerChange(e) {
-      console.log('picker发送选择改变01，携带值为', e.target.value);
+
       this.plate_type_index = e.target.value;
       if (e.target.value == 0) {
         this.params.vehiclePlateType = "02";
@@ -3418,7 +3476,7 @@ var _self;var _default =
     },
 
     bindPickercargoBoxLengthChange: function bindPickercargoBoxLengthChange(e) {
-      console.log('picker发送选择改变，携带值为BoxLength', e.target.value);
+
       this.box_length_index = e.target.value;
       var box_length_index = this.box_length_index - 1; // substract 1 to make the index matches
       this.params.cargoBoxLength = this.vehicleCargoBoxLengthSendValue[box_length_index];
@@ -3431,35 +3489,67 @@ var _self;var _default =
 
     },
 
-    getVehiclePlateTypeOptions: function getVehiclePlateTypeOptions() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var vehiclePlateTypeOptions;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
-                  _this2.$getRegistDicts("vehicle_plate_type"));case 2:vehiclePlateTypeOptions = _context2.sent;case 3:case "end":return _context2.stop();}}}, _callee2);}))();
+    //车主类型
+    getVehicleOwnTypeOptions: function getVehicleOwnTypeOptions() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var vehicleOwnTypeOptions, vehicleOwnType;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
+                  _this2.$getRegistDicts("vehicle_own_type"));case 2:vehicleOwnTypeOptions = _context2.sent;
+                _this2.vehicleOwnTypeOptions = vehicleOwnTypeOptions.data.data.map(function (e) {return e.dictLabel;});
+                _this2.vehicleOwnTypeSendValue = vehicleOwnTypeOptions.data.data.map(function (e) {return e.dictValue;});
+
+                _this2.owner_type_list = _this2.vehicleOwnTypeOptions;
+                _this2.owner_type_list.unshift("请选择车主类型");
+
+                _this2.owner_type_index = _this2.params_vehicle.vehicleOwnType || "";
+
+                vehicleOwnType = _this2.params_vehicle.vehicleOwnType;
+
+                _this2.owner_type_index = _this2.vehicleOwnTypeSendValue.findIndex(function (value) {return value == vehicleOwnType;}) + 1;case 10:case "end":return _context2.stop();}}}, _callee2);}))();
+    },
+
+    // 车辆类型字典
+    getVehicleTypeOptions: function getVehicleTypeOptions() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var vehicleTypeOptions, vehicleType;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.next = 2;return (
+                  _this3.$getRegistDicts("vehicle_type"));case 2:vehicleTypeOptions = _context3.sent;
+                _this3.vehicleTypeOptions = vehicleTypeOptions.data.data.map(function (e) {return e.dictLabel;});
+                _this3.car_type_list = _this3.vehicleTypeOptions;
+                _this3.car_type_list.unshift("请选择车辆类型");
+
+                _this3.vehicleTypeSendValue = vehicleTypeOptions.data.data.map(function (e) {return e.dictValue;});
+
+                vehicleType = _this3.params_vehicle.vehicleType;
+
+                _this3.car_type_index = _this3.vehicleTypeSendValue.findIndex(function (value) {return value == vehicleType;}) + 1;case 9:case "end":return _context3.stop();}}}, _callee3);}))();
 
     },
 
-    getVehiclePlateColorOptions: function getVehiclePlateColorOptions() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var vehiclePlateColorOptions;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.next = 2;return (
-                  _this3.$getRegistDicts("vehicle_plate_color"));case 2:vehiclePlateColorOptions = _context3.sent;case 3:case "end":return _context3.stop();}}}, _callee3);}))();
+
+    getVehiclePlateTypeOptions: function getVehiclePlateTypeOptions() {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var vehiclePlateTypeOptions;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:_context4.next = 2;return (
+                  _this4.$getRegistDicts("vehicle_plate_type"));case 2:vehiclePlateTypeOptions = _context4.sent;case 3:case "end":return _context4.stop();}}}, _callee4);}))();
 
     },
-    getVehicleEnergyTypeOptions: function getVehicleEnergyTypeOptions() {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var vehicleEnergyTypeOptions;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:_context4.next = 2;return (
-                  _this4.$getRegistDicts("vehicle_energy_type"));case 2:vehicleEnergyTypeOptions = _context4.sent;case 3:case "end":return _context4.stop();}}}, _callee4);}))();
+
+    getVehiclePlateColorOptions: function getVehiclePlateColorOptions() {var _this5 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {var vehiclePlateColorOptions;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:_context5.next = 2;return (
+                  _this5.$getRegistDicts("vehicle_plate_color"));case 2:vehiclePlateColorOptions = _context5.sent;case 3:case "end":return _context5.stop();}}}, _callee5);}))();
+
+    },
+    getVehicleEnergyTypeOptions: function getVehicleEnergyTypeOptions() {var _this6 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6() {var vehicleEnergyTypeOptions;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:_context6.next = 2;return (
+                  _this6.$getRegistDicts("vehicle_energy_type"));case 2:vehicleEnergyTypeOptions = _context6.sent;case 3:case "end":return _context6.stop();}}}, _callee6);}))();
 
     },
 
     //货箱长度
-    getVehicleCargoBoxLengthOptions: function getVehicleCargoBoxLengthOptions() {var _this5 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {var vehicleCargoBoxLengthOptions, cargoBoxLength;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:_context5.next = 2;return (
-                  _this5.$getRegistDicts("vehicle_length"));case 2:vehicleCargoBoxLengthOptions = _context5.sent;
-                console.log(_this5.vehicleCargoBoxLengthOptions, "货箱长度");
-                _this5.vehicleCargoBoxLengthOptions = vehicleCargoBoxLengthOptions;
-                _this5.vehicleCargoBoxLengthOptions = _this5.vehicleCargoBoxLengthOptions.data.data.map(function (e) {return e.dictLabel;});
-                _this5.box_length_list = _this5.vehicleCargoBoxLengthOptions;
-                _this5.box_length_list.unshift("请选择货箱长度");
+    getVehicleCargoBoxLengthOptions: function getVehicleCargoBoxLengthOptions() {var _this7 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee7() {var vehicleCargoBoxLengthOptions, cargoBoxLength;return _regenerator.default.wrap(function _callee7$(_context7) {while (1) {switch (_context7.prev = _context7.next) {case 0:_context7.next = 2;return (
+                  _this7.$getRegistDicts("vehicle_length"));case 2:vehicleCargoBoxLengthOptions = _context7.sent;
 
-                _this5.vehicleCargoBoxLengthSendValue = vehicleCargoBoxLengthOptions.data.data.map(function (e) {return e.dictValue;});
+                _this7.vehicleCargoBoxLengthOptions = vehicleCargoBoxLengthOptions;
+                _this7.vehicleCargoBoxLengthOptions = _this7.vehicleCargoBoxLengthOptions.data.data.map(function (e) {return e.dictLabel;});
+                _this7.box_length_list = _this7.vehicleCargoBoxLengthOptions;
+                _this7.box_length_list.unshift("请选择货箱长度");
+
+                _this7.vehicleCargoBoxLengthSendValue = vehicleCargoBoxLengthOptions.data.data.map(function (e) {return e.dictValue;});
 
                 //跳转回显
-                cargoBoxLength = _this5.params_vehicle.cargoBoxLength;
+                cargoBoxLength = _this7.params_vehicle.cargoBoxLength;
 
-                _this5.box_length_index = _this5.vehicleCargoBoxLengthSendValue.findIndex(function (value) {return value == cargoBoxLength;}) + 1;case 11:case "end":return _context5.stop();}}}, _callee5);}))();
+                _this7.box_length_index = _this7.vehicleCargoBoxLengthSendValue.findIndex(function (value) {return value == cargoBoxLength;}) + 1;case 10:case "end":return _context7.stop();}}}, _callee7);}))();
 
     },
 
@@ -3471,7 +3561,7 @@ var _self;var _default =
 
 
     radioCarChange: function radioCarChange(e) {
-      console.log(e.target.value, 'car');
+
       if (e.target.value == "ordinary") {
         this.is_ordinary = true;
         this.params.vehicleSpecies = 103;
@@ -3488,6 +3578,58 @@ var _self;var _default =
 
     },
 
+    //	车辆所有人
+    getVehicleOwnName: function getVehicleOwnName(e) {
+      this.vehicleOwnName = e.target.value;
+      this.params.vehicleOwnName = e.target.value;
+
+    },
+
+
+    //车主类型
+    bindPickerTypeChange: function bindPickerTypeChange(e) {
+
+      this.owner_type_index = e.target.value;
+
+      this.params.vehicleOwnType = this.owner_type_index;
+
+    },
+    //车辆类型
+    bindPickerCarTypeChange: function bindPickerCarTypeChange(e) {
+
+      this.car_type_index = e.target.value;
+
+      var car_type_index = this.car_type_index;
+
+      this.params.vehicleType = this.vehicleTypeSendValue[car_type_index - 1];
+
+      this.car_type_identified = false;
+    },
+
+    bindDateChange: function bindDateChange(e) {
+      //行驶证注册日期
+      if (e.currentTarget.dataset.index == "driving_cert_register_date") {
+        this.driving_cert_register_date = e.target.value;
+        this.params.vehicleRegisterDate = this.driving_cert_register_date;
+        this.driving_cert_register_date_has_input = true;
+      } else if (e.currentTarget.dataset.index == "driving_cert_issuing_date") {
+        //行驶证发证日期
+        this.driving_cert_issuing_date = e.target.value;
+        this.params.vehicleIssueDate = this.driving_cert_issuing_date;
+        this.driving_cert_issuing_date_has_input = true;
+      } else if (e.currentTarget.dataset.index == "driving_cert_expiry_date") {
+        //行驶证失效日期
+        this.driving_cert_expiry_date = e.target.value;
+        this.params.vehicleLicenseExpireDate = this.driving_cert_expiry_date;
+        this.driving_cert_expiry_date_has_input = true;
+      } else if (e.currentTarget.dataset.index == "road_cert_expiry_date") {
+        //道路运输证失效日期
+        this.road_cert_expiry_date = e.target.value;
+        this.params.vehicleRoadcertExpireDate = this.road_cert_expiry_date;
+        this.road_cert_expiry_date_has_input = true;
+      }
+
+    },
     getCarBrand: function getCarBrand(e) {
 
       this.params.vehicleBrands = e.detail.value;
@@ -3546,14 +3688,14 @@ var _self;var _default =
 
     },
 
-    takephoto: function takephoto(e) {var _this6 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee11() {var resChoosePhoto, _resChoosePhoto, _resChoosePhoto2, _resChoosePhoto3, _resChoosePhoto4;return _regenerator.default.wrap(function _callee11$(_context11) {while (1) {switch (_context11.prev = _context11.next) {case 0:
-                _self = _this6;if (!(
-                e.currentTarget.dataset.index == "vehicle_license_first")) {_context11.next = 7;break;}_context11.next = 4;return (
+    takephoto: function takephoto(e) {var _this8 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee13() {var resChoosePhoto, _resChoosePhoto, _resChoosePhoto2, _resChoosePhoto3, _resChoosePhoto4;return _regenerator.default.wrap(function _callee13$(_context13) {while (1) {switch (_context13.prev = _context13.next) {case 0:
+                _self = _this8;if (!(
+                e.currentTarget.dataset.index == "vehicle_license_first")) {_context13.next = 7;break;}_context13.next = 4;return (
 
 
 
-                  _this6.$photo({
-                    success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:
+                  _this8.$photo({
+                    success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee8() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee8$(_context8) {while (1) {switch (_context8.prev = _context8.next) {case 0:
                                 tempFilePaths = res.tempFilePaths;
                                 //identifying
 
@@ -3634,11 +3776,80 @@ var _self;var _default =
 
 
 
-                                //preview the photos
-                                // uni.previewImage({
-                                //             urls: res.tempFilePaths,
 
-                                //         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                                 //upload the img 
@@ -3648,20 +3859,20 @@ var _self;var _default =
                                 _self.tachar_vehicle_license_first = true;
 
                                 //upload
-                                _context6.next = 5;return _self.$upload({
+                                _context8.next = 5;return _self.$upload({
                                   url: _pattern.ossLocation.vehicle.first,
-                                  file_path: tempFilePaths[0] });case 5:resPhoto = _context6.sent;case 6:case "end":return _context6.stop();}}}, _callee6);}))();
+                                  file_path: tempFilePaths[0] });case 5:resPhoto = _context8.sent;case 6:case "end":return _context8.stop();}}}, _callee8);}))();
 
 
 
-                    } }));case 4:resChoosePhoto = _context11.sent;_context11.next = 29;break;case 7:if (!(
+                    } }));case 4:resChoosePhoto = _context13.sent;_context13.next = 29;break;case 7:if (!(
 
-                e.currentTarget.dataset.index == "vehicle_license_second")) {_context11.next = 13;break;}_context11.next = 10;return (
+                e.currentTarget.dataset.index == "vehicle_license_second")) {_context13.next = 13;break;}_context13.next = 10;return (
 
 
 
-                  _this6.$photo({
-                    success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee7() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee7$(_context7) {while (1) {switch (_context7.prev = _context7.next) {case 0:
+                  _this8.$photo({
+                    success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee9() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee9$(_context9) {while (1) {switch (_context9.prev = _context9.next) {case 0:
                                 tempFilePaths = res.tempFilePaths;
 
                                 //preview the photos
@@ -3678,21 +3889,21 @@ var _self;var _default =
                                 _self.tachar_vehicle_license_second = true;
 
                                 //upload
-                                _context7.next = 5;return _self.$upload({
+                                _context9.next = 5;return _self.$upload({
                                   url: _pattern.ossLocation.vehicle.second,
-                                  file_path: tempFilePaths[0] });case 5:resPhoto = _context7.sent;case 6:case "end":return _context7.stop();}}}, _callee7);}))();
+                                  file_path: tempFilePaths[0] });case 5:resPhoto = _context9.sent;case 6:case "end":return _context9.stop();}}}, _callee9);}))();
 
 
 
-                    } }));case 10:_resChoosePhoto = _context11.sent;_context11.next = 29;break;case 13:if (!(
+                    } }));case 10:_resChoosePhoto = _context13.sent;_context13.next = 29;break;case 13:if (!(
 
-                e.currentTarget.dataset.index == "vehicle_transport_license")) {_context11.next = 19;break;}_context11.next = 16;return (
-
-
+                e.currentTarget.dataset.index == "vehicle_transport_license")) {_context13.next = 19;break;}_context13.next = 16;return (
 
 
-                  _this6.$photo({
-                    success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee8() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee8$(_context8) {while (1) {switch (_context8.prev = _context8.next) {case 0:
+
+
+                  _this8.$photo({
+                    success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee10() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee10$(_context10) {while (1) {switch (_context10.prev = _context10.next) {case 0:
                                 tempFilePaths = res.tempFilePaths;
 
                                 //preview the photos
@@ -3709,21 +3920,21 @@ var _self;var _default =
                                 _self.tachar_transport_license = true;
 
                                 //upload
-                                _context8.next = 5;return _self.$upload({
+                                _context10.next = 5;return _self.$upload({
                                   url: _pattern.ossLocation.vehicle.road,
-                                  file_path: tempFilePaths[0] });case 5:resPhoto = _context8.sent;case 6:case "end":return _context8.stop();}}}, _callee8);}))();
+                                  file_path: tempFilePaths[0] });case 5:resPhoto = _context10.sent;case 6:case "end":return _context10.stop();}}}, _callee10);}))();
 
 
 
-                    } }));case 16:_resChoosePhoto2 = _context11.sent;_context11.next = 29;break;case 19:if (!(
+                    } }));case 16:_resChoosePhoto2 = _context13.sent;_context13.next = 29;break;case 19:if (!(
 
-                e.currentTarget.dataset.index == "trailer_license_photo_first")) {_context11.next = 25;break;}_context11.next = 22;return (
-
-
+                e.currentTarget.dataset.index == "trailer_license_photo_first")) {_context13.next = 25;break;}_context13.next = 22;return (
 
 
-                  _this6.$photo({
-                    success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee9() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee9$(_context9) {while (1) {switch (_context9.prev = _context9.next) {case 0:
+
+
+                  _this8.$photo({
+                    success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee11() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee11$(_context11) {while (1) {switch (_context11.prev = _context11.next) {case 0:
                                 tempFilePaths = res.tempFilePaths;
 
                                 //identifying
@@ -3805,11 +4016,7 @@ var _self;var _default =
 
 
 
-                                //preview the photos
-                                // uni.previewImage({
-                                //             urls: res.tempFilePaths,
 
-                                //         });
 
 
                                 //upload the img
@@ -3819,29 +4026,25 @@ var _self;var _default =
                                 _self.tachar_hanging_car = true;
 
                                 //upload
-                                _context9.next = 5;return _self.$upload({
+                                _context11.next = 5;return _self.$upload({
                                   url: _pattern.ossLocation.trailer.first,
-                                  file_path: tempFilePaths[0] });case 5:resPhoto = _context9.sent;case 6:case "end":return _context9.stop();}}}, _callee9);}))();
+                                  file_path: tempFilePaths[0] });case 5:resPhoto = _context11.sent;case 6:case "end":return _context11.stop();}}}, _callee11);}))();
 
 
 
-                    } }));case 22:_resChoosePhoto3 = _context11.sent;_context11.next = 29;break;case 25:if (!(
+                    } }));case 22:_resChoosePhoto3 = _context13.sent;_context13.next = 29;break;case 25:if (!(
 
-                e.currentTarget.dataset.index == "people_vehicle_photo")) {_context11.next = 29;break;}_context11.next = 28;return (
-
-
+                e.currentTarget.dataset.index == "people_vehicle_photo")) {_context13.next = 29;break;}_context13.next = 28;return (
 
 
 
-                  _this6.$photo({
-                    success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee10() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee10$(_context10) {while (1) {switch (_context10.prev = _context10.next) {case 0:
+
+
+                  _this8.$photo({
+                    success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee12() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee12$(_context12) {while (1) {switch (_context12.prev = _context12.next) {case 0:
                                 tempFilePaths = res.tempFilePaths;
 
-                                //preview the photos
-                                // uni.previewImage({
-                                //             urls: res.tempFilePaths,
 
-                                //         });
 
 
                                 //upload the img
@@ -3851,13 +4054,13 @@ var _self;var _default =
                                 _self.tachar_people_vehicle = true;
 
                                 //upload
-                                _context10.next = 5;return _self.$upload({
+                                _context12.next = 5;return _self.$upload({
                                   url: _pattern.ossLocation.vehicle.rc,
-                                  file_path: tempFilePaths[0] });case 5:resPhoto = _context10.sent;case 6:case "end":return _context10.stop();}}}, _callee10);}))();
+                                  file_path: tempFilePaths[0] });case 5:resPhoto = _context12.sent;case 6:case "end":return _context12.stop();}}}, _callee12);}))();
 
 
 
-                    } }));case 28:_resChoosePhoto4 = _context11.sent;case 29:case "end":return _context11.stop();}}}, _callee11);}))();
+                    } }));case 28:_resChoosePhoto4 = _context13.sent;case 29:case "end":return _context13.stop();}}}, _callee13);}))();
 
 
 
@@ -3876,20 +4079,7 @@ var _self;var _default =
           var tempFilePaths = res.tempFilePaths;
 
 
-          //preview the photos
-          // uni.previewImage({
-          //             urls: res.tempFilePaths,
-          //             longPressActions: {
-          //                 itemList: ['发送给朋友', '保存图片', '收藏'],
-          //                 success: function(data) {
-          //                     console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
 
-          //                 },
-          //                 fail: function(err) {
-          //                     console.log(err.errMsg);
-          //                 }
-          //             }
-          //         });
 
           //upload the img 
           _self.imgDriverLicenseUrl = tempFilePaths[0];
@@ -3912,17 +4102,10 @@ var _self;var _default =
             } });
 
 
-          uploadTask.onProgressUpdate(function (res) {
-            _self.percent = res.progress;
-            console.log('上传进度' + res.progress);
-            console.log('已经上传的数据长度' + res.totalBytesSent);
-            console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend);
-          });
 
-        },
-        error: function error(e) {
-          console.log(e);
+
         } });
+
 
     },
 
@@ -3941,20 +4124,7 @@ var _self;var _default =
           var tempFilePaths = res.tempFilePaths;
 
 
-          //preview the photos
-          // uni.previewImage({
-          //             urls: res.tempFilePaths,
-          //             longPressActions: {
-          //                 itemList: ['发送给朋友', '保存图片', '收藏'],
-          //                 success: function(data) {
-          //                     console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
 
-          //                 },
-          //                 fail: function(err) {
-          //                     console.log(err.errMsg);
-          //                 }
-          //             }
-          //         });
 
           //upload the img 
           _self.imgDraggingCarPhotoUrl = tempFilePaths[0];
@@ -3982,12 +4152,7 @@ var _self;var _default =
             } });
 
 
-          uploadTask.onProgressUpdate(function (res) {
-            _self.percent = res.progress;
-            console.log('上传进度' + res.progress);
-            console.log('已经上传的数据长度' + res.totalBytesSent);
-            console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend);
-          });
+
 
         },
         error: function error(e) {
@@ -4008,20 +4173,7 @@ var _self;var _default =
           var tempFilePaths = res.tempFilePaths;
 
 
-          //preview the photos
-          // uni.previewImage({
-          //             urls: res.tempFilePaths,
-          //             longPressActions: {
-          //                 itemList: ['发送给朋友', '保存图片', '收藏'],
-          //                 success: function(data) {
-          //                     console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
 
-          //                 },
-          //                 fail: function(err) {
-          //                     console.log(err.errMsg);
-          //                 }
-          //             }
-          //         });
 
           //upload the img 
           _self.imgDraggingTransportPhotoUrl = tempFilePaths[0];
@@ -4049,17 +4201,10 @@ var _self;var _default =
             } });
 
 
-          uploadTask.onProgressUpdate(function (res) {
-            _self.percent = res.progress;
-            console.log('上传进度' + res.progress);
-            console.log('已经上传的数据长度' + res.totalBytesSent);
-            console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend);
-          });
 
-        },
-        error: function error(e) {
-          console.log(e);
+
         } });
+
 
     },
 
@@ -4152,16 +4297,16 @@ var _self;var _default =
       this.tachar_people_vehicle = false;
     },
 
-    formSubmit: function formSubmit(e) {var _this7 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee12() {var car_no, regExp, regExpNewEnergy, regExpNOTNewEnergy, str;return _regenerator.default.wrap(function _callee12$(_context12) {while (1) {switch (_context12.prev = _context12.next) {case 0:
+    formSubmit: function formSubmit(e) {var _this9 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee14() {var car_no, regExp, regExpNewEnergy, regExpNOTNewEnergy, str;return _regenerator.default.wrap(function _callee14$(_context14) {while (1) {switch (_context14.prev = _context14.next) {case 0:
                 /**
                                                                                                                                                                                                                                                                                                                                                 * 行驶证主副页
                                                                                                                                                                                                                                                                                                                                                 */
-                _this7.params.vehicleLicensePhotoFirst = uni.getStorageSync("vehicleLicensePhotoFirst");if (!(
+                _this9.params.vehicleLicensePhotoFirst = uni.getStorageSync("vehicleLicensePhotoFirst");if (!(
 
-                _this7.params.vehicleLicensePhotoFirst == null || _this7.params.vehicleLicensePhotoFirst == "" || _this7.params.vehicleLicensePhotoFirst.length < 1)) {_context12.next = 4;break;}
+                _this9.params.vehicleLicensePhotoFirst == null || _this9.params.vehicleLicensePhotoFirst == "" || _this9.params.vehicleLicensePhotoFirst.length < 1)) {_context14.next = 4;break;}
                 uni.showToast({
                   title: "未提交行驶证主副页, 请提交",
-                  icon: "none" });return _context12.abrupt("return");case 4:
+                  icon: "none" });return _context14.abrupt("return");case 4:
 
 
 
@@ -4171,12 +4316,12 @@ var _self;var _default =
                 /**
                                                                               * 道路运输证
                                                                               */
-                _this7.params.vehicleRoadcertPhoto = uni.getStorageSync("vehicleRoadcertPhoto");if (!(
+                _this9.params.vehicleRoadcertPhoto = uni.getStorageSync("vehicleRoadcertPhoto");if (!(
 
-                _this7.params.vehicleRoadcertPhoto == null || _this7.params.vehicleRoadcertPhoto == "" || _this7.params.vehicleRoadcertPhoto.length < 1)) {_context12.next = 8;break;}
+                _this9.params.vehicleRoadcertPhoto == null || _this9.params.vehicleRoadcertPhoto == "" || _this9.params.vehicleRoadcertPhoto.length < 1)) {_context14.next = 8;break;}
                 uni.showToast({
                   title: "未提交道路运输证, 请提交",
-                  icon: "none" });return _context12.abrupt("return");case 8:
+                  icon: "none" });return _context14.abrupt("return");case 8:
 
 
 
@@ -4184,30 +4329,30 @@ var _self;var _default =
 
 
                 //进行是否新能源检查
-                if (_this7.params.whetherNewEnergy == null || _this7.params.whetherNewEnergy == "" || _this7.params.whetherNewEnergy.length < 1) {
-                  _this7.params.whetherNewEnergy = 2;
+                if (_this9.params.whetherNewEnergy == null || _this9.params.whetherNewEnergy == "" || _this9.params.whetherNewEnergy.length < 1) {
+                  _this9.params.whetherNewEnergy = 2;
                 }
 
                 //进行车辆类型检查
-                if (_this7.params.vehicleSpecies == null || _this7.params.vehicleSpecies == "" || _this7.params.vehicleSpecies.length < 1) {
-                  _this7.params.vehicleSpecies = 303;
+                if (_this9.params.vehicleSpecies == null || _this9.params.vehicleSpecies == "" || _this9.params.vehicleSpecies.length < 1) {
+                  _this9.params.vehicleSpecies = 103;
                 }
 
                 //进行牌照类型检查
-                if (_this7.params.vehiclePlateType == null || _this7.params.vehiclePlateType == "" || _this7.params.vehiclePlateType.length < 1) {
-                  _this7.params.vehiclePlateType = "02";
+                if (_this9.params.vehiclePlateType == null || _this9.params.vehiclePlateType == "" || _this9.params.vehiclePlateType.length < 1) {
+                  _this9.params.vehiclePlateType = "02";
                 }
 
                 //进行车牌颜色检查
-                if (_this7.params.vehiclePlateColor == null || _this7.params.vehiclePlateColor == "" || _this7.params.vehiclePlateColor.length < 1) {
-                  _this7.params.vehiclePlateColor = "2";
+                if (_this9.params.vehiclePlateColor == null || _this9.params.vehiclePlateColor == "" || _this9.params.vehiclePlateColor.length < 1) {
+                  _this9.params.vehiclePlateColor = "2";
                 }
 
 
 
 
 
-                car_no = _this7.params.vehiclePlateNumber;
+                car_no = _this9.params.vehiclePlateNumber;
                 //正则验证车牌号最后一个字不能为“挂”
 
                 //正则验证车牌号
@@ -4220,27 +4365,27 @@ var _self;var _default =
                 //通过车牌号最后一位是否为“挂”来判断是否为挂车,禁止挂车车牌
                 str = car_no.substr(-1);if (!(
 
-                str == "挂")) {_context12.next = 21;break;}
+                str == "挂")) {_context14.next = 21;break;}
                 uni.showToast({
                   title: "请勿输入挂车车牌",
                   icon: "none" });
 
-                _this7.plate_num = "";return _context12.abrupt("return");case 21:if (
+                _this9.plate_num = "";return _context14.abrupt("return");case 21:if (
 
 
 
 
-                regExp.test(car_no)) {_context12.next = 27;break;}
+                regExp.test(car_no)) {_context14.next = 27;break;}
                 uni.showToast({
                   title: "车牌号不正确",
                   icon: "none" });
 
-                _this7.plate_num = "";return _context12.abrupt("return");case 27:if (!
+                _this9.plate_num = "";return _context14.abrupt("return");case 27:if (!
 
 
-                regExpNewEnergy.test(car_no)) {_context12.next = 37;break;}if (!(
-                _this7.energy_type == "新能源")) {_context12.next = 32;break;}
-                console.log("车牌号正确");_context12.next = 35;break;case 32:
+                regExpNewEnergy.test(car_no)) {_context14.next = 36;break;}if (!(
+                _this9.energy_type == "新能源")) {_context14.next = 31;break;}_context14.next = 34;break;case 31:
+
 
 
 
@@ -4248,71 +4393,71 @@ var _self;var _default =
                   title: "车牌号不正确，请确认是否为新能源车",
                   icon: "none" });
 
-                _this7.plate_num = "";return _context12.abrupt("return");case 35:_context12.next = 45;break;case 37:if (!
+                _this9.plate_num = "";return _context14.abrupt("return");case 34:_context14.next = 43;break;case 36:if (!
 
 
 
-                regExpNOTNewEnergy.test(car_no)) {_context12.next = 45;break;}if (!(
-                _this7.energy_type == "非新能源")) {_context12.next = 42;break;}
-                console.log("车牌号正确");_context12.next = 45;break;case 42:
+                regExpNOTNewEnergy.test(car_no)) {_context14.next = 43;break;}if (!(
+                _this9.energy_type == "非新能源")) {_context14.next = 40;break;}_context14.next = 43;break;case 40:
+
 
 
                 uni.showToast({
                   title: "车牌号不正确，请确认是否为非新能源车",
                   icon: "none" });
 
-                _this7.plate_num = "";return _context12.abrupt("return");case 45:if (!(
+                _this9.plate_num = "";return _context14.abrupt("return");case 43:if (!(
 
 
 
 
 
 
-                _this7.params.vehicleLadenWeight == null || _this7.params.vehicleLadenWeight == "" || _this7.params.vehicleLadenWeight.length < 1)) {_context12.next = 48;break;}
+                _this9.params.vehicleLadenWeight == null || _this9.params.vehicleLadenWeight == "" || _this9.params.vehicleLadenWeight.length < 1)) {_context14.next = 46;break;}
                 uni.showToast({
                   title: "未输入车辆总质量, 请输入",
-                  icon: "none" });return _context12.abrupt("return");case 48:if (!(
+                  icon: "none" });return _context14.abrupt("return");case 46:if (!(
 
 
 
 
 
-                _this7.params.vehicleTonnage == null || _this7.params.vehicleTonnage == "" || _this7.params.vehicleTonnage.length < 1)) {_context12.next = 51;break;}
+                _this9.params.vehicleTonnage == null || _this9.params.vehicleTonnage == "" || _this9.params.vehicleTonnage.length < 1)) {_context14.next = 49;break;}
                 uni.showToast({
                   title: "未输入核定载质量, 请输入",
-                  icon: "none" });return _context12.abrupt("return");case 51:if (!(
+                  icon: "none" });return _context14.abrupt("return");case 49:if (!(
 
 
 
 
 
 
-                _this7.params.vehicleRoadcertNo == null || _this7.params.vehicleRoadcertNo == "" || _this7.params.vehicleRoadcertNo.length < 1)) {_context12.next = 54;break;}
+                _this9.params.vehicleRoadcertNo == null || _this9.params.vehicleRoadcertNo == "" || _this9.params.vehicleRoadcertNo.length < 1)) {_context14.next = 52;break;}
                 uni.showToast({
                   title: "未输入道路运输证号, 请输入",
-                  icon: "none" });return _context12.abrupt("return");case 54:if (!(
+                  icon: "none" });return _context14.abrupt("return");case 52:if (!(
 
 
 
 
 
-                _this7.params.vehicleAxlenum == null || _this7.params.vehicleAxlenum == "" || _this7.params.vehicleAxlenum.length < 1)) {_context12.next = 57;break;}
+                _this9.params.vehicleAxlenum == null || _this9.params.vehicleAxlenum == "" || _this9.params.vehicleAxlenum.length < 1)) {_context14.next = 55;break;}
                 uni.showToast({
                   title: "未输入车轴数, 请输入",
-                  icon: "none" });return _context12.abrupt("return");case 57:
+                  icon: "none" });return _context14.abrupt("return");case 55:
 
 
 
 
-                _this7.params.the_step = 4;
-                _this7.params.active_one_step = true;
-                _this7.params.active_two_step = true;
-                _this7.params.active_three_step = true;
-                _this7.params.active_four_step = true;
-                _this7.params.active_five_step = false;
+                _this9.params.the_step = 4;
+                _this9.params.active_one_step = true;
+                _this9.params.active_two_step = true;
+                _this9.params.active_three_step = true;
+                _this9.params.active_four_step = true;
+                _this9.params.active_five_step = false;
 
-                uni.setStorageSync("params_vehicle", _this7.params);
-                _this7.$emit('register_vehicle_params', _this7.params);case 65:case "end":return _context12.stop();}}}, _callee12);}))();
+                uni.setStorageSync("params_vehicle", _this9.params);
+                _this9.$emit('register_vehicle_params', _this9.params);case 63:case "end":return _context14.stop();}}}, _callee14);}))();
 
     },
 
@@ -5482,7 +5627,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _xflSelect = _interopRequireDefault(__webpack_require__(/*! @/components/xfl-select/xfl-select.vue */ 324));
-var _pattern = __webpack_require__(/*! @/util/pattern.js */ 15);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var Multiselect = function Multiselect() {Promise.all(/*! require.ensure | node-modules/vue-multiselect/src/Multiselect */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/vue-multiselect/src/Multiselect")]).then((function () {return resolve(__webpack_require__(/*! @/node_modules/vue-multiselect/src/Multiselect.vue */ 1011));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+var _pattern = __webpack_require__(/*! @/util/pattern.js */ 15);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var Multiselect = function Multiselect() {Promise.all(/*! require.ensure | node-modules/vue-multiselect/src/Multiselect */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/vue-multiselect/src/Multiselect")]).then((function () {return resolve(__webpack_require__(/*! @/node_modules/vue-multiselect/src/Multiselect.vue */ 1031));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
 var _self;
 var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/graceChecker.js */ 307);var _default =
@@ -5570,12 +5715,12 @@ var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/grac
   methods: {
 
     bindBankClassPickerChange: function bindBankClassPickerChange(e) {
-      console.log('picker发送选择改变，携带值为', e.target.value);
+
       this.bank_class_index = e.target.value;
       this.params.carrierBankcardCategory = 1;
     },
     bindPickerChange: function bindPickerChange(e) {
-      console.log('picker发送选择改变，携带值为', e.target.value);
+
       this.index = e.target.value;
 
       this.params.bankCode = this.list_code[this.index - 1];
@@ -5662,7 +5807,7 @@ var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/grac
 
         this.params.driverIdNumber = this.params.carrierCertNum; // 司机身份证号 = 承运人号码
         this.params.driverPhone = this.params.phonenumber; // 司机手机号 = 承运人手机号
-        this.params.userName = this.params.phonenumber; // 用户名 = 承运人手机号
+        //this.params.userName = this.params.phonenumber;          // 用户名 = 承运人手机号
         this.params.driverName = this.params.carrierName; // 司机名称 = 承运人名称
         this.params.idcardFront = this.params.carrierCardFront; // 司机身份信息 = 承运人信息
         this.params.idcardBack = this.params.carrierCardReverse; // 司机身份信息 = 承运人信息            
@@ -5671,7 +5816,7 @@ var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/grac
     },
 
     formSubmit: function formSubmit(e) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var rule, formData, checkRes, params_phone, params_business, params_vehicle, params_license, params_bank, params_photos, form;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
-                console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value));
+
                 //定义表单规则
                 rule = [
                 { name: "cellphone",
@@ -5685,22 +5830,22 @@ var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/grac
 
                 formData = e.detail.value;
                 checkRes = graceChecker.check(formData, rule);if (!
-                checkRes) {_context2.next = 8;break;}
+                checkRes) {_context2.next = 7;break;}
 
-                uni.showToast({ title: "验证通过,正在注册中!", icon: "none" });_context2.next = 11;break;case 8:
+                uni.showToast({ title: "验证通过,正在注册中!", icon: "none" });_context2.next = 10;break;case 7:
 
 
 
                 uni.showToast({ title: graceChecker.error, icon: "none" });
-                _this2.bank_holder_tel = "";return _context2.abrupt("return");case 11:if (!(
+                _this2.bank_holder_tel = "";return _context2.abrupt("return");case 10:if (!(
 
 
 
 
-                _this2.params.holderName == null || _this2.params.holderName == "" || _this2.params.holderName.length < 1)) {_context2.next = 14;break;}
+                _this2.params.holderName == null || _this2.params.holderName == "" || _this2.params.holderName.length < 1)) {_context2.next = 13;break;}
                 uni.showToast({
                   title: "未输入银行卡持有人, 请输入",
-                  icon: "none" });return _context2.abrupt("return");case 14:
+                  icon: "none" });return _context2.abrupt("return");case 13:
 
 
 
@@ -5711,19 +5856,19 @@ var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/grac
 
 
                 //进行银行名称检查
-                if (!(_this2.params.bankCode == null || _this2.params.bankCode == "" || _this2.params.bankCode.length < 1)) {_context2.next = 18;break;}
+                if (!(_this2.params.bankCode == null || _this2.params.bankCode == "" || _this2.params.bankCode.length < 1)) {_context2.next = 17;break;}
                 uni.showToast({
                   title: "未选择银行名称, 请选择",
-                  icon: "none" });return _context2.abrupt("return");case 18:if (!(
+                  icon: "none" });return _context2.abrupt("return");case 17:if (!(
 
 
 
 
 
-                _this2.params.bankcardAccount == null || _this2.params.bankcardAccount == "" || _this2.params.bankcardAccount.length < 1)) {_context2.next = 21;break;}
+                _this2.params.bankcardAccount == null || _this2.params.bankcardAccount == "" || _this2.params.bankcardAccount.length < 1)) {_context2.next = 20;break;}
                 uni.showToast({
                   title: "未输入银行账号, 请输入",
-                  icon: "none" });return _context2.abrupt("return");case 21:
+                  icon: "none" });return _context2.abrupt("return");case 20:
 
 
 
@@ -5778,8 +5923,10 @@ var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/grac
 
 
                 form = _this2.form;
-                console.log(form, "form");
-                form = JSON.stringify(form);case 47:case "end":return _context2.stop();}}}, _callee2);}))();
+
+                form = JSON.stringify(form);case 45:case "end":return _context2.stop();}}}, _callee2);}))();
+
+
 
 
 

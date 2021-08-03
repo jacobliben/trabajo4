@@ -153,14 +153,14 @@
 								<view class="cu-form-group">
 											     <view class="name">运输{{txt}}价(元)<text class="star">*</text></view>
 											     <view class="ref-name">
-											     	<input type="number" placeholder="请输入运输价"   @blur ="getQuotePrice">
+											     	<input type="number" placeholder="请输入运输价"   @input ="getQuotePrice">
 											     </view>
 								</view>
 								
 								<view class="cu-form-group">
 											     <view class="name">运输重量(吨)<text class="star">*</text></view>
 											     <view class="ref-name">
-											     	<input type="number" placeholder="请输入运输重量"   @blur ="getTransportWeight">
+											     	<input type="number" placeholder="请输入运输重量"   @input ="getTransportWeight">
 											     </view>
 								</view>
 								
@@ -219,6 +219,8 @@
 				
 				//单总价
 				txt:"单",
+				//允许“确定”按钮
+				letEnable:false,
 				
 				disabled:true,
 				active:false,
@@ -326,12 +328,20 @@
 							icon:"none",
 							duration:3000,
 						})
+						
+						//disable the btn
+						this.disabled= true
+						this.active = false 
 					}else{
 						uni.showToast({
 							title:"运输单价不能超过拦标单价, 请重新输入",
 							icon:"none",
 							duration:3000,
 						})
+						//disable the btn
+						this.disabled= true
+						this.active = false 
+						
 					}
 					
 					
@@ -342,19 +352,32 @@
 			getTransportWeight(e){
 				
 				this.params.transportWeight = e.detail.value
+				this.checkWeight()
 				
+				
+				
+			},
+			
+			
+			checkWeight(){
 				if (this.params.transportWeight > this.detailed.iscmSource.goodsWeight){
 					uni.showToast({
 						title:"运输重量不能超过货物重量, 请重新输入",
 						icon:"none",
 						duration:3000,
 					})
+					//disable the btn
+					this.disabled= true
+					this.active = false 
 				 return	 										
+				}else {
+					
+						//enable the btn
+						this.disabled= false 
+						this.active = true
+					
+					
 				}
-				
-				//enable the btn
-				this.disabled= false 
-				this.active = true
 			},
 			
 			getTransportDays(e){

@@ -287,6 +287,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 
 {
@@ -295,66 +303,181 @@ var _default =
       user: "",
       imgAvatarUrl: "/static/user.png",
       tachar_avatar: false,
+
       show_dispatch_before: false,
+
+      show_shipping_order: true,
+      show_vehicle: true,
+      show_driver: true,
+      show_bankcard: true,
       params: {} };
 
   },
 
-  onLoad: function onLoad(options) {
-    this.user = uni.getStorageSync("user_info");
+  onLoad: function onLoad(options) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var token, resUserInfo, user, user_permissions, result_shipping_order, result_vehicle, result_driver, result_bankcard;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+              token = uni.getStorageSync('token');
+              //get this user's permission rights
+              _context.next = 3;return _this.$request({
+                url: "/getInfo",
 
-    //正式库，危险
-    //this.imgAvatarUrl = 'https://wl.xcmgzhilian.com' + '/prod-api' + this.user.data.user.avatar
-    //测试库
-    this.imgAvatarUrl = 'http://10.22.2.138:8080' + this.user.data.user.avatar;
-    //this.imgAvatarUrl = 'http://10.22.0.136:8080' + this.user.data.user.avatar
+                header: {
+                  Authorization: token } });case 3:resUserInfo = _context.sent;
 
-    //如果后台没有传入avatar,就用local 的avatar展示
-    if (this.imgAvatarUrl == "") {
-      this.imgAvatarUrl = "/static/user.png";
-    }
+
+
+
+              _this.user = resUserInfo;
+
+
+              user = resUserInfo;
+
+
+              user_permissions = user.data.permissions;
+
+              result_shipping_order = user_permissions.findIndex(function (ele) {return ele === 'iscm:waybill:list';});
+
+              if (result_shipping_order == -1) {
+                _this.show_shipping_order = false;
+
+              }
+
+              result_vehicle = user_permissions.findIndex(function (ele) {return ele === 'iscm:vehicle:list';});
+
+              if (result_vehicle == -1) {
+                _this.show_vehicle = false;
+
+              }
+
+              result_driver = user_permissions.findIndex(function (ele) {return ele === 'iscm:driver:list';});
+
+              if (result_driver == -1) {
+                _this.show_driver = false;
+
+              }
+
+              result_bankcard = user_permissions.findIndex(function (ele) {return ele === 'iscm:carrierBankcard:list';});
+
+              if (result_bankcard == -1) {
+                _this.show_bankcard = false;
+
+              }case 15:case "end":return _context.stop();}}}, _callee);}))();
+
 
   },
-  onShow: function onShow() {
-    //get the user information to present
-    this.user = uni.getStorageSync("user_info");
-    if (!this.user || this.user == undefined || this.user == null) {
-      uni.reLaunch({
-        url: "/pages/login/login" });
+  onShow: function onShow() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var token, resUserInfo, user, user_permissions, result_shipping_order, result_vehicle, result_driver, result_bankcard, user_role;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+              token = uni.getStorageSync('token');
+              //get this user's permission rights
+              _context2.next = 3;return _this2.$request({
+                url: "/getInfo",
 
-    }
+                header: {
+                  Authorization: token } });case 3:resUserInfo = _context2.sent;
 
-    //判定是否“历史派车单”
-    if (this.user.data.permissions.includes("iscm:dispatch:list") && this.user.data.roles.includes("defaultPersonalCarrier"))
-    this.show_dispatch_before = true;else
-    if (this.user.data.roles.includes("admin"))
-    this.show_dispatch_before = true;else
-    if (this.user.data.permissions.includes("iscm:dispatch:list") && this.user.data.roles.includes("defaultDriver"))
-    this.show_dispatch_before = true;else
 
-    this.show_dispatch_before = false;
-    //正式库 危险！！！
-    //this.imgAvatarUrl = uni.getStorageSync("user_avatar")||'https://wl.xcmgzhilian.com' + '/prod-api' + this.user.data.user.avatar	
-    //测试库
-    this.imgAvatarUrl = uni.getStorageSync("user_avatar") || 'http://10.22.2.138:8080' + this.user.data.user.avatar;
-    //this.imgAvatarUrl = uni.getStorageSync("user_avatar")||'http://10.22.0.136:8080' + this.user.data.user.avatar
+
+
+              _this2.user = resUserInfo;
+
+              //正式库，危险
+              // this.imgAvatarUrl = 'https://wl.xcmgzhilian.com' + '/prod-api' + this.user.data.user.avatar
+              //半测试版
+              _this2.imgAvatarUrl = 'http://116.62.172.131:88' + '/stage-api' + _this2.user.data.user.avatar;
+              //测试库
+              // this.imgAvatarUrl = 'http://10.22.2.138:8080' + this.user.data.user.avatar
+              //this.imgAvatarUrl = 'http://10.22.0.136:8080' + this.user.data.user.avatar
+
+              //如果后台没有传入avatar,就用local 的avatar展示
+              if (_this2.user.data.user.avatar == "") {
+
+                _this2.imgAvatarUrl = "/static/user.png";
+
+              }
+
+              user = _this2.user;
+
+              user_permissions = user.data.permissions;
+
+              result_shipping_order = user_permissions.findIndex(function (ele) {return ele === 'iscm:waybill:list';});
+
+              if (result_shipping_order == -1) {
+                _this2.show_shipping_order = false;
+
+              }
+
+              result_vehicle = user_permissions.findIndex(function (ele) {return ele === 'iscm:vehicle:list';});
+
+              if (result_vehicle == -1) {
+                _this2.show_vehicle = false;
+
+              }
+
+              result_driver = user_permissions.findIndex(function (ele) {return ele === 'iscm:driver:list';});
+
+              if (result_driver == -1) {
+                _this2.show_driver = false;
+
+              }
+
+              result_bankcard = user_permissions.findIndex(function (ele) {return ele === 'iscm:carrierBankcard:list';});
+
+              if (result_bankcard == -1) {
+                _this2.show_bankcard = false;
+
+              }
+              //如果是管理员,可以看到所有，不受上面的权限约束
+              user_role = user.data.roles;
+              if (user_role.includes("admin")) {
+                _this2.show_shipping_order = true;
+                _this2.show_vehicle = true;
+                _this2.show_driver = true;
+                _this2.show_bankcard = true;
+              }
+
+
+
+              //get the user information to present
+              _this2.user = uni.getStorageSync("user_info");
+              if (!_this2.user || _this2.user == undefined || _this2.user == null) {
+                uni.reLaunch({
+                  url: "/pages/login/login" });
+
+              }
+
+              //判定是否“历史派车单”
+              if (_this2.user.data.permissions.includes("iscm:dispatch:list") && _this2.user.data.roles.includes("defaultPersonalCarrier"))
+              _this2.show_dispatch_before = true;else
+              if (_this2.user.data.roles.includes("admin"))
+              _this2.show_dispatch_before = true;else
+              if (_this2.user.data.permissions.includes("iscm:dispatch:list") && _this2.user.data.roles.includes("defaultDriver"))
+              _this2.show_dispatch_before = true;else
+
+              _this2.show_dispatch_before = false;
+              //正式库 危险！！！
+              //this.imgAvatarUrl = uni.getStorageSync("user_avatar")||'https://wl.xcmgzhilian.com' + '/prod-api' + this.user.data.user.avatar	
+              //半测试版
+              _this2.imgAvatarUrl = uni.getStorageSync("user_avatar") || 'http://116.62.172.131:88' + '/stage-api' + _this2.user.data.user.avatar;
+              //测试库
+              //this.imgAvatarUrl = uni.getStorageSync("user_avatar")||'http://10.22.2.138:8080' + this.user.data.user.avatar
+              //this.imgAvatarUrl = uni.getStorageSync("user_avatar")||'http://10.22.0.136:8080' + this.user.data.user.avatar
+            case 23:case "end":return _context2.stop();}}}, _callee2);}))();},
+
+  onHide: function onHide() {
+    //restore the original shipping order status
+    this.show_shipping_order = true;
+    this.show_driver = true;
+    this.show_vehicle = true;
+    this.show_bankcard = true;
   },
   methods: {
-    uploadAvatar: function uploadAvatar(e) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var _self, authorization, resChoosePhoto;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
-                _self = _this;
+    uploadAvatar: function uploadAvatar(e) {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var _self, authorization, resChoosePhoto;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
+                _self = _this3;
                 authorization = uni.getStorageSync("token");
                 /**
                                                               * 用户头像
-                                                              */_context2.next = 4;return (
-                  _this.$photo({
-                    success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var tempFilePaths, form, avatar;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+                                                              */_context4.next = 4;return (
+                  _this3.$photo({
+                    success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var tempFilePaths, form, avatar;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
                                 tempFilePaths = res.tempFilePaths;
-
-                                //preview the photos
-                                // uni.previewImage({
-                                //             urls: res.tempFilePaths,
-
-                                //         });
 
 
                                 //upload the img
@@ -372,8 +495,10 @@ var _default =
                                 uni.uploadFile({
                                   //正式库，危险！！！！
                                   //url:"https://wl.xcmgzhilian.com/prod-api/system/user/profile/avatar",
+                                  //半测试版
+                                  url: "http://116.62.172.131:88/stage-api/system/user/profile/avatar",
                                   //测试库
-                                  url: "http://10.22.2.138:8080/system/user/profile/avatar",
+                                  //url:"http://10.22.2.138:8080/system/user/profile/avatar",
                                   //url:"http://10.22.0.136:8080/system/user/profile/avatar",
                                   filePath: tempFilePaths[0],
                                   name: 'avatarfile', //后台接收字段名
@@ -386,16 +511,13 @@ var _default =
                                   success: function success(res) {
 
                                     uni.showToast({ title: "保存成功!" });
-                                    console.log('请求成功_______________', res);
-
-                                  },
-                                  fail: function fail(err) {
-                                    console.log('请求失败_______________', err);
-
-                                  } });case 8:case "end":return _context.stop();}}}, _callee);}))();
 
 
-                    } }));case 4:resChoosePhoto = _context2.sent;case 5:case "end":return _context2.stop();}}}, _callee2);}))();
+                                  } });case 8:case "end":return _context3.stop();}}}, _callee3);}))();
+
+
+
+                    } }));case 4:resChoosePhoto = _context4.sent;case 5:case "end":return _context4.stop();}}}, _callee4);}))();
 
     },
 
@@ -441,7 +563,22 @@ var _default =
     goDispatchBefore: function goDispatchBefore() {
 
       uni.navigateTo({
-        url: '/pages/dispatch_before/dispatch_before' });
+        url: '/pages/dispatch_before_detail/dispatch_before_detail' });
+
+    },
+
+    goInquiry: function goInquiry() {
+
+      uni.navigateTo({
+        url: '/pages/inquiry/inquiry' });
+
+    },
+
+
+    goQuote: function goQuote() {
+
+      uni.navigateTo({
+        url: '/pages/quote/quote' });
 
     },
 
@@ -483,7 +620,7 @@ var _default =
       try {
         uni.removeStorageSync('token');
         uni.removeStorageSync('user_info');
-        this.user = "";
+        //this.user = ""
       } catch (e) {
 
       }
@@ -495,8 +632,13 @@ var _default =
 
       }
 
+      //restore the original show driver status
+      this.show_shipping_order = true;
+      this.show_driver = true;
+      this.show_vehicle = true;
+      this.show_bankcard = true;
 
-      uni.navigateTo({
+      uni.reLaunch({
         url: '/pages/login/login' });
 
       //

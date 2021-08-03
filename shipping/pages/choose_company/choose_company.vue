@@ -13,11 +13,12 @@
 									<view>确认状态</view>
 									<view>{{item.state}}</view>
 								</view> -->
-								<view class="time"><view>确认时间</view> 
+								<view class="time">
+									<!-- <view>确认时间</view> 
 								               <view>
 												  {{item.createTime}} 
-											   </view>
-								</view>
+											   </view> -->
+							</view>
 			                </label>
 			 </radio-group>						
 		</view  v-if="carrierReviewStatus==2">
@@ -188,6 +189,7 @@
 	 .name{
 	 		 color:#000;
 			 width:30%;
+			 font-size: 35rpx;
 			 justify-content: center;
 	 }
 	 .state{

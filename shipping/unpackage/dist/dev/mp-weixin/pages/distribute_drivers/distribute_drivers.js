@@ -356,7 +356,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 607:
+/***/ 614:
 /*!******************************************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/main.js?{"page":"pages%2Fdistribute_drivers%2Fdistribute_drivers"} ***!
   \******************************************************************************************************************************/
@@ -372,5 +372,5 @@ createPage(_distribute_drivers.default);
 
 /***/ })
 
-},[[607,"common/runtime","common/vendor"]]]);
+},[[614,"common/runtime","common/vendor"]]]);
 //# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/distribute_drivers/distribute_drivers.js.map

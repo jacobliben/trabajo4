@@ -2065,7 +2065,310 @@ EDE.prototype._unpad = DES.prototype._unpad;
 
 /***/ }),
 
-/***/ 1000:
+/***/ 101:
+/*!************************************************!*\
+  !*** ./node_modules/browserify-aes/browser.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var ciphers = __webpack_require__(/*! ./encrypter */ 102)
+var deciphers = __webpack_require__(/*! ./decrypter */ 119)
+var modes = __webpack_require__(/*! ./modes/list.json */ 113)
+
+function getCiphers () {
+  return Object.keys(modes)
+}
+
+exports.createCipher = exports.Cipher = ciphers.createCipher
+exports.createCipheriv = exports.Cipheriv = ciphers.createCipheriv
+exports.createDecipher = exports.Decipher = deciphers.createDecipher
+exports.createDecipheriv = exports.Decipheriv = deciphers.createDecipheriv
+exports.listCiphers = exports.getCiphers = getCiphers
+
+
+/***/ }),
+
+/***/ 1019:
+/*!****************************************************************************************************************!*\
+  !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/components/simple-address-high/city-data/province.js ***!
+  \****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /* eslint-disable */
+var provinceData = [{
+  "label": "北京市",
+  "value": "11" },
+
+{
+  "label": "天津市",
+  "value": "12" },
+
+{
+  "label": "河北省",
+  "value": "13" },
+
+{
+  "label": "山西省",
+  "value": "14" },
+
+{
+  "label": "内蒙古自治区",
+  "value": "15" },
+
+{
+  "label": "辽宁省",
+  "value": "21" },
+
+{
+  "label": "吉林省",
+  "value": "22" },
+
+{
+  "label": "黑龙江省",
+  "value": "23" },
+
+{
+  "label": "上海市",
+  "value": "31" },
+
+{
+  "label": "江苏省",
+  "value": "32" },
+
+{
+  "label": "浙江省",
+  "value": "33" },
+
+{
+  "label": "安徽省",
+  "value": "34" },
+
+{
+  "label": "福建省",
+  "value": "35" },
+
+{
+  "label": "江西省",
+  "value": "36" },
+
+{
+  "label": "山东省",
+  "value": "37" },
+
+{
+  "label": "河南省",
+  "value": "41" },
+
+{
+  "label": "湖北省",
+  "value": "42" },
+
+{
+  "label": "湖南省",
+  "value": "43" },
+
+{
+  "label": "广东省",
+  "value": "44" },
+
+{
+  "label": "广西壮族自治区",
+  "value": "45" },
+
+{
+  "label": "海南省",
+  "value": "46" },
+
+{
+  "label": "重庆市",
+  "value": "50" },
+
+{
+  "label": "四川省",
+  "value": "51" },
+
+{
+  "label": "贵州省",
+  "value": "52" },
+
+{
+  "label": "云南省",
+  "value": "53" },
+
+{
+  "label": "西藏自治区",
+  "value": "54" },
+
+{
+  "label": "陕西省",
+  "value": "61" },
+
+{
+  "label": "甘肃省",
+  "value": "62" },
+
+{
+  "label": "青海省",
+  "value": "63" },
+
+{
+  "label": "宁夏回族自治区",
+  "value": "64" },
+
+{
+  "label": "新疆维吾尔自治区",
+  "value": "65" },
+
+{
+  "label": "台湾",
+  "value": "66" },
+
+{
+  "label": "香港",
+  "value": "67" },
+
+{
+  "label": "澳门",
+  "value": "68" },
+
+{
+  "label": "钓鱼岛",
+  "value": "69" }];var _default =
+
+
+provinceData;exports.default = _default;
+
+/***/ }),
+
+/***/ 102:
+/*!**************************************************!*\
+  !*** ./node_modules/browserify-aes/encrypter.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var MODES = __webpack_require__(/*! ./modes */ 103)
+var AuthCipher = __webpack_require__(/*! ./authCipher */ 114)
+var Buffer = __webpack_require__(/*! safe-buffer */ 45).Buffer
+var StreamCipher = __webpack_require__(/*! ./streamCipher */ 117)
+var Transform = __webpack_require__(/*! cipher-base */ 75)
+var aes = __webpack_require__(/*! ./aes */ 115)
+var ebtk = __webpack_require__(/*! evp_bytestokey */ 118)
+var inherits = __webpack_require__(/*! inherits */ 47)
+
+function Cipher (mode, key, iv) {
+  Transform.call(this)
+
+  this._cache = new Splitter()
+  this._cipher = new aes.AES(key)
+  this._prev = Buffer.from(iv)
+  this._mode = mode
+  this._autopadding = true
+}
+
+inherits(Cipher, Transform)
+
+Cipher.prototype._update = function (data) {
+  this._cache.add(data)
+  var chunk
+  var thing
+  var out = []
+
+  while ((chunk = this._cache.get())) {
+    thing = this._mode.encrypt(this, chunk)
+    out.push(thing)
+  }
+
+  return Buffer.concat(out)
+}
+
+var PADDING = Buffer.alloc(16, 0x10)
+
+Cipher.prototype._final = function () {
+  var chunk = this._cache.flush()
+  if (this._autopadding) {
+    chunk = this._mode.encrypt(this, chunk)
+    this._cipher.scrub()
+    return chunk
+  }
+
+  if (!chunk.equals(PADDING)) {
+    this._cipher.scrub()
+    throw new Error('data not multiple of block length')
+  }
+}
+
+Cipher.prototype.setAutoPadding = function (setTo) {
+  this._autopadding = !!setTo
+  return this
+}
+
+function Splitter () {
+  this.cache = Buffer.allocUnsafe(0)
+}
+
+Splitter.prototype.add = function (data) {
+  this.cache = Buffer.concat([this.cache, data])
+}
+
+Splitter.prototype.get = function () {
+  if (this.cache.length > 15) {
+    var out = this.cache.slice(0, 16)
+    this.cache = this.cache.slice(16)
+    return out
+  }
+  return null
+}
+
+Splitter.prototype.flush = function () {
+  var len = 16 - this.cache.length
+  var padBuff = Buffer.allocUnsafe(len)
+
+  var i = -1
+  while (++i < len) {
+    padBuff.writeUInt8(len, i)
+  }
+
+  return Buffer.concat([this.cache, padBuff])
+}
+
+function createCipheriv (suite, password, iv) {
+  var config = MODES[suite.toLowerCase()]
+  if (!config) throw new TypeError('invalid suite type')
+
+  if (typeof password === 'string') password = Buffer.from(password)
+  if (password.length !== config.key / 8) throw new TypeError('invalid key length ' + password.length)
+
+  if (typeof iv === 'string') iv = Buffer.from(iv)
+  if (config.mode !== 'GCM' && iv.length !== config.iv) throw new TypeError('invalid iv length ' + iv.length)
+
+  if (config.type === 'stream') {
+    return new StreamCipher(config.module, password, iv)
+  } else if (config.type === 'auth') {
+    return new AuthCipher(config.module, password, iv)
+  }
+
+  return new Cipher(config.module, password, iv)
+}
+
+function createCipher (suite, password) {
+  var config = MODES[suite.toLowerCase()]
+  if (!config) throw new TypeError('invalid suite type')
+
+  var keys = ebtk(password, false, config.key, config.iv)
+  return createCipheriv(suite, keys.key, keys.iv)
+}
+
+exports.createCipheriv = createCipheriv
+exports.createCipher = createCipher
+
+
+/***/ }),
+
+/***/ 1020:
 /*!************************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/components/simple-address-high/city-data/city.js ***!
   \************************************************************************************************************/
@@ -3583,7 +3886,7 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 1001:
+/***/ 1021:
 /*!************************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/components/simple-address-high/city-data/area.js ***!
   \************************************************************************************************************/
@@ -16142,31 +16445,36 @@ areaData;exports.default = _default;
 
 /***/ }),
 
-/***/ 101:
-/*!************************************************!*\
-  !*** ./node_modules/browserify-aes/browser.js ***!
-  \************************************************/
+/***/ 103:
+/*!****************************************************!*\
+  !*** ./node_modules/browserify-aes/modes/index.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ciphers = __webpack_require__(/*! ./encrypter */ 102)
-var deciphers = __webpack_require__(/*! ./decrypter */ 119)
-var modes = __webpack_require__(/*! ./modes/list.json */ 113)
-
-function getCiphers () {
-  return Object.keys(modes)
+var modeModules = {
+  ECB: __webpack_require__(/*! ./ecb */ 104),
+  CBC: __webpack_require__(/*! ./cbc */ 105),
+  CFB: __webpack_require__(/*! ./cfb */ 107),
+  CFB8: __webpack_require__(/*! ./cfb8 */ 108),
+  CFB1: __webpack_require__(/*! ./cfb1 */ 109),
+  OFB: __webpack_require__(/*! ./ofb */ 110),
+  CTR: __webpack_require__(/*! ./ctr */ 111),
+  GCM: __webpack_require__(/*! ./ctr */ 111)
 }
 
-exports.createCipher = exports.Cipher = ciphers.createCipher
-exports.createCipheriv = exports.Cipheriv = ciphers.createCipheriv
-exports.createDecipher = exports.Decipher = deciphers.createDecipher
-exports.createDecipheriv = exports.Decipheriv = deciphers.createDecipheriv
-exports.listCiphers = exports.getCiphers = getCiphers
+var modes = __webpack_require__(/*! ./list.json */ 113)
+
+for (var key in modes) {
+  modes[key].module = modeModules[modes[key].mode]
+}
+
+module.exports = modes
 
 
 /***/ }),
 
-/***/ 1016:
+/***/ 1036:
 /*!****************************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/node_modules/vue-multiselect/src/multiselectMixin.js ***!
   \****************************************************************************************************************/
@@ -16889,7 +17197,7 @@ var flow = function flow() {for (var _len = arguments.length, fns = new Array(_l
 
 /***/ }),
 
-/***/ 1017:
+/***/ 1037:
 /*!************************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/node_modules/vue-multiselect/src/pointerMixin.js ***!
   \************************************************************************************************************/
@@ -17035,160 +17343,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 102:
-/*!**************************************************!*\
-  !*** ./node_modules/browserify-aes/encrypter.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var MODES = __webpack_require__(/*! ./modes */ 103)
-var AuthCipher = __webpack_require__(/*! ./authCipher */ 114)
-var Buffer = __webpack_require__(/*! safe-buffer */ 45).Buffer
-var StreamCipher = __webpack_require__(/*! ./streamCipher */ 117)
-var Transform = __webpack_require__(/*! cipher-base */ 75)
-var aes = __webpack_require__(/*! ./aes */ 115)
-var ebtk = __webpack_require__(/*! evp_bytestokey */ 118)
-var inherits = __webpack_require__(/*! inherits */ 47)
-
-function Cipher (mode, key, iv) {
-  Transform.call(this)
-
-  this._cache = new Splitter()
-  this._cipher = new aes.AES(key)
-  this._prev = Buffer.from(iv)
-  this._mode = mode
-  this._autopadding = true
-}
-
-inherits(Cipher, Transform)
-
-Cipher.prototype._update = function (data) {
-  this._cache.add(data)
-  var chunk
-  var thing
-  var out = []
-
-  while ((chunk = this._cache.get())) {
-    thing = this._mode.encrypt(this, chunk)
-    out.push(thing)
-  }
-
-  return Buffer.concat(out)
-}
-
-var PADDING = Buffer.alloc(16, 0x10)
-
-Cipher.prototype._final = function () {
-  var chunk = this._cache.flush()
-  if (this._autopadding) {
-    chunk = this._mode.encrypt(this, chunk)
-    this._cipher.scrub()
-    return chunk
-  }
-
-  if (!chunk.equals(PADDING)) {
-    this._cipher.scrub()
-    throw new Error('data not multiple of block length')
-  }
-}
-
-Cipher.prototype.setAutoPadding = function (setTo) {
-  this._autopadding = !!setTo
-  return this
-}
-
-function Splitter () {
-  this.cache = Buffer.allocUnsafe(0)
-}
-
-Splitter.prototype.add = function (data) {
-  this.cache = Buffer.concat([this.cache, data])
-}
-
-Splitter.prototype.get = function () {
-  if (this.cache.length > 15) {
-    var out = this.cache.slice(0, 16)
-    this.cache = this.cache.slice(16)
-    return out
-  }
-  return null
-}
-
-Splitter.prototype.flush = function () {
-  var len = 16 - this.cache.length
-  var padBuff = Buffer.allocUnsafe(len)
-
-  var i = -1
-  while (++i < len) {
-    padBuff.writeUInt8(len, i)
-  }
-
-  return Buffer.concat([this.cache, padBuff])
-}
-
-function createCipheriv (suite, password, iv) {
-  var config = MODES[suite.toLowerCase()]
-  if (!config) throw new TypeError('invalid suite type')
-
-  if (typeof password === 'string') password = Buffer.from(password)
-  if (password.length !== config.key / 8) throw new TypeError('invalid key length ' + password.length)
-
-  if (typeof iv === 'string') iv = Buffer.from(iv)
-  if (config.mode !== 'GCM' && iv.length !== config.iv) throw new TypeError('invalid iv length ' + iv.length)
-
-  if (config.type === 'stream') {
-    return new StreamCipher(config.module, password, iv)
-  } else if (config.type === 'auth') {
-    return new AuthCipher(config.module, password, iv)
-  }
-
-  return new Cipher(config.module, password, iv)
-}
-
-function createCipher (suite, password) {
-  var config = MODES[suite.toLowerCase()]
-  if (!config) throw new TypeError('invalid suite type')
-
-  var keys = ebtk(password, false, config.key, config.iv)
-  return createCipheriv(suite, keys.key, keys.iv)
-}
-
-exports.createCipheriv = createCipheriv
-exports.createCipher = createCipher
-
-
-/***/ }),
-
-/***/ 103:
-/*!****************************************************!*\
-  !*** ./node_modules/browserify-aes/modes/index.js ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var modeModules = {
-  ECB: __webpack_require__(/*! ./ecb */ 104),
-  CBC: __webpack_require__(/*! ./cbc */ 105),
-  CFB: __webpack_require__(/*! ./cfb */ 107),
-  CFB8: __webpack_require__(/*! ./cfb8 */ 108),
-  CFB1: __webpack_require__(/*! ./cfb1 */ 109),
-  OFB: __webpack_require__(/*! ./ofb */ 110),
-  CTR: __webpack_require__(/*! ./ctr */ 111),
-  GCM: __webpack_require__(/*! ./ctr */ 111)
-}
-
-var modes = __webpack_require__(/*! ./list.json */ 113)
-
-for (var key in modes) {
-  modes[key].module = modeModules[modes[key].mode]
-}
-
-module.exports = modes
-
-
-/***/ }),
-
 /***/ 104:
 /*!**************************************************!*\
   !*** ./node_modules/browserify-aes/modes/ecb.js ***!
@@ -17207,7 +17361,57 @@ exports.decrypt = function (self, block) {
 
 /***/ }),
 
-/***/ 1046:
+/***/ 105:
+/*!**************************************************!*\
+  !*** ./node_modules/browserify-aes/modes/cbc.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var xor = __webpack_require__(/*! buffer-xor */ 106)
+
+exports.encrypt = function (self, block) {
+  var data = xor(block, self._prev)
+
+  self._prev = self._cipher.encryptBlock(data)
+  return self._prev
+}
+
+exports.decrypt = function (self, block) {
+  var pad = self._prev
+
+  self._prev = block
+  var out = self._cipher.decryptBlock(block)
+
+  return xor(out, pad)
+}
+
+
+/***/ }),
+
+/***/ 106:
+/*!******************************************!*\
+  !*** ./node_modules/buffer-xor/index.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(Buffer) {module.exports = function xor (a, b) {
+  var length = Math.min(a.length, b.length)
+  var buffer = new Buffer(length)
+
+  for (var i = 0; i < length; ++i) {
+    buffer[i] = a[i] ^ b[i]
+  }
+
+  return buffer
+}
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../buffer/index.js */ 34).Buffer))
+
+/***/ }),
+
+/***/ 1066:
 /*!*************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/components/ss-select-city/cityData.js ***!
   \*************************************************************************************************/
@@ -18280,57 +18484,87 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 105:
+/***/ 107:
 /*!**************************************************!*\
-  !*** ./node_modules/browserify-aes/modes/cbc.js ***!
+  !*** ./node_modules/browserify-aes/modes/cfb.js ***!
   \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+var Buffer = __webpack_require__(/*! safe-buffer */ 45).Buffer
 var xor = __webpack_require__(/*! buffer-xor */ 106)
 
-exports.encrypt = function (self, block) {
-  var data = xor(block, self._prev)
-
-  self._prev = self._cipher.encryptBlock(data)
-  return self._prev
+function encryptStart (self, data, decrypt) {
+  var len = data.length
+  var out = xor(data, self._cache)
+  self._cache = self._cache.slice(len)
+  self._prev = Buffer.concat([self._prev, decrypt ? data : out])
+  return out
 }
 
-exports.decrypt = function (self, block) {
-  var pad = self._prev
+exports.encrypt = function (self, data, decrypt) {
+  var out = Buffer.allocUnsafe(0)
+  var len
 
-  self._prev = block
-  var out = self._cipher.decryptBlock(block)
+  while (data.length) {
+    if (self._cache.length === 0) {
+      self._cache = self._cipher.encryptBlock(self._prev)
+      self._prev = Buffer.allocUnsafe(0)
+    }
 
-  return xor(out, pad)
+    if (self._cache.length <= data.length) {
+      len = self._cache.length
+      out = Buffer.concat([out, encryptStart(self, data.slice(0, len), decrypt)])
+      data = data.slice(len)
+    } else {
+      out = Buffer.concat([out, encryptStart(self, data, decrypt)])
+      break
+    }
+  }
+
+  return out
 }
 
 
 /***/ }),
 
-/***/ 106:
-/*!******************************************!*\
-  !*** ./node_modules/buffer-xor/index.js ***!
-  \******************************************/
+/***/ 108:
+/*!***************************************************!*\
+  !*** ./node_modules/browserify-aes/modes/cfb8.js ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {module.exports = function xor (a, b) {
-  var length = Math.min(a.length, b.length)
-  var buffer = new Buffer(length)
+var Buffer = __webpack_require__(/*! safe-buffer */ 45).Buffer
 
-  for (var i = 0; i < length; ++i) {
-    buffer[i] = a[i] ^ b[i]
-  }
+function encryptByte (self, byteParam, decrypt) {
+  var pad = self._cipher.encryptBlock(self._prev)
+  var out = pad[0] ^ byteParam
 
-  return buffer
+  self._prev = Buffer.concat([
+    self._prev.slice(1),
+    Buffer.from([decrypt ? byteParam : out])
+  ])
+
+  return out
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../buffer/index.js */ 34).Buffer))
+exports.encrypt = function (self, chunk, decrypt) {
+  var len = chunk.length
+  var out = Buffer.allocUnsafe(len)
+  var i = -1
+
+  while (++i < len) {
+    out[i] = encryptByte(self, chunk[i], decrypt)
+  }
+
+  return out
+}
+
 
 /***/ }),
 
-/***/ 1068:
+/***/ 1088:
 /*!***********************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/components/simple-address/city-data/province.js ***!
   \***********************************************************************************************************/
@@ -18484,7 +18718,7 @@ provinceData;exports.default = _default;
 
 /***/ }),
 
-/***/ 1069:
+/***/ 1089:
 /*!*******************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/components/simple-address/city-data/city.js ***!
   \*******************************************************************************************************/
@@ -20002,42 +20236,51 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 107:
-/*!**************************************************!*\
-  !*** ./node_modules/browserify-aes/modes/cfb.js ***!
-  \**************************************************/
+/***/ 109:
+/*!***************************************************!*\
+  !*** ./node_modules/browserify-aes/modes/cfb1.js ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(/*! safe-buffer */ 45).Buffer
-var xor = __webpack_require__(/*! buffer-xor */ 106)
 
-function encryptStart (self, data, decrypt) {
-  var len = data.length
-  var out = xor(data, self._cache)
-  self._cache = self._cache.slice(len)
-  self._prev = Buffer.concat([self._prev, decrypt ? data : out])
+function encryptByte (self, byteParam, decrypt) {
+  var pad
+  var i = -1
+  var len = 8
+  var out = 0
+  var bit, value
+  while (++i < len) {
+    pad = self._cipher.encryptBlock(self._prev)
+    bit = (byteParam & (1 << (7 - i))) ? 0x80 : 0
+    value = pad[0] ^ bit
+    out += ((value & 0x80) >> (i % 8))
+    self._prev = shiftIn(self._prev, decrypt ? bit : value)
+  }
   return out
 }
 
-exports.encrypt = function (self, data, decrypt) {
-  var out = Buffer.allocUnsafe(0)
-  var len
+function shiftIn (buffer, value) {
+  var len = buffer.length
+  var i = -1
+  var out = Buffer.allocUnsafe(buffer.length)
+  buffer = Buffer.concat([buffer, Buffer.from([value])])
 
-  while (data.length) {
-    if (self._cache.length === 0) {
-      self._cache = self._cipher.encryptBlock(self._prev)
-      self._prev = Buffer.allocUnsafe(0)
-    }
+  while (++i < len) {
+    out[i] = buffer[i] << 1 | buffer[i + 1] >> (7)
+  }
 
-    if (self._cache.length <= data.length) {
-      len = self._cache.length
-      out = Buffer.concat([out, encryptStart(self, data.slice(0, len), decrypt)])
-      data = data.slice(len)
-    } else {
-      out = Buffer.concat([out, encryptStart(self, data, decrypt)])
-      break
-    }
+  return out
+}
+
+exports.encrypt = function (self, chunk, decrypt) {
+  var len = chunk.length
+  var out = Buffer.allocUnsafe(len)
+  var i = -1
+
+  while (++i < len) {
+    out[i] = encryptByte(self, chunk[i], decrypt)
   }
 
   return out
@@ -20046,7 +20289,7 @@ exports.encrypt = function (self, data, decrypt) {
 
 /***/ }),
 
-/***/ 1070:
+/***/ 1090:
 /*!*******************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/components/simple-address/city-data/area.js ***!
   \*******************************************************************************************************/
@@ -32605,95 +32848,6 @@ areaData;exports.default = _default;
 
 /***/ }),
 
-/***/ 108:
-/*!***************************************************!*\
-  !*** ./node_modules/browserify-aes/modes/cfb8.js ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Buffer = __webpack_require__(/*! safe-buffer */ 45).Buffer
-
-function encryptByte (self, byteParam, decrypt) {
-  var pad = self._cipher.encryptBlock(self._prev)
-  var out = pad[0] ^ byteParam
-
-  self._prev = Buffer.concat([
-    self._prev.slice(1),
-    Buffer.from([decrypt ? byteParam : out])
-  ])
-
-  return out
-}
-
-exports.encrypt = function (self, chunk, decrypt) {
-  var len = chunk.length
-  var out = Buffer.allocUnsafe(len)
-  var i = -1
-
-  while (++i < len) {
-    out[i] = encryptByte(self, chunk[i], decrypt)
-  }
-
-  return out
-}
-
-
-/***/ }),
-
-/***/ 109:
-/*!***************************************************!*\
-  !*** ./node_modules/browserify-aes/modes/cfb1.js ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Buffer = __webpack_require__(/*! safe-buffer */ 45).Buffer
-
-function encryptByte (self, byteParam, decrypt) {
-  var pad
-  var i = -1
-  var len = 8
-  var out = 0
-  var bit, value
-  while (++i < len) {
-    pad = self._cipher.encryptBlock(self._prev)
-    bit = (byteParam & (1 << (7 - i))) ? 0x80 : 0
-    value = pad[0] ^ bit
-    out += ((value & 0x80) >> (i % 8))
-    self._prev = shiftIn(self._prev, decrypt ? bit : value)
-  }
-  return out
-}
-
-function shiftIn (buffer, value) {
-  var len = buffer.length
-  var i = -1
-  var out = Buffer.allocUnsafe(buffer.length)
-  buffer = Buffer.concat([buffer, Buffer.from([value])])
-
-  while (++i < len) {
-    out[i] = buffer[i] << 1 | buffer[i + 1] >> (7)
-  }
-
-  return out
-}
-
-exports.encrypt = function (self, chunk, decrypt) {
-  var len = chunk.length
-  var out = Buffer.allocUnsafe(len)
-  var i = -1
-
-  while (++i < len) {
-    out[i] = encryptByte(self, chunk[i], decrypt)
-  }
-
-  return out
-}
-
-
-/***/ }),
-
 /***/ 11:
 /*!**************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/store/index.js ***!
@@ -32715,7 +32869,7 @@ var store = new _vuex.default.Store({
     login: function login(state, provider) {//改变登录状态  
       state.hasLogin = true;
       state.uerInfo.token = provider.token;
-      console.log(state.uerInfo.token, "123");
+
       uni.setStorage({ //将用户信息保存在本地  
         key: 'uerInfo',
         data: provider });
@@ -38685,6 +38839,8 @@ module.exports = JSON.parse("{\"modp1\":{\"gen\":\"02\",\"prime\":\"ffffffffffff
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.myRequest = void 0; // 单独配置url地址，便于以后维护
 //正式版
 //const BASE_URL = 'https://wl.xcmgzhilian.com' + '/prod-api'
+//半测试版
+//const BASE_URL = 'http://116.62.172.131:88'  + '/stage-api'
 //测试版
 var BASE_URL = 'http://10.22.2.138:8080';
 //const BASE_URL = 'http://10.22.0.136:8080'
@@ -39888,9 +40044,10 @@ BasePoint.prototype.dblp = function dblp(k) {
 // 单独配置url地址，便于以后维护
 //正式版
 //const BASE_URL = 'https://wl.xcmgzhilian.com'+ '/prod-api' + '/common/registUploadOSS/'
-
+//半测试版
+var BASE_URL = 'http://116.62.172.131:88' + '/stage-api' + '/common/registUploadOSS/';
 //测试版
-var BASE_URL = ' http://10.22.2.138:8080' + '/common/registUploadOSS/';
+//const BASE_URL = ' http://10.22.2.138:8080' + '/common/registUploadOSS/'
 //const BASE_URL = 'http://10.22.0.136:8080'+ '/common/registUploadOSS/'
 // 暴露一个方法，用uni.uploadFile发送请求，异步处理的封装最好用promise
 var myPhoto = function myPhoto(options) {
@@ -39927,13 +40084,13 @@ var myPhoto = function myPhoto(options) {
   }).then(
   function (value) {
 
-    console.log(value, '111ok');
+
 
 
     var photo_reshow = JSON.parse(value.data).url; //仅用于注册时回显
     var photo_file = JSON.parse(value.data).fileName;
 
-    console.log(photo_file, 'fileName');
+
 
     if (options.url == "dispatch-receipt-") {
       //签收 单据
@@ -42513,7 +42670,7 @@ var businessStatus = {
   waitGrab: 26, //抢单中
   waitAccept: 28, //待接收
   waitSendDispatch: 30, //待派车
-  waitAuditLoadInfo: 33, //待审核装载信息
+  waitAuditLoadInfo: 33, //待审核装载信息(待装货)
   waitDepart: 40, //待发车
   waitSign: 50, //待签收
   finishSign: 60, //待审核
@@ -47889,8 +48046,10 @@ function encodeTag(tag, primitive, cls, reporter) {
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.myRegisterCarrier = void 0; // 单独配置url地址，便于以后维护
 //正式版
 //const BASE_URL = 'https://wl.xcmgzhilian.com' + '/prod-api'
+//半测试版
+var BASE_URL = 'http://116.62.172.131:88' + '/stage-api';
 //测试版
-var BASE_URL = ' http://10.22.2.138:8080';
+//const BASE_URL = ' http://10.22.2.138:8080' 
 //const BASE_URL = ' http://10.22.0.136:8080' 
 // 暴露一个方法，用uni.uploadFile发送请求，异步处理的封装最好用promise
 var myRegisterCarrier = function myRegisterCarrier(form) {
@@ -47920,7 +48079,7 @@ var myRegisterCarrier = function myRegisterCarrier(form) {
 
   }).then(
   function (value) {
-    console.log(value, '221');
+
     uni.showToast({
       title: value.data.msg,
       duration: 3000,
@@ -65721,7 +65880,116 @@ function Encrypt(word) {
 
 /***/ }),
 
-/***/ 404:
+/***/ 41:
+/*!*************************************************!*\
+  !*** ./node_modules/crypto-browserify/index.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.randomBytes = exports.rng = exports.pseudoRandomBytes = exports.prng = __webpack_require__(/*! randombytes */ 42)
+exports.createHash = exports.Hash = __webpack_require__(/*! create-hash */ 46)
+exports.createHmac = exports.Hmac = __webpack_require__(/*! create-hmac */ 81)
+
+var algos = __webpack_require__(/*! browserify-sign/algos */ 84)
+var algoKeys = Object.keys(algos)
+var hashes = ['sha1', 'sha224', 'sha256', 'sha384', 'sha512', 'md5', 'rmd160'].concat(algoKeys)
+exports.getHashes = function () {
+  return hashes
+}
+
+var p = __webpack_require__(/*! pbkdf2 */ 86)
+exports.pbkdf2 = p.pbkdf2
+exports.pbkdf2Sync = p.pbkdf2Sync
+
+var aes = __webpack_require__(/*! browserify-cipher */ 92)
+
+exports.Cipher = aes.Cipher
+exports.createCipher = aes.createCipher
+exports.Cipheriv = aes.Cipheriv
+exports.createCipheriv = aes.createCipheriv
+exports.Decipher = aes.Decipher
+exports.createDecipher = aes.createDecipher
+exports.Decipheriv = aes.Decipheriv
+exports.createDecipheriv = aes.createDecipheriv
+exports.getCiphers = aes.getCiphers
+exports.listCiphers = aes.listCiphers
+
+var dh = __webpack_require__(/*! diffie-hellman */ 121)
+
+exports.DiffieHellmanGroup = dh.DiffieHellmanGroup
+exports.createDiffieHellmanGroup = dh.createDiffieHellmanGroup
+exports.getDiffieHellman = dh.getDiffieHellman
+exports.createDiffieHellman = dh.createDiffieHellman
+exports.DiffieHellman = dh.DiffieHellman
+
+var sign = __webpack_require__(/*! browserify-sign */ 131)
+
+exports.createSign = sign.createSign
+exports.Sign = sign.Sign
+exports.createVerify = sign.createVerify
+exports.Verify = sign.Verify
+
+exports.createECDH = __webpack_require__(/*! create-ecdh */ 186)
+
+var publicEncrypt = __webpack_require__(/*! public-encrypt */ 187)
+
+exports.publicEncrypt = publicEncrypt.publicEncrypt
+exports.privateEncrypt = publicEncrypt.privateEncrypt
+exports.publicDecrypt = publicEncrypt.publicDecrypt
+exports.privateDecrypt = publicEncrypt.privateDecrypt
+
+// the least I can do is make error messages for the rest of the node.js/crypto api.
+// ;[
+//   'createCredentials'
+// ].forEach(function (name) {
+//   exports[name] = function () {
+//     throw new Error([
+//       'sorry, ' + name + ' is not implemented yet',
+//       'we accept pull requests',
+//       'https://github.com/crypto-browserify/crypto-browserify'
+//     ].join('\n'))
+//   }
+// })
+
+var rf = __webpack_require__(/*! randomfill */ 193)
+
+exports.randomFill = rf.randomFill
+exports.randomFillSync = rf.randomFillSync
+
+exports.createCredentials = function () {
+  throw new Error([
+    'sorry, createCredentials is not implemented yet',
+    'we accept pull requests',
+    'https://github.com/crypto-browserify/crypto-browserify'
+  ].join('\n'))
+}
+
+exports.constants = {
+  'DH_CHECK_P_NOT_SAFE_PRIME': 2,
+  'DH_CHECK_P_NOT_PRIME': 1,
+  'DH_UNABLE_TO_CHECK_GENERATOR': 4,
+  'DH_NOT_SUITABLE_GENERATOR': 8,
+  'NPN_ENABLED': 1,
+  'ALPN_ENABLED': 1,
+  'RSA_PKCS1_PADDING': 1,
+  'RSA_SSLV23_PADDING': 2,
+  'RSA_NO_PADDING': 3,
+  'RSA_PKCS1_OAEP_PADDING': 4,
+  'RSA_X931_PADDING': 5,
+  'RSA_PKCS1_PSS_PADDING': 6,
+  'POINT_CONVERSION_COMPRESSED': 2,
+  'POINT_CONVERSION_UNCOMPRESSED': 4,
+  'POINT_CONVERSION_HYBRID': 6
+}
+
+
+/***/ }),
+
+/***/ 411:
 /*!*************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/js_sdk/js-amap/amap-wx.js ***!
   \*************************************************************************************/
@@ -65732,7 +66000,7 @@ function AMapWX(a) {this.key = a.key, this.requestConfig = { key: a.key, s: "rsx
 
 /***/ }),
 
-/***/ 405:
+/***/ 412:
 /*!****************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/js_sdk/ms-openMap/openMap.js ***!
   \****************************************************************************************/
@@ -65740,7 +66008,7 @@ function AMapWX(a) {this.key = a.key, this.requestConfig = { key: a.key, s: "rsx
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _transformCoordinate = _interopRequireDefault(__webpack_require__(/*! ./transformCoordinate.js */ 406));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _transformCoordinate = _interopRequireDefault(__webpack_require__(/*! ./transformCoordinate.js */ 413));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 function openMapByDefault(latitude, longitude, name) {
   uni.openLocation({
     latitude: latitude,
@@ -65839,7 +66107,7 @@ function getCoordByType(longitude, latitude, coord_type) {
 
 /***/ }),
 
-/***/ 406:
+/***/ 413:
 /*!****************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/js_sdk/ms-openMap/transformCoordinate.js ***!
   \****************************************************************************************************/
@@ -65975,7 +66243,7 @@ function out_of_china(lng, lat) {
 
 /***/ }),
 
-/***/ 407:
+/***/ 414:
 /*!****************************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/js_sdk/Lyn4ever-gaodeRoutePlanning/lyn4ever-gaode.js ***!
   \****************************************************************************************************************/
@@ -65985,7 +66253,7 @@ function out_of_china(lng, lat) {
 //高德微信小程序的key
 var key = '91897d2c2d83d2cf1b694feb173e4fc9';
 
-var amapFile = __webpack_require__(/*! ./amap-uni.js */ 408);
+var amapFile = __webpack_require__(/*! ./amap-uni.js */ 415);
 /*
                                          调用高德地图api进行路线规划时,
                                          高德对途经点的坐标格式如下:
@@ -66015,7 +66283,7 @@ function PlanningRoute(start, end, _waypoints, result, _fail) {
     destination: end,
     waypoints: _waypoints,
     success: function success(data) {
-      console.log(data, '777');
+
       var points = [];
       if (data.paths && data.paths[0] && data.paths[0].steps) {
         var steps = data.paths[0].steps;
@@ -66091,7 +66359,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 408:
+/***/ 415:
 /*!**********************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/js_sdk/Lyn4ever-gaodeRoutePlanning/amap-uni.js ***!
   \**********************************************************************************************************/
@@ -66528,115 +66796,6 @@ AMapWX.prototype.getWxLocation = function (a, b) {
 
 }, module.exports.AMapWX = AMapWX;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 41:
-/*!*************************************************!*\
-  !*** ./node_modules/crypto-browserify/index.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.randomBytes = exports.rng = exports.pseudoRandomBytes = exports.prng = __webpack_require__(/*! randombytes */ 42)
-exports.createHash = exports.Hash = __webpack_require__(/*! create-hash */ 46)
-exports.createHmac = exports.Hmac = __webpack_require__(/*! create-hmac */ 81)
-
-var algos = __webpack_require__(/*! browserify-sign/algos */ 84)
-var algoKeys = Object.keys(algos)
-var hashes = ['sha1', 'sha224', 'sha256', 'sha384', 'sha512', 'md5', 'rmd160'].concat(algoKeys)
-exports.getHashes = function () {
-  return hashes
-}
-
-var p = __webpack_require__(/*! pbkdf2 */ 86)
-exports.pbkdf2 = p.pbkdf2
-exports.pbkdf2Sync = p.pbkdf2Sync
-
-var aes = __webpack_require__(/*! browserify-cipher */ 92)
-
-exports.Cipher = aes.Cipher
-exports.createCipher = aes.createCipher
-exports.Cipheriv = aes.Cipheriv
-exports.createCipheriv = aes.createCipheriv
-exports.Decipher = aes.Decipher
-exports.createDecipher = aes.createDecipher
-exports.Decipheriv = aes.Decipheriv
-exports.createDecipheriv = aes.createDecipheriv
-exports.getCiphers = aes.getCiphers
-exports.listCiphers = aes.listCiphers
-
-var dh = __webpack_require__(/*! diffie-hellman */ 121)
-
-exports.DiffieHellmanGroup = dh.DiffieHellmanGroup
-exports.createDiffieHellmanGroup = dh.createDiffieHellmanGroup
-exports.getDiffieHellman = dh.getDiffieHellman
-exports.createDiffieHellman = dh.createDiffieHellman
-exports.DiffieHellman = dh.DiffieHellman
-
-var sign = __webpack_require__(/*! browserify-sign */ 131)
-
-exports.createSign = sign.createSign
-exports.Sign = sign.Sign
-exports.createVerify = sign.createVerify
-exports.Verify = sign.Verify
-
-exports.createECDH = __webpack_require__(/*! create-ecdh */ 186)
-
-var publicEncrypt = __webpack_require__(/*! public-encrypt */ 187)
-
-exports.publicEncrypt = publicEncrypt.publicEncrypt
-exports.privateEncrypt = publicEncrypt.privateEncrypt
-exports.publicDecrypt = publicEncrypt.publicDecrypt
-exports.privateDecrypt = publicEncrypt.privateDecrypt
-
-// the least I can do is make error messages for the rest of the node.js/crypto api.
-// ;[
-//   'createCredentials'
-// ].forEach(function (name) {
-//   exports[name] = function () {
-//     throw new Error([
-//       'sorry, ' + name + ' is not implemented yet',
-//       'we accept pull requests',
-//       'https://github.com/crypto-browserify/crypto-browserify'
-//     ].join('\n'))
-//   }
-// })
-
-var rf = __webpack_require__(/*! randomfill */ 193)
-
-exports.randomFill = rf.randomFill
-exports.randomFillSync = rf.randomFillSync
-
-exports.createCredentials = function () {
-  throw new Error([
-    'sorry, createCredentials is not implemented yet',
-    'we accept pull requests',
-    'https://github.com/crypto-browserify/crypto-browserify'
-  ].join('\n'))
-}
-
-exports.constants = {
-  'DH_CHECK_P_NOT_SAFE_PRIME': 2,
-  'DH_CHECK_P_NOT_PRIME': 1,
-  'DH_UNABLE_TO_CHECK_GENERATOR': 4,
-  'DH_NOT_SUITABLE_GENERATOR': 8,
-  'NPN_ENABLED': 1,
-  'ALPN_ENABLED': 1,
-  'RSA_PKCS1_PADDING': 1,
-  'RSA_SSLV23_PADDING': 2,
-  'RSA_NO_PADDING': 3,
-  'RSA_PKCS1_OAEP_PADDING': 4,
-  'RSA_X931_PADDING': 5,
-  'RSA_PKCS1_PSS_PADDING': 6,
-  'POINT_CONVERSION_COMPRESSED': 2,
-  'POINT_CONVERSION_UNCOMPRESSED': 4,
-  'POINT_CONVERSION_HYBRID': 6
-}
-
 
 /***/ }),
 
@@ -73557,160 +73716,6 @@ proto._update = function _update(inp, inOff, out, outOff) {
   }
 };
 
-
-/***/ }),
-
-/***/ 999:
-/*!****************************************************************************************************************!*\
-  !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/components/simple-address-high/city-data/province.js ***!
-  \****************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /* eslint-disable */
-var provinceData = [{
-  "label": "北京市",
-  "value": "11" },
-
-{
-  "label": "天津市",
-  "value": "12" },
-
-{
-  "label": "河北省",
-  "value": "13" },
-
-{
-  "label": "山西省",
-  "value": "14" },
-
-{
-  "label": "内蒙古自治区",
-  "value": "15" },
-
-{
-  "label": "辽宁省",
-  "value": "21" },
-
-{
-  "label": "吉林省",
-  "value": "22" },
-
-{
-  "label": "黑龙江省",
-  "value": "23" },
-
-{
-  "label": "上海市",
-  "value": "31" },
-
-{
-  "label": "江苏省",
-  "value": "32" },
-
-{
-  "label": "浙江省",
-  "value": "33" },
-
-{
-  "label": "安徽省",
-  "value": "34" },
-
-{
-  "label": "福建省",
-  "value": "35" },
-
-{
-  "label": "江西省",
-  "value": "36" },
-
-{
-  "label": "山东省",
-  "value": "37" },
-
-{
-  "label": "河南省",
-  "value": "41" },
-
-{
-  "label": "湖北省",
-  "value": "42" },
-
-{
-  "label": "湖南省",
-  "value": "43" },
-
-{
-  "label": "广东省",
-  "value": "44" },
-
-{
-  "label": "广西壮族自治区",
-  "value": "45" },
-
-{
-  "label": "海南省",
-  "value": "46" },
-
-{
-  "label": "重庆市",
-  "value": "50" },
-
-{
-  "label": "四川省",
-  "value": "51" },
-
-{
-  "label": "贵州省",
-  "value": "52" },
-
-{
-  "label": "云南省",
-  "value": "53" },
-
-{
-  "label": "西藏自治区",
-  "value": "54" },
-
-{
-  "label": "陕西省",
-  "value": "61" },
-
-{
-  "label": "甘肃省",
-  "value": "62" },
-
-{
-  "label": "青海省",
-  "value": "63" },
-
-{
-  "label": "宁夏回族自治区",
-  "value": "64" },
-
-{
-  "label": "新疆维吾尔自治区",
-  "value": "65" },
-
-{
-  "label": "台湾",
-  "value": "66" },
-
-{
-  "label": "香港",
-  "value": "67" },
-
-{
-  "label": "澳门",
-  "value": "68" },
-
-{
-  "label": "钓鱼岛",
-  "value": "69" }];var _default =
-
-
-provinceData;exports.default = _default;
 
 /***/ })
 

@@ -17,7 +17,7 @@
   background-color: #fff;
 }
 .scroll-Y.data-v-20e306ee {
-  height: 95vh;
+  height: 650rpx;
 }
 .truck.data-v-20e306ee {
   width: 50rpx;

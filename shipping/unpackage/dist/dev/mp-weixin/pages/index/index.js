@@ -343,6 +343,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
 var _vuex = __webpack_require__(/*! vuex */ 12);
 
 
@@ -366,6 +371,9 @@ var dest_longitude;var _default =
       un_read_msg: 0,
       title: '',
       title2: '',
+      user: '',
+      //显示按钮
+      show_shipping_order: true,
       show_shipping_list: true,
       shipping_info_list: [],
       notice_message: "您好，黄贤勇现在添加您为车老板，您可以接受或者拒绝",
@@ -384,7 +392,39 @@ var dest_longitude;var _default =
 
 
 
-  onLoad: function onLoad() {
+  onLoad: function onLoad() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var token, resUserInfo, user, user_permissions, result_shipping_order, user_role;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+              token = uni.getStorageSync('token');
+              //get this user's permission rights
+              _context.next = 3;return _this.$request({
+                url: "/getInfo",
+
+                header: {
+                  Authorization: token } });case 3:resUserInfo = _context.sent;
+
+
+
+
+              _this.user = resUserInfo;
+
+              user = _this.user;
+
+              user_permissions = user.data.permissions;
+              result_shipping_order = user_permissions.findIndex(function (ele) {return ele === 'iscm:waybill:list';});
+
+              if (result_shipping_order == -1) {
+                _this.show_shipping_order = false;
+
+              }
+
+
+              //如果是管理员,可以看到所有，不受上面的权限约束
+              user_role = user.data.roles;
+              if (user_role.includes("admin")) {
+                _this.show_shipping_order = true;
+                _this.show_vehicle = true;
+                _this.show_driver = true;
+                _this.show_bankcard = true;
+              }
 
 
 
@@ -405,153 +445,154 @@ var dest_longitude;var _default =
 
 
 
-    //后退刷新页面，查询“未读信息”的条数
 
-    this.getUnreadMessageList();
+
+              //后退刷新页面，查询“未读信息”的条数
+
+              _this.getUnreadMessageList();case 12:case "end":return _context.stop();}}}, _callee);}))();
   },
 
 
-  onShow: function onShow() {
+  onShow: function onShow() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var token, resUserInfo, user, user_permissions, result_shipping_order, user_role, that;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+              token = uni.getStorageSync('token');
+              //get this user's permission rights
+              _context2.next = 3;return _this2.$request({
+                url: "/getInfo",
 
-    //查询“未读信息”的条数
-    this.getUnreadMessageList();
-    //去除派车单中的storage
-    try {
-      uni.removeStorageSync('nav_state');
-    } catch (e) {
-      // error
-    }
-    var that = this;
-    this.gotRouter();
-
-    this.user = uni.getStorageSync("user_info");
-    if (!this.user || this.user == undefined || this.user == null) {
-      uni.navigateTo({
-        url: "/pages/login/login" });
-
-    }
-
-    this.shipping_info_list = [
-    {
-      place_of_delivery: "南京栖霞",
-      place_of_destiny: "徐州下淀",
-      goods: "润滑油 500吨",
-      vehicle: "13米高栏车",
-      price_num: 9800 },
-
-
-    {
-      place_of_delivery: "上海外高桥",
-      place_of_destiny: "徐州杨庄",
-      goods: "车架 50吨",
-      vehicle: "10米高栏车",
-      price_num: 7800 }];
+                header: {
+                  Authorization: token } });case 3:resUserInfo = _context2.sent;
 
 
 
-    this.getShippingInfoList();
 
-    var that = this;
-    if (that.shipping_info_list && that.shipping_info_list.length > 0) {
-      uni.getLocation({
-        type: 'gcj02',
-        geocode: true, //设置该参数为true可直接获取经纬度及城市信息
-        success: function success(res) {
-          that.locationValue = res;
-          start_latitude = res.latitude;
-          start_longitude = res.longitude;
+              _this2.user = resUserInfo;
+
+              user = _this2.user;
+
+              user_permissions = user.data.permissions;
+              result_shipping_order = user_permissions.findIndex(function (ele) {return ele === 'iscm:waybill:list';});
+
+              if (result_shipping_order == -1) {
+                _this2.show_shipping_order = false;
+
+              }
 
 
-          for (var i = 0; i < that.shipping_info_list.length; i++) {
-            uni.request({
-              //传入高德web服务端key和发货地址(此处为目的地)
-              url: "https://restapi.amap.com/v3/geocode/geo?address=".concat(that.shipping_info_list[i].iscmShipper.shipperAddress, "&key=ae8b30ff7c227fb962010579230bf568"), //请求地名变经纬度
-              success: function success(res) {
+              //如果是管理员,可以看到所有，不受上面的权限约束
+              user_role = user.data.roles;
+              if (user_role.includes("admin")) {
+                _this2.show_shipping_order = true;
+                _this2.show_vehicle = true;
+                _this2.show_driver = true;
+                _this2.show_bankcard = true;
+              }
 
-                desti_location = res.data.geocodes[0].location.split(",");
 
-                dest_latitude = parseFloat(desti_location[1]);
-                dest_longitude = parseFloat(desti_location[0]);
 
-                uni.request({
-                  //传入高德web服务端key和规划线路
-                  // url: `https://restapi.amap.com/v4/direction/truck?origin=${origin_longitude}%2C${origin_latitude}&destination=${destiny_longitude}%2C${destiny_latitude}&size=3&key=ae8b30ff7c227fb962010579230bf568`, //货车规划
-                  url: "https://restapi.amap.com/v3/direction/driving?origin=".concat(start_longitude, "%2C").concat(start_latitude, "&destination=").concat(dest_longitude, "%2C").concat(dest_latitude, "&key=ae8b30ff7c227fb962010579230bf568"),
+
+
+              //查询“未读信息”的条数
+              _this2.getUnreadMessageList();
+              //去除派车单中的storage
+              try {
+                uni.removeStorageSync('nav_state');
+              } catch (e) {
+                // error
+              }
+              that = _this2;
+              _this2.gotRouter();
+
+              _this2.user = uni.getStorageSync("user_info");
+              if (!_this2.user || _this2.user == undefined || _this2.user == null) {
+                uni.navigateTo({
+                  url: "/pages/login/login" });
+
+              }
+
+
+              _this2.getShippingInfoList();
+
+              that = _this2;
+              if (that.shipping_info_list && that.shipping_info_list.length > 0) {
+                uni.getLocation({
+                  type: 'gcj02',
+                  geocode: true, //设置该参数为true可直接获取经纬度及城市信息
                   success: function success(res) {
+                    that.locationValue = res;
+                    start_latitude = res.latitude;
+                    start_longitude = res.longitude;
 
-                    var short_distance = parseFloat(res.data.route.paths[0].distance) / 1000;
 
-                    short_distance = short_distance.toFixed(2);
+                    for (var i = 0; i < that.shipping_info_list.length; i++) {
+                      uni.request({
+                        //传入高德web服务端key和发货地址(此处为目的地)
+                        url: "https://restapi.amap.com/v3/geocode/geo?address=".concat(that.shipping_info_list[i].iscmShipper.shipperAddress, "&key=ae8b30ff7c227fb962010579230bf568"), //请求地名变经纬度
+                        success: function success(res) {
 
-                    that.distance_to_origin.push(short_distance);
+                          desti_location = res.data.geocodes[0].location.split(",");
 
+                          dest_latitude = parseFloat(desti_location[1]);
+                          dest_longitude = parseFloat(desti_location[0]);
+
+                          uni.request({
+                            //传入高德web服务端key和规划线路
+                            // url: `https://restapi.amap.com/v4/direction/truck?origin=${origin_longitude}%2C${origin_latitude}&destination=${destiny_longitude}%2C${destiny_latitude}&size=3&key=ae8b30ff7c227fb962010579230bf568`, //货车规划
+                            url: "https://restapi.amap.com/v3/direction/driving?origin=".concat(start_longitude, "%2C").concat(start_latitude, "&destination=").concat(dest_longitude, "%2C").concat(dest_latitude, "&key=ae8b30ff7c227fb962010579230bf568"),
+                            success: function success(res) {
+
+                              var short_distance = parseFloat(res.data.route.paths[0].distance) / 1000;
+
+                              short_distance = short_distance.toFixed(2);
+
+                              that.distance_to_origin.push(short_distance);
+
+                            } });
+
+                        } });
+
+
+                    }
+
+
+                  },
+                  fail: function fail(err) {
+                    uni.showToast({
+                      title: '获取地址失败',
+                      icon: 'none' });
+
+                    that.locationValue = err;
                   } });
 
-              } });
-
-
-          }
-
-
-        },
-        fail: function fail(err) {
-          uni.showToast({
-            title: '获取地址失败',
-            icon: 'none' });
-
-          that.locationValue = err;
-        } });
-
-    }
-
-
-
-
-
-
-    //
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+              }case 20:case "end":return _context2.stop();}}}, _callee2);}))();
 
   },
+
+  onHide: function onHide() {
+    //restore the original shipping order status
+    this.show_shipping_order = true;
+  },
+
   methods: {
     //查询“未读信息”的条数
-    getUnreadMessageList: function getUnreadMessageList() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var authorization, resMsg;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
-                authorization = uni.getStorageSync("token");_context.next = 3;return (
+    getUnreadMessageList: function getUnreadMessageList() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var authorization, resMsg;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
+                authorization = uni.getStorageSync("token");_context3.next = 3;return (
 
 
-                  _this.$request({
+                  _this3.$request({
                     url: "/iscm/msg/list?pageNum=1&pageSize=7&msgStatus=20",
 
                     header: {
-                      Authorization: authorization } }));case 3:resMsg = _context.sent;
+                      Authorization: authorization } }));case 3:resMsg = _context3.sent;
 
 
 
-                _this.un_read_msg = resMsg.data.total;
-                console.log(resMsg, 'slbgw111');case 6:case "end":return _context.stop();}}}, _callee);}))();
-
-
+                _this3.un_read_msg = resMsg.data.total;case 5:case "end":return _context3.stop();}}}, _callee3);}))();
 
 
     },
     //判断用户是否授权
-    requestAndroidPermission: function requestAndroidPermission(permisionID) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var result, strStatus;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
-                  _permission.default.requestAndroidPermission(permisionID));case 2:result = _context2.sent;
+    requestAndroidPermission: function requestAndroidPermission(permisionID) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var result, strStatus;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:_context4.next = 2;return (
+                  _permission.default.requestAndroidPermission(permisionID));case 2:result = _context4.sent;
 
                 if (result == 1) {
                   strStatus = "已获得授权";
@@ -562,41 +603,41 @@ var dest_longitude;var _default =
                 }
                 uni.showModal({
                   content: permisionID + strStatus,
-                  showCancel: false });case 5:case "end":return _context2.stop();}}}, _callee2);}))();
+                  showCancel: false });case 5:case "end":return _context4.stop();}}}, _callee4);}))();
 
     },
-    gotRouter: function gotRouter() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.next = 2;return (
+    gotRouter: function gotRouter() {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {var res;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:_context5.next = 2;return (
 
-                  _this2.$getRouters({}));case 2:res = _context3.sent;case 3:case "end":return _context3.stop();}}}, _callee3);}))();
+                  _this4.$getRouters({}));case 2:res = _context5.sent;case 3:case "end":return _context5.stop();}}}, _callee5);}))();
 
 
 
     },
 
-    getShippingInfoList: function getShippingInfoList() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var queryParams, authorization, res;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
-                _this3.queryParams.waybillStatus = _this3.$waitAccept;
+    getShippingInfoList: function getShippingInfoList() {var _this5 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6() {var queryParams, authorization, res;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:
+                _this5.queryParams.waybillStatus = _this5.$waitAccept;
 
-                queryParams = _this3.queryParams;
-                authorization = uni.getStorageSync("token");_context4.next = 5;return (
+                queryParams = _this5.queryParams;
+                authorization = uni.getStorageSync("token");_context6.next = 5;return (
 
-                  _this3.$request({
+                  _this5.$request({
                     url: "/app/waybill/list",
 
                     header: {
                       Authorization: authorization },
 
-                    data: queryParams }));case 5:res = _context4.sent;if (!(
+                    data: queryParams }));case 5:res = _context6.sent;if (!(
 
 
 
-                !res.data.rows || res.data.rows.length == 0)) {_context4.next = 11;break;}
-                _this3.show_shipping_list = false;return _context4.abrupt("return");case 11:
+                !res.data.rows || res.data.rows.length == 0)) {_context6.next = 11;break;}
+                _this5.show_shipping_list = false;return _context6.abrupt("return");case 11:
 
                 if (res.data.rows.length > 2) {
-                  _this3.shipping_info_list = res.data.rows.splice(2);
+                  _this5.shipping_info_list = res.data.rows.splice(2);
                 } else {
-                  _this3.shipping_info_list = res.data.rows;
-                }case 12:case "end":return _context4.stop();}}}, _callee4);}))();
+                  _this5.shipping_info_list = res.data.rows;
+                }case 12:case "end":return _context6.stop();}}}, _callee6);}))();
 
     },
     goMessage: function goMessage() {
@@ -674,18 +715,17 @@ var dest_longitude;var _default =
         //only for camera
         onlyFromCamera: true,
 
-        success: function () {var _success = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5(res) {var status, resScan;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:
-                    console.log('条码类型：' + res.scanType);
-                    console.log('条码内容：' + res.result);
+        success: function () {var _success = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee7(res) {var status, resScan;return _regenerator.default.wrap(function _callee7$(_context7) {while (1) {switch (_context7.prev = _context7.next) {case 0:
+
                     //after scaning ,send the QR UUID to inform the server the scanning  
 
-                    status = 3;_context5.next = 5;return (
+                    status = 3;_context7.next = 3;return (
 
                       that.$request({
                         url: "/loginByQrCode/".concat(res.result, "/").concat(status),
 
                         header: {
-                          Authorization: authorization } }));case 5:resScan = _context5.sent;case 6:case "end":return _context5.stop();}}}, _callee5);}));function success(_x) {return _success.apply(this, arguments);}return success;}() });
+                          Authorization: authorization } }));case 3:resScan = _context7.sent;case 4:case "end":return _context7.stop();}}}, _callee7);}));function success(_x) {return _success.apply(this, arguments);}return success;}() });
 
 
 
@@ -709,15 +749,18 @@ var dest_longitude;var _default =
 
       } // error
 
-      //同步清理本地数据缓存
-      try {
-        uni.clearStorageSync();
-      } catch (e) {
-        // error
-      }
+      // //同步清理本地数据缓存
+      // try {
+      //     uni.clearStorageSync();
+      // } catch (e) {
+      //     // error
+      // }
 
 
-      uni.navigateTo({
+      //restore the original shipping order status
+      this.show_shipping_order = true;
+
+      uni.reLaunch({
         url: '/pages/login/login' });
 
 

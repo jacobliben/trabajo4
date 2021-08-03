@@ -171,7 +171,7 @@
 		<view class="cu-form-group margin-top">
 			<text class="name">车型选择</text>
 			    <checkbox-group @change="checkboxCargoBoxTypeChange" class="to-center">
-			                   <label  v-for="item in cargoBoxTypeOptions" :key="item.dictValue">
+			                   <label  v-for="item in cargoBoxTypeOptions" class="every-choice" :key="item.dictValue">
 			                        <view>
 			                           <checkbox :value="item.dictValue" :checked="item.checked" />
 			                        </view>
@@ -183,7 +183,7 @@
 		<view class="cu-form-group margin-top">
 			<text class="name">车长选择</text>
 			    <checkbox-group @change="checkboxVehicleLengthsChange" class="to-center">
-			                   <label  v-for="item in vehicleLengthOptions" :key="item.dictValue">
+			                   <label  v-for="item in vehicleLengthOptions"  class="every-choice" :key="item.dictValue">
 			                        <view>
 			                           <checkbox :value="item.dictValue" :checked="item.checked" />
 			                        </view>
@@ -1055,7 +1055,8 @@
 							that.carrier_hint = res.data.data[0].carrierName 
 							+ "   " +  res.data.data[0].carrierContactsPhone 
 							
-							that.specifyCarrierId = res.data.data[0].carrierId
+							that.params.specifyCarrierId = res.data.data[0].carrierId
+							that.params.specifyCarrierName = res.data.data[0].carrierName
 						}else{
 							that.show_carrier_hint = false
 						}
@@ -1208,15 +1209,17 @@
 										var authorization = uni.getStorageSync("token")
 										var  form = this.params
 										
-										const res = await this.$request({
-											url:"/app/source/add",
-											method: "POST",
-											header:{
-												Authorization:authorization,
-												"Content-Type": "multipart/form-data; boundary=XXX"
-											},
-											
-											data:'\r\n--XXX' +
+										//if show_carrier_selections, send the specify Carrier ID, otherwise not sending
+										if(this.show_carrier_selections){
+											const res = await this.$request({
+																						url:"/app/source/add",
+																						method: "POST",
+																						
+																						header:{
+																							Authorization:authorization,
+																							"Content-Type": "multipart/form-data; boundary=XXX"
+																						},
+																						data:'\r\n--XXX' +
 											 '\r\nContent-Disposition: form-data; name="shipperId"' +
 											 '\r\n' +
 											 '\r\n' + this.params.shipperId +
@@ -1322,10 +1325,126 @@
 													'\r\n' + this.params.goodsFee +
 													'\r\n--XXX--' 
 																						
-													
-											
-										})
-										
+																					})
+										}else{
+											      
+												const res = await this.$request({
+																							url:"/app/source/add",
+																							method: "POST",
+																							
+																							header:{
+																								Authorization:authorization,
+																								"Content-Type": "multipart/form-data; boundary=XXX"
+																							},
+																							data:'\r\n--XXX' +
+												 '\r\nContent-Disposition: form-data; name="shipperId"' +
+												 '\r\n' +
+												 '\r\n' + this.params.shipperId +
+												 '\r\n--XXX' +
+												 '\r\nContent-Disposition: form-data; name="consigneeId"' +
+														 '\r\n' +
+												 '\r\n' + this.params.consigneeId +
+												'\r\n--XXX' +
+														 '\r\nContent-Disposition: form-data; name="cargoBoxType"' +
+														  '\r\n' +
+														 '\r\n' + this.params.cargoBoxType +
+														'\r\n--XXX' +
+														'\r\nContent-Disposition: form-data; name="isTemplate"' +
+														 '\r\n' +
+														'\r\n' + this.params.isTemplate +
+														'\r\n--XXX' +
+														'\r\nContent-Disposition: form-data; name="vehicleLengths"' +
+														 '\r\n' +
+														'\r\n' + this.params.vehicleLengths +
+														'\r\n--XXX' +
+														'\r\nContent-Disposition: form-data; name="sourceStatus"' +
+														 '\r\n' +
+														'\r\n' + this.params.sourceStatus +
+														'\r\n--XXX' +
+														'\r\nContent-Disposition: form-data; name="goodsName"' +
+														 '\r\n' +
+														'\r\n' + this.params.goodsName +
+														'\r\n--XXX' +
+														'\r\nContent-Disposition: form-data; name="goodsType"' +
+														 '\r\n' +
+														'\r\n' + this.params.goodsType +
+														'\r\n--XXX' +
+														'\r\nContent-Disposition: form-data; name="goodsWeight"' +
+														 '\r\n' +
+														'\r\n' + this.params.goodsWeight +
+														'\r\n--XXX' +
+														'\r\nContent-Disposition: form-data; name="packageNumber"' +
+														 '\r\n' +
+														'\r\n' + this.params.packageNumber +
+														'\r\n--XXX' +
+														'\r\nContent-Disposition: form-data; name="packageType"' +
+														 '\r\n' +
+														'\r\n' + this.params.packageType +
+														'\r\n--XXX' +
+														'\r\nContent-Disposition: form-data; name="consignorRates"' +
+														 '\r\n' +
+														'\r\n' + this.params.consignorRates +
+														'\r\n--XXX' +
+														'\r\nContent-Disposition: form-data; name="assignSendTime"' +
+														 '\r\n' +
+														'\r\n' + this.params.assignSendTime +
+														'\r\n--XXX' +
+														'\r\nContent-Disposition: form-data; name="assignEndTime"' +
+														 '\r\n' +
+														'\r\n' + this.params.assignEndTime +
+														'\r\n--XXX' +
+														'\r\nContent-Disposition: form-data; name="customNumber"' +
+														 '\r\n' +
+														'\r\n' + this.params.customNumber +
+														'\r\n--XXX' +
+														'\r\nContent-Disposition: form-data; name="pickMonadPhone"' +
+														 '\r\n' +
+														'\r\n' + this.params.pickMonadPhone +
+														'\r\n--XXX' +
+														'\r\nContent-Disposition: form-data; name="settlementPhone"' +
+														 '\r\n' +
+														'\r\n' + this.params.settlementPhone +
+														'\r\n--XXX' +
+														'\r\nContent-Disposition: form-data; name="settlementMethod"' +
+														 '\r\n' +
+														'\r\n' + this.params.settlementMethod +
+														'\r\n--XXX' +
+														'\r\nContent-Disposition: form-data; name="unitPrice"' +
+														 '\r\n' +
+														'\r\n' + this.params.unitPrice +
+														'\r\n--XXX' +
+														'\r\nContent-Disposition: form-data; name="sourceQuantity"' +
+														 '\r\n' +
+														'\r\n' + this.params.sourceQuantity +
+														'\r\n--XXX' +
+														'\r\nContent-Disposition: form-data; name="orderWay"' +
+														 '\r\n' +
+														'\r\n' + this.params.orderWay +
+														'\r\n--XXX' +
+														'\r\nContent-Disposition: form-data; name="remainingGoodsWeight"' +
+														 '\r\n' +
+														'\r\n' + this.params.remainingGoodsWeight +
+														'\r\n--XXX' +
+														'\r\nContent-Disposition: form-data; name="specifyCarrierStatus"' +
+														 '\r\n' +
+														'\r\n' + this.params.specifyCarrierStatus +
+														'\r\n--XXX' +
+														// '\r\nContent-Disposition: form-data; name="specifyCarrierId"' +
+														//  '\r\n' +
+														// '\r\n' + this.params.specifyCarrierId +
+														//'\r\n--XXX' +
+														'\r\nContent-Disposition: form-data; name="goodsUnitPrice"' +
+														 '\r\n' +
+														'\r\n' + this.params.goodsUnitPrice +
+														'\r\n--XXX' +
+														'\r\nContent-Disposition: form-data; name="goodsFee"' +
+														 '\r\n' +
+														'\r\n' + this.params.goodsFee +
+														'\r\n--XXX--' 
+																							
+																						})  
+												  
+										}
 										
 										uni.showToast({
 											title:"提交成功！"
@@ -1576,6 +1695,14 @@
 	}
 	
 	.to-center{
-		margin-right:50%;
+		margin-left:20rpx;
+		display: flex;
+		flex-direction: row;
+		font-size: 30rpx;
+	}
+	
+	.every-choice{
+		border-left:1rpx dashed #007AFF;
+		padding-left: 5rpx;
 	}
 </style>

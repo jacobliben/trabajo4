@@ -1123,7 +1123,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _xflSelect = _interopRequireDefault(__webpack_require__(/*! @/components/xfl-select/xfl-select.vue */ 324));
-var _pattern = __webpack_require__(/*! @/util/pattern.js */ 15);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var Multiselect = function Multiselect() {Promise.all(/*! require.ensure | node-modules/vue-multiselect/src/Multiselect */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/vue-multiselect/src/Multiselect")]).then((function () {return resolve(__webpack_require__(/*! @/node_modules/vue-multiselect/src/Multiselect.vue */ 1011));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+var _pattern = __webpack_require__(/*! @/util/pattern.js */ 15);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var Multiselect = function Multiselect() {Promise.all(/*! require.ensure | node-modules/vue-multiselect/src/Multiselect */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/vue-multiselect/src/Multiselect")]).then((function () {return resolve(__webpack_require__(/*! @/node_modules/vue-multiselect/src/Multiselect.vue */ 1031));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
 var _self;
 var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/graceChecker.js */ 307);var _default =
@@ -1211,12 +1211,12 @@ var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/grac
   methods: {
 
     bindBankClassPickerChange: function bindBankClassPickerChange(e) {
-      console.log('picker发送选择改变，携带值为', e.target.value);
+
       this.bank_class_index = e.target.value;
       this.params.carrierBankcardCategory = 1;
     },
     bindPickerChange: function bindPickerChange(e) {
-      console.log('picker发送选择改变，携带值为', e.target.value);
+
       this.index = e.target.value;
 
       this.params.bankCode = this.list_code[this.index - 1];
@@ -1303,7 +1303,7 @@ var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/grac
 
         this.params.driverIdNumber = this.params.carrierCertNum; // 司机身份证号 = 承运人号码
         this.params.driverPhone = this.params.phonenumber; // 司机手机号 = 承运人手机号
-        this.params.userName = this.params.phonenumber; // 用户名 = 承运人手机号
+        //this.params.userName = this.params.phonenumber;          // 用户名 = 承运人手机号
         this.params.driverName = this.params.carrierName; // 司机名称 = 承运人名称
         this.params.idcardFront = this.params.carrierCardFront; // 司机身份信息 = 承运人信息
         this.params.idcardBack = this.params.carrierCardReverse; // 司机身份信息 = 承运人信息            
@@ -1312,7 +1312,7 @@ var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/grac
     },
 
     formSubmit: function formSubmit(e) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var rule, formData, checkRes, params_phone, params_business, params_vehicle, params_license, params_bank, params_photos, form;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
-                console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value));
+
                 //定义表单规则
                 rule = [
                 { name: "cellphone",
@@ -1326,22 +1326,22 @@ var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/grac
 
                 formData = e.detail.value;
                 checkRes = graceChecker.check(formData, rule);if (!
-                checkRes) {_context2.next = 8;break;}
+                checkRes) {_context2.next = 7;break;}
 
-                uni.showToast({ title: "验证通过,正在注册中!", icon: "none" });_context2.next = 11;break;case 8:
+                uni.showToast({ title: "验证通过,正在注册中!", icon: "none" });_context2.next = 10;break;case 7:
 
 
 
                 uni.showToast({ title: graceChecker.error, icon: "none" });
-                _this2.bank_holder_tel = "";return _context2.abrupt("return");case 11:if (!(
+                _this2.bank_holder_tel = "";return _context2.abrupt("return");case 10:if (!(
 
 
 
 
-                _this2.params.holderName == null || _this2.params.holderName == "" || _this2.params.holderName.length < 1)) {_context2.next = 14;break;}
+                _this2.params.holderName == null || _this2.params.holderName == "" || _this2.params.holderName.length < 1)) {_context2.next = 13;break;}
                 uni.showToast({
                   title: "未输入银行卡持有人, 请输入",
-                  icon: "none" });return _context2.abrupt("return");case 14:
+                  icon: "none" });return _context2.abrupt("return");case 13:
 
 
 
@@ -1352,19 +1352,19 @@ var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/grac
 
 
                 //进行银行名称检查
-                if (!(_this2.params.bankCode == null || _this2.params.bankCode == "" || _this2.params.bankCode.length < 1)) {_context2.next = 18;break;}
+                if (!(_this2.params.bankCode == null || _this2.params.bankCode == "" || _this2.params.bankCode.length < 1)) {_context2.next = 17;break;}
                 uni.showToast({
                   title: "未选择银行名称, 请选择",
-                  icon: "none" });return _context2.abrupt("return");case 18:if (!(
+                  icon: "none" });return _context2.abrupt("return");case 17:if (!(
 
 
 
 
 
-                _this2.params.bankcardAccount == null || _this2.params.bankcardAccount == "" || _this2.params.bankcardAccount.length < 1)) {_context2.next = 21;break;}
+                _this2.params.bankcardAccount == null || _this2.params.bankcardAccount == "" || _this2.params.bankcardAccount.length < 1)) {_context2.next = 20;break;}
                 uni.showToast({
                   title: "未输入银行账号, 请输入",
-                  icon: "none" });return _context2.abrupt("return");case 21:
+                  icon: "none" });return _context2.abrupt("return");case 20:
 
 
 
@@ -1419,8 +1419,10 @@ var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/grac
 
 
                 form = _this2.form;
-                console.log(form, "form");
-                form = JSON.stringify(form);case 47:case "end":return _context2.stop();}}}, _callee2);}))();
+
+                form = JSON.stringify(form);case 45:case "end":return _context2.stop();}}}, _callee2);}))();
+
+
 
 
 
@@ -1516,7 +1518,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 805:
+/***/ 800:
 /*!**************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/main.js?{"page":"pages%2Fbank%2Fbank"} ***!
   \**************************************************************************************************/
@@ -1532,5 +1534,5 @@ createPage(_bank.default);
 
 /***/ })
 
-},[[805,"common/runtime","common/vendor"]]]);
+},[[800,"common/runtime","common/vendor"]]]);
 //# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/bank/bank.js.map

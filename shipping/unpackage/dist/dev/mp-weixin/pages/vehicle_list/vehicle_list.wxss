@@ -17,7 +17,7 @@
   background-color: #fff;
 }
 .scroll-Y.data-v-db807334 {
-  height: 95vh;
+  height: 65vh;
 }
 .vehicle_content.data-v-db807334 {
   display: -webkit-box;

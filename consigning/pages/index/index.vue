@@ -371,10 +371,12 @@
 			 	      },
 			 logout(){
 			 	
-			 	try {
+			 	try {consignor_contact
 			 	    uni.removeStorageSync('token');
 			 		uni.removeStorageSync('user_info');
 					uni.removeStorageSync('avatar');
+					uni.removeStorageSync('consignor_contact');
+					uni.removeStorageSync('consignee_contact');
 			 		this.user = ""
 			 	} catch (e) {
 			 	    // error

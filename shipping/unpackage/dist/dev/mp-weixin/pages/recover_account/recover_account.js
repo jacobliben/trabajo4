@@ -253,21 +253,21 @@ var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/grac
                     title: "该手机号尚未注册",
                     icon: "none" });
 
-                  _this.tel_num = "";
+                  // this.tel_num = ""
                   _this.codeDisabled = true;
                   //if the phone has been registered, go sending the verifying code
                 } else {
 
                   _this.codeDisabled = false;
-                }_context.next = 11;break;case 8:
+                }_context.next = 10;break;case 8:
 
 
                 uni.showToast({
                   title: "手机号格式不正确,请重输",
                   icon: "none" });
 
-                _this.tel_num = "";
-                _this.codeDisabled = true;case 11:case "end":return _context.stop();}}}, _callee);}))();
+                //this.tel_num = ""
+                _this.codeDisabled = true;case 10:case "end":return _context.stop();}}}, _callee);}))();
 
     },
     getVerifyCode: function getVerifyCode(e) {
@@ -323,51 +323,37 @@ var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/grac
     },
 
     formSubmit: function formSubmit(e) {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var rule, psw, reg, formData, data, checkRes, res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
-                console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value));
+
                 //定义表单规则
                 rule = [
                 { name: "cellphone",
                   checkType: "phoneno",
 
-                  errorMsg: "手机号格式有误" },
-
-                {
-                  name: "verify_code",
-                  rule: /^[0-9a-zA-Z]{4,10}$/,
-                  errorMsg: "验证码格式有误" }];
+                  errorMsg: "手机号格式有误" }];
 
 
 
 
                 //进行验证码长度检查
-                if (!(_this3.params.mobileCode == null || _this3.params.mobileCode == "" || _this3.params.mobileCode.length < 4)) {_context3.next = 6;break;}
+                if (!(_this3.params.mobileCode == null || _this3.params.mobileCode == "" || _this3.params.mobileCode.length < 4)) {_context3.next = 4;break;}
                 uni.showToast({
                   title: "验证码须4位,请输入",
                   icon: "none" });
 
-                _this3.veri_code = "";return _context3.abrupt("return");case 6:if (!(
+                //this.veri_code = ""
+                return _context3.abrupt("return");case 4:if (!(
 
 
 
-
-                _this3.params.password != _this3.params.confirmPassword)) {_context3.next = 11;break;}
+                _this3.params.password != _this3.params.confirmPassword)) {_context3.next = 7;break;}
                 uni.showToast({
                   title: "两次密码需一致",
                   icon: "none" });
 
-                _this3.contrasena = "";
-                _this3.recontrasena = "";return _context3.abrupt("return");case 11:if (!(
+                // this.contrasena = ""
+                // this.recontrasena = ""	 
+                return _context3.abrupt("return");case 7:
 
-
-
-
-                _this3.params.password.length < 8)) {_context3.next = 16;break;}
-                uni.showToast({
-                  title: "密码请输入8-16位",
-                  icon: "none" });
-
-                _this3.contrasena = "";
-                _this3.recontrasena = "";return _context3.abrupt("return");case 16:
 
 
 
@@ -376,13 +362,13 @@ var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/grac
 
                 reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;if (
 
-                reg.test(psw)) {_context3.next = 22;break;}
+                reg.test(psw)) {_context3.next = 12;break;}
                 uni.showToast({
                   title: "密码长度8~16位,必须包含数字,字母",
                   icon: "none" });
 
-                _this3.contrasena = "";return _context3.abrupt("return");case 22:
-
+                // this.contrasena = ""
+                return _context3.abrupt("return");case 12:
 
 
 
@@ -393,26 +379,26 @@ var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/grac
                 data = _this3.params;
                 checkRes = graceChecker.check(formData, rule);if (!
 
-                checkRes) {_context3.next = 33;break;}
+                checkRes) {_context3.next = 23;break;}
 
-                uni.showToast({ title: "验证通过!", icon: "none" });_context3.next = 29;return (
+                uni.showToast({ title: "验证通过!", icon: "none" });_context3.next = 19;return (
 
                   _this3.$request({
                     url: "/forgetPwd",
                     method: "POST",
-                    data: data }));case 29:res = _context3.sent;
+                    data: data }));case 19:res = _context3.sent;
 
 
 
                 uni.reLaunch({
-                  url: "/pages/login_general/login_general" });_context3.next = 34;break;case 33:
+                  url: "/pages/login_general/login_general" });_context3.next = 24;break;case 23:
 
 
                 if (graceChecker.error != "") {
                   uni.showToast({ title: graceChecker.error, icon: "none" });
                 } else {
                   uni.showToast({ title: "格式有误!", icon: "none" });
-                }case 34:case "end":return _context3.stop();}}}, _callee3);}))();
+                }case 24:case "end":return _context3.stop();}}}, _callee3);}))();
 
 
 

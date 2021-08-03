@@ -438,7 +438,7 @@ var _self;var _default =
       });
     },
     bindPickerChange: function bindPickerChange(e) {
-      console.log('picker发送选择改变，携带值为 准驾车型', e.target.value);
+
       this.index = e.target.value;
       if (this.index == 0) {
         this.params.driverVehicleClass = "A2";
@@ -491,8 +491,7 @@ var _self;var _default =
         this.params.drivercertValidPeriodTo = e.target.value;
         this.driver_cert_expiry_date_has_input = true;
       }
-      //       console.log(this.params.driving_certificate_begin_date,"begin_date")
-      // console.log(this.params.driving_certificate_expiry_date,"expiry_date")
+
     },
     getDate: function getDate(type) {
       var date = new Date();
@@ -523,7 +522,7 @@ var _self;var _default =
 
                   success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
                               tempFilePaths = res.tempFilePaths;
-                              console.log(tempFilePaths, "876");
+
                               //识别	
 
 
@@ -602,28 +601,21 @@ var _self;var _default =
 
 
 
-                              //preview the photos
-                              // uni.previewImage({
-                              //             urls: res.tempFilePaths,
-
-                              //         });
 
                               //upload the img 
                               _self.imgDriverIDFrontUrl = tempFilePaths[0];
 
                               //make the tachar img appear
-                              _self.tachar_driver_id_front = true;_context.next = 6;return (
+                              _self.tachar_driver_id_front = true;_context.next = 5;return (
 
                                 _self.$upload({
                                   url: _pattern.ossLocation.driver.front,
-                                  file_path: tempFilePaths[0] }));case 6:resPhoto = _context.sent;case 7:case "end":return _context.stop();}}}, _callee);}))();
+                                  file_path: tempFilePaths[0] }));case 5:resPhoto = _context.sent;case 6:case "end":return _context.stop();}}}, _callee);}))();
 
 
 
-                  },
-                  error: function error(e) {
-                    console.log(e);
                   } });_context5.next = 21;break;case 5:if (!(
+
 
                 e.currentTarget.dataset.index == "driver_id_back")) {_context5.next = 9;break;}
                 uni.chooseImage({
@@ -636,30 +628,24 @@ var _self;var _default =
 
                   success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
                               tempFilePaths = res.tempFilePaths;
-                              console.log(tempFilePaths, "876");
 
-                              //preview the photos
-                              // uni.previewImage({
-                              //             urls: res.tempFilePaths,
 
-                              //         });
+
 
                               //upload the img
                               _self.imgDriverIDBackUrl = tempFilePaths[0];
 
                               //make the tachar img appear
-                              _self.tachar_driver_id_back = true;_context2.next = 6;return (
+                              _self.tachar_driver_id_back = true;_context2.next = 5;return (
 
                                 _self.$upload({
                                   url: _pattern.ossLocation.driver.reverse,
-                                  file_path: tempFilePaths[0] }));case 6:resPhoto = _context2.sent;case 7:case "end":return _context2.stop();}}}, _callee2);}))();
+                                  file_path: tempFilePaths[0] }));case 5:resPhoto = _context2.sent;case 6:case "end":return _context2.stop();}}}, _callee2);}))();
 
 
 
-                  },
-                  error: function error(e) {
-                    console.log(e);
                   } });_context5.next = 21;break;case 9:if (!(
+
 
                 e.currentTarget.dataset.index == "driver_license_photo_first")) {_context5.next = 17;break;}
                 /**
@@ -745,11 +731,6 @@ var _self;var _default =
 
 
 
-                                //preview the photos
-                                // uni.previewImage({
-                                //             urls: res.tempFilePaths,
-
-                                //         });
 
                                 //upload the img
                                 _self.imgDriverLicensePhotoUrl = tempFilePaths[0];
@@ -774,11 +755,7 @@ var _self;var _default =
                     success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
                                 tempFilePaths = res.tempFilePaths;
 
-                                //preview the photos
-                                // uni.previewImage({
-                                //             urls: res.tempFilePaths,
 
-                                //         });
 
                                 //upload the img
                                 _self.imgDrivingCertificateUrl = tempFilePaths[0];
@@ -931,10 +908,6 @@ var _self;var _default =
 
 
 
-
-
-
-      console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value));
       //定义表单规则
       var rule = [
       { name: "cellphone",
@@ -1007,7 +980,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 796:
+/***/ 791:
 /*!************************************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/main.js?{"page":"pages%2Fcompany_license%2Fcompany_license"} ***!
   \************************************************************************************************************************/
@@ -1023,5 +996,5 @@ createPage(_company_license.default);
 
 /***/ })
 
-},[[796,"common/runtime","common/vendor"]]]);
+},[[791,"common/runtime","common/vendor"]]]);
 //# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/company_license/company_license.js.map

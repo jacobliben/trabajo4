@@ -1,4 +1,5 @@
 {
   "navigationBarTitleText": "徐工智联",
+  "enablePullDownRefresh": false,
   "usingComponents": {}
 }

@@ -153,7 +153,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var inputId = function inputId() {__webpack_require__.e(/*! require.ensure | components/register/input_id */ "components/register/input_id").then((function () {return resolve(__webpack_require__(/*! @/components/register/input_id.vue */ 1020));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var xflSelect = function xflSelect() {__webpack_require__.e(/*! require.ensure | components/xfl-select/xfl-select */ "components/xfl-select/xfl-select").then((function () {return resolve(__webpack_require__(/*! @/components/xfl-select/xfl-select.vue */ 324));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var inputId = function inputId() {__webpack_require__.e(/*! require.ensure | components/register/input_id */ "components/register/input_id").then((function () {return resolve(__webpack_require__(/*! @/components/register/input_id.vue */ 1040));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var xflSelect = function xflSelect() {__webpack_require__.e(/*! require.ensure | components/xfl-select/xfl-select */ "components/xfl-select/xfl-select").then((function () {return resolve(__webpack_require__(/*! @/components/xfl-select/xfl-select.vue */ 324));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
 
 
@@ -381,7 +381,7 @@ var _self;var _default =
     },
 
     bindTextAreaBlur: function bindTextAreaBlur(e) {
-      console.log(e.detail.value);
+
     },
     //get the result from the dropdown
     getPlateColor: function getPlateColor(e) {
@@ -409,20 +409,6 @@ var _self;var _default =
           var tempFilePaths = res.tempFilePaths;
 
 
-          //preview the photos
-          // uni.previewImage({
-          //             urls: res.tempFilePaths,
-          //             longPressActions: {
-          //                 itemList: ['发送给朋友', '保存图片', '收藏'],
-          //                 success: function(data) {
-          //                     console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
-
-          //                 },
-          //                 fail: function(err) {
-          //                     console.log(err.errMsg);
-          //                 }
-          //             }
-          //         });
 
           //upload the img 
           _self.imgDriverLicenseUrl = tempFilePaths[0];
@@ -445,12 +431,7 @@ var _self;var _default =
             } });
 
 
-          uploadTask.onProgressUpdate(function (res) {
-            _self.percent = res.progress;
-            console.log('上传进度' + res.progress);
-            console.log('已经上传的数据长度' + res.totalBytesSent);
-            console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend);
-          });
+
 
         },
         error: function error(e) {
@@ -471,21 +452,6 @@ var _self;var _default =
         success: function success(res) {
           var tempFilePaths = res.tempFilePaths;
 
-
-          //preview the photos
-          // uni.previewImage({
-          //             urls: res.tempFilePaths,
-          //             longPressActions: {
-          //                 itemList: ['发送给朋友', '保存图片', '收藏'],
-          //                 success: function(data) {
-          //                     console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
-
-          //                 },
-          //                 fail: function(err) {
-          //                     console.log(err.errMsg);
-          //                 }
-          //             }
-          //         });
 
           //upload the img 
           _self.imgTransportLicenseUrl = tempFilePaths[0];
@@ -513,17 +479,9 @@ var _self;var _default =
             } });
 
 
-          uploadTask.onProgressUpdate(function (res) {
-            _self.percent = res.progress;
-            console.log('上传进度' + res.progress);
-            console.log('已经上传的数据长度' + res.totalBytesSent);
-            console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend);
-          });
 
-        },
-        error: function error(e) {
-          console.log(e);
         } });
+
 
     },
 
@@ -540,20 +498,6 @@ var _self;var _default =
           var tempFilePaths = res.tempFilePaths;
 
 
-          //preview the photos
-          // uni.previewImage({
-          //             urls: res.tempFilePaths,
-          //             longPressActions: {
-          //                 itemList: ['发送给朋友', '保存图片', '收藏'],
-          //                 success: function(data) {
-          //                     console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
-
-          //                 },
-          //                 fail: function(err) {
-          //                     console.log(err.errMsg);
-          //                 }
-          //             }
-          //         });
 
           //upload the img 
           _self.imgDrivingCertificateUrl = tempFilePaths[0];
@@ -581,17 +525,9 @@ var _self;var _default =
             } });
 
 
-          uploadTask.onProgressUpdate(function (res) {
-            _self.percent = res.progress;
-            console.log('上传进度' + res.progress);
-            console.log('已经上传的数据长度' + res.totalBytesSent);
-            console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend);
-          });
 
-        },
-        error: function error(e) {
-          console.log(e);
         } });
+
 
     },
 
@@ -609,21 +545,6 @@ var _self;var _default =
         success: function success(res) {
           var tempFilePaths = res.tempFilePaths;
 
-
-          //preview the photos
-          // uni.previewImage({
-          //             urls: res.tempFilePaths,
-          //             longPressActions: {
-          //                 itemList: ['发送给朋友', '保存图片', '收藏'],
-          //                 success: function(data) {
-          //                     console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
-
-          //                 },
-          //                 fail: function(err) {
-          //                     console.log(err.errMsg);
-          //                 }
-          //             }
-          //         });
 
           //upload the img 
           _self.imgManCarPhotoUrl = tempFilePaths[0];
@@ -651,12 +572,7 @@ var _self;var _default =
             } });
 
 
-          uploadTask.onProgressUpdate(function (res) {
-            _self.percent = res.progress;
-            console.log('上传进度' + res.progress);
-            console.log('已经上传的数据长度' + res.totalBytesSent);
-            console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend);
-          });
+
 
         },
         error: function error(e) {
@@ -721,7 +637,7 @@ var _self;var _default =
       // 获取主Activity对象的实例  
       var main = plus.android.runtimeMainActivity();
       // 创建Intent  
-      var uri = Uri.parse("13783712192"); // 这里可修改电话号码  
+      var uri = Uri.parse("051687739070"); // 这里可修改电话号码  
       var call = new Intent("android.intent.action.CALL", uri);
       // 调用startActivity方法拨打电话  
       main.startActivity(call);

@@ -617,12 +617,12 @@
 			 	    // error
 			 	}
 				
-				//同步清理本地数据缓存
-				try {
-				    uni.clearStorageSync();
-				} catch (e) {
-				    // error
-				}
+				// //同步清理本地数据缓存
+				// try {
+				//     uni.clearStorageSync();
+				// } catch (e) {
+				//     // error
+				// }
 				
 				
 				//restore the original shipping order status

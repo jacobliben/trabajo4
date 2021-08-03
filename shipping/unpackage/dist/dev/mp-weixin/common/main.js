@@ -27,6 +27,7 @@ _vue.default.prototype.$photo = _takephoto.myImage;
 
 _vue.default.prototype.$waitAccept = 28; //待接收    
 _vue.default.prototype.$waitSendDispatch = 30; //待派车 
+_vue.default.prototype.$waitAuditLoadInfo = 33; //待装货
 _vue.default.prototype.$waitSign = 50; //待签收
 _vue.default.prototype.$waitDepart = 40; //待发车
 _vue.default.prototype.$waitConfirmReceipt = 80; //待确认收货
@@ -38,11 +39,6 @@ _vue.default.prototype.$getRouters = _data.getRouters;
 _vue.default.prototype.$registCarrier = _registCarrier.myRegisterCarrier;
 _vue.default.prototype.pattern = pattern;
 
-//正式库 危险！！！
-//Vue.prototype.BASE_URL = 'https://wl.xcmgzhilian.com' + '/prod-api'
-//测试库
-_vue.default.prototype.BASE_URL = 'http://10.22.2.138:8080';
-//Vue.prototype.BASE_URL = 'http://10.22.0.136:8080' 
 _App.default.mpType = 'app';
 
 var app = new _vue.default(_objectSpread(_objectSpread({},
@@ -128,29 +124,32 @@ __webpack_require__.r(__webpack_exports__);
 
   },
   onShow: function onShow() {
-    //console.log('App Show')
+
 
     //if there is no network
     uni.getNetworkType({
       success: function success(res) {
         var routes = getCurrentPages(); // 获取当前打开过的页面路由数组
-        var curRoute = routes[routes.length - 1].route; //获取当前页面路由
-        uni.setStorageSync("current_page", curRoute);
-        if (res.networkType == 'none') {
-          setTimeout(function () {
-            uni.showToast({
-              icon: 'none',
-              title: '网络异常,请检查网络设置!',
-              duration: 2000,
-              position: 'bottom' });
+        if (routes.length > 1) {
+          var curRoute = routes[routes.length - 1].route; //获取当前页面路由
+          uni.setStorageSync("current_page", curRoute);
+          if (res.networkType == 'none') {
+            setTimeout(function () {
+              uni.showToast({
+                icon: 'none',
+                title: '网络异常,请检查网络设置!',
+                duration: 2000,
+                position: 'bottom' });
 
 
-            uni.reLaunch({
-              url: "/pages/no_network/no_network" });
+              uni.reLaunch({
+                url: "/pages/no_network/no_network" });
 
-          }, 20);
+            }, 20);
 
+          }
         }
+
 
       } });
 
@@ -219,7 +218,7 @@ __webpack_require__.r(__webpack_exports__);
 
   },
   onHide: function onHide() {
-    //console.log('App Hide')
+
   },
   globalData: {} };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

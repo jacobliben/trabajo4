@@ -65,9 +65,7 @@
     "pages/select_vehicle/select_vehicle",
     "pages/choose_company/choose_company",
     "pages/choose_identity/choose_identity",
-    "pages/register_driver/register_driver",
     "pages/personal_business_info/personal_business_info",
-    "pages/license/license",
     "pages/vehicle/vehicle",
     "pages/company_business_info/company_business_info",
     "pages/company_license/company_license",
@@ -86,14 +84,18 @@
     "pages/add_driver/add_driver",
     "pages/member/member",
     "pages/bind_id/bind_id",
-    "pages/11/11",
     "pages/dispatch_before/dispatch_before",
     "pages/camera/camera",
     "pages/camera/portrait/portrait",
     "pages/camera/idcard/idcard",
     "pages/camera/idphoto/idphoto",
     "pages/info_center/info_center",
-    "pages/message/message"
+    "pages/message/message",
+    "pages/dispatch_before_detail/dispatch_before_detail",
+    "pages/order_detail/order_detail",
+    "pages/inquiry/inquiry",
+    "pages/quote/quote",
+    "pages/cada_inquiry/cada_inquiry"
   ],
   "subPackages": [],
   "window": {
@@ -101,7 +103,7 @@
     "navigationBarTextStyle": "black",
     "navigationBarBackgroundColor": "#f8f8f8",
     "onReachBottomDistance": 200,
-    "enablePullDownRefresh": true
+    "enablePullDownRefresh": false
   },
   "tabBar": {
     "list": [
@@ -139,6 +141,5 @@
       "desc": "本小程序需要调用您的位置信息，以便为您提供更好的导航服务"
     }
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap.json"
+  "usingComponents": {}
 }

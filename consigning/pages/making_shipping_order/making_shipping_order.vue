@@ -9,7 +9,7 @@
 				<text class="copy" @click="copy(item.sourceNo)">复制</text>
 				</view>
 				<!-- 审核状态 -->
-				<text class="shipping_state">{{sourceAuditStatusOptions[sourceAuditStatusOptionValues.findIndex(value=>value==item.sourceAuditStatus)]}}</text>
+				<!-- <text class="shipping_state">{{sourceAuditStatusOptions[sourceAuditStatusOptionValues.findIndex(value=>value==item.sourceAuditStatus)]}}</text> -->
 			</view>
 			<view class="shipping_details">
 				<view class="shipping_content">
@@ -96,7 +96,7 @@
 			   this.getSourceAuditStatusOptions()
 			},
 		mounted(){
-			
+			console.log(this.now_state,'now_state')
 			
 		    //货源
 			this.getMakingShippingOrderList()
@@ -162,7 +162,7 @@
 			
 			//货源
 			 async getMakingShippingOrderList(){
-			  
+			  this.queryParams.sourceStatus = this.now_state.state
 				var queryParams= this.queryParams
 				var authorization = uni.getStorageSync("token")
 				

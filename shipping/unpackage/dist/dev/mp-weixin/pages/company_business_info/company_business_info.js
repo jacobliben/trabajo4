@@ -310,7 +310,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _pattern = __webpack_require__(/*! @/util/pattern.js */ 15);
 var _mmmmImageTools = __webpack_require__(/*! @/js_sdk/mmmm-image-tools */ 315);
-var _jsBase = __webpack_require__(/*! @/js_sdk/js-base64 */ 316);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var simpleAddressHigh = function simpleAddressHigh() {Promise.all(/*! require.ensure | components/simple-address-high/simple-address */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/simple-address-high/simple-address")]).then((function () {return resolve(__webpack_require__(/*! @/components/simple-address-high/simple-address.vue */ 994));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+var _jsBase = __webpack_require__(/*! @/js_sdk/js-base64 */ 316);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var simpleAddressHigh = function simpleAddressHigh() {Promise.all(/*! require.ensure | components/simple-address-high/simple-address */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/simple-address-high/simple-address")]).then((function () {return resolve(__webpack_require__(/*! @/components/simple-address-high/simple-address.vue */ 1014));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 var graceChecker = __webpack_require__(/*! ../../js_sdk/graceui-dataChecker/graceChecker.js */ 307);
 var _self;var _default =
 
@@ -715,11 +715,6 @@ var _self;var _default =
 
 
 
-                                //preview the photos
-                                // uni.previewImage({
-                                //             urls: res.tempFilePaths,
-
-                                //         });
 
 
                                 //upload the img 
@@ -746,11 +741,7 @@ var _self;var _default =
                     success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
                                 tempFilePaths = res.tempFilePaths;
 
-                                //preview the photos
-                                // uni.previewImage({
-                                //             urls: res.tempFilePaths,
 
-                                //         });
 
                                 //upload the img 
                                 _self.imglegalPersonCerReverseUrl = tempFilePaths[0];
@@ -774,13 +765,6 @@ var _self;var _default =
                   _this.$photo({
                     success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
                                 tempFilePaths = res.tempFilePaths;
-
-
-                                //preview the photos
-                                // uni.previewImage({
-                                //             urls: res.tempFilePaths,
-
-                                //         });
 
 
                                 //upload the img
@@ -894,11 +878,7 @@ var _self;var _default =
 
 
 
-                    //preview the photos
-                    // uni.previewImage({
-                    //             urls: res.tempFilePaths,
 
-                    //         });
 
                     //upload the img 
                     _self.imgBusinessLicenseUrl = tempFilePaths[0];
@@ -1018,11 +998,7 @@ var _self;var _default =
 
 
 
-                    //preview the photos
-                    // uni.previewImage({
-                    //             urls: res.tempFilePaths,
 
-                    //         });
 
                     //upload the img 
                     _self.imgBusinessLicenseUrl = _tempFilePaths[0];
@@ -1034,49 +1010,41 @@ var _self;var _default =
 
                       _self.$upload({
                         url: _pattern.ossLocation.carrier.front,
-                        file_path: _tempFilePaths[0] }));case 15:_resPhoto = _context5.sent;case 16:_context5.next = 26;break;case 18:if (!(
+                        file_path: _tempFilePaths[0] }));case 15:_resPhoto = _context5.sent;case 16:_context5.next = 25;break;case 18:if (!(
 
 
 
 
 
-                    e.currentTarget.dataset.index == "transport_license")) {_context5.next = 26;break;}
+                    e.currentTarget.dataset.index == "transport_license")) {_context5.next = 25;break;}
                     /**
                                                                                                          * 道路运输经营许可证
                                                                                                          */
                     _tempFilePaths2 = res.tempFilePaths;
-                    console.log(_tempFilePaths2, "876");
 
-                    //preview the photos
-                    // uni.previewImage({
-                    //             urls: res.tempFilePaths,
-
-                    //         });
 
                     //upload the img 
                     _self.imgTransportLicenseUrl = _tempFilePaths2[0];
 
                     //make the tachar img appear
-                    _self.tachar_transport_license = true;_context5.next = 25;return (
+                    _self.tachar_transport_license = true;_context5.next = 24;return (
 
 
                       _self.$upload({
                         url: _pattern.ossLocation.carrier.road,
-                        file_path: _tempFilePaths2[0] }));case 25:_resPhoto2 = _context5.sent;case 26:case "end":return _context5.stop();}}}, _callee5);}))();
+                        file_path: _tempFilePaths2[0] }));case 24:_resPhoto2 = _context5.sent;case 25:case "end":return _context5.stop();}}}, _callee5);}))();
 
 
 
 
 
-        },
-        error: function error(e) {
-          console.log(e);
         } });
+
 
     },
 
     cancelLicense: function cancelLicense(e) {
-      console.log(e, "199");
+
       if (e.currentTarget.dataset.index == "legal_person_cer_front") {
         this.imglegalPersonCerFrontUrl = "/static/id_front.jpg",
         setTimeout(function () {
@@ -1336,7 +1304,7 @@ var _self;var _default =
 
       this.params.carrierContactsPhone = this.tel;
 
-      console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value));
+
       uni.setStorageSync("params_business", this.params);
 
       this.params.the_step = 3;
@@ -1382,7 +1350,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 795:
+/***/ 790:
 /*!************************************************************************************************************************************!*\
   !*** C:/Users/lenovo/Documents/HBuilderProjects/shipping/main.js?{"page":"pages%2Fcompany_business_info%2Fcompany_business_info"} ***!
   \************************************************************************************************************************************/
@@ -1398,5 +1366,5 @@ createPage(_company_business_info.default);
 
 /***/ })
 
-},[[795,"common/runtime","common/vendor"]]]);
+},[[790,"common/runtime","common/vendor"]]]);
 //# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/company_business_info/company_business_info.js.map

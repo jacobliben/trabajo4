@@ -2,23 +2,23 @@
 	<view class="full-screen ">
 		<form class="screen-cover" @submit="formSubmit" @reset="formReset">
 			<view class="head">
-				<image src="/static/driver-version.png" mode="widthFix" class="drivers" @click="go"></image>
+				<image src="/static/driver-version.png" mode="widthFix" class="drivers"></image>
 			</view>
 		    
 			<view class="login-inputs radius">
 				<view class="user-login">
 					<text class="cuIcon-people text-style text-blue"></text>
-					<input type="text" placeholder="请输入用户账号"   focus @input="getUserAccount" class="account-input">
+					<input type="text" placeholder="请输入用户账号" :value="username"  focus @input="getUserAccount" class="account-input">
 					
 				</view>
 				<view class="user-password" v-if="hidePass">
 					<text class="cuIcon-lock text-style text-blue"></text>
-					<input type="text" placeholder="请输入用户密码"  password @input="getUserpassword" class="password-input">
+					<input type="text" placeholder="请输入用户密码" :value="password" password @input="getUserpassword" class="password-input">
 					<text class="cuIcon-attentionforbid text-style text-gray end-icon" @click="hidePass=!hidePass"></text>
 				</view>
 				<view class="user-password" v-if="!hidePass">
 					<text class="cuIcon-lock text-style text-blue"></text>
-					<input type="text" placeholder="请输入用户密码"   @input="getUserpassword" class="password-input">
+					<input type="text" placeholder="请输入用户密码"  :value="password" @input="getUserpassword" class="password-input">
 					<text class="cuIcon-attention text-style text-gray end-icon" @click="hidePass=!hidePass"></text>
 				</view>
 			</view>
@@ -51,7 +51,9 @@
 				
 		</view> -->
 		</form>
-		
+		<view>
+			{{mn}}
+		</view>
 		<!-- <view class="rapid-login">
 			<text class="left-line"></text>
 			<text class="rapid-title">快速登录</text>
@@ -87,10 +89,14 @@
 	export default {
 		data() {
 			return {
+				mn:"",
 				userAccount:"",
 				userPassword:"",
 				code:"",
-				hidePass:true
+				hidePass:true,
+				
+				username:"",
+				password:"",
 			}
 		},
 		onLoad(){
@@ -110,37 +116,53 @@
 			
 			
 		},
+		onShow(){
+		            uni.getSystemInfo({
+		                success:(res) => {
+							this.mn = res
+		                    //检测当前平台，如果是安卓则启动安卓更新  
+		                    // if(res.platform=="android"){  
+		                    //     this.AndroidCheckUpdate();  
+		                    // }  
+		                }  
+		            })
+		        },
+		
+		mounted() {
+			
+				this.username = uni.getStorageSync("username")
+				this.password = uni.getStorageSync("password")
+			
+			
+		},
 	    
 		methods: {
-			 go(){
-			// 	uni.navigateTo({
-			// 	url:"/pages/11/11"
-			// 	  })
 			
-				// // //Android 获取camera
-				// var main = plus.android.runtimeMainActivity();
-				//    //通过反射获取Android的Intent对象
-				//   var Intent = plus.android.importClass("android.content.Intent");
-				//   //通过宿主上下文创建 intent
-				//   var intent = new Intent(main.getIntent());
-				//   //设置要开启的Activity包类路径  com.HBuilder.integrate.MainActivity换掉你自己的界面
-				//   intent.setClassName(main, "io.dcloud.UNIACABF38.Camera");
-				//   //开启新的任务栈 （跨进程）
-				//   intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				//   //开启新的界面
-				//   main.startActivity(intent);
-				
-				
-			},
 			getUserAccount(e){
-				//this.userAccount = e.target.value
-				this.userAccount = Base64.encode(e.target.value)
+				this.username = e.target.value
+				
+				uni.setStorageSync("username",this.username)
 				
 				
 			},
 			
 			getUserpassword(e){
+				this.password = e.target.value
 				
+				uni.setStorageSync("password",this.password)
+				
+			},
+			wechatLogin(){
+				uni.switchTab({
+				url:"/pages/index/index"
+				})
+			},
+			
+			 async formSubmit(){
+				//encode the username
+				this.userAccount = Base64.encode(this.username)
+				
+				//encode the password
 				var CRYPTOJSKEY = "paj2ksAc1pWeOgT621zcKQ==";
 				
 				// 加密
@@ -162,21 +184,17 @@
 				  }
 				  return plaintText;
 				}
-				var result = repeatedlyEncrypt(e.target.value,10)
+				var result = repeatedlyEncrypt(this.password,10)
 				
 				this.userPassword = result 
-			},
-			wechatLogin(){
-				uni.switchTab({
-				url:"/pages/index/index"
-				})
-			},
-			
-			 async formSubmit(){
-				 const user_data = {
-				 	username:this.userAccount,
-				 	password:this.userPassword
-				 }
+				
+				
+				//use the encoded username and password to login
+				
+				const user_data = {
+					username:this.userAccount,
+					password:this.userPassword
+				}
 				 
 				const res = await this.$request({
 					url:"/login",
@@ -234,9 +252,47 @@
 				
 				
 			},
-			formReset:()=>{
-				
-			},
+			
+			
+			  /**
+			             * 安卓应用的检测更新实现
+			             */
+			AndroidCheckUpdate:function(){  
+			        var _this = this;  
+			                uni.request({
+			                    //请求地址，设置为自己的服务器链接
+			                    url: GLOBAL.DOMAIN_URL+'/uniapi/checkAndroidVersion.html',
+			                    //method: 'GET',  
+			                    data: {},  
+			                    success: resMz => {
+			                        var server_version = resMz.data.data.version;
+			                        var currTimeStamp = resMz.data.data.timestamp;
+			                        // 判断缓存时间
+			                        uni.getStorage({
+			                            key: 'tip_version_update_time',
+			                            success: function (res) {
+			                                var lastTimeStamp = res.data;
+			                                //定义提醒的时间间隔，避免烦人的一直提示，一个小时：3600；一天：86400
+			                                var tipTimeLength = 3600;
+			                                if((lastTimeStamp+tipTimeLength) > currTimeStamp){
+			                                    //避免多次提醒，不要更新
+			                                    console.log("避免多次提醒，不要更新");
+			                                }else{
+			                                    //重新设置时间戳
+			                                    _this.setStorageForAppVersion(currTimeStamp);
+			                                    //进行版本型号的比对 以及下载更新请求
+			                                    _this.checkVersionToLoadUpdate(server_version, _this.version);
+			                                }
+			                            },
+			                            fail:function(res){
+			                                _this.setStorageForAppVersion(currTimeStamp);
+			                            }
+			                        });
+			                    },  
+			                    fail: () => {},  
+			                    complete: () => {}  
+			                });  
+			            },  
 			
 			 ...mapMutations(['login'])  
 		}

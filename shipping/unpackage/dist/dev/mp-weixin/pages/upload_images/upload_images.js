@@ -298,6 +298,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
 var _pattern = __webpack_require__(/*! @/util/pattern.js */ 15);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}
 var _self;
 var origin_location;
@@ -320,6 +328,9 @@ var destiny_longitude;var _default =
       tachar_order: false,
       received_info: {},
       btn_title: "",
+      signed_weight: "",
+      shippingNoteInfos: [], //运单信息数组
+
       //是否可以“发车”，“签收”等
       canDispatch: null,
       short_distance: null,
@@ -327,7 +338,9 @@ var destiny_longitude;var _default =
         "dispatchId": "",
         "signWeight": "",
         "leavePhoto": "",
-        "receiptPhoto": "" },
+        "receiptPhoto": "",
+        pageNum: 1,
+        pageSize: 7 },
 
       lng: null,
       lat: null,
@@ -348,13 +361,13 @@ var destiny_longitude;var _default =
   onLoad: function onLoad(options) {var _this = this;
     var that = this;
     this.received_info = uni.getStorageSync("upload_item");
-
+    this.signed_weight = this.received_info.dispatchGoodsWeight;
     this.btn_title = options.btn_title;
 
     //for calcating distance of delivery
     uni.request({
       //传入高德web服务端key和发货地址
-      url: "https://restapi.amap.com/v3/geocode/geo?address=".concat(this.received_info.iscmShipper.shipperAddress, "&key=ae8b30ff7c227fb962010579230bf568"), //请求地名变经纬度
+      url: "https://restapi.amap.com/v3/geocode/geo?address=".concat(this.received_info.iscmDispatchInformationRecord.shipperAddress, "&key=ae8b30ff7c227fb962010579230bf568"), //请求地名变经纬度
 
       success: function success(res) {
         origin_location = res.data.geocodes[0].location.split(",");
@@ -363,7 +376,7 @@ var destiny_longitude;var _default =
 
         uni.request({
           //传入高德web服务端key和目的地址
-          url: "https://restapi.amap.com/v3/geocode/geo?address=".concat(_this.received_info.iscmConsignee.consigneeAddress, "&key=ae8b30ff7c227fb962010579230bf568"), //请求地名变经纬度
+          url: "https://restapi.amap.com/v3/geocode/geo?address=".concat(_this.received_info.iscmDispatchInformationRecord.consigneeAddress, "&key=ae8b30ff7c227fb962010579230bf568"), //请求地名变经纬度
 
           success: function success(res) {
 
@@ -394,7 +407,7 @@ var destiny_longitude;var _default =
     //解析目的地地址信息
     uni.request({
       //传入高德web服务端key和发货地址
-      url: "https://restapi.amap.com/v3/geocode/geo?address=".concat(this.received_info.iscmShipper.shipperAddress, "&key=ae8b30ff7c227fb962010579230bf568") //请求地名变经纬度
+      url: "https://restapi.amap.com/v3/geocode/geo?address=".concat(this.received_info.iscmDispatchInformationRecord.shipperAddress, "&key=ae8b30ff7c227fb962010579230bf568") //请求地名变经纬度
     });
 
 
@@ -503,12 +516,6 @@ var destiny_longitude;var _default =
                     success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
                                 tempFilePaths = res.tempFilePaths;
 
-                                //preview the photos
-                                // uni.previewImage({
-                                //             urls: res.tempFilePaths,
-
-                                //         });
-
 
                                 //upload the img
                                 _self.imgGoodsUrl = tempFilePaths[0];
@@ -538,12 +545,6 @@ var destiny_longitude;var _default =
                     success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
                                 tempFilePaths = res.tempFilePaths;
 
-                                //preview the photos
-                                uni.previewImage({
-                                  urls: res.tempFilePaths });
-
-
-
 
                                 //upload the img
                                 _self.imgOrderUrl = tempFilePaths[0];
@@ -552,11 +553,11 @@ var destiny_longitude;var _default =
                                 _self.tachar_order = true;
 
                                 //upload
-                                _context2.next = 6;return _self.$upload({
+                                _context2.next = 5;return _self.$upload({
                                   url: _pattern.ossLocation.dispatch.fhd,
                                   file_path: tempFilePaths[0],
                                   header: {
-                                    Authorization: authorization } });case 6:resPhoto = _context2.sent;case 7:case "end":return _context2.stop();}}}, _callee2);}))();
+                                    Authorization: authorization } });case 5:resPhoto = _context2.sent;case 6:case "end":return _context2.stop();}}}, _callee2);}))();
 
 
 
@@ -572,13 +573,6 @@ var destiny_longitude;var _default =
                     success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
                                 tempFilePaths = res.tempFilePaths;
 
-                                //preview the photos
-                                uni.previewImage({
-                                  urls: res.tempFilePaths });
-
-
-
-
                                 //upload the img
                                 _self.imgOrderUrl = tempFilePaths[0];
 
@@ -586,11 +580,11 @@ var destiny_longitude;var _default =
                                 _self.tachar_order = true;
 
                                 //upload
-                                _context3.next = 6;return _self.$upload({
+                                _context3.next = 5;return _self.$upload({
                                   url: _pattern.ossLocation.dispatch.leave,
                                   file_path: tempFilePaths[0],
                                   header: {
-                                    Authorization: authorization } });case 6:resPhoto = _context3.sent;case 7:case "end":return _context3.stop();}}}, _callee3);}))();
+                                    Authorization: authorization } });case 5:resPhoto = _context3.sent;case 6:case "end":return _context3.stop();}}}, _callee3);}))();
 
 
 
@@ -606,10 +600,10 @@ var destiny_longitude;var _default =
                                 tempFilePaths = res.tempFilePaths;
 
                                 //preview the photos
-                                uni.previewImage({
-                                  urls: res.tempFilePaths });
+                                // uni.previewImage({
+                                //             urls: res.tempFilePaths,
 
-
+                                //         });
 
 
                                 //upload the img
@@ -619,11 +613,11 @@ var destiny_longitude;var _default =
                                 _self.tachar_order = true;
 
                                 //upload
-                                _context4.next = 6;return _self.$upload({
+                                _context4.next = 5;return _self.$upload({
                                   url: _pattern.ossLocation.dispatch.receive,
                                   file_path: tempFilePaths[0],
                                   header: {
-                                    Authorization: authorization } });case 6:resPhoto = _context4.sent;case 7:case "end":return _context4.stop();}}}, _callee4);}))();
+                                    Authorization: authorization } });case 5:resPhoto = _context4.sent;case 6:case "end":return _context4.stop();}}}, _callee4);}))();
 
 
 
@@ -663,7 +657,7 @@ var destiny_longitude;var _default =
     },
 
 
-    confirm: function confirm() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6() {var authorization, queryParams, res, _res, _res2;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:
+    confirm: function confirm() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6() {var authorization, queryParams, res, shippingNoteNumber, serialNumber, startCountrySubdivisionCode, endCountrySubdivisionCode, shippingNoteInfos, _res, _res2;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:
                 authorization = uni.getStorageSync("token");if (!(
                 _this3.btn_title === '装货')) {_context6.next = 20;break;}
                 //派车单确认装货
@@ -712,8 +706,8 @@ var destiny_longitude;var _default =
                     title: res.data.msg,
                     duration: 9000 });
 
-                }_context6.next = 54;break;case 20:if (!(
-                _this3.btn_title === '发车')) {_context6.next = 34;break;}
+                }_context6.next = 61;break;case 20:if (!(
+                _this3.btn_title === '发车')) {_context6.next = 42;break;}
                 //派车单确认发车
 
                 _this3.queryParams.dispatchId = _this3.received_info.dispatchId;
@@ -725,7 +719,50 @@ var destiny_longitude;var _default =
                 _this3.queryParams.leavePhoto) {_context6.next = 27;break;}
                 uni.showToast({
                   title: "请上传发车单据！",
-                  icon: "none" });return _context6.abrupt("return");case 27:_context6.next = 29;return (
+                  icon: "none" });return _context6.abrupt("return");case 27:
+
+
+
+
+                //向监管SDK发信息
+
+                shippingNoteNumber = _this3.received_info.dispatchNo;
+                serialNumber = "0000";
+
+                startCountrySubdivisionCode = _this3.startCountrySubdivisionCode;
+                endCountrySubdivisionCode = _this3.endCountrySubdivisionCode;
+
+                _this3.shippingNoteInfos[0] = shippingNoteNumber;
+                _this3.shippingNoteInfos[1] = serialNumber;
+                _this3.shippingNoteInfos[2] = startCountrySubdivisionCode;
+                _this3.shippingNoteInfos[3] = endCountrySubdivisionCode;
+
+
+
+                shippingNoteInfos = _this3.shippingNoteInfos;_context6.next = 38;return (
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -735,11 +772,11 @@ var destiny_longitude;var _default =
                     method: "PUT",
                     data: queryParams,
                     header: {
-                      Authorization: authorization } }));case 29:_res = _context6.sent;
+                      Authorization: authorization } }));case 38:_res = _context6.sent;
 
 
 
-                console.log(_res, "发车");
+
                 if (_res.data.msg == "操作成功") {
                   uni.showToast({
                     title: "操作成功" });
@@ -752,26 +789,26 @@ var destiny_longitude;var _default =
                   uni.showToast({
                     title: _res.data.msg });
 
-                }_context6.next = 54;break;case 34:if (!(
+                }_context6.next = 61;break;case 42:if (!(
 
 
-                _this3.btn_title === '签收')) {_context6.next = 53;break;}
+                _this3.btn_title === '签收')) {_context6.next = 60;break;}
                 //派车单确认签收
 
                 _this3.queryParams.dispatchId = _this3.received_info.dispatchId;
                 _this3.queryParams.receiptPhoto = uni.getStorageSync("receipt_pending_photo");
 
                 queryParams = _this3.queryParams;if (
-                _this3.queryParams.receiptPhoto) {_context6.next = 43;break;}
+                _this3.queryParams.receiptPhoto) {_context6.next = 51;break;}
                 uni.showToast({
                   title: "请上传签收单据！",
-                  icon: "none" });return _context6.abrupt("return");case 43:if (
+                  icon: "none" });return _context6.abrupt("return");case 51:if (
 
 
-                _this3.queryParams.signWeight) {_context6.next = 46;break;}
+                _this3.queryParams.signWeight) {_context6.next = 54;break;}
                 uni.showToast({
                   title: "请输入签收货物重量！",
-                  icon: "none" });return _context6.abrupt("return");case 46:_context6.next = 48;return (
+                  icon: "none" });return _context6.abrupt("return");case 54:_context6.next = 56;return (
 
 
 
@@ -782,11 +819,11 @@ var destiny_longitude;var _default =
                     method: "PUT",
                     data: queryParams,
                     header: {
-                      Authorization: authorization } }));case 48:_res2 = _context6.sent;
+                      Authorization: authorization } }));case 56:_res2 = _context6.sent;
 
 
 
-                console.log(_res2, "签收");
+
                 if (_res2.data.msg == "操作成功") {
                   uni.showToast({
                     title: "操作成功" });
@@ -803,10 +840,10 @@ var destiny_longitude;var _default =
                     title: _res2.data.msg,
                     icon: "none" });
 
-                }_context6.next = 54;break;case 53:
+                }_context6.next = 61;break;case 60:
 
                 //"已完成"和"全部"时
-                uni.navigateBack({});case 54:case "end":return _context6.stop();}}}, _callee6);}))();
+                uni.navigateBack({});case 61:case "end":return _context6.stop();}}}, _callee6);}))();
 
 
 

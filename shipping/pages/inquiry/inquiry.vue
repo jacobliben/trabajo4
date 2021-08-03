@@ -43,7 +43,8 @@
 					</view>
 					<view>
 						<image src="/static/end-time.svg" mode="aspectFit" class="sm-pic" ></image>
-						<text class="create_time border-red">询价结束: <text>{{item.stopTime}}</text> </text>		
+						<text class="create_time border-red">询价结束: <text>{{item.stopTime}} 
+						  </text> </text>		
 					</view>
 					
 					<view>
@@ -53,11 +54,11 @@
 						<text class="carrier">货源单号:{{item.sourceNo}}</text>		
 					</view>
 				</view>
-				
-				    <view class="actions">
+				    <!--  v-if="!(Date.parse(item.stopTime)- Date.parse(new Date()))>0" -->
+				    <view class="actions" >
 						 <image src="/static/ing.svg" class="bg-pic" v-if="item.enquiryStatus==2"  ></image>	
 						<button type="default" size="default" 
-						 class="receive-btn radius"
+						 class="receive-btn radius" 
 						  @click="quote(item)">报价</button>
 					</view>
 				
@@ -94,6 +95,7 @@
 			  settlementMethodOptions: [],
 			  settlementMethodSendValue: [],
 			  
+			
 			  inquiry_list:[],
 			  show_not_found:false,
 		      now_state:this.transporte_state,
@@ -197,8 +199,9 @@
 				
 				this.settlementMethodSendValue = settlementMethodOptions.data.data.map(e=>e.dictValue)
 			
-			},		
+			},
 					
+			
 			        
 			quote(item){
 				var that = this
