@@ -34,7 +34,8 @@
 }
 .name.data-v-f3f227b4 {
   color: #000;
-  width: 30%;
+  width: 90%;
+  font-size: 35rpx;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
           justify-content: center;

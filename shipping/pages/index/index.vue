@@ -13,10 +13,10 @@
 					
 			
 		  
-			<view @click="phoneCall">
+			<!-- <view @click="phoneCall">
 				<image src="/static/client-service.png" style="width:50rpx;height:50rpx;" mode="aspectFit"></image>
 				<view class="text-gray">客服</view>
-			</view>
+			</view> -->
 		  
 			
 			<view @click="goMessage">
@@ -31,7 +31,7 @@
 		  </view>
 		
 		
-		<view>
+	<!-- 	<view>
 		        <swiper class="swiper" autoplay circular duration="2000">
 		                        <swiper-item>
 		                            <view class="swiper-item">
@@ -49,7 +49,7 @@
 									</view>
 		                        </swiper-item>
 		         </swiper>
-		   </view>
+		   </view> -->
 		   
 		<!--   <view class="notice" v-if="show_notice" @click="noticeOk">	
 		      <cmd-notice-bar class="notice-bar" :text="notice_message" 
@@ -81,12 +81,13 @@
 					
 					<view class="one-icon" hover-class="one-icon-hover" @click="goDriverHome">
 					 					  <image src="/static/home-drivers.png" mode="aspectFit"></image>
-					 					  <text>司机之家</text>
+					 					  <text>货源大厅</text>
 					 </view>
-					 <view class="one-icon" hover-class="one-icon-hover" @click="goCalculatingKm">
+					 
+					<!-- <view class="one-icon" hover-class="one-icon-hover" @click="goCalculatingKm">
 					 					  <image src="/static/calculator.png" mode="aspectFit"></image>
 					 					  <text>里程计算</text>
-					 </view>
+					 </view> -->
 				   
 				   
 				   
@@ -127,16 +128,7 @@
 					   					  <text>确认签收</text>
 					   </view>
 					   
-					  <view class="one-icon" hover-class="one-icon-hover" @click="logout">
-						  
-					  					  <image src="/static/molecula.png" mode="aspectFit"></image>
-										   <!-- #ifdef MP-WEIXIN -->
-					  			<navigator open-type="exit" target="miniProgram"><text>退出</text></navigator>
-										      <!-- #endif -->
-											 <!-- #ifndef MP-WEIXIN --> 
-											 <text>退出</text>
-											   <!-- #endif -->
-					  </view>
+					
 			   </view>
 		   </view>
 		   
@@ -607,37 +599,7 @@
 			 		
 			 	});
 			 	      },
-			 logout(){
-			 	
-			 	try {
-			 	    uni.removeStorageSync('token');
-			 		uni.removeStorageSync('user_info');
-			 		this.user = ""
-			 	} catch (e) {
-			 	    // error
-			 	}
-				
-				// //同步清理本地数据缓存
-				// try {
-				//     uni.clearStorageSync();
-				// } catch (e) {
-				//     // error
-				// }
-				
-				
-				//restore the original shipping order status
-				this.show_shipping_order = true
-			 	
-			 	uni.reLaunch({
-			 		url:'/pages/login/login'
-			 	})  
-			 
-			 	
-			 	// // #ifdef APP-PLUS 
-				 
-			 	// plus.runtime.quit();  
-			 	// // #endif
-			 }
+			
 		}
 	}
 </script>

@@ -156,7 +156,7 @@
 	   <view class="cu-form-group" @click="logout">
 	   		   <view>
 	   		   	    <image src="/static/wrench.png"  class="sm-pic" ></image>
-	   			<text>退出登录(不保存用户名和密码)</text>
+	   			<text>退出登录</text>
 	   			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
@@ -488,29 +488,29 @@
 				try {
 				    uni.removeStorageSync('token');
 					uni.removeStorageSync('user_info');
-					//this.user = ""
+					this.user = ""
 				} catch (e) {
-				   
+				    // error
 				}
-				
-				//同步清理本地数据缓存
-				try {
-				    uni.clearStorageSync();
-				} catch (e) {
-				   
-				}
-				
-				//restore the original show driver status
-			    this.show_shipping_order = true
-				this.show_driver = true
-				this.show_vehicle = true
-				this.show_bankcard = true
+							
+							// //同步清理本地数据缓存
+							// try {
+							//     uni.clearStorageSync();
+							// } catch (e) {
+							//     // error
+							// }
+							
+							
+							//restore the original shipping order status
+							this.show_shipping_order = true
 				
 				uni.reLaunch({
 					url:'/pages/login/login'
-				})
+				})  
+			
+				
 				// // #ifdef APP-PLUS 
-				 
+							 
 				// plus.runtime.quit();  
 				// // #endif
 			}

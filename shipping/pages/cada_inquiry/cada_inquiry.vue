@@ -153,14 +153,14 @@
 								<view class="cu-form-group">
 											     <view class="name">运输{{txt}}价(元)<text class="star">*</text></view>
 											     <view class="ref-name">
-											     	<input type="number" placeholder="请输入运输价"   @input ="getQuotePrice">
+											     	<input type="number" :value="quotePrice" placeholder="请输入运输价"   @input ="getQuotePrice">
 											     </view>
 								</view>
 								
 								<view class="cu-form-group">
 											     <view class="name">运输重量(吨)<text class="star">*</text></view>
 											     <view class="ref-name">
-											     	<input type="number" placeholder="请输入运输重量"   @input ="getTransportWeight">
+											     	<input type="number" :value="transportWeight" placeholder="请输入运输重量"   @input ="getTransportWeight">
 											     </view>
 								</view>
 								
@@ -201,7 +201,13 @@
 		data() {
 			return {
 				remark:"",
-				params:{},
+				quotePrice:"",
+				transportWeight:"",
+				params:{
+					
+					
+					
+				},
 				received_info:null,
 				detailed:"",
 				// 货物分类字典
@@ -221,6 +227,8 @@
 				txt:"单",
 				//允许“确定”按钮
 				letEnable:false,
+				
+				
 				
 				disabled:true,
 				active:false,
@@ -253,7 +261,7 @@
 								  	 	
 								  	 })
 							
-								    console.log(res,'inquiry');
+								    
 									this.detailed = res.data.data
 									console.log(this.detailed,'detailed')
 									
@@ -264,6 +272,72 @@
 									}
 									
 		},
+		watch:{
+					quotePrice(val, oldVal) {
+                         console.log('quotePrice: %s, old: %s', val, oldVal)
+						 
+						 if (this.params.quotePrice > this.detailed.highestPrice){
+						 	
+						 	if (this.detailed.orderWay ==2 ){
+						 		uni.showToast({
+						 			title:"运输总价不能超过拦标总价, 请重新输入",
+						 			icon:"none",
+						 			duration:3000,
+						 		})
+						 		
+						 		//disable the btn if failed the price test
+						 		this.disabled= true
+						 		this.active = false 
+						 	}else{
+						 		uni.showToast({
+						 			title:"运输单价不能超过拦标单价, 请重新输入",
+						 			icon:"none",
+						 			duration:3000,
+						 		})
+						 		//disable the btn  if failed the price test
+						 		this.disabled= true
+						 		this.active = false 
+						 		
+						 	}
+						  return	 
+						 //check both price and weight to ensure the btn being activated correctly.										 
+						 }else if (this.params.quotePrice > 0 && this.params.transportWeight >0  && this.params.quotePrice <= this.detailed.highestPrice&&this.params.transportWeight <= this.detailed.iscmSource.goodsWeight ){
+						 	//enable the btn if passing both the weight check and price check
+						 	this.disabled= false 
+						 	this.active = true
+						 }else{
+						 	//disable the btn  if failed any test
+						 	this.disabled= true
+						 	this.active = false 
+						 }
+                     },
+					transportWeight(val, oldVal) {
+                         console.log('transportWeight: %s, old: %s', val, oldVal)
+						 
+						 if (this.params.transportWeight > this.detailed.iscmSource.goodsWeight){
+						 	uni.showToast({
+						 		title:"运输重量不能超过货物重量, 请重新输入",
+						 		icon:"none",
+						 		duration:3000,
+						 	})
+						 	//disable the btn if failed the weight test
+						 	this.disabled= true
+						 	this.active = false 
+						  return	 										
+						 }else if(this.params.quotePrice > 0 && this.params.transportWeight >0  && this.params.quotePrice <= this.detailed.highestPrice&&this.params.transportWeight <= this.detailed.iscmSource.goodsWeight ){
+						 	//enable the btn if passing both the weight check and price check
+						 	this.disabled= false 
+						 	this.active = true
+						 }else{
+						 	//disable the btn  if failed any test
+						 	this.disabled= true
+						 	this.active = false 
+						 }
+                     },
+					
+					
+					immediate:true, // watch侦听操作内的函数会立刻被执行
+				},
 		methods: {
 			// 货物分类字典
 			async getGoodsTypeOptions(){
@@ -313,10 +387,11 @@
 			},		
 			
 			getQuotePrice(e){
-				
+				this.quotePrice  = e.detail.value
 				this.params.quotePrice = e.detail.value
+				console.log(this.params.quotePrice,'quotePrice');
+				//this.checkPrice()
 				
-				this.checkPrice()
 			},
 			
 			checkPrice(){
@@ -329,7 +404,7 @@
 							duration:3000,
 						})
 						
-						//disable the btn
+						//disable the btn if failed the price test
 						this.disabled= true
 						this.active = false 
 					}else{
@@ -338,21 +413,36 @@
 							icon:"none",
 							duration:3000,
 						})
-						//disable the btn
+						//disable the btn  if failed the price test
 						this.disabled= true
 						this.active = false 
 						
 					}
-					
-					
-				 return	 										
+				 return	 
+				//check both price and weight to ensure the btn being activated correctly.										 
+				}else if (this.params.quotePrice > 0 && this.params.transportWeight >0  && this.params.quotePrice <= this.detailed.highestPrice&&this.params.transportWeight <= this.detailed.iscmSource.goodsWeight ){
+					//enable the btn if passing both the weight check and price check
+					this.disabled= false 
+					this.active = true
+				}else{
+					//disable the btn  if failed any test
+					this.disabled= true
+					this.active = false 
 				}
+				
+				
+				
 			},
 			
+			
+			
+			
 			getTransportWeight(e){
-				
+				this.transportWeight  = e.detail.value
 				this.params.transportWeight = e.detail.value
-				this.checkWeight()
+				console.log(this.params.transportWeight,'transportWeight');
+				
+				//this.checkWeight()
 				
 				
 				
@@ -366,17 +456,18 @@
 						icon:"none",
 						duration:3000,
 					})
-					//disable the btn
+					//disable the btn if failed the weight test
 					this.disabled= true
 					this.active = false 
 				 return	 										
-				}else {
-					
-						//enable the btn
-						this.disabled= false 
-						this.active = true
-					
-					
+				}else if(this.params.quotePrice > 0 && this.params.transportWeight >0  && this.params.quotePrice <= this.detailed.highestPrice&&this.params.transportWeight <= this.detailed.iscmSource.goodsWeight ){
+					//enable the btn if passing both the weight check and price check
+					this.disabled= false 
+					this.active = true
+				}else{
+					//disable the btn  if failed any test
+					this.disabled= true
+					this.active = false 
 				}
 			},
 			
@@ -414,7 +505,7 @@
 							 return	 										
 							}
 							
-							this.checkPrice()
+							
 							
 							
 							//进行运输重量检查
@@ -458,7 +549,7 @@
 									
 								})
 								setTimeout(()=>{
-								   uni.reLaunch({
+								   uni.navigateTo({
 								   	url:"/pages/inquiry/inquiry"
 								   })
 								},800)

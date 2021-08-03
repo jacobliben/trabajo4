@@ -257,16 +257,19 @@ var Base64 = _base.default.Base64;var _default =
 {
   data: function data() {
     return {
+
       userAccount: "",
       userPassword: "",
       code: "",
       hidePass: true,
 
+      version: 20.0,
+
       username: "",
       password: "" };
 
   },
-  onLoad: function onLoad() {
+  onLoad: function onLoad() {var _this = this;
     var that = this;
     // uni.showLoading({
     // 	title:"登录中"
@@ -280,18 +283,17 @@ var Base64 = _base.default.Base64;var _default =
     // 		uni.hideLoading()
     // 	}
     // })
+    this.AndroidCheckUpdate();
 
 
-  },
-  onShow: function onShow() {var _this2 = this;
     uni.getSystemInfo({
       success: function success(res) {
-
         //检测当前平台，如果是安卓则启动安卓更新  
         if (res.platform == "android") {
-          _this2.AndroidCheckUpdate();
+          _this.AndroidCheckUpdate();
         }
       } });
+
 
   },
 
@@ -325,7 +327,7 @@ var Base64 = _base.default.Base64;var _default =
 
     },
 
-    formSubmit: function formSubmit() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var CRYPTOJSKEY,
+    formSubmit: function formSubmit() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var CRYPTOJSKEY,
 
 
 
@@ -351,19 +353,19 @@ var Base64 = _base.default.Base64;var _default =
                   }
                   return plaintText;
                 };encrypt = function _encrypt(plaintText) {var options = { mode: _cryptoJs.default.mode.ECB, padding: _cryptoJs.default.pad.Pkcs7 };var key = _cryptoJs.default.enc.Utf8.parse(CRYPTOJSKEY);var encryptedData = _cryptoJs.default.AES.encrypt(plaintText, key, options);return encryptedData.toString();}; //encode the username
-                _this3.userAccount = Base64.encode(_this3.username); //encode the password
+                _this2.userAccount = Base64.encode(_this2.username); //encode the password
                 CRYPTOJSKEY = "paj2ksAc1pWeOgT621zcKQ=="; // 加密
-                result = repeatedlyEncrypt(_this3.password, 10);_this3.userPassword = result;
+                result = repeatedlyEncrypt(_this2.password, 10);_this2.userPassword = result;
 
 
                 //use the encoded username and password to login
 
                 user_data = {
-                  username: _this3.userAccount,
-                  password: _this3.userPassword };_context.next = 9;return (
+                  username: _this2.userAccount,
+                  password: _this2.userPassword };_context.next = 9;return (
 
 
-                  _this3.$request({
+                  _this2.$request({
                     url: "/login",
                     method: "POST",
                     data: user_data }));case 9:res = _context.sent;
@@ -380,7 +382,7 @@ var Base64 = _base.default.Base64;var _default =
 
 
                 //get this user's permission rights 
-                _context.next = 16;return _this3.$request({
+                _context.next = 16;return _this2.$request({
                   url: "/getInfo",
 
                   header: {
@@ -419,49 +421,83 @@ var Base64 = _base.default.Base64;var _default =
 
 
     },
-    formReset: function formReset() {
 
-    },
 
     /**
                   * 安卓应用的检测更新实现
                   */
-    AndroidCheckUpdate: function AndroidCheckUpdate() {
-      var _this = this;
-      uni.request({
-        //请求地址，设置为自己的服务器链接
-        url: GLOBAL.DOMAIN_URL + '/uniapi/checkAndroidVersion.html',
-        //method: 'GET',  
-        data: {},
-        success: function success(resMz) {
-          var server_version = resMz.data.data.version;
-          var currTimeStamp = resMz.data.data.timestamp;
-          // 判断缓存时间
-          uni.getStorage({
-            key: 'tip_version_update_time',
-            success: function success(res) {
-              var lastTimeStamp = res.data;
-              //定义提醒的时间间隔，避免烦人的一直提示，一个小时：3600；一天：86400
-              var tipTimeLength = 3600;
-              if (lastTimeStamp + tipTimeLength > currTimeStamp) {
-                //避免多次提醒，不要更新
-                console.log("避免多次提醒，不要更新");
-              } else {
-                //重新设置时间戳
-                _this.setStorageForAppVersion(currTimeStamp);
-                //进行版本型号的比对 以及下载更新请求
-                _this.checkVersionToLoadUpdate(server_version, _this.version);
-              }
-            },
-            fail: function fail(res) {
-              _this.setStorageForAppVersion(currTimeStamp);
-            } });
 
-        },
-        fail: function fail() {},
-        complete: function complete() {} });
+    AndroidCheckUpdate: function AndroidCheckUpdate() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var that, res, appDownload, appVersion, oldVersion;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+                that = _this3;_context2.next = 3;return (
+                  _this3.$request({
+                    url: "/iscm/appVersion/version/" + that.version }));case 3:res = _context2.sent;
+
+
+
+                appDownload = res.data.data.download;
+                appVersion = res.data.data.appVersion;
+                oldVersion = that.version;if (!(
+                oldVersion < appVersion)) {_context2.next = 14;break;}if (!(
+
+                plus.networkinfo.getCurrentType() != 3)) {_context2.next = 13;break;}
+                uni.showToast({
+                  title: '有新的版本发布，检测到您目前非Wifi连接，为节约您的流量，程序已停止自动更新，将在您连接WIFI之后重新检测更新',
+                  mask: true,
+                  duration: 5000,
+                  icon: "none" });return _context2.abrupt("return");case 13:
+
+
+
+                uni.showModal({
+                  title: "版本更新",
+                  content: '有新的版本发布，检测到您当前为Wifi连接，是否立即进行新版本下载？',
+                  confirmText: '立即更新',
+                  cancelText: '稍后进行',
+                  success: function success(res) {
+                    if (res.confirm) {
+                      uni.showToast({
+                        icon: "none",
+                        mask: true,
+                        title: '有新的版本发布，检测到您目前为Wifi连接，程序已启动自动更新。新版本下载完成后将自动弹出安装程序',
+                        duration: 5000 });
+
+                      //设置 最新版本apk的下载链接
+                      var downloadApkUrl = appDownload;
+                      var dtask = plus.downloader.createDownload(downloadApkUrl, {}, function (d, status) {
+                        // 下载完成  
+                        if (status == 200) {
+                          plus.runtime.install(plus.io.convertLocalFileSystemURL(d.filename), {}, {}, function (error) {
+                            uni.showToast({
+                              title: '安装失败',
+                              duration: 1500 });
+
+                          });
+                        } else {
+                          uni.showToast({
+                            title: '更新失败',
+                            duration: 1500 });
+
+                        }
+                      });
+                      dtask.start();
+                    } else if (res.cancel) {
+                      console.log('稍后更新');
+                    }
+                  } });case 14:case "end":return _context2.stop();}}}, _callee2);}))();
+
+
+
+
+
+
+
+
+
+
+
 
     } },
+
 
   (0, _vuex.mapMutations)(['login'])) };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

@@ -267,6 +267,8 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var g3 = Date.parse(new Date())
+
   var l0 = _vm.__map(_vm.inquiry_list, function(item, index) {
     var $orig = _vm.__get_orig(item)
 
@@ -276,10 +278,12 @@ var render = function() {
     var g1 = _vm.settlementMethodSendValue.findIndex(function(value) {
       return value == item.settlementMethod
     })
+    var g2 = Date.parse(item.stopTime)
     return {
       $orig: $orig,
       g0: g0,
-      g1: g1
+      g1: g1,
+      g2: g2
     }
   })
 
@@ -287,6 +291,7 @@ var render = function() {
     {},
     {
       $root: {
+        g3: g3,
         l0: l0
       }
     }
@@ -400,6 +405,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _info_not_found = _interopRequireDefault(__webpack_require__(/*! @/pages/info_not_found/info_not_found.vue */ 248));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 {
   data: function data() {
@@ -419,6 +425,7 @@ var _info_not_found = _interopRequireDefault(__webpack_require__(/*! @/pages/inf
       //计价方式
       settlementMethodOptions: [],
       settlementMethodSendValue: [],
+
 
       inquiry_list: [],
       show_not_found: false,
@@ -524,6 +531,7 @@ var _info_not_found = _interopRequireDefault(__webpack_require__(/*! @/pages/inf
                 _this5.settlementMethodSendValue = settlementMethodOptions.data.data.map(function (e) {return e.dictValue;});case 5:case "end":return _context4.stop();}}}, _callee4);}))();
 
     },
+
 
 
     quote: function quote(item) {

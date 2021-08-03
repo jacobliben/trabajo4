@@ -367,7 +367,13 @@ var _default =
   data: function data() {
     return {
       remark: "",
+      quotePrice: "",
+      transportWeight: "",
       params: {},
+
+
+
+
       received_info: null,
       detailed: "",
       // 货物分类字典
@@ -385,6 +391,10 @@ var _default =
 
       //单总价
       txt: "单",
+      //允许“确定”按钮
+      letEnable: false,
+
+
 
       disabled: true,
       active: false };
@@ -417,7 +427,7 @@ var _default =
 
 
 
-              console.log(res, 'inquiry');
+
               _this.detailed = res.data.data;
               console.log(_this.detailed, 'detailed');
 
@@ -425,8 +435,74 @@ var _default =
                 _this.txt = "总";
               } else {
                 _this.txt = "单";
-              }case 14:case "end":return _context.stop();}}}, _callee);}))();
+              }case 13:case "end":return _context.stop();}}}, _callee);}))();
 
+  },
+  watch: {
+    quotePrice: function quotePrice(val, oldVal) {
+      console.log('quotePrice: %s, old: %s', val, oldVal);
+
+      if (this.params.quotePrice > this.detailed.highestPrice) {
+
+        if (this.detailed.orderWay == 2) {
+          uni.showToast({
+            title: "运输总价不能超过拦标总价, 请重新输入",
+            icon: "none",
+            duration: 3000 });
+
+
+          //disable the btn if failed the price test
+          this.disabled = true;
+          this.active = false;
+        } else {
+          uni.showToast({
+            title: "运输单价不能超过拦标单价, 请重新输入",
+            icon: "none",
+            duration: 3000 });
+
+          //disable the btn  if failed the price test
+          this.disabled = true;
+          this.active = false;
+
+        }
+        return;
+        //check both price and weight to ensure the btn being activated correctly.										 
+      } else if (this.params.quotePrice > 0 && this.params.transportWeight > 0 && this.params.quotePrice <= this.detailed.highestPrice && this.params.transportWeight <= this.detailed.iscmSource.goodsWeight) {
+        //enable the btn if passing both the weight check and price check
+        this.disabled = false;
+        this.active = true;
+      } else {
+        //disable the btn  if failed any test
+        this.disabled = true;
+        this.active = false;
+      }
+    },
+    transportWeight: function transportWeight(val, oldVal) {
+      console.log('transportWeight: %s, old: %s', val, oldVal);
+
+      if (this.params.transportWeight > this.detailed.iscmSource.goodsWeight) {
+        uni.showToast({
+          title: "运输重量不能超过货物重量, 请重新输入",
+          icon: "none",
+          duration: 3000 });
+
+        //disable the btn if failed the weight test
+        this.disabled = true;
+        this.active = false;
+        return;
+      } else if (this.params.quotePrice > 0 && this.params.transportWeight > 0 && this.params.quotePrice <= this.detailed.highestPrice && this.params.transportWeight <= this.detailed.iscmSource.goodsWeight) {
+        //enable the btn if passing both the weight check and price check
+        this.disabled = false;
+        this.active = true;
+      } else {
+        //disable the btn  if failed any test
+        this.disabled = true;
+        this.active = false;
+      }
+    },
+
+
+    immediate: true // watch侦听操作内的函数会立刻被执行
   },
   methods: {
     // 货物分类字典
@@ -477,10 +553,11 @@ var _default =
     },
 
     getQuotePrice: function getQuotePrice(e) {
-
+      this.quotePrice = e.detail.value;
       this.params.quotePrice = e.detail.value;
+      console.log(this.params.quotePrice, 'quotePrice');
+      //this.checkPrice()
 
-      this.checkPrice();
     },
 
     checkPrice: function checkPrice() {
@@ -492,35 +569,72 @@ var _default =
             icon: "none",
             duration: 3000 });
 
+
+          //disable the btn if failed the price test
+          this.disabled = true;
+          this.active = false;
         } else {
           uni.showToast({
             title: "运输单价不能超过拦标单价, 请重新输入",
             icon: "none",
             duration: 3000 });
 
+          //disable the btn  if failed the price test
+          this.disabled = true;
+          this.active = false;
+
         }
-
-
         return;
+        //check both price and weight to ensure the btn being activated correctly.										 
+      } else if (this.params.quotePrice > 0 && this.params.transportWeight > 0 && this.params.quotePrice <= this.detailed.highestPrice && this.params.transportWeight <= this.detailed.iscmSource.goodsWeight) {
+        //enable the btn if passing both the weight check and price check
+        this.disabled = false;
+        this.active = true;
+      } else {
+        //disable the btn  if failed any test
+        this.disabled = true;
+        this.active = false;
       }
+
+
+
     },
 
+
+
+
     getTransportWeight: function getTransportWeight(e) {
-
+      this.transportWeight = e.detail.value;
       this.params.transportWeight = e.detail.value;
+      console.log(this.params.transportWeight, 'transportWeight');
 
+      //this.checkWeight()
+
+
+
+    },
+
+
+    checkWeight: function checkWeight() {
       if (this.params.transportWeight > this.detailed.iscmSource.goodsWeight) {
         uni.showToast({
           title: "运输重量不能超过货物重量, 请重新输入",
           icon: "none",
           duration: 3000 });
 
+        //disable the btn if failed the weight test
+        this.disabled = true;
+        this.active = false;
         return;
+      } else if (this.params.quotePrice > 0 && this.params.transportWeight > 0 && this.params.quotePrice <= this.detailed.highestPrice && this.params.transportWeight <= this.detailed.iscmSource.goodsWeight) {
+        //enable the btn if passing both the weight check and price check
+        this.disabled = false;
+        this.active = true;
+      } else {
+        //disable the btn  if failed any test
+        this.disabled = true;
+        this.active = false;
       }
-
-      //enable the btn
-      this.disabled = false;
-      this.active = true;
     },
 
     getTransportDays: function getTransportDays(e) {
@@ -550,37 +664,37 @@ var _default =
                 uni.showToast({
                   title: "未输入运输单价, 请输入",
                   icon: "none",
-                  duration: 3000 });return _context6.abrupt("return");case 5:
+                  duration: 3000 });return _context6.abrupt("return");case 5:if (!(
 
 
 
 
 
 
-                _this6.checkPrice();
 
 
-                //进行运输重量检查
-                if (!(_this6.params.transportWeight == null || _this6.params.transportWeight == "" || _this6.params.transportWeight.length < 1)) {_context6.next = 9;break;}
+
+
+                _this6.params.transportWeight == null || _this6.params.transportWeight == "" || _this6.params.transportWeight.length < 1)) {_context6.next = 8;break;}
                 uni.showToast({
                   title: "未输入运输重量, 请输入",
                   icon: "none",
-                  duration: 3000 });return _context6.abrupt("return");case 9:if (!(
+                  duration: 3000 });return _context6.abrupt("return");case 8:if (!(
 
 
 
 
-                _this6.params.transportWeight > _this6.detailed.iscmSource.goodsWeight)) {_context6.next = 12;break;}
+                _this6.params.transportWeight > _this6.detailed.iscmSource.goodsWeight)) {_context6.next = 11;break;}
                 uni.showToast({
                   title: "运输重量不能超过货物重量, 请重新输入",
                   icon: "none",
-                  duration: 3000 });return _context6.abrupt("return");case 12:
+                  duration: 3000 });return _context6.abrupt("return");case 11:
 
 
 
 
                 authorization = uni.getStorageSync("token");
-                form = _this6.params;_context6.next = 16;return (
+                form = _this6.params;_context6.next = 15;return (
 
 
 
@@ -589,7 +703,7 @@ var _default =
                     method: "POST",
                     data: form,
                     header: {
-                      Authorization: authorization } }));case 16:res = _context6.sent;
+                      Authorization: authorization } }));case 15:res = _context6.sent;
 
 
 
@@ -601,7 +715,7 @@ var _default =
 
 
                   setTimeout(function () {
-                    uni.reLaunch({
+                    uni.navigateTo({
                       url: "/pages/inquiry/inquiry" });
 
                   }, 800);
@@ -611,7 +725,7 @@ var _default =
                     icon: "none",
                     duration: 3000 });
 
-                }case 19:case "end":return _context6.stop();}}}, _callee6);}))();
+                }case 18:case "end":return _context6.stop();}}}, _callee6);}))();
 
 
 
