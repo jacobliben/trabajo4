@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "历史派车单详情",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "info-not-found": "/pages/info_not_found/info_not_found"
-  }
-}

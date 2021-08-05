@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "multiselect": "/node-modules/vue-multiselect/src/Multiselect"
-  }
-}

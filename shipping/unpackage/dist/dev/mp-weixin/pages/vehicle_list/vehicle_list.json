@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "车辆管理",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "vehicle-has-approved": "/pages/vehicle_has_approved/vehicle_has_approved"
-  }
-}

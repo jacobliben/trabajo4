@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "添加驾驶员",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "xfl-select": "/components/xfl-select/xfl-select"
-  }
-}

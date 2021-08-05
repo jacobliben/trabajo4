@@ -1,11 +1,10 @@
 {
   "pages": [
-    "pages/login_general/login_general",
+    "pages/login/login",
     "pages/index/index",
     "pages/shipping_order/shipping_order",
     "pages/detail/detail",
     "pages/tel_login/tel_login",
-    "pages/login/login",
     "pages/accounts/accounts",
     "pages/register/register",
     "pages/recover_account/recover_account",
