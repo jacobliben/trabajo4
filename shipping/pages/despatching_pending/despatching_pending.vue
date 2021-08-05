@@ -3,7 +3,7 @@
 		<scroll-view  scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
 		  lower-threshold="200" enable-flex="true" >
 		  
-		<view v-for="(item,index) in despatching_pending_list" :key="index" class="one_waybill " >
+		<view v-for="(item,index) in despatching_pending_list" :key="index" class="one_waybill " @click="goUploadFiles(item)">
 			<view class="first-row">
 				<view>
 				<text selectable>{{item.dispatchNo}}</text>
@@ -131,6 +131,9 @@
 			}else if (this.btn_text ==="查验"&& user_permissions.includes("iscm:dispatch:sign") ){
 						  this.canDispatch = true
 			}
+			
+			//显示按钮
+			uni.setStorageSync("canDispatch",this.canDispatch)
 			
 			this.getDespatchingPendingList()
 			

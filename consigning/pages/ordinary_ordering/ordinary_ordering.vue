@@ -654,9 +654,6 @@
 			
 			//指定下单方式
 			radioSourceOrderWayChange(e){
-			    console.log(e,'zx');
-			   
-				console.log(e.target.value,'aq');
 				
 				if (e.target.value== "1"){
 					this.params.orderWay= 1
@@ -827,25 +824,24 @@
 						},						
 			//货物分类选择
 			bindPickerGoodsTypeChange(e) {
-						            console.log('picker发送选择改变，携带值为货物类型', e.target.value)
+						            
 						            this.goods_type_index = e.target.value
 									
 									var goods_type_index = this.goods_type_index
 									
 									 this.params.goodsType =this.goodsTypeSendValue[goods_type_index]
-									 console.log (this.params.goodsType,"货物类型后台值")
+									
 									
 						        },	
 			
 			//包装类型选择
 			bindPickerPackageTypeChange(e) {
-						            console.log('picker发送选择改变，携带值为货物类型', e.target.value)
+						          
 						            this.package_type_index = e.target.value
 									
 									var package_type_index = this.package_type_index
 									
 									 this.params.packageType =this.packageTypeSendValue[package_type_index]
-									console.log (this.params.packageType,"包装类型后台值")
 									
 						        },	
 								
@@ -861,7 +857,7 @@
 			                        this.$set(item,'checked',false)
 			                    }
 			                }
-							console.log(values,'er32');
+							
 							this.params.cargoBoxType = values
 			            
 			        },
@@ -877,7 +873,7 @@
 			                        this.$set(item,'checked',false)
 			                    }
 			                }
-							console.log(values,'as1232');
+							
 							this.params.vehicleLengths = values
 			            
 			        },	
@@ -900,19 +896,12 @@
 				      if(e.currentTarget.dataset.index=="assignSendTimeTime"){
 				      								  this.assignSendTimeTime = e.target.value
 				      								  this.params.assignSendTimeTime = e.target.value
-													  //装货开始总
-													  // if (this.assignSendTimeDate == undefined
-													  //    || this.assignSendTimeDate == null 
-														 // || this.assignSendTimeDate == ""
-														 // || this.assignSendTimeDate.length <1
-													  // ){
-														 // this.assignSendTimeDate = new Date()
-													  // }
+													  
 													 this.assignSendTime =  this.assignSendTimeDate +" "+  this.assignSendTimeTime
 													 this.params.assignSendTime =  this.params.assignSendTimeDate +" "+  this.params.assignSendTimeTime
 													  
 				      								  this.assignSendTimeTime_has_input = true
-													 console.log(Date.parse(this.assignSendTime),'qe'); 
+													 
 				      }else if(e.currentTarget.dataset.index=="assignEndTimeTime"){
 				      								  //装货截止时刻
 				      								  this.assignEndTimeTime = e.target.value
@@ -922,9 +911,7 @@
 													  this.assignEndTime =  this.assignEndTimeDate +" "+ this.assignEndTimeTime 
 													  this.params.assignEndTime =  this.params.assignEndTimeDate +" "+ this.params.assignEndTimeTime 
 				      								  this.assignEndTimeTime_has_input = true
-													  
-													  console.log(Date.parse(this.assignEndTime),'ke');
-														  
+													    
 													  if (Date.parse(this.assignSendTime)> Date.parse(this.assignEndTime)){
 														  uni.showToast({
 														  	title:"装货截止时间不能早于装货开始时间",
@@ -939,13 +926,13 @@
 			        },
 			//计价方式						   
 			bindPickerSettlementTypeChange(e) {
-						            console.log('picker发送选择改变，携带值为计价方式', e.target.value)
+						           
 						            this.settlement_type_index = e.target.value
 									
 									var settlement_type_index = this.package_type_index
 									
 									 this.params.settlementMethod =this.settlementTypeSendValue[settlement_type_index]
-									console.log (this.params.settlementMethod,"计价方式后台值")
+									
 									
 						        },	   
 									   
@@ -1036,7 +1023,7 @@
 				var that = this
 				this.carrier = e.target.value
 				const carrierName = this.carrier
-				console.log (carrierName,'11qss')
+				
 				
 				var authorization = uni.getStorageSync("token")
 				
@@ -1047,7 +1034,7 @@
 				   	  Authorization:authorization,
 				     },
 				    success: (res) => {
-				        console.log(res, '11qm');
+				      
 				        
 						if (res.data.code=="200"){
 							that.show_carrier_hint = true
@@ -1458,8 +1445,17 @@
 										}
 										
 										uni.switchTab({
-											url:"/pages/choose_order_type/choose_order_type"
-										})
+																					                       //此处必须用相对路径，保证刷新
+										                           url: '../choose_order_type/choose_order_type',
+										                           success: function (res) {
+										                             var page = getCurrentPages().pop();
+										                             if (page == undefined || page == null) return;
+										                             page.onShow();
+										                             
+										                             
+										                           },
+										                           
+										                         })
 										
 									},
 		}

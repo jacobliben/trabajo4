@@ -23,6 +23,7 @@
 }
 .waybill-body.data-v-4aa3ea96 {
   background-color: #fff;
+  padding-bottom: 20rpx;
 }
 .one-icon-hover.data-v-4aa3ea96 {
   -webkit-transform: scale(1.2);

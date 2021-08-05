@@ -63,7 +63,7 @@
 	   <view class="cu-form-group" @click="logout">
 	   		   <view>
 	   		   	    <image src="/static/wrench.png" mode="" class="sm-pic" ></image>
-	   			<text>退出登录  (不保存用户名和密码)</text>
+	   			<text> 退出登录 </text>
 	   			</view>	
 	   			
 	   </view>
@@ -208,25 +208,25 @@
 			
 			logout(){
 				
-				try {
+				try {consignor_contact
 				    uni.removeStorageSync('token');
 					uni.removeStorageSync('user_info');
+				    uni.removeStorageSync('avatar');
+					uni.removeStorageSync('consignor_contact');
+					uni.removeStorageSync('consignee_contact');
 					this.user = ""
 				} catch (e) {
-				   
+				    // error
 				}
+							
+							
+							
 				
-				//同步清理本地数据缓存
-				try {
-				    uni.clearStorageSync();
-				} catch (e) {
-				   
-				}
-				
-				
-				uni.navigateTo({
+				uni.reLaunch({
 					url:'/pages/login/login'
-				})
+				})  
+			
+				
 				
 			}
 		}

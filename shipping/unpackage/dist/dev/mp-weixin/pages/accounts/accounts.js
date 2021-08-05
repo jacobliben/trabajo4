@@ -295,6 +295,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 
 {
@@ -469,6 +477,12 @@ var _default =
     this.show_bankcard = true;
   },
   methods: {
+    phoneCall: function phoneCall() {
+      uni.makePhoneCall({
+        phoneNumber: '051687739070' });
+
+
+    },
     uploadAvatar: function uploadAvatar(e) {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var _self, authorization, resChoosePhoto;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
                 _self = _this3;
                 authorization = uni.getStorageSync("token");
@@ -620,26 +634,26 @@ var _default =
       try {
         uni.removeStorageSync('token');
         uni.removeStorageSync('user_info');
-        //this.user = ""
+        this.user = "";
       } catch (e) {
 
-      }
+      } // error
 
-      //同步清理本地数据缓存
-      try {
-        uni.clearStorageSync();
-      } catch (e) {
+      // //同步清理本地数据缓存
+      // try {
+      //     uni.clearStorageSync();
+      // } catch (e) {
+      //     // error
+      // }
 
-      }
 
-      //restore the original show driver status
+      //restore the original shipping order status
       this.show_shipping_order = true;
-      this.show_driver = true;
-      this.show_vehicle = true;
-      this.show_bankcard = true;
 
       uni.reLaunch({
         url: '/pages/login/login' });
+
+
 
       //
 

@@ -17,7 +17,7 @@
 			</view>
 			
 			<view class="top-line flex-bar">
-						     <view class="name">手机号 （手机号也可作为个人用户登录账号）</view>
+						     <view class="name">手机号（手机号为个人用户登录账号）</view>
 						     <view class="ref-name">
 								<view>{{user.data.user.phonenumber}}</view>
 							 </view>
@@ -281,9 +281,14 @@
 	   border-bottom:1rpx solid #ddd;
 	   
    }
+   
    .top-line{
    		 border-top:1rpx solid #d5d5d8;
+		 height:80rpx;
+		 line-height: 80rpx;
    }
+   
+  
    
    .flex-bar{
    		 display: flex;

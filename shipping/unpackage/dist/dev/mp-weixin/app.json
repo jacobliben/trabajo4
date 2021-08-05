@@ -95,7 +95,8 @@
     "pages/order_detail/order_detail",
     "pages/inquiry/inquiry",
     "pages/quote/quote",
-    "pages/cada_inquiry/cada_inquiry"
+    "pages/cada_inquiry/cada_inquiry",
+    "pages/hall/hall"
   ],
   "subPackages": [],
   "window": {
@@ -124,6 +125,12 @@
         "pagePath": "pages/way_bill/way_bill",
         "iconPath": "static/orders.png",
         "selectedIconPath": "static/orders-selected.png"
+      },
+      {
+        "text": "货源大厅",
+        "pagePath": "pages/hall/hall",
+        "iconPath": "static/hall.png",
+        "selectedIconPath": "static/hall-selected.png"
       },
       {
         "text": "我的",

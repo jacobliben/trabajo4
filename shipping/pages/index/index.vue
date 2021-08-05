@@ -79,7 +79,7 @@
 					   </view>
 				   
 					
-					<view class="one-icon" hover-class="one-icon-hover" @click="goDriverHome">
+					<view class="one-icon" hover-class="one-icon-hover" @click="goHall">
 					 					  <image src="/static/home-drivers.png" mode="aspectFit"></image>
 					 					  <text>货源大厅</text>
 					 </view>
@@ -517,10 +517,10 @@
 					url:"/pages/about_car_boss/about_car_boss"
 				})
 			},
-			goDriverHome(){
-				this.show_notice = false
+			goHall(){
+				
 				uni.navigateTo({
-					url:"/pages/driver_home/driver_home"
+					url:"/pages/hall/hall"
 				})
 			},
 			 goDespatching(){

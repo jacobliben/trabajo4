@@ -340,14 +340,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-
 var _vuex = __webpack_require__(/*! vuex */ 12);
 
 
@@ -657,10 +649,10 @@ var dest_longitude;var _default =
         url: "/pages/about_car_boss/about_car_boss" });
 
     },
-    goDriverHome: function goDriverHome() {
-      this.show_notice = false;
+    goHall: function goHall() {
+
       uni.navigateTo({
-        url: "/pages/driver_home/driver_home" });
+        url: "/pages/hall/hall" });
 
     },
     goDespatching: function goDespatching() {
@@ -736,37 +728,6 @@ var dest_longitude;var _default =
     phoneCall: function phoneCall() {
       uni.makePhoneCall({
         phoneNumber: '051687739070' });
-
-
-    },
-    logout: function logout() {
-
-      try {
-        uni.removeStorageSync('token');
-        uni.removeStorageSync('user_info');
-        this.user = "";
-      } catch (e) {
-
-      } // error
-
-      // //同步清理本地数据缓存
-      // try {
-      //     uni.clearStorageSync();
-      // } catch (e) {
-      //     // error
-      // }
-
-
-      //restore the original shipping order status
-      this.show_shipping_order = true;
-
-      uni.reLaunch({
-        url: '/pages/login/login' });
-
-
-
-      //
-
 
 
     } } };exports.default = _default;

@@ -218,19 +218,14 @@
 			         }, 1000)
 					 
 					 
-					 
-					 
-					  
 			       },
 			radioChange: function(evt) {
 				
-				 
-					    console.log (evt,'911')
 					   uni.setStorageSync("consignee_contact", evt.target.value)
 					   
 					   setTimeout(
 					      ()=>{
-					   						 uni.navigateTo({
+					   				uni.navigateTo({
 					   						  url:"/pages/ordinary_ordering/ordinary_ordering",
 					   						 })
 					   					 },30

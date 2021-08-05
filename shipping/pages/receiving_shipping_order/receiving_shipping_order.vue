@@ -2,7 +2,7 @@
 	<view class="shipping-order-body">
 		<scroll-view  scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
 		  lower-threshold="200" enable-flex="true">
-		<view v-for="(item,index) in receiving_shipping_order_list" :key="index" class="one_shipping" v-if ="!show_not_found" >
+		<view v-for="(item,index) in receiving_shipping_order_list" :key="index" class="one_shipping" v-if ="!show_not_found" @click="goAcceptShippingOrder(item)">
 			<view class="first-row">
 				<view>
 				<text selectable>{{item.waybillNo}}</text>

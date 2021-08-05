@@ -173,7 +173,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _login = _interopRequireDefault(__webpack_require__(/*! @/pages/login/login */ 25));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniSegmentedControl = function uniSegmentedControl() {__webpack_require__.e(/*! require.ensure | uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control */ "uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control").then((function () {return resolve(__webpack_require__(/*! uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue */ 1000));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _login = _interopRequireDefault(__webpack_require__(/*! @/pages/login/login */ 25));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniSegmentedControl = function uniSegmentedControl() {__webpack_require__.e(/*! require.ensure | uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control */ "uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control").then((function () {return resolve(__webpack_require__(/*! uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue */ 1008));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   data: function data() {
     return {

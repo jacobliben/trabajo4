@@ -987,8 +987,7 @@
 				var that = this
 				this.carrier = e.target.value
 				const carrierName = this.carrier
-				console.log (carrierName,'11qss')
-				
+			
 				var authorization = uni.getStorageSync("token")
 				
 				uni.request({
@@ -998,8 +997,7 @@
 				   	  Authorization:authorization,
 				     },
 				    success: (res) => {
-				        console.log(res, '11qm');
-				        
+				      
 						if (res.data.code=="200"){
 							that.show_carrier_hint = true
 							
@@ -1403,11 +1401,6 @@
 										
 										
 										
-										
-										
-										
-										
-										
 										uni.showToast({
 											title:"提交成功！"
 										})
@@ -1419,9 +1412,21 @@
 										} catch (e) {
 										    // error
 										}
-										uni.switchTab({
-											url:"/pages/choose_order_type/choose_order_type"
-										})
+										
+										
+										 uni.switchTab({
+											                       //此处必须用相对路径，保证刷新
+										                            url: '../choose_order_type/choose_order_type',
+										                            success: function (res) {
+										                              var page = getCurrentPages().pop();
+										                              if (page == undefined || page == null) return;
+										                              page.onShow();
+										                              
+										                              
+										                            },
+										                            
+										                          })
+										
 									},
 		}
 	}

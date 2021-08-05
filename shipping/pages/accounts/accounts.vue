@@ -153,6 +153,14 @@
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
+	   <view class="cu-form-group" @click="phoneCall" >
+	   		   <view>
+	   		   	    <image src="/static/speech.svg"  class="sm-pic"></image>
+	   			<text>客服热线</text>
+	   			</view>	
+	   			<text class="cuIcon-right lg text-gray"></text>
+	   </view>
+	   
 	   <view class="cu-form-group" @click="logout">
 	   		   <view>
 	   		   	    <image src="/static/wrench.png"  class="sm-pic" ></image>
@@ -337,6 +345,12 @@
 			this.show_bankcard = true
 		},
 		methods: {
+			phoneCall(){
+				uni.makePhoneCall({
+				    phoneNumber: '051687739070' ,
+					
+				});
+				      },
 			async uploadAvatar(e){
 				var _self=this
 				var authorization = uni.getStorageSync("token")

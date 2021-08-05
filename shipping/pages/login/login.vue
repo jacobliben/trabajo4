@@ -51,7 +51,57 @@
 				
 		</view> -->
 		</form>
+		<view>
+			{{mm}}
+		</view>
+		<view>
+			{{rr}}
+		</view>
+		 <!-- download updated version of apk -->
+		<view class="cu-modal show" v-if="show_modal" >
+			
+			<view class="cu-dialog" >
+				<view class="cu-bar bg-white justify-end">
+					
+					<view class="content"></view>
+					<view @click="hideModal()" class="action">
+						<text class="cuIcon-close text-red"></text>
+					</view>
+				</view>
+				<image src="/static/car-version.png" mode="widthFix" class="car-version"></image>
+				<view class="msg-time">新版本升级</view>
+				<view class="padding-xl">
+					<view class="version-title">
+						{{new_version}} 新功能
+					</view>
+					 <view class="version-describe">
+						 {{new_version_describe}}
+					 </view>
+				</view>
+				<button  class="update"  size="mini" @click="hasSee()">升级体验</button>
+			</view>
+		</view>
 		
+		<!-- progess of new apk -->
+		<view class="cu-modal show" v-if="show_progress" >
+			
+			<view class="cu-dialog" >
+				
+				<view class="padding-xl">
+					<view class="progress-title">
+						下载中...
+					</view>
+					
+					<view class="cu-progress round margin-top xs">
+						<view class="bg-blue" :style="{width:percentage+'%',}" ></view>
+					</view>
+					 <view class="version-describe">
+						 {{new_version_describe}}
+					 </view>
+				</view>
+			
+			</view>
+		</view>
 		<!-- <view class="rapid-login">
 			<text class="left-line"></text>
 			<text class="rapid-title">快速登录</text>
@@ -87,13 +137,20 @@
 	export default {
 		data() {
 			return {
-				
+				mm:"",
+				rr:"",
 				userAccount:"",
 				userPassword:"",
 				code:"",
 				hidePass:true,
 				
 				version:20.0,
+				new_version:"",
+				new_version_describe:"",
+				appDownload:"",
+				show_modal:false,
+				show_progress:false,
+				percentage:18,
 				
 				username:"",
 				password:"",
@@ -101,6 +158,8 @@
 		},
 		onLoad(){
 			var that = this 
+			
+			
 			// uni.showLoading({
 			// 	title:"登录中"
 			// })
@@ -113,8 +172,8 @@
 			// 		uni.hideLoading()
 			// 	}
 			// })
-			this.AndroidCheckUpdate()
 			
+			//this.AndroidCheckUpdate()
 			
 			uni.getSystemInfo({
 			                success:(res) => {
@@ -124,18 +183,66 @@
 			                    }  
 			                }  
 			            })
+						
+						
+						
 			
 		},
 		
 		mounted() {
-			
+			    
 				this.username = uni.getStorageSync("username")
 				this.password = uni.getStorageSync("password")
 			
-			
+			    //this.showModal() 
+				this.showProgress()
 		},
 	    
 		methods: {
+			showModal(){
+				//显示modal消息
+				this.show_modal = true 
+			},
+			
+			hideModal(){
+				this.show_modal = false
+			},
+			hasSee(){
+				this.show_modal = false
+				//设置 最新版本apk的下载链接
+				 var downloadApkUrl = this.appDownload
+				var dtask = plus.downloader.createDownload( downloadApkUrl, {}, function ( d, status ) {  
+				        // 下载完成  
+				        if ( status == 200 ) {   
+				            plus.runtime.install(plus.io.convertLocalFileSystemURL(d.filename),{},{},function(error){  
+				                uni.showToast({  
+				                    title: '安装失败', 
+				                    duration: 1500  
+				                });  
+				            })
+				        } else {  
+				             uni.showToast({  
+				                title: '更新失败',
+				                duration: 1500  
+				             });  
+				        }    
+				    });  
+				dtask.start();
+				// downToaknew.addEventListener('statechanged', function ( task,status){
+					
+				// }
+				
+			},
+			
+			showProgress(){
+				//显示download progress
+				this.show_progress = true 
+			},
+			
+			hideProgress(){
+				this.show_progress = false
+			},
+			
 			
 			getUserAccount(e){
 				this.username = e.target.value
@@ -264,59 +371,46 @@
 					
 				})
 				
-				const appDownload = res.data.data.download
+				that.mm = res
+				that.appDownload = res.data.data.download
 				const appVersion = res.data.data.appVersion
 				const oldVersion = that.version
+				this.new_version = appVersion
+				this.new_version_describe = res.data.data.appDescribe
 				if (oldVersion<appVersion){
-					   // 此处判断是否为 WIFI连接状态
-					   if(plus.networkinfo.getCurrentType()!=3){
-					       uni.showToast({  
-					           title: '有新的版本发布，检测到您目前非Wifi连接，为节约您的流量，程序已停止自动更新，将在您连接WIFI之后重新检测更新',  
-					           mask: true,  
-					           duration: 5000,
-					           icon:"none"
-					       });  
-					       return;  
-					   }else{
-						  uni.showModal({
-						                              title: "版本更新",
-						                              content: '有新的版本发布，检测到您当前为Wifi连接，是否立即进行新版本下载？',
-						                              confirmText:'立即更新',
-						                              cancelText:'稍后进行',
-						                              success: function (res) {
-						                                  if (res.confirm) {
-						                                      uni.showToast({
-						                                          icon:"none",
-						                                          mask: true,
-						                                          title: '有新的版本发布，检测到您目前为Wifi连接，程序已启动自动更新。新版本下载完成后将自动弹出安装程序',  
-						                                          duration: 5000,  
-						                                      }); 
-						                                      //设置 最新版本apk的下载链接
-						                                       var downloadApkUrl = appDownload
-						                                      var dtask = plus.downloader.createDownload( downloadApkUrl, {}, function ( d, status ) {  
-						                                              // 下载完成  
-						                                              if ( status == 200 ) {   
-						                                                  plus.runtime.install(plus.io.convertLocalFileSystemURL(d.filename),{},{},function(error){  
-						                                                      uni.showToast({  
-						                                                          title: '安装失败', 
-						                                                          duration: 1500  
-						                                                      });  
-						                                                  })
-						                                              } else {  
-						                                                   uni.showToast({  
-						                                                      title: '更新失败',
-						                                                      duration: 1500  
-						                                                   });  
-						                                              }    
-						                                          });  
-						                                      dtask.start();
-						                                  } else if (res.cancel) {
-						                                      console.log('稍后更新');
-						                                  }
-						                              }
-						                          });
+					that.showModal()
+					
+					   // // 此处判断是否为 WIFI连接状态
+					   // if(plus.networkinfo.getCurrentType()!=3){
+					   //     uni.showToast({  
+					   //         title: '有新的版本发布，检测到您目前非Wifi连接，为节约您的流量，程序已停止自动更新，将在您连接WIFI之后重新检测更新',  
+					   //         mask: true,  
+					   //         duration: 5000,
+					   //         icon:"none"
+					   //     });  
+					   //     return;  
+					   // }else{
+						  // uni.showModal({
+						  //                             title: "版本更新",
+						  //                             content: '有新的版本发布，检测到您当前为Wifi连接，是否立即进行新版本下载？',
+						  //                             confirmText:'立即更新',
+						  //                             cancelText:'稍后进行',
+						  //                             success: function (res) {
+						  //                                 if (res.confirm) {
+						  //                                     uni.showToast({
+						  //                                         icon:"none",
+						  //                                         mask: true,
+						  //                                         title: '有新的版本发布，检测到您目前为Wifi连接，程序已启动自动更新。新版本下载完成后将自动弹出安装程序',  
+						  //                                         duration: 5000,  
+						  //                                     }); 
+						                                     
+						  //                                 } else if (res.cancel) {
+						  //                                     console.log('稍后更新');
+						  //                                 }
+						  //                             }
+						  //                         });
 												  
-						                      } 
+						  //                     } 
 						   
 						   
 					   }                 
@@ -490,5 +584,37 @@
 			 color:#999;
 		 }
 		 
+	 }
+	 
+	 .msg-time{
+		 font-weight: 800;
+	 }
+	 .version-title{
+		 color:#045ee8;
+	 }
+	 
+	 .update{
+		  background-color: #4394ff;
+		  color:#fff;
+		  font-weight: 800;
+		  width: 70%;
+		  margin-bottom:10% ;
+	 }
+	 
+	 .car-version{
+		  margin-top:7% ;
+		  width: 80%;
+		  height:25% ;
+		  margin-bottom:20% ;
+	 }
+	 
+	 .version-describe{
+		 margin-top:4.5% ;
+	 }
+	 
+	 .progress-title{
+		 color: #000;
+		 font-weight: 600;
+		 font-size: 30rpx;
 	 }
 </style>

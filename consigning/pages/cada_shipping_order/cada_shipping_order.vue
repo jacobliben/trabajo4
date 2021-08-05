@@ -476,7 +476,7 @@
 				               
 				           ],
 				assign_carrier_current: 0,		   
-				
+				specify_carrier_status:"",
 				show_carrier_selections:false,
 				specifyCarrierId:"",	
 				specifyCarrierName:"",	   
@@ -518,7 +518,7 @@
 		   					
 		   					 //“货源下单”里货源单号的详情(回显)
 		   					this.orderSourceDetail = uni.getStorageSync("making_shipping_order_detail")
-		   					console.log(this.orderSourceDetail,'mv');
+		   					
 							
 							if (this.orderSourceDetail.orderWay ==1){
 								this.order_way = "普通货模式(单价)"
@@ -619,7 +619,10 @@
 		   					this.goodsUnitPrice = this.orderSourceDetail.goodsUnitPrice
 		   					this.goodsFee = this.orderSourceDetail.goodsFee
 		   					this.customNumber = this.orderSourceDetail.customNumber
-		   					this.pickMonadPhone = this.orderSourceDetail.pickMonadPhone
+							
+						    this.pickMonadPhone = this.orderSourceDetail.pickMonadPhone
+							
+		   					
 		   					this.settlementPhone = this.orderSourceDetail.settlementPhone
 		   					this.sourceQuantity = this.orderSourceDetail.sourceQuantity
 		   					this.specifyCarrierStatus = this.orderSourceDetail.specifyCarrierStatus

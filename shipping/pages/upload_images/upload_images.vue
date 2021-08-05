@@ -132,7 +132,7 @@
 			<text>{{endCountrySubdivisionCode}}</text>
 		</view> -->
 		
-		<view class="bars" v-if="btn_title==='装货'||this.btn_title==='发车'||this.btn_title==='签收'">
+		<view class="bars" v-if=" canDispatch && (btn_title==='装货'||this.btn_title==='发车'||this.btn_title==='签收') ">
 			<!-- <view @click="letsScan">
 				<image src="/static/bar-code.png" mode="aspectFit" class="barcode big-image" ></image>
 				<image src="/static/tachar.png" mode="aspectFit" class="tachar" v-if="tachar_scan" ></image>
@@ -157,9 +157,10 @@
 		  
 		  <view class="btns">
 			  <view>
+				  
 				  <button type="default" class="submit-btn"
 				  :loading="loading" :disabled="disabled" size="mini"
-				   @click="confirm" v-if="btn_title==='发车'||btn_title==='装货'||btn_title==='签收'" >确认{{btn_title}}</button>
+				   @click="confirm" v-if="canDispatch && (btn_title==='发车'||btn_title==='装货'||btn_title==='签收')" >确认{{btn_title}}</button>
 				  <button type="default" class="submit-btn"
 				  :loading="loading" :disabled="disabled" size="mini"
 				   @click="confirm" v-else >返回</button>
@@ -527,7 +528,7 @@
 				
 				 async confirm(){
 					var authorization = uni.getStorageSync("token") 
-					 if(this.btn_title==='装货'){
+					 if(this.btn_title==='装货'&&this.canDispatch){
 						//派车单确认装货
 						
 						 this.queryParams.dispatchId= this.received_info.dispatchId
@@ -575,7 +576,7 @@
 								duration:9000,
 							})
 						}
-					 }else if(this.btn_title==='发车'){
+					 }else if(this.btn_title==='发车'&& this.canDispatch){
 						//派车单确认发车
 						
 						this.queryParams.dispatchId= this.received_info.dispatchId
@@ -660,7 +661,7 @@
 						}
 						
 						
-					}else if(this.btn_title==='签收'){
+					}else if(this.btn_title==='签收'&& this.canDispatch){
 						//派车单确认签收
 						
 						this.queryParams.dispatchId= this.received_info.dispatchId

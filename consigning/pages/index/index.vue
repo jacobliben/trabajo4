@@ -22,27 +22,6 @@
 		  </view>
 		
 		
-		<!-- <view>
-		        <swiper class="swiper" autoplay circular duration="2000">
-		                        <swiper-item>
-		                            <view class="swiper-item">
-										<image class="a" src="../../static/swiper01.jpg" mode="aspectFit"></image>
-									</view>
-		                        </swiper-item>
-		                        <swiper-item>
-		                            <view class="swiper-item">
-										<image class="a" src="../../static/swiper02.jpg" mode="aspectFit"></image>
-									</view>
-		                        </swiper-item>
-		                        <swiper-item>
-		                            <view class="swiper-item">
-										<image class="a" src="../../static/swiper03.jpg" mode="aspectFit"></image>
-									</view>
-		                        </swiper-item>
-		         </swiper>
-		   </view> -->
-		   
-		
 		   <view class="button-images  margin-bottom margin-top">
 			   
 			   <view class="second-row-btns">
@@ -63,85 +42,11 @@
 					   					  <text>我的</text>
 					   </view>
 					   
-					  <view class="one-icon" hover-class="one-icon-hover" @click="logout">
-						  
-					  					  <image src="/static/molecula.png" mode="aspectFit"></image>
-					  			             <text>退出</text>
-										  
-					  </view>
+					 
 			   </view>
 		   </view>
 		   
-		<!--   <view class="shipping-list" v-if="show_shipping_list">
-			        <view class="title">
-						<view class="list-title">运单列表</view>
-					</view>
-					<view class="shipping-info radius shadow-blur" v-for="(item, index) in shipping_info_list" :key ="index" @click="goShippingOrder" >
-					
-						<view class="first-row">
-							<view>
-							<image src="/static/getit.png" mode="" class="img-get"></image>
-							<text selectable>{{item.sourceNo}}</text>
-							<text class="copy" @click="copy(item.waybillNo)">复制</text>
-							</view>
-							<text class="shipping_state">待接单</text>
-						</view>
-						<view class="shipping_details">
-							<view class="shipping_content">
-								<view>
-									<text>{{item.iscmSourceInformationRecord.shipperProvinceName}}</text>
-									<text v-if ="item.iscmSourceInformationRecord.shipperCityName!=='市辖区'">{{item.iscmSourceInformationRecord.shipperCityName}}</text>
-									<text v-if ="item.iscmSourceInformationRecord.shipperCityName==='市辖区'">{{item.iscmSourceInformationRecord.shipperRegionName}}</text>
-									<text class="cuIcon-pullright lg text-gray"> </text>
-									<text>{{item.iscmSourceInformationRecord.consigneeProvinceName}}</text>
-									<!-- 判断是否为“直辖市” -->
-									<!--<text v-if ="item.iscmSourceInformationRecord.consigneeCityName!=='市辖区'">{{item.iscmSourceInformationRecord.consigneeCityName}}</text>
-									<text v-if ="item.iscmSourceInformationRecord.consigneeCityName==='市辖区'">{{item.iscmSourceInformationRecord.consigneeRegionName}}</text>
-								</view>
-								<view>
-									<view class="goods_name">货物名称：{{item.goodsName}}</view>		
-									<view>货物重量：{{item.goodsWeight}}吨</view>
-									<view>目前剩余重量：{{item.surplusGoodsWeight}}吨</view>
-								</view>
-								<view>
-									<text class="shipper">运费：{{item.carrierRates}}元</text>
-								</view>
-								<view>
-									<text class="shipper">创建人：{{item.createBy}}</text>
-								</view>
-								<view>
-									<text class="create_time">发货人联系电话:{{item.iscmSourceInformationRecord.shipperPhone}}</text>		
-								</view>
-								<view >
-									<text>装货地址：{{item.iscmSourceInformationRecord.shipperAddress}}</text>
-								</view>
-								<view class="distance">
-									<view> 约 {{distance_to_origin[index]}} 公里装货</view>
-								</view>
-								 
-								<view class="price">
-									<text class="letter" >包车价</text>
-									<text class="num">{{item.carrierRates}}</text>
-									<text class="letter">元</text> 
-								</view>
-							</view>
-						
-							
-						
-					</view>
-					</view>
-					<view>
-						<view class="more-goods" @click="goShippingOrder">
-							<view>
-								<text>查看更多运单</text>
-								<text class="cuIcon-right lg text-gray"></text>
-							 
-								
-							</view>
-							
-						</view>
-					</view>
-		   </view> -->
+		
 	</view>
 </template>
 
@@ -369,29 +274,7 @@
 			 		
 			 	});
 			 	      },
-			 logout(){
-			 	
-			 	try {consignor_contact
-			 	    uni.removeStorageSync('token');
-			 		uni.removeStorageSync('user_info');
-					uni.removeStorageSync('avatar');
-					uni.removeStorageSync('consignor_contact');
-					uni.removeStorageSync('consignee_contact');
-			 		this.user = ""
-			 	} catch (e) {
-			 	    // error
-			 	}
-				
-				
-				
-			 	
-			 	uni.reLaunch({
-			 		url:'/pages/login/login'
-			 	})  
-			 
-			 	
-			 	
-			 }
+			
 		}
 	}
 </script>

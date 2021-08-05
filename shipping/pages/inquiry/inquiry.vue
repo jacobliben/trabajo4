@@ -288,6 +288,9 @@
 	}
 	.waybill-body{
 		background-color: #fff;
+		
+		padding-bottom: 20rpx;
+	
 	}
 	
 	.one-icon-hover{

@@ -31,6 +31,8 @@
 }
 .top-line.data-v-7e649ca2 {
   border-top: 1rpx solid #d5d5d8;
+  height: 80rpx;
+  line-height: 80rpx;
 }
 .flex-bar.data-v-7e649ca2 {
   display: -webkit-box;
