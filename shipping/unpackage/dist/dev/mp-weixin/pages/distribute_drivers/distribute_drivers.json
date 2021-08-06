@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "分配运力",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 100,
+  "usingComponents": {}
+}

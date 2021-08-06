@@ -179,61 +179,63 @@
 		</view>
 		
 		<view class="cu-form-group" >
-			<text class="name">装货开始<text class="red">*</text></text>
+			<text class="title-name">装货开始（日期）<text class="red">*</text></text>
 			<!-- 日期 -->
-			<view v-if="assignSendTimeDate_has_input" >
+			<view>
 				 <picker  mode="date"  :value="assignSendTimeDate"   :end="endDate" @change="bindDateChange" data-index="assignSendTimeDate">
-				      <view class="picker-view text-lg">{{assignSendTimeDate}}</view>
+				      <view class="picker-view text-lg">
+					  <text :class="{transparent :!assignSendTimeDate_has_input}">{{assignSendTimeDate}}</text>
+					  <text v-if ="!assignSendTimeDate_has_input">（请选择）</text>
+					  <text v-if="assignSendTimeDate_has_input">（已选择）</text>
+					  </view>
 				 </picker>
-			</view>
-			
-			<view @click="assignSendTimeDate_has_input = true"  >
 				
-				 <view  class="picker-view text-lg"  v-if="!assignSendTimeDate_has_input" >选择装货开始日期</view>
 			</view>
 		</view>
 		
 		<view class="cu-form-group" >
-			<text class="name"></text>
-			<!-- 时刻 -->
-			<view v-if="assignSendTimeTime_has_input" >
+			<text class="title-name">装货开始（时刻）<text class="red">*</text></text>
+			
+			<view>
 				<picker mode="time" :value="assignSendTimeTime" start="00:00" end="23:59" @change="bindTimeChange" data-index="assignSendTimeTime">
-				       <view class="picker-view text-lg">{{assignSendTimeTime}}</view>
+				       <view class="picker-view text-lg">
+					   <text :class="{transparent :!assignSendTimeTime_has_input}">{{assignSendTimeTime}}</text>
+					   <text v-if ="!assignSendTimeTime_has_input">（请选择）</text>
+					   <text v-if="assignSendTimeTime_has_input">（已选择）</text>
+					   </view>
 				</picker>
 			</view>
-			
-			<view @click="assignSendTimeTime_has_input = true"  >
-				
-				 <view  class="picker-view text-lg"  v-if="!assignSendTimeTime_has_input" >选择装货开始时刻</view>
-			</view>
 		</view>
 		
 		<view class="cu-form-group" >
-			<text class="name">装货截止<text class="red">*</text></text>
+			<text class="title-name">装货截止（日期）<text class="red">*</text></text>
 			<!-- 日期 -->
-			<view  >
-				 <picker v-if="assignEndTimeDate_has_input" mode="date"  :value="assignEndTimeDate"   :end="endDate" @change="bindDateChange" data-index="assignEndTimeDate">
-				      <view  class="picker-view text-lg">{{assignEndTimeDate}}</view>
+			<view >
+				 <picker  mode="date"  :value="assignEndTimeDate"   :end="endDate" @change="bindDateChange" data-index="assignEndTimeDate">
+				      <view class="picker-view text-lg">
+					   <text :class="{transparent :!assignEndTimeDate_has_input}">{{assignEndTimeDate}}</text>
+					   <text v-if ="!assignEndTimeDate_has_input">（请选择）</text>
+					    <text v-if="assignEndTimeDate_has_input">（已选择）</text>
+					   </view>
 				 </picker>
 			</view>
-			<view @click="assignEndTimeDate_has_input = true"  >
-				
-				 <view class="picker-view text-lg"  v-if="!assignEndTimeDate_has_input" >选择装货截止日期</view>
-			</view>
+			
 		</view>
 		
 		<view class="cu-form-group" >
-			<text class="name"></text>
+			<text class="title-name">装货截止（时间）<text class="red">*</text></text>
 			<!-- 时刻 -->  
-			<view >
-				 <picker v-if="assignEndTimeTime_has_input" mode="time"  :value="assignEndTimeTime" start="00:00"   end="23:59" @change="bindTimeChange" data-index="assignEndTimeTime">
-				      <view class="picker-view text-lg">{{assignEndTimeTime}}</view>
+			<view>
+				 <picker mode="time"  :value="assignEndTimeTime" start="00:00"   end="23:59" @change="bindTimeChange" data-index="assignEndTimeTime">
+				      <view class="picker-view text-lg">
+					        <text :class="{transparent :!assignEndTimeTime_has_input}">{{assignEndTimeTime}}</text>
+					        <text v-if ="!assignEndTimeTime_has_input">（请选择）</text>
+					         <text v-if="assignEndTimeTime_has_input">（已选择）</text>
+					  </view>
+					  
 				 </picker>
 			</view>
-			<view @click="assignEndTimeTime_has_input = true"  >
-				
-				 <view  class="picker-view text-lg"  v-if="!assignEndTimeTime_has_input" >选择装货截止时刻</view>
-			</view>
+			
 		</view>
 		
 		<view class="current-state margin-top">
@@ -262,14 +264,14 @@
 		</view>
 		
 		<view class="cu-form-group margin-top">
-			<text class="name">货值单价(元/吨)</text>
+			<text class="name">货值单价(元/吨)<text class="red">*</text></text>
 					<input type="digit" maxlength="10"  placeholder="请输入货值单价(元/吨)" 
 					  selection-start="-1" selection-end="-1" cursor="-1" 
 					:value="goodsUnitPrice"	   @input="getGoodsUnitPrice"  >
 		</view>
 		
 		<view class="cu-form-group margin-top">
-			<text class="name">整车货值(元)</text>
+			<text class="name">整车货值(元)<text class="red">*</text></text>
 					<input type="digit" maxlength="10"  placeholder="请输入整车货值(元)" 
 					  selection-start="-1" selection-end="-1" cursor="-1" 
 					:value="goodsFee"	   @input="getGoodsFee" >
@@ -1048,6 +1050,37 @@
 						this.params.packageType = "OT"				
 				} 
 				
+				//进行货物件数检查,默认值
+				if (this.params.packageNumber == null || this.params.packageNumber ==""||this.params.packageNumber.length <1){
+						this.params.packageNumber = 1				
+				}
+				 
+				 //进行车型选择检查,默认值
+				 if (this.params.cargoBoxType == null || this.params.cargoBoxType ==""||this.params.cargoBoxType.length <1){
+				 		this.params.cargoBoxType = []				
+				 } 
+				 
+				 //进行车长选择检查,默认值
+				 if (this.params.vehicleLengths == null || this.params.vehicleLengths ==""||this.params.vehicleLengths.length <1){
+				 		this.params.vehicleLengths = []				
+				 } 
+				 
+				 //进行自定义单号检查,默认值
+				 if (this.params.customNumber == null || this.params.customNumber ==""||this.params.customNumber.length <1){
+				 		this.params.customNumber = ""				
+				 } 
+				 
+				 //进行摘单联系电话检查,默认值
+				 if (this.params.pickMonadPhone == null || this.params.pickMonadPhone ==""||this.params.pickMonadPhone.length <1){
+				 		this.params.pickMonadPhone = ""				
+				 } 
+				 
+				 //进行结算咨询电话检查,默认值
+				 if (this.params.settlementPhone == null || this.params.settlementPhone ==""||this.params.settlementPhone.length <1){
+				 		this.params.settlementPhone = ""				
+				 } 
+				 
+				
 				
 				//进行计价方式检查,默认值
 				if (this.params.settlementMethod == null || this.params.settlementMethod ==""||this.params.settlementMethod.length <1){
@@ -1126,25 +1159,50 @@
 											return									
 										} 
 										
-										//进行装货开始时间检查
-										if (this.params.assignSendTime == null || this.params.assignSendTime==""||this.params.assignSendTime.length <1){
+										//进行装货开始日期检查
+										if (this.params.assignSendTimeDate == null || this.params.assignSendTimeDate ==""||this.params.assignSendTimeDate.length <1){
 											uni.showToast({
-												title:"未输入装货开始时间, 请输入",
+												title:"未输入装货开始日期, 请输入",
 												icon:"none"
 											})
 											return									
 										}
 										
-										//进行装货截止时间检查
-										if (this.params.assignEndTime == null || this.params.assignEndTime==""||this.params.assignEndTime.length <1){
+										//进行装货开始时刻检查
+										if (this.params.assignSendTimeTime == null || this.params.assignSendTimeTime ==""||this.params.assignSendTimeTime.length <1){
 											uni.showToast({
-												title:"未输入装货截止时间, 请输入",
+												title:"未输入装货开始时刻, 请输入",
 												icon:"none"
 											})
 											return									
 										}
 										
+										//进行装货截止日期检查
+										if (this.params.assignEndTimeDate == null || this.params.assignEndTimeDate ==""||this.params.assignEndTimeDate.length <1){
+											uni.showToast({
+												title:"未输入装货截止日期, 请输入",
+												icon:"none"
+											})
+											return									
+										}
 										
+										//进行装货截止时刻检查
+										if (this.params.assignEndTimeTime == null || this.params.assignEndTimeTime ==""||this.params.assignEndTimeTime.length <1){
+											uni.showToast({
+												title:"未输入装货截止时刻, 请输入",
+												icon:"none"
+											})
+											return									
+										}
+										
+										//装货开始时间不能晚于装货截止时间
+										if (Date.parse(this.params.assignSendTime)> Date.parse(this.params.assignEndTime)){
+																								  uni.showToast({
+																								  	title:"装货截止时间不能早于装货开始时间",
+																								  	icon:"none"
+																								  })
+																								  return
+																					}
 										
 										//进行运费单价检查
 										if (this.params.unitPrice == null || this.params.unitPrice==""||this.params.unitPrice.length <1){
@@ -1154,6 +1212,26 @@
 											})
 											return									
 										}
+										
+										//进行货值单价检查
+										if (this.params.goodsUnitPrice == null || this.params.goodsUnitPrice==""||this.params.goodsUnitPrice.length <1){
+											uni.showToast({
+												title:"未输入货值单价, 请输入",
+												icon:"none"
+											})
+											return									
+										}
+										
+										//进行整车货值检查
+										if (this.params.goodsFee == null || this.params.goodsFee==""||this.params.goodsFee.length <1){
+											uni.showToast({
+												title:"未输入整车货值, 请输入",
+												icon:"none"
+											})
+											return									
+										}
+										
+										
 										
 										var authorization = uni.getStorageSync("token")
 										
@@ -1497,6 +1575,11 @@
 			 width:30%;
 	}
 	
+	.title-name{
+			 color:#000;
+			 width:50%;
+	}
+	
 	
 	.text-blue1{
 		color:#429bff;
@@ -1518,7 +1601,9 @@
 			 height:40rpx;
 	}
 	
-	
+	.transparent{
+		     color:transparent;
+	}
 	
 	/* ==================
 	         表单

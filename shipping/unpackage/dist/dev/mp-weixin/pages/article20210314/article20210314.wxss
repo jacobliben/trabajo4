@@ -1,0 +1,25 @@
+.title.data-v-95a5b68c {
+  text-align: center;
+  color: #1f1698;
+  font-size: 30rpx;
+  font-weight: 600;
+  margin: 10rpx;
+}
+.body.data-v-95a5b68c {
+  width: 100%;
+  padding: 15rpx;
+}
+.article-img.data-v-95a5b68c {
+  width: 750rpx;
+}
+.sub-title.data-v-95a5b68c {
+  margin: 10rpx 5rpx;
+  font-size: 30rpx;
+}
+.sub-body.data-v-95a5b68c {
+  text-indent: 70rpx;
+  font-size: 25rpx;
+  letter-spacing: 5rpx;
+  line-height: 35rpx;
+}
+

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "驾驶员",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "driver-has-approved": "/pages/driver_has_approved/driver_has_approved"
+  }
+}

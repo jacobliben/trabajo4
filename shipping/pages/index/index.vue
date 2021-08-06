@@ -519,7 +519,7 @@
 			},
 			goHall(){
 				
-				uni.navigateTo({
+				uni.switchTab({
 					url:"/pages/hall/hall"
 				})
 			},

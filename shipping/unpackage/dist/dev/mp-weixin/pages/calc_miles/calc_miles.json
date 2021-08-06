@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "里程计算",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "simple-address": "/components/simple-address/simple-address"
+  }
+}

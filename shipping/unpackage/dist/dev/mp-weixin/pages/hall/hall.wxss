@@ -1,0 +1,37 @@
+.primer-frase.data-v-7e1f20a6 {
+  width: 90%;
+  margin-left: 5%;
+  margin-bottom: 30rpx;
+}
+.individual-driver.data-v-7e1f20a6 {
+  border: 1rpx solid #eee;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  width: 90%;
+  height: 200rpx;
+  margin-left: 5%;
+  margin-bottom: 20rpx;
+  padding: 10rpx;
+}
+.individual-driver .left-side.data-v-7e1f20a6 {
+  width: 70%;
+}
+.individual-driver .left-side .title.data-v-7e1f20a6 {
+  font-size: 30rpx;
+  font-weight: 700;
+  margin-bottom: 10rpx;
+}
+.individual-driver .left-side .desc.data-v-7e1f20a6 {
+  font-size: 25rpx;
+  margin-bottom: 10rpx;
+}
+.driver-img.data-v-7e1f20a6 {
+  width: 100rpx;
+  height: 100rpx;
+}
+

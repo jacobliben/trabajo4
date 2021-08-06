@@ -56,13 +56,7 @@
 		<view class="cu-modal show" v-if="show_modal" >
 			
 			<view class="cu-dialog" >
-				<view class="cu-bar bg-white justify-end">
-					
-					<!-- <view class="content"></view>
-					<view @click="hideModal()" class="action">
-						<text class="cuIcon-close text-red"></text>
-					</view> -->
-				</view>
+				
 				<image src="/static/car-version.png" mode="widthFix" class="car-version"></image>
 				<view class="msg-time">新版本升级</view>
 				<view class="padding-xl">
@@ -208,7 +202,17 @@
 				dtask.addEventListener('statechanged', function ( task,status){
 					
 					  switch(task.state) {  
-					                              
+					                             case 1: // 开始  
+					                                       uni.showToast({
+					                                           title: '开始下载...　', 
+					                                           icon:none,
+					                                       });  
+					                                   break;  
+					                              case 2: // 已连接到服务器  
+					                                    uni.showToast({
+					                                        title: '开始下载...　', 
+					                                        icon:none,
+					                                    });    
 					                              case 3: 
 												      that.showProgress() 
 					                                  var percentage = task.downloadedSize/task.totalSize*100;  
@@ -595,5 +599,11 @@
 		 font-weight: 800;
 		 width: 35%;
 		 margin-bottom:10% ;
+	 }
+	 .show{
+		 width:82%;
+		 height:50%;
+		 margin-top:25%;
+		 margin-left:10%
 	 }
 </style>

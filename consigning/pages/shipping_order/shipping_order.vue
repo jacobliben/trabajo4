@@ -36,12 +36,12 @@
 				tabCurrentIndex:0,
 				myIndex:0,
 				navList:[
-					{
-						state:20,
-						text:"我的货源",
+					// {
+					// 	state:20,
+					// 	text:"我的货源",
 						
-						btn:"待发布",
-					},
+					// 	btn:"待发布",
+					// },
 					{
 						state:10,
 						text:"我的货源",

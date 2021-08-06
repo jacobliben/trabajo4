@@ -499,13 +499,13 @@
 			
 			logout(){
 				
-				try {
-				    uni.removeStorageSync('token');
-					uni.removeStorageSync('user_info');
-					this.user = ""
-				} catch (e) {
-				    // error
-				}
+				// try {
+				//     uni.removeStorageSync('token');
+				// 	uni.removeStorageSync('user_info');
+				// 	this.user = ""
+				// } catch (e) {
+				//     // error
+				// }
 							
 							// //同步清理本地数据缓存
 							// try {
