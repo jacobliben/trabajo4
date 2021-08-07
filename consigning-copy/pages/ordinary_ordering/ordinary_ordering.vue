@@ -21,48 +21,100 @@
 		  </view> 
 		  
 		  
-		 
-			  <view class="go-group margin-top a-line" @click="goSelectConsignorContact">
-			  			  <image src="/static/start.png" mode="widthFix" class="sm-icon margin-left" ></image>
-			  			  <view class="middle-content" v-if ="has_consignor_contact">
-			  				  <view class="middle-title">
-			  					  <text class="name">{{consignor_contact_choosen}}</text>
-			  					  <text class="phone">{{consignor_contact_phone}}</text>
-			  				  </view>
-			  				  <view class="address">
-			  					  {{consignor_contact_address}}
-			  				  </view>
-			  			  </view>
-			  			  <view class="badge">
-							  <view class="image-frame">
-								  <image src="/static/lightning.png" mode="widthFix" class="xm-icon" ></image>
-							  </view>
-							  
-			  				  <text>发货地址</text>
-							  
-			  			  </view>
-			   </view>
-			   
-			  <view class="go-group" @click="goSelectConsigneeContact">
-			  			  <image src="/static/end.png" mode="widthFix" class="sm-icon margin-left" ></image>
-			  			  <view class="middle-content" v-if ="has_consignee_contact" >
-			  				  <view class="middle-title">
-			  					  <text class="name">{{consignee_contact_choosen}}</text>
-			  					  <text class="phone">{{consignee_contact_phone}}</text>
-			  				  </view>
-			  				  <view class="address">
-			  					  {{consignee_contact_address}}
-			  				  </view>
-			  			  </view>
-			  			  <view class="badge">
-							  <view class="image-frame">
-							  		<image src="/static/lightning.png" mode="widthFix" class="xm-icon" ></image>
-							  </view>
-			  				  收货地址
-			  			  </view>
-			  </view>
-		  
-		  
+		 <view class="current-state margin-top">
+		 		<text >收发地</text>
+		 </view> 
+			
+		<view class="cu-form-group margin-top" @click="goSelectConsignorContact" >
+			
+			<view class="name">发货联系人<text class="red">*</text></view>
+                
+			     <view class="person-nums">
+			       <view v-if ="has_consignor_contact">
+				        <view> {{consignor_contact_choosen}}</view>
+				   </view>
+			        <view v-if ="!has_consignor_contact" class="cellphone">请选择发货联系人</view>
+			     </view>
+				 <view><image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image></view>
+		</view> 
+		
+		<view class="cu-form-group margin-top" @click="goSelectConsignorContact" v-if ="has_consignor_contact">
+			<!-- 发货人电话 -->
+			<view class="name"><image src="/static/phone-new.png" mode="widthFix" class="sm-icon" ></view>
+		        
+			     <view class="person-nums">
+			       <view v-if ="has_consignor_contact">
+				       
+						 <view> 
+						 
+						 <text>{{consignor_contact_phone}}</text> 
+						 </view>
+				   </view>
+			        <view v-if ="!has_consignor_contact" class="cellphone">请选择发货联系人</view>
+			     </view>
+				 <view></image></view>
+		</view> 
+		
+		
+		<view class="cu-form-group margin-top" @click="goSelectConsignorContact" v-if ="has_consignor_contact" >
+			<!-- 发货人地址 -->
+			<view class="name"><image src="/static/positioning.png" mode="widthFix" class="sm-icon" ></view>
+		        
+			     <view class="person-nums">
+			       <view v-if ="has_consignor_contact">
+				       
+						 <view> {{consignor_contact_address}}</view>
+				   </view>
+			        <view v-if ="!has_consignor_contact" class="cellphone">请选择发货联系人</view>
+			     </view>
+				 <view></view>
+		</view> 
+		
+		<view class="cu-form-group margin-top justify-center" >
+			<image src="/static/downward.svg" mode="widthFix" class="sm-icon" >
+		</view>
+		
+		<view class="cu-form-group" @click="goSelectConsigneeContact"  >
+			<view class="name">收货联系人 <text class="red">*</text></view>
+			
+			<view class="person-nums">
+			  <text v-if ="has_consignee_contact">{{consignee_contact_choosen}}</text>
+			   <text v-if ="!has_consignee_contact" class="cellphone">请选择收货联系人</text>
+			</view>
+			<view><image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image></view>
+		</view>
+		
+		<view class="cu-form-group margin-top" @click="goSelectConsigneeContact" v-if ="has_consignee_contact">
+			<!-- 收货人电话 -->
+			<view class="name"><image src="/static/phone-new.png" mode="widthFix" class="sm-icon" ></view>
+		        
+			     <view class="person-nums">
+			       <view v-if ="has_consignee_contact">
+				       
+						 <view> 
+						 
+						 <text>{{consignee_contact_phone}}</text> 
+						 </view>
+				   </view>
+			        <view v-if ="!has_consignee_contact" class="cellphone">请选择发货联系人</view>
+			     </view>
+				 <view></image></view>
+		</view> 
+		
+		<view class="cu-form-group margin-top" @click="goSelectConsigneeContact" v-if ="has_consignee_contact" >
+			<!-- 收货人地址 -->
+			<view class="name"><image src="/static/positioning.png" mode="widthFix" class="sm-icon" ></view>
+		        
+			     <view class="person-nums">
+			       <view v-if ="has_consignee_contact">
+				       
+						 <view> {{consignee_contact_address}}</view>
+				   </view>
+			        <view v-if ="!has_consignee_contact" class="cellphone">请选择发货联系人</view>
+			     </view>
+				 <view></view>
+		</view> 
+		
 		<view class="current-state margin-top">
 				<text >货物详情</text>
 		</view>
@@ -116,9 +168,9 @@
 				<text >运载工具要求</text>
 		</view>
 		
-		<view class="cu-form-group margin-top"  >
+		<view class="cu-form-group margin-top">
 			<text class="name">车型选择</text>
-			    <checkbox-group @change="checkboxCargoBoxTypeChange" class="to-center" v-if="not_yet_CargoBoxType">
+			    <checkbox-group @change="checkboxCargoBoxTypeChange" class="to-center">
 			                   <label  v-for="item in cargoBoxTypeOptions" class="every-choice" :key="item.dictValue">
 			                        <view>
 			                           <checkbox :value="item.dictValue" :checked="item.checked" />
@@ -126,14 +178,11 @@
 			                       <view>{{item.dictLabel}}</view>
 			                   </label>
 			       </checkbox-group>
-				   
-				 <image src="/static/lightning.png" mode="widthFix" class="xm-icon" @click="goVehicleLength" ></image>   
 		</view>
-		
 		
 		<view class="cu-form-group margin-top">
 			<text class="name">车长选择</text>
-			    <checkbox-group @change="checkboxVehicleLengthsChange" class="to-center" v-if="not_yet_vehicleLength">
+			    <checkbox-group @change="checkboxVehicleLengthsChange" class="to-center">
 			                   <label  v-for="item in vehicleLengthOptions"  class="every-choice" :key="item.dictValue">
 			                        <view>
 			                           <checkbox :value="item.dictValue" :checked="item.checked" />
@@ -141,8 +190,6 @@
 			                       <view>{{item.dictLabel}}</view>
 			                   </label>
 			     </checkbox-group>
-				 
-				 <image src="/static/lightning.png" mode="widthFix" class="xm-icon" @click="goVehicleLength" ></image>
 		</view>
 		
 		<view class="current-state margin-top">
@@ -395,10 +442,10 @@
 				packageNumber:"",
 				//车辆类型字典
 				 cargoBoxTypeOptions: [],
-				 not_yet_CargoBoxType:false,
+				 
 				 //车长字典
 				 vehicleLengthOptions: [],
-				not_yet_vehicleLength:false,
+				
 				//装货开始日期
 				assignSendTimeDate: currentDate,
 				assignSendTimeDate_has_input:false,
@@ -799,11 +846,7 @@
 									 this.params.packageType =this.packageTypeSendValue[package_type_index]
 									
 						        },	
-			goVehicleLength(){
-				uni.navigateTo({
-					url:"/pages/choose_car_length/choose_car_length"
-				})
-			},					
+								
 			//车辆类型选择					
 			checkboxCargoBoxTypeChange: function (e) {
 			                var items = this.vehicleLengthOptions,
@@ -1506,39 +1549,6 @@
 </script>
 
 <style lang="scss" scoped>
-	.go-group{
-		display: flex;
-		flex-direction: row;
-		background-color: #fff;
-		padding-bottom: 10rpx;
-		.middle-content{
-			border-bottom: #e2e2e2 ;
-			padding-top: 10rpx;
-			padding-right: 10rpx;
-			width: 70%;
-			.middle-title{
-				font-weight: 600;
-				font-size:30rpx;
-				.name{
-					margin-right:20rpx;
-				}
-			}
-			.address{
-				margin-top: 10rpx;
-				color:#a9a9a9;
-				font-size: 30rpx;
-			}
-		}
-	}
-	
-	.badge{
-		border-left:1rpx solid #e6e6e6;
-		height:80%;
-		width:80rpx;
-		padding-top: 20rpx;
-		padding-left: 10rpx;
-	}
-	
 	.current-state{
 			 margin-top:10rpx;
 			 margin-left:10rpx;
@@ -1752,7 +1762,6 @@
 	
 	.page{
 		padding-bottom: 20rpx;
-		background-color: #f1f1f1;
 	}
 	
 	.bg-gradual-blue {
@@ -1784,26 +1793,5 @@
 	.every-choice{
 		border-left:1rpx dashed #007AFF;
 		padding-left: 5rpx;
-	}
-	
-	.margin-left{
-		margin-top:50rpx;
-		margin-left: 2%;
-		margin-right: 4%;
-	}
-	
-	.a-line{
-		padding-bottom: 10rpx;
-		border-bottom: 1rpx solid #d2d2d2;
-	}
-	
-	.xm-icon{
-		width:25rpx;
-		height:25rpx;
-	}
-	
-	.image-frame{
-		display: flex;
-		justify-content: flex-end;
 	}
 </style>

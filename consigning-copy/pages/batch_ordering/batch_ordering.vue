@@ -1,68 +1,102 @@
 <template>
 	<view class="page">
 	  <form @submit="formSubmit" method="post" enctype="multipart/form-data" >
-		  <view class="cu-form-group margin-top">
-		  	
-		  	<view class="name">下单方式<text class="red">*</text></view>
-		    
-			<view class="ref-name">
-													<radio-group class="truck-type" @change="radioSourceOrderWayChange">
-													                <label class="cell-flex" v-for="(item, index) in sourceOrderWayOptions" 
-																			:key="item.dictValue">
-													                    <view>
-																			
-													                        <radio :value="item.dictValue" :checked="index === sourceOrderWay_current" />
-													                    </view>
-													                    <view>{{item.dictLabel}}</view>
-													                </label>
-													 </radio-group>
-			</view>	  
-		  	    
-		  </view> 
-		  
-		  
 		 
-			  <view class="go-group margin-top a-line" @click="goSelectConsignorContact">
-			  			  <image src="/static/start.png" mode="widthFix" class="sm-icon margin-left" ></image>
-			  			  <view class="middle-content" v-if ="has_consignor_contact">
-			  				  <view class="middle-title">
-			  					  <text class="name">{{consignor_contact_choosen}}</text>
-			  					  <text class="phone">{{consignor_contact_phone}}</text>
-			  				  </view>
-			  				  <view class="address">
-			  					  {{consignor_contact_address}}
-			  				  </view>
-			  			  </view>
-			  			  <view class="badge">
-							  <view class="image-frame">
-								  <image src="/static/lightning.png" mode="widthFix" class="xm-icon" ></image>
-							  </view>
-							  
-			  				  <text>发货地址</text>
-							  
-			  			  </view>
-			   </view>
-			   
-			  <view class="go-group" @click="goSelectConsigneeContact">
-			  			  <image src="/static/end.png" mode="widthFix" class="sm-icon margin-left" ></image>
-			  			  <view class="middle-content" v-if ="has_consignee_contact" >
-			  				  <view class="middle-title">
-			  					  <text class="name">{{consignee_contact_choosen}}</text>
-			  					  <text class="phone">{{consignee_contact_phone}}</text>
-			  				  </view>
-			  				  <view class="address">
-			  					  {{consignee_contact_address}}
-			  				  </view>
-			  			  </view>
-			  			  <view class="badge">
-							  <view class="image-frame">
-							  		<image src="/static/lightning.png" mode="widthFix" class="xm-icon" ></image>
-							  </view>
-			  				  收货地址
-			  			  </view>
-			  </view>
 		  
-		  
+		 <view class="current-state margin-top">
+		 		<text >收发地</text>
+		 </view> 
+			
+		<view class="cu-form-group margin-top" @click="goSelectConsignorContact" >
+			
+			<view class="name">发货联系人<text class="red">*</text></view>
+                
+			     <view class="person-nums">
+			       <view v-if ="has_consignor_contact">
+				        <view> {{consignor_contact_choosen}}</view>
+				   </view>
+			        <view v-if ="!has_consignor_contact" class="cellphone">请选择发货联系人</view>
+			     </view>
+				 <view><image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image></view>
+		</view> 
+		
+		<view class="cu-form-group margin-top" @click="goSelectConsignorContact" v-if ="has_consignor_contact">
+			<!-- 发货人电话 -->
+			<view class="name"><image src="/static/phone-new.png" mode="widthFix" class="sm-icon" ></view>
+		        
+			     <view class="person-nums">
+			       <view v-if ="has_consignor_contact">
+				       
+						 <view> 
+						 
+						 <text>{{consignor_contact_phone}}</text> 
+						 </view>
+				   </view>
+			        <view v-if ="!has_consignor_contact" class="cellphone">请选择发货联系人</view>
+			     </view>
+				 <view></image></view>
+		</view> 
+		
+		
+		<view class="cu-form-group margin-top" @click="goSelectConsignorContact" v-if ="has_consignor_contact" >
+			<!-- 发货人地址 -->
+			<view class="name"><image src="/static/positioning.png" mode="widthFix" class="sm-icon" ></view>
+		        
+			     <view class="person-nums">
+			       <view v-if ="has_consignor_contact">
+				       
+						 <view> {{consignor_contact_address}}</view>
+				   </view>
+			        <view v-if ="!has_consignor_contact" class="cellphone">请选择发货联系人</view>
+			     </view>
+				 <view></view>
+		</view> 
+		
+		<view class="cu-form-group margin-top justify-center" >
+			<image src="/static/downward.svg" mode="widthFix" class="sm-icon" >
+		</view>
+		
+		<view class="cu-form-group" @click="goSelectConsigneeContact"  >
+			<view class="name">收货联系人 <text class="red">*</text></view>
+			
+			<view class="person-nums">
+			  <text v-if ="has_consignee_contact">{{consignee_contact_choosen}}</text>
+			   <text v-if ="!has_consignee_contact" class="cellphone">请选择收货联系人</text>
+			</view>
+			<view><image src="/static/aui-icon-right.svg" mode="widthFix" class="sm-icon" ></image></view>
+		</view>
+		
+		<view class="cu-form-group margin-top" @click="goSelectConsigneeContact" v-if ="has_consignee_contact">
+			<!-- 收货人电话 -->
+			<view class="name"><image src="/static/phone-new.png" mode="widthFix" class="sm-icon" ></view>
+		        
+			     <view class="person-nums">
+			       <view v-if ="has_consignee_contact">
+				       
+						 <view> 
+						 
+						 <text>{{consignee_contact_phone}}</text> 
+						 </view>
+				   </view>
+			        <view v-if ="!has_consignee_contact" class="cellphone">请选择收货联系人</view>
+			     </view>
+				 <view></image></view>
+		</view> 
+		
+		<view class="cu-form-group margin-top" @click="goSelectConsigneeContact" v-if ="has_consignee_contact" >
+			<!-- 收货人地址 -->
+			<view class="name"><image src="/static/positioning.png" mode="widthFix" class="sm-icon" ></view>
+		        
+			     <view class="person-nums">
+			       <view v-if ="has_consignee_contact">
+				       
+						 <view> {{consignee_contact_address}}</view>
+				   </view>
+			        <view v-if ="!has_consignee_contact" class="cellphone">请选择收货联系人</view>
+			     </view>
+				 <view></view>
+		</view> 
+		
 		<view class="current-state margin-top">
 				<text >货物详情</text>
 		</view>
@@ -116,33 +150,28 @@
 				<text >运载工具要求</text>
 		</view>
 		
-		<view class="cu-form-group margin-top"  >
+		<view class="cu-form-group margin-top">
 			<text class="name">车型选择</text>
-			    <checkbox-group @change="checkboxCargoBoxTypeChange" class="to-center" v-if="not_yet_CargoBoxType">
+			    <checkbox-group  @change="checkboxCargoBoxTypeChange" class="to-center" >
 			                   <label  v-for="item in cargoBoxTypeOptions" class="every-choice" :key="item.dictValue">
-			                        <view>
+			                        <view >
 			                           <checkbox :value="item.dictValue" :checked="item.checked" />
 			                        </view>
-			                       <view>{{item.dictLabel}}</view>
+			                       <view >{{item.dictLabel}}</view>
 			                   </label>
-			       </checkbox-group>
-				   
-				 <image src="/static/lightning.png" mode="widthFix" class="xm-icon" @click="goVehicleLength" ></image>   
+			               </checkbox-group>
 		</view>
 		
-		
-		<view class="cu-form-group margin-top">
+		<view class="cu-form-group margin-top" >
 			<text class="name">车长选择</text>
-			    <checkbox-group @change="checkboxVehicleLengthsChange" class="to-center" v-if="not_yet_vehicleLength">
-			                   <label  v-for="item in vehicleLengthOptions"  class="every-choice" :key="item.dictValue">
+			    <checkbox-group @change="checkboxVehicleLengthsChange" class="to-center">
+			                   <label  v-for="item in vehicleLengthOptions" class="every-choice" :key="item.dictValue">
 			                        <view>
 			                           <checkbox :value="item.dictValue" :checked="item.checked" />
 			                        </view>
 			                       <view>{{item.dictLabel}}</view>
 			                   </label>
-			     </checkbox-group>
-				 
-				 <image src="/static/lightning.png" mode="widthFix" class="xm-icon" @click="goVehicleLength" ></image>
+			               </checkbox-group>
 		</view>
 		
 		<view class="current-state margin-top">
@@ -215,14 +244,9 @@
 		
 		<view class="cu-form-group margin-top"  >
 			<text class="name">计价方式<text class="red">*</text></text>
-					
-					<picker @change="bindPickerSettlementTypeChange" :value="settlement_type_index" :range="sourceSettlementMethodOptions"  v-if="show_multi_choice">
-					       <view class="picker-view text-lg">{{sourceSettlementMethodOptions[settlement_type_index]}}</view>
-					 </picker>	 
-					   
-					 <input type="text" maxlength="16"  placeholder="包车"
-					   selection-start="-1" selection-end="-1" cursor="-1" disabled
-					 	   @input="" v-if="show_whole_car" >	   
+					<input type="text" maxlength="16"  placeholder="元/吨" 
+					  selection-start="-1" selection-end="-1" cursor="-1" disabled
+						    />
 		</view>
 		
 		<view class="cu-form-group margin-top">
@@ -310,15 +334,15 @@
 		
 		<view class="cu-form-group" v-if="show_carrier_selections" >
 			<text class="name">选择承运人<text class="red">*</text></text>
-			 <input type="text" maxlength="16"   placeholder="请输入承运人名称" 
+			<input type="text" maxlength="16"   placeholder="请输入承运人名称" 
 			 selection-start="-1" selection-end="-1" cursor="-1"
 			:value="carrier"  @input="getCarrierName" >
-		</view>
+		</view>	
 		
 		<view class="cu-form-group" v-if="show_carrier_hint"  @click="inputCarrier">
 			<text class="hint-name">可选择承运人提示</text>
 		     <text class="hint-name" >{{carrier_hint}}</text>
-		</view>
+		</view>	
 		
 		<view class="cu-form-group">
 		<checkbox-group @change.prevent="checkboxChange" >
@@ -332,15 +356,14 @@
 		</view>
 		
 		<view class="btn-row">
-			             <!-- <button class="next-btn bg-gradual-blue round" 
-			                @click="makeDraft">草稿</button> -->
-							<button class="next-btn bg-gradual-green round"
-							@click="backward">关闭</button> 
-							
+			           
+							 <button class="next-btn bg-gradual-green round"
+							 @click="backward">关闭</button> 
+							 
 							 <button class="next-btn round" :class="{'bg-gradual-green':active}"
-							 :disabled="disabled" 
+							 :disabled="disabled" v-if="show_btn"
 							  form-type="submit">提交</button>
-							
+							  
 		</view>
        </form>
 	</view>	
@@ -355,8 +378,11 @@
 			       })
 				   
 			return{
-				//显示下单方式
-				orderWay:"",
+				
+				
+				form:"",
+				//是否显示下单方式
+				showOrderType:true,
 				
 				//“货源下单”里货源单号的详情
 				orderSourceDetail:"",
@@ -395,10 +421,10 @@
 				packageNumber:"",
 				//车辆类型字典
 				 cargoBoxTypeOptions: [],
-				 not_yet_CargoBoxType:false,
+				 
 				 //车长字典
 				 vehicleLengthOptions: [],
-				not_yet_vehicleLength:false,
+				
 				//装货开始日期
 				assignSendTimeDate: currentDate,
 				assignSendTimeDate_has_input:false,
@@ -421,10 +447,10 @@
 				sourceSettlementMethodOptions: [],
 				settlementTypeSendValue:[],
 				settlement_type_index:0,
-				
-				
+				//计价方式 (元/吨)
+				show_yuan_ton:true,
 				//计价方式 (多选)
-				show_multi_choice:true,
+				show_multi_choice:false,
 				//计价方式 (包车)
 				show_whole_car:false,
 				//单价
@@ -465,7 +491,9 @@
 				carrier_hint:"",
 					
 				carrier:"",	
-						   
+				
+				specifyCarrierId:null,	
+					   
 				active:false,
 				checked:false,
 				disabled:false,
@@ -479,76 +507,13 @@
 				
 			}
 		},
-		created(){
-			
-			
-			
-			//用于正常显示，勿删！！！！
-			// 下单方式字典
-			this.getSourceOrderWayOptions()
-			  // 货物分类字典
-			 this.getGoodsTypeOptions()
-			 // 包装类型字典
-			 this.getPackageTypeOptions()
-			 //车辆类型字典
-			 this.getCargoBoxTypeOptions()
-			 //车长字典
-			 this.getVehicleLengthOptions()
-			 // 计价方式字典
-			 this.getSourceSettlementMethodOptions()
-			 
-	
-		   
-							//发货联系人
-							let consignor_contact = uni.getStorageSync("consignor_contact")
-							consignor_contact=JSON.parse(consignor_contact)
-							
-							
-							
-							if (consignor_contact){
-								this.consignor_contact_choosen =consignor_contact.shipperName
-								this.consignor_contact_id = consignor_contact.shipperId
-							
-								this.consignor_contact_address = consignor_contact.shipperAddress
-								this.consignor_contact_phone = consignor_contact.shipperPhone
-								
-								this.params.shipperId = this.consignor_contact_id
-								this.has_consignor_contact = true
-							}else{
-								this.has_consignor_contact = false//尚未选择发货联系人
-							}
-							
-							
-							//收货联系人
-							 let consignee_contact = uni.getStorageSync("consignee_contact")
-							 consignee_contact=JSON.parse(consignee_contact)
-							 
-							 
-							 if (consignee_contact){
-							 	this.consignee_contact_choosen =consignee_contact.consigneeName
-							 	this.consignee_contact_id = consignee_contact.consigneeId
-							 	this.consignee_contact_address = consignee_contact.consigneeAddress
-							 	this.consignee_contact_phone = consignee_contact.consigneePhone
-							 	
-								this.params.consigneeId = this.consignee_contact_id
-							 	this.has_consignee_contact = true
-							 }else{
-							 	this.has_consignee_contact = false//尚未选择收货联系人
-							 }
-							
-							
-		   				
-		   
-			 
-			 
-			 
-			 
-			 
-		},
+		
 		
 		mounted(){
 			
-		
+			
+			
+			
 			
 			// 下单方式字典
 			this.getSourceOrderWayOptions()
@@ -562,6 +527,45 @@
 			 this.getVehicleLengthOptions()
 			 // 计价方式字典
 			 this.getSourceSettlementMethodOptions()
+			
+			
+			//发货联系人
+			let consignor_contact = uni.getStorageSync("consignor_contact")
+			consignor_contact=JSON.parse(consignor_contact)
+			
+			if (consignor_contact){
+				this.consignor_contact_choosen =consignor_contact.shipperName
+				this.consignor_contact_id = consignor_contact.shipperId
+			
+				this.consignor_contact_address = consignor_contact.shipperAddress
+				this.consignor_contact_phone = consignor_contact.shipperPhone
+				
+				this.params.shipperId = this.consignor_contact_id
+				this.has_consignor_contact = true
+			}else{
+				this.has_consignor_contact = false//尚未选择发货联系人
+			}
+			
+			
+			//收货联系人
+			 let consignee_contact = uni.getStorageSync("consignee_contact")
+			 consignee_contact=JSON.parse(consignee_contact)
+			 
+			 if (consignee_contact){
+			 	this.consignee_contact_choosen =consignee_contact.consigneeName
+			 	this.consignee_contact_id = consignee_contact.consigneeId
+			 	this.consignee_contact_address = consignee_contact.consigneeAddress
+			 	this.consignee_contact_phone = consignee_contact.consigneePhone
+			 	
+				this.params.consigneeId = this.consignee_contact_id
+			 	this.has_consignee_contact = true
+			 }else{
+			 	this.has_consignee_contact = false//尚未选择收货联系人
+			 }
+			
+							
+			
+			
 			
 		},
 		props:["index_key"],
@@ -609,15 +613,18 @@
 			
 			//指定下单方式
 			radioSourceOrderWayChange(e){
+			
+			    this.params.orderWay= e.target.value
 				
-				if (e.target.value== "1"){
-					this.params.orderWay= 1
+				
+				if (e.target.value=="1"){
+					
 					//计价方式 (多选)
 					this.show_multi_choice= true
 					//计价方式 (包车)
 					this.show_whole_car= false 
-				}else if (e.target.value== "2"){
-					this.params.orderWay= 2
+				}else if (e.target.value=="2"){
+					
 					//计价方式 (多选)
 					this.show_multi_choice= false  
 					//计价方式 (包车)
@@ -627,7 +634,7 @@
 										
 			 // 货物分类字典
 			async getGoodsTypeOptions(){
-				var that = this
+				
 				var authorization = uni.getStorageSync("token")
 				
 				const res = await this.$request({
@@ -651,7 +658,7 @@
 			
 			// 包装类型字典
 			async getPackageTypeOptions(){
-				var that = this
+				
 				var authorization = uni.getStorageSync("token")
 				
 				const res = await this.$request({
@@ -671,13 +678,13 @@
 					this.packageTypeSendValue = res.data.data.map(e=>e.dictValue)	 
 					
 					
-			
+					
 			},
 			
 			
 			//车辆类型字典
 			async getCargoBoxTypeOptions(){
-				var that = this
+				
 				var authorization = uni.getStorageSync("token")
 				
 				const res = await this.$request({
@@ -696,7 +703,7 @@
 			
 			//车长字典
 			async getVehicleLengthOptions(){
-				var that = this
+				
 				var authorization = uni.getStorageSync("token")
 				
 				const res = await this.$request({
@@ -728,7 +735,6 @@
 					 	
 					 })
 					
-					
 					 this.sourceSettlementMethodOptions = res.data.data.map(e=>e.dictLabel)
 					 this.settlementTypeSendValue = res.data.data.map(e=>e.dictValue)
 					
@@ -737,7 +743,7 @@
 			goSelectConsignorContact(){
 				
 				uni.navigateTo({
-					url:"/pages/ordinary_consignor_contact/ordinary_consignor_contact"
+					url:"/pages/select_consignor_contact/select_consignor_contact"
 				})
 				
 			},
@@ -746,13 +752,13 @@
 			goSelectConsigneeContact(){
 				
 				uni.navigateTo({
-					url:"/pages/ordinary_consignee_contact/ordinary_consignee_contact"
+					url:"/pages/select_consignee_contact/select_consignee_contact"
 				})
 				
 			},
 			getGoodsName(e){
 				             this.goodsName = e.target.value
-							this.params. goodsName = e.target.value
+							this.params.goodsName = e.target.value
 							
 						},
 			getGoodsWeight(e){
@@ -779,31 +785,28 @@
 						},						
 			//货物分类选择
 			bindPickerGoodsTypeChange(e) {
-						            
+						         
 						            this.goods_type_index = e.target.value
 									
 									var goods_type_index = this.goods_type_index
 									
 									 this.params.goodsType =this.goodsTypeSendValue[goods_type_index]
-									
+								
 									
 						        },	
 			
 			//包装类型选择
 			bindPickerPackageTypeChange(e) {
-						          
+						            
 						            this.package_type_index = e.target.value
 									
 									var package_type_index = this.package_type_index
 									
 									 this.params.packageType =this.packageTypeSendValue[package_type_index]
 									
+									
 						        },	
-			goVehicleLength(){
-				uni.navigateTo({
-					url:"/pages/choose_car_length/choose_car_length"
-				})
-			},					
+								
 			//车辆类型选择					
 			checkboxCargoBoxTypeChange: function (e) {
 			                var items = this.vehicleLengthOptions,
@@ -816,7 +819,7 @@
 			                        this.$set(item,'checked',false)
 			                    }
 			                }
-							
+						
 							this.params.cargoBoxType = values
 			            
 			        },
@@ -857,10 +860,10 @@
 				      								  this.params.assignSendTimeTime = e.target.value
 													  
 													 this.assignSendTime =  this.assignSendTimeDate +" "+  this.assignSendTimeTime
-													 this.params.assignSendTime =  this.params.assignSendTimeDate +" "+  this.params.assignSendTimeTime
+													 this.params.assignSendTime =  this.assignSendTime
 													  
 				      								  this.assignSendTimeTime_has_input = true
-													 
+													
 				      }else if(e.currentTarget.dataset.index=="assignEndTimeTime"){
 				      								  //装货截止时刻
 				      								  this.assignEndTimeTime = e.target.value
@@ -870,7 +873,8 @@
 													  this.assignEndTime =  this.assignEndTimeDate +" "+ this.assignEndTimeTime 
 													  this.params.assignEndTime =  this.params.assignEndTimeDate +" "+ this.params.assignEndTimeTime 
 				      								  this.assignEndTimeTime_has_input = true
-													    
+													  
+														  
 													  if (Date.parse(this.assignSendTime)> Date.parse(this.assignEndTime)){
 														  uni.showToast({
 														  	title:"装货截止时间不能早于装货开始时间",
@@ -977,13 +981,15 @@
 				
 			},	
 			
+			
+			
+			
 			//承运人
 			 getCarrierName(e){
 				var that = this
 				this.carrier = e.target.value
 				const carrierName = this.carrier
-				
-				
+			
 				var authorization = uni.getStorageSync("token")
 				
 				uni.request({
@@ -994,7 +1000,6 @@
 				     },
 				    success: (res) => {
 				      
-				        
 						if (res.data.code=="200"){
 							that.show_carrier_hint = true
 							
@@ -1018,9 +1023,6 @@
 				this.show_carrier_hint = false
 			},
 			
-			
-			
-			
 			//是否保存为货源模板,true:保存为货源模板,false不保存为货源模板
 			checkboxChange(e) {
 			                
@@ -1035,11 +1037,8 @@
 			            },
 						
 			sendDefault(e){
-				//进行指定下单方式检查,默认值
-				if (this.params.orderWay == null || this.params.orderWay==""||this.params.orderWay.length <1){
-						this.params.orderWay = 1					
-				} 
-				
+				//指定下单方式
+				this.params.orderWay = 3
 				
 				//进行货物分类检查,默认值
 				if (this.params.goodsType == null || this.params.goodsType==""||this.params.goodsType.length <1){
@@ -1080,7 +1079,7 @@
 				 if (this.params.settlementPhone == null || this.params.settlementPhone ==""||this.params.settlementPhone.length <1){
 				 		this.params.settlementPhone = ""				
 				 } 
-				
+				 
 				
 				
 				//进行计价方式检查,默认值
@@ -1105,7 +1104,7 @@
 													
 				} 
 				//进行是否指定承运人检查,默认值
-				if (this.params.specifyCarrierStatus == null || this.params.specifyCarrierStatus==""||this.params.specifyCarrierStatus.length !=4){
+				if (this.params.specifyCarrierStatus == null || this.params.specifyCarrierStatus==""||this.params.specifyCarrierStatus.length <1){
 					
 					this.params.specifyCarrierStatus = "1"
 				 										
@@ -1124,7 +1123,7 @@
 					uni.switchTab({
 						url:"/pages/choose_order_type/choose_order_type"
 					})
-							
+						
 			},
 			makeDraft(e){
 				//如果不选择，传入默认值
@@ -1134,14 +1133,13 @@
 				this.formSubmit()
 			},						
 			formSubmit:async function(e) {
-									
+										console.log(this.params,'14555')
 						               
-									   //如果不选择，传入默认值
-									   this.sendDefault()
-									   
-									   //保存为草稿状态该属性传空,正常下单传10,具体参考业务状态常量
-									   this.params.sourceStatus = 10
-									   
+									    //如果不选择，传入默认值
+									    this.sendDefault()
+										
+										//保存为草稿状态该属性传空,正常下单传10,具体参考业务状态常量
+										this.params.sourceStatus = 10
 										
 										//进行货物名称检查
 										if (this.params.goodsName == null || this.params.goodsName==""||this.params.goodsName.length <1){
@@ -1235,9 +1233,12 @@
 										
 										
 										
-										
 										var authorization = uni.getStorageSync("token")
-										var  form = this.params
+										
+										
+										
+										let form = this.params
+										console.log(form,'form');
 										
 										//if show_carrier_selections, send the specify Carrier ID, otherwise not sending
 										if(this.show_carrier_selections){
@@ -1476,9 +1477,12 @@
 												  
 										}
 										
+										
+										
 										uni.showToast({
 											title:"提交成功！"
 										})
+										
 										
 										try {
 										    uni.removeStorageSync('consignor_contact');
@@ -1487,18 +1491,19 @@
 										    // error
 										}
 										
-										uni.switchTab({
-																					                       //此处必须用相对路径，保证刷新
-										                           url: '../choose_order_type/choose_order_type',
-										                           success: function (res) {
-										                             var page = getCurrentPages().pop();
-										                             if (page == undefined || page == null) return;
-										                             page.onShow();
-										                             
-										                             
-										                           },
-										                           
-										                         })
+										
+										 uni.switchTab({
+											                       //此处必须用相对路径，保证刷新
+										                            url: '../choose_order_type/choose_order_type',
+										                            success: function (res) {
+										                              var page = getCurrentPages().pop();
+										                              if (page == undefined || page == null) return;
+										                              page.onShow();
+										                              
+										                              
+										                            },
+										                            
+										                          })
 										
 									},
 		}
@@ -1506,44 +1511,11 @@
 </script>
 
 <style lang="scss" scoped>
-	.go-group{
-		display: flex;
-		flex-direction: row;
-		background-color: #fff;
-		padding-bottom: 10rpx;
-		.middle-content{
-			border-bottom: #e2e2e2 ;
-			padding-top: 10rpx;
-			padding-right: 10rpx;
-			width: 70%;
-			.middle-title{
-				font-weight: 600;
-				font-size:30rpx;
-				.name{
-					margin-right:20rpx;
-				}
-			}
-			.address{
-				margin-top: 10rpx;
-				color:#a9a9a9;
-				font-size: 30rpx;
-			}
-		}
-	}
-	
-	.badge{
-		border-left:1rpx solid #e6e6e6;
-		height:80%;
-		width:80rpx;
-		padding-top: 20rpx;
-		padding-left: 10rpx;
-	}
-	
 	.current-state{
 			 margin-top:10rpx;
 			 margin-left:10rpx;
 			 margin-bottom: 25rpx;
-			 border-left:5rpx solid #0081FF;
+			 border-left:5rpx solid green;
 			 padding-left: 10rpx;
 			 color:#000;
 			 font-size:30rpx;
@@ -1607,10 +1579,7 @@
 			 color:#000;
 			 width:50%;
 	}
-	.ref-name{
-			 color:#333;
-			  width:70%;
-	}
+	
 	
 	.text-blue1{
 		color:#429bff;
@@ -1752,7 +1721,6 @@
 	
 	.page{
 		padding-bottom: 20rpx;
-		background-color: #f1f1f1;
 	}
 	
 	.bg-gradual-blue {
@@ -1774,6 +1742,13 @@
 		color:#ccc
 	}
 	
+	
+	
+	
+	.margin-right{
+		margin-right: 20rpx;
+	}
+	
 	.to-center{
 		margin-left:20rpx;
 		display: flex;
@@ -1784,26 +1759,5 @@
 	.every-choice{
 		border-left:1rpx dashed #007AFF;
 		padding-left: 5rpx;
-	}
-	
-	.margin-left{
-		margin-top:50rpx;
-		margin-left: 2%;
-		margin-right: 4%;
-	}
-	
-	.a-line{
-		padding-bottom: 10rpx;
-		border-bottom: 1rpx solid #d2d2d2;
-	}
-	
-	.xm-icon{
-		width:25rpx;
-		height:25rpx;
-	}
-	
-	.image-frame{
-		display: flex;
-		justify-content: flex-end;
 	}
 </style>
