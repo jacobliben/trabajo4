@@ -1,6 +1,5 @@
 package io.dcloud.UNIACABF38;
 
-import android.app.Notification;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
@@ -15,12 +14,71 @@ import com.hdgq.locationlib.listener.OnResultListener;
 public class ServiceStart extends Service {
     public ServiceStart() {
     }
-    private com.hdgq.locationlib.entity.ShippingNoteInfo[] ShippingNoteInfos = new ShippingNoteInfo[]{} ;
 
-    private String shippingNoteNumber;
-    private String serialNumber;
-    private String startCountrySubdivisionCode;
-    private String endCountrySubdivisionCode;
+
+    public  ShippingNoteInfo shippingNoteInfo = new ShippingNoteInfo() {
+        private String shippingNoteNumber;
+        private String serialNumber;
+        private String startCountrySubdivisionCode ="310113";;
+        private String endCountrySubdivisionCode = "320305";
+        private int sendCount;
+        private int alreadySendCount;
+
+
+
+        public int getAlreadySendCount() {
+            return this.alreadySendCount;
+        }
+
+        public void setAlreadySendCount(int alreadySendCount) {
+            this.alreadySendCount = alreadySendCount;
+        }
+
+        public String getShippingNoteNumber() {
+            this.shippingNoteNumber ="PC0A210722627545";
+
+            return this.shippingNoteNumber != null && !"null".equals(this.shippingNoteNumber.trim()) ? this.shippingNoteNumber : "";
+        }
+
+        public void setShippingNoteNumber(String shippingNoteNumber) {
+            this.shippingNoteNumber = shippingNoteNumber;
+        }
+
+        public String getSerialNumber() {
+            this.serialNumber ="000000";
+
+            return this.serialNumber != null && !"null".equals(this.serialNumber.trim()) ? this.serialNumber : "";
+        }
+
+
+        public String getStartCountrySubdivisionCode() {
+
+
+            return this.startCountrySubdivisionCode != null && !"null".equals(this.startCountrySubdivisionCode.trim()) ? this.startCountrySubdivisionCode : "";
+        }
+
+        public void setStartCountrySubdivisionCode(String startCountrySubdivisionCode) {
+            this.startCountrySubdivisionCode = startCountrySubdivisionCode;
+        }
+
+        public String getEndCountrySubdivisionCode() {
+            return this.endCountrySubdivisionCode = "320305";
+
+           // return this.endCountrySubdivisionCode != null && !"null".equals(this.endCountrySubdivisionCode.trim()) ? this.endCountrySubdivisionCode : "";
+        }
+
+        public void setEndCountrySubdivisionCode(String endCountrySubdivisionCode) {
+            this.endCountrySubdivisionCode = endCountrySubdivisionCode;
+        }
+
+        public int getSendCount() {
+            return this.sendCount;
+        }
+
+        public void setSendCount(int sendCount) {
+            this.sendCount = sendCount;
+        }
+    };
 
 
     public OnResultListener listener = new OnResultListener() {
@@ -50,8 +108,7 @@ public class ServiceStart extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         //启用服务。context 必须为 activity。
 
-//        ShippingNoteInfos = [
-//       "PC0A210722627545","0000","310113","320305"];
+          ShippingNoteInfo[] ShippingNoteInfos = new ShippingNoteInfo[4];
          LocationOpenApi.start(this,ShippingNoteInfos, listener);
 //["PC0A210722627545","0000","310113","320305"]
 //         shippingNoteNumber = intent.getStringExtra("shippingNoteNumber");

@@ -26,7 +26,7 @@ public class MainActivity extends WebAppActivity {
 
         @Override
         public void onSuccess() {
-            Toast.makeText(MainActivity.this,"succeed!" , Toast.LENGTH_LONG).show();
+           // Toast.makeText(MainActivity.this,"succeed!" , Toast.LENGTH_LONG).show();
         }
 
         public void onFailure(String errorCode, String errorMsg) {
@@ -54,9 +54,17 @@ public class MainActivity extends WebAppActivity {
         Intent intent = new Intent(MainActivity.this, MyService2.class);
          startService(intent);
 
+
+
+
         //在启动页或 app 首页中，初始化 sdk 服务。context 必须为 activity。
          LocationOpenApi.init( this,"io.dcloud.UNIACABF38","9b471d80340f40a0af42ecc5739cfad19b471d80340f40a0af42ecc5739cfad1",
-                 "32080","debug",listener);
+                 "32080","release",listener);
+
+//        Intent intent2 = new Intent(MainActivity.this, ServiceStart.class);
+//        startService(intent2);
+
+
 
 //         //停止服务。context 必须为 activity。
 //         LocationOpenApi.stop(Context context,ShippingNoteInfo[]

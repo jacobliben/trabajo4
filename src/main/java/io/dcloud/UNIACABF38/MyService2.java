@@ -102,7 +102,7 @@ public class MyService2 extends Service {
     public void onCreate() {
         super.onCreate();
 
-        final ForegroundNotification foregroundNotification = new ForegroundNotification ("测试","描述", R.drawable.icon,
+        final ForegroundNotification foregroundNotification = new ForegroundNotification ("徐工智联司机服务","正在运行，请勿关闭", R.drawable.icon,
                 //定义前台服务的通知点击事件
                 new ForegroundNotificationClickListener () {
 
