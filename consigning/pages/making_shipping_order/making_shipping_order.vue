@@ -8,8 +8,7 @@
 				<text selectable>{{item.sourceNo}}</text>
 				<text class="copy" @click="copy(item.sourceNo)">复制</text>
 				</view>
-				<!-- 审核状态 -->
-				<!-- <text class="shipping_state">{{sourceAuditStatusOptions[sourceAuditStatusOptionValues.findIndex(value=>value==item.sourceAuditStatus)]}}</text> -->
+				
 			</view>
 			<view class="shipping_details">
 				<view class="shipping_content">
@@ -96,7 +95,6 @@
 			   this.getSourceAuditStatusOptions()
 			},
 		mounted(){
-			console.log(this.now_state,'now_state')
 			
 		    //货源
 			this.getMakingShippingOrderList()
@@ -232,7 +230,9 @@
 	}
 	
 	.scroll-Y{
+		padding-top:20rpx;
 		height:95vh;
+		background-color: #f1f1f1;
 	}
 	.one_shipping{
 		background-color: #fff;

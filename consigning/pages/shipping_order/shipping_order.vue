@@ -13,7 +13,7 @@
 		<!-- body section -->
 		<view class="shipping-body">
 			<view class="list" v-for = "(item,index) in navList" :key="index"  v-if="tabCurrentIndex===index">
-				<!-- {{item.state}} -->
+				
 				<making-shipping-order  :transporte_state="item" :key="myIndex"/>
 				
 				

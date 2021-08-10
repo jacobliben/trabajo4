@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "公司经营信息",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "simple-address-high": "/components/simple-address-high/simple-address"
+  }
+}

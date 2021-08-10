@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "派车单详情",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "uni-segmented-control": "/uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control",
+    "detail": "/pages/detail/detail",
+    "shipping-current-state": "/components/shipping_state/shipping_current_state",
+    "accounts-detail": "/components/shipping_state/accounts_detail"
+  }
+}

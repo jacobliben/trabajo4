@@ -1,0 +1,953 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+		    "path" : "pages/login/login",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "登录",
+				"navigationBarBackgroundColor":"#f8f8f8",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "徐工智联",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+		    "path" : "pages/shipping_order/shipping_order",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "运单",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		
+		{
+		    "path" : "pages/detail/detail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/tel_login/tel_login",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "短信登录",
+				"navigationBarBackgroundColor":"#f8f8f8",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		
+		{
+		    "path" : "pages/accounts/accounts",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "我的",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		
+		
+		
+	     {
+            "path" : "pages/register/register",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "注册",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+       
+        ,{
+            "path" : "pages/recover_account/recover_account",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "找回账号密码",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+		
+		
+		{
+            "path" : "pages/upload_images/upload_images",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/terms/terms",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+      
+        ,{
+            "path" : "pages/change_identity/change_identity",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "注册 请确定您的角色",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/re_identifying/re_identifying",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "身份信息认证",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/file_identifying/file_identifying",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个体司机认证",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/shipping_order_details/shipping_order_details",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "运单详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/map/map",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "地图",
+                "enablePullDownRefresh": false
+            }
+            
+        },{
+            "path" : "pages/despatching_pending/despatching_pending",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "待发货",
+                "enablePullDownRefresh": true
+            }
+            
+        },{
+            "path" : "pages/vehicle_list/vehicle_list",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "车辆管理",
+                "enablePullDownRefresh": false
+				
+				
+            }
+            
+        }
+        ,{
+            "path" : "pages/vehicle_has_approved/vehicle_has_approved",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/vehicle_in_approving/vehicle_in_approving",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/vehicle_not_approved/vehicle_not_approved",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/vehicle_not_accredited/vehicle_not_accredited",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/info_not_found/info_not_found",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/add_vehicle/add_vehicle",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/vehicle_details/vehicle_details",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "车辆详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/add_car_boss/add_car_boss",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "添加车老板",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/personal_info/personal_info",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人资料",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zones/zones",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/about_car_boss/about_car_boss",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/driver_home/driver_home",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "司机之家",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/hot_topics/hot_topics",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "热聊话题",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/calc_miles/calc_miles",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "里程计算",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/shipping_policy/shipping_policy",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/emergency_help/emergency_help",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "紧急求助",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/article20210313/article20210313",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/article20210314/article20210314",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/article20210315/article20210315",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        
+        ,{
+            "path" : "pages/smart_warehouse/smart_warehouse",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "智能立体库",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/tax_company_news/tax_company_news",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "保税公司",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/ensure_supply/ensure_supply",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "全力保供",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/client_service/client_service",
+           "style": {
+           	"app-plus": {
+           	    "softinputNavBar": "none"
+           	},
+           	"navigationStyle":"default",
+           	"navigationBarTitleText":"客服-小智",
+           	"navigationBarTextStyle":"black",
+           	"navigationBarBackgroundColor":"#f9f9f9"
+           }
+            
+        }
+        ,{
+            "path" : "pages/way_bill/way_bill",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "派车单",
+                "enablePullDownRefresh":true
+            }
+            
+        }
+        ,{
+            "path" : "pages/receiving_shipping_order/receiving_shipping_order",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/distribute_drivers/distribute_drivers",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "分配运力",
+                "enablePullDownRefresh": true,
+				"onReachBottomDistance":100,
+				"app-plus":{
+								"pullToRefresh": {
+									"support": true,
+									"color": "#fa436a",
+									"style": "default"
+								}
+				}
+            }
+        }
+        ,{
+            "path" : "pages/accept_shippig_order/accept_shippig_order",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "运单接收",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/way_bill_details/way_bill_details",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "派车单详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/shipping_order_number_detail/shipping_order_number_detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "运单编号详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/car_sending_detail/car_sending_detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "派车状态详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/carrier_detail/carrier_detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "承运人详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/goods_number_detail/goods_number_detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "货源编号详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        
+        ,{
+            "path" : "pages/carrier_contract_detail/carrier_contract_detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "承运合同详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/shipper_detail/shipper_detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "托运人名称详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/created_person_detail/created_person_detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "创建人详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/chief_driver_detail/chief_driver_detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "主驾驶员详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/sync_detail/sync_detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "同步详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/way_bill_detail/way_bill_detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "派车单编号详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+       
+        ,{
+            "path" : "pages/assistent_driver_detail/assistent_driver_detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "副驾驶员详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/vehicle_detail/vehicle_detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "车辆详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/insurance_policy_detail/insurance_policy_detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "保险单号详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/choosing_driver/choosing_driver",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "选择司机和车辆",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/select_chief_driver/select_chief_driver",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "选择主驾驶员",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/select_assistent_driver/select_assistent_driver",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "选择副驾驶员",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/select_vehicle/select_vehicle",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "选择车辆",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/choose_company/choose_company",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/choose_identity/choose_identity",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "注册 选定身份角色",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        
+        ,{
+            "path" : "pages/personal_business_info/personal_business_info",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人经营信息",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+       
+        ,{
+            "path" : "pages/vehicle/vehicle",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "车辆信息",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/company_business_info/company_business_info",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "公司经营信息",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/company_license/company_license",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "公司驾驶证件信息",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/finish_registering/finish_registering",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "注册完成",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/bank/bank",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        
+        ,{
+            "path" : "pages/no_network/no_network",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "网络断开或信号微弱",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/bank_card/bank_card",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "银行卡信息维护",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/bank_card_has_approved/bank_card_has_approved",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/add_bankcard/add_bankcard",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/change_phone/change_phone",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "更换手机",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/change_password/change_password",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "更换密码",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/profile/profile",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "基本资料",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/bind_vehicle/bind_vehicle",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "绑定车船牌照号",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/driver_list/driver_list",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "驾驶员",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/driver_has_approved/driver_has_approved",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/add_driver/add_driver",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "添加驾驶员",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/member/member",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "承运人会员信息维护",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/bind_id/bind_id",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "绑定驾驶员身份证号",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+      
+        ,{
+            "path" : "pages/dispatch_before/dispatch_before",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "历史派车单",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+		{
+		    "path" : "pages/camera/camera",
+		    "style" :                                                                                    
+		    {
+				"navigationStyle":"custom",
+				"backgroundColor":"#000000"
+				
+		    }
+		},
+		{
+		    "path" : "pages/camera/portrait/portrait",
+		    "style" :                                                                                    
+		    {
+				"navigationStyle":"custom",
+				"backgroundColor":"#000000"
+				
+		    }
+		}
+		,{
+		    "path" : "pages/camera/idcard/idcard",
+		    "style" :                                                                                    
+		    {
+		        "navigationStyle":"custom",
+		        "backgroundColor":"#000000"
+		       
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/camera/idphoto/idphoto",
+		    "style" :                                                                                    
+		    {
+		       "navigationStyle":"custom",
+		       "backgroundColor":"#000000"
+		        
+		    }
+		    
+		}
+        ,{
+            "path" : "pages/info_center/info_center",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "消息中心",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/message/message",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/dispatch_before_detail/dispatch_before_detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "历史派车单详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/order_detail/order_detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/inquiry/inquiry",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "询价单",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/quote/quote",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "报价单",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/cada_inquiry/cada_inquiry",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "报价详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/hall/hall",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "货源大厅",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTitleText":"徐工智联",
+		"navigationBarTextStyle": "black",
+		"navigationBarBackgroundColor": "#f8f8f8",
+		"onReachBottomDistance": 200,
+		"enablePullDownRefresh": false
+		
+	},
+	"tabBar":{
+		"list":[
+			{"text":"首页",
+			"pagePath":"pages/index/index",
+			"iconPath":"/static/home.png",
+			"selectedIconPath":"static/home-selected.png"
+			},
+			{"text":"运单",
+			"pagePath":"pages/shipping_order/shipping_order",
+			"iconPath":"static/shipping-order.png",
+			"selectedIconPath":"static/shipping-orders-selected.png"
+			},
+			{"text":"派车单",
+			"pagePath":"pages/way_bill/way_bill",
+			"iconPath":"static/orders.png",
+			"selectedIconPath":"static/orders-selected.png"
+			},
+			{"text":"货源大厅",
+			"pagePath":"pages/hall/hall",
+			"iconPath":"static/hall.png",
+			"selectedIconPath":"static/hall-selected.png"
+			},
+			{"text":"我的",
+			"pagePath":"pages/accounts/accounts",
+			"iconPath":"/static/me.png",
+			"selectedIconPath":"static/me-selected.png"
+			}
+		],
+		"selectedColor":"#fd6801",
+		"color":"#c8c7cc",
+		"backgroundColor":"#fff"
+	},
+	"permission": {
+	    "scope.userLocation": {
+	      "desc": "你的位置信息将用于App位置接口的效果展示"
+	    }
+	  },
+	"condition" : { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式(list 的索引项)
+		"list": [
+			{
+				"name": "", //模式名称
+				"path": "", //启动页面，必选
+				"query": "" //启动参数，在页面的onLoad函数里面得到
+			}
+		]
+	}
+	
+}

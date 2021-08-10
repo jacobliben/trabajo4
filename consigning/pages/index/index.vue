@@ -90,10 +90,7 @@
 			}
 		},
 		computed: mapState(['hasLogin','uerInfo']),
-		components: {
-			
-			
-			},
+		
 		onLoad() {
 		
 		  

@@ -1,0 +1,267 @@
+.text.data-v-03e23e26 {
+  text-align: center;
+  font-weight: 800;
+  font-size: 35rpx;
+  margin: 10rpx;
+}
+.main.data-v-03e23e26 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+
+.copy.data-v-9cc6aff4 {
+  font-size: 18rpx;
+  border: 1rpx solid #ddd;
+  border-radius: 5rpx;
+  padding: 5rpx;
+  margin-left: 20rpx;
+  color: #0081FF;
+}
+.shipping-order-body.data-v-9cc6aff4 {
+  background-color: #fff;
+}
+.one-icon-hover.data-v-9cc6aff4 {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+.scroll-Y.data-v-9cc6aff4 {
+  height: 95vh;
+}
+.one_shipping.data-v-9cc6aff4 {
+  background-color: #fff;
+  border: 1rpx solid #c8c7cc;
+  border-radius: 10rpx;
+  width: 90%;
+  margin-left: 5%;
+  margin-bottom: 20rpx;
+}
+.one_shipping .first-row.data-v-9cc6aff4 {
+  padding: 20rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.one_shipping .first-row .shipping_state.data-v-9cc6aff4 {
+  font-size: 22rpx;
+  color: #aaa;
+}
+.one_shipping .shipping_details.data-v-9cc6aff4 {
+  border-top: 1px solid #ccc;
+  padding: 20rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.one_shipping .shipping_details .cuIcon-pullright.data-v-9cc6aff4 {
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+}
+.one_shipping .shipping_details .goods_name.data-v-9cc6aff4 {
+  margin-right: 180rpx;
+}
+.one_shipping .shipping_details .cuIcon-move.data-v-9cc6aff4 {
+  margin: 0 10rpx 0 10rpx;
+}
+.one_shipping .shipping_details .actions.data-v-9cc6aff4 {
+  width: 20%;
+  position: relative;
+}
+.one_shipping .shipping_details .actions .cuIcon-phone.data-v-9cc6aff4 {
+  -webkit-transform: scale(8);
+          transform: scale(8);
+}
+.one_shipping .shipping_details .receive-btn.data-v-9cc6aff4 {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+  background-color: #f00;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  font-size: 18rpx;
+}
+.one_shipping .shipping_details .phone-img.data-v-9cc6aff4 {
+  width: 100%;
+  height: 100rpx;
+}
+.one_shipping .address.data-v-9cc6aff4 {
+  border-top: 1rpx solid #ccc;
+  padding: 20rpx;
+  color: #aaa;
+}
+
+.copy.data-v-8ceb8db4 {
+  font-size: 18rpx;
+  border: 1rpx solid #ddd;
+  border-radius: 5rpx;
+  padding: 5rpx;
+  margin-left: 20rpx;
+  color: #0081FF;
+}
+.shipping-order-body.data-v-8ceb8db4 {
+  background-color: #fff;
+}
+.one-icon-hover.data-v-8ceb8db4 {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+.one_shipping.data-v-8ceb8db4 {
+  background-color: #fff;
+  border: 1rpx solid #c8c7cc;
+  border-radius: 10rpx;
+  width: 90%;
+  margin-left: 5%;
+  margin-bottom: 20rpx;
+}
+.one_shipping .first-row.data-v-8ceb8db4 {
+  padding: 20rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.one_shipping .first-row .shipping_state.data-v-8ceb8db4 {
+  font-size: 22rpx;
+  color: #aaa;
+}
+.one_shipping .shipping_details.data-v-8ceb8db4 {
+  border-top: 1px solid #ccc;
+  padding: 20rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.one_shipping .shipping_details .cuIcon-pullright.data-v-8ceb8db4 {
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+}
+.one_shipping .shipping_details .goods_name.data-v-8ceb8db4 {
+  margin-right: 180rpx;
+}
+.one_shipping .shipping_details .cuIcon-move.data-v-8ceb8db4 {
+  margin: 0 10rpx 0 10rpx;
+}
+.one_shipping .shipping_details .actions.data-v-8ceb8db4 {
+  width: 20%;
+  position: relative;
+}
+.one_shipping .shipping_details .actions .cuIcon-phone.data-v-8ceb8db4 {
+  -webkit-transform: scale(8);
+          transform: scale(8);
+}
+.one_shipping .shipping_details .receive-btn.data-v-8ceb8db4 {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+  background-color: #f00;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  font-size: 18rpx;
+}
+.one_shipping .shipping_details .phone-img.data-v-8ceb8db4 {
+  width: 100%;
+  height: 100rpx;
+}
+.one_shipping .address.data-v-8ceb8db4 {
+  border-top: 1rpx solid #ccc;
+  padding: 20rpx;
+  color: #aaa;
+}
+.region-address.data-v-8ceb8db4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+}
+
+.navbar.data-v-1efeb726 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  height: 80rpx;
+  width: 100%;
+  padding: 15rpx 5rpx;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 10rpx;
+  z-index: 3;
+  background-color: #fff;
+}
+.navbar .nav-item.data-v-1efeb726 {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  height: 100%;
+  font-size: 30rpx;
+  position: relative;
+  text-align: center;
+}
+.current.data-v-1efeb726 {
+  border-bottom: 5rpx solid #09499b;
+  color: #09499b;
+}
+.shipping-body.data-v-1efeb726 {
+  margin-top: 55rpx;
+}
+.content.data-v-1efeb726 {
+  background-color: #fff;
+}
+

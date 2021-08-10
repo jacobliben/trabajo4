@@ -1,0 +1,1 @@
+{"version":3,"sources":["uni-app:///main.js"],"names":["createPage","Page"],"mappings":";;;;;;;;;;kDAAA;AACA;AACA,uI;AACAA,UAAU,CAACC,4BAAD,CAAV,C","file":"pages/goods_weight_detail/goods_weight_detail.js","sourcesContent":["import 'uni-pages';\nimport Vue from 'vue'\nimport Page from './pages/goods_weight_detail/goods_weight_detail.vue'\ncreatePage(Page)"],"sourceRoot":""}

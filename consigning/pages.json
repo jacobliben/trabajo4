@@ -209,6 +209,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/batch_car_length/batch_car_length",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "选择车长车型",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTitleText":"徐工智联",

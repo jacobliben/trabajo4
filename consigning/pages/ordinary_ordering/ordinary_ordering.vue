@@ -116,33 +116,67 @@
 				<text >运载工具要求</text>
 		</view>
 		
-		<view class="cu-form-group margin-top"  >
-			<text class="name">车型选择</text>
-			    <checkbox-group @change="checkboxCargoBoxTypeChange" class="to-center" v-if="not_yet_CargoBoxType">
-			                   <label  v-for="item in cargoBoxTypeOptions" class="every-choice" :key="item.dictValue">
-			                        <view>
-			                           <checkbox :value="item.dictValue" :checked="item.checked" />
-			                        </view>
-			                       <view>{{item.dictLabel}}</view>
-			                   </label>
-			       </checkbox-group>
+		<view class="cu-form-group margin-top"  @click="goVehicleLength"  >
+			<view class="name">车型选择</view>
+			
+				   <view class="chosen-label">
+					   <view class="label-one-row">
+						   <text>{{ordinary_cargo_box_label[0]}}</text>
+						   <text>{{ordinary_cargo_box_label[1]}}</text>
+						   <text>{{ordinary_cargo_box_label[2]}}</text>
+						   <text>{{ordinary_cargo_box_label[3]}}</text>
+					   </view>
+					       
+					   <view class="label-one-row">
+						  <text>{{ordinary_cargo_box_label[4]}}</text>
+						  <text>{{ordinary_cargo_box_label[5]}}</text>
+						  <text>{{ordinary_cargo_box_label[6]}}</text>
+						  <text>{{ordinary_cargo_box_label[7]}}</text> 
+					   </view>
+					   
+					   <view class="label-one-row">
+					   	  <text>{{ordinary_cargo_box_label[8]}}</text>
+					   	  <text>{{ordinary_cargo_box_label[9]}}</text>
+					   	  <text>{{ordinary_cargo_box_label[10]}}</text>
+					   	  <text>{{ordinary_cargo_box_label[11]}}</text> 					
+					   </view>
+					  
+				   </view>
+				 <view>
+					 <image src="/static/lightning.png" mode="widthFix" class="xm-icon"></image> 
+				 </view>
 				   
-				 <image src="/static/lightning.png" mode="widthFix" class="xm-icon" @click="goVehicleLength" ></image>   
 		</view>
 		
 		
-		<view class="cu-form-group margin-top">
+		<view class="cu-form-group margin-top make-flex" @click="goVehicleLength" >
 			<text class="name">车长选择</text>
-			    <checkbox-group @change="checkboxVehicleLengthsChange" class="to-center" v-if="not_yet_vehicleLength">
-			                   <label  v-for="item in vehicleLengthOptions"  class="every-choice" :key="item.dictValue">
-			                        <view>
-			                           <checkbox :value="item.dictValue" :checked="item.checked" />
-			                        </view>
-			                       <view>{{item.dictLabel}}</view>
-			                   </label>
-			     </checkbox-group>
+			  
+				 <view class="chosen-label">
+				 					   <view class="label-length-row">
+				 						   <text>{{ordinary_vehicle_length_chosen[0]}}</text>
+				 						   <text>{{ordinary_vehicle_length_chosen[1]}}</text>
+				 						   <text>{{ordinary_vehicle_length_chosen[2]}}</text>
+				 						   <text>{{ordinary_vehicle_length_chosen[3]}}</text>
+				 					   </view>
+				 					       
+				 					   <view class="label-length-row">
+				 						  <text>{{ordinary_vehicle_length_chosen[4]}}</text>
+				 						  <text>{{ordinary_vehicle_length_chosen[5]}}</text>
+				 						  <text>{{ordinary_vehicle_length_chosen[6]}}</text>
+				 						  <text>{{ordinary_vehicle_length_chosen[7]}}</text> 
+				 					   </view>
+				 					   
+				 					   <view class="label-length-row">
+				 					   	  <text>{{ordinary_vehicle_length_chosen[8]}}</text>
+				 					   	  <text>{{ordinary_vehicle_length_chosen[9]}}</text>
+				 					   	  <text>{{ordinary_vehicle_length_chosen[10]}}</text>
+				 					   	  <text>{{ordinary_vehicle_length_chosen[11]}}</text> 					
+				 					   </view>
+				 					  
+				 </view>
 				 
-				 <image src="/static/lightning.png" mode="widthFix" class="xm-icon" @click="goVehicleLength" ></image>
+				 <image src="/static/lightning.png" mode="widthFix" class="xm-icon"></image>
 		</view>
 		
 		<view class="current-state margin-top">
@@ -150,63 +184,65 @@
 		</view>
 		
 		<view class="cu-form-group" >
-			<text class="title-name">装货开始（日期）<text class="red">*</text></text>
+			<text class="title-name">装货始（日期）<text class="red">*</text></text>
 			<!-- 日期 -->
 			<view>
 				 <picker  mode="date"  :value="assignSendTimeDate"   :end="endDate" @change="bindDateChange" data-index="assignSendTimeDate">
 				      <view class="picker-view text-lg">
 					  <text :class="{transparent :!assignSendTimeDate_has_input}">{{assignSendTimeDate}}</text>
-					  <text v-if ="!assignSendTimeDate_has_input">（请选择）</text>
-					  <text v-if="assignSendTimeDate_has_input">（已选择）</text>
+					  <text v-if ="!assignSendTimeDate_has_input"></text>
+					  <text v-if="assignSendTimeDate_has_input"></text>
 					  </view>
 				 </picker>
 				
 			</view>
+			<image src="/static/lightning.png" mode="widthFix" class="xm-icon"></image>
 		</view>
 		
 		<view class="cu-form-group" >
-			<text class="title-name">装货开始（时刻）<text class="red">*</text></text>
+			<text class="title-name">装货始（时刻）<text class="red">*</text></text>
 			
 			<view>
 				<picker mode="time" :value="assignSendTimeTime" start="00:00" end="23:59" @change="bindTimeChange" data-index="assignSendTimeTime">
 				       <view class="picker-view text-lg">
 					   <text :class="{transparent :!assignSendTimeTime_has_input}">{{assignSendTimeTime}}</text>
-					   <text v-if ="!assignSendTimeTime_has_input">（请选择）</text>
-					   <text v-if="assignSendTimeTime_has_input">（已选择）</text>
+					   <text v-if ="!assignSendTimeTime_has_input"></text>
+					   <text v-if="assignSendTimeTime_has_input"></text>
 					   </view>
 				</picker>
 			</view>
+			<image src="/static/lightning.png" mode="widthFix" class="xm-icon" ></image>
 		</view>
 		
 		<view class="cu-form-group" >
-			<text class="title-name">装货截止（日期）<text class="red">*</text></text>
-			<!-- 日期 -->
+			<text class="title-name">装货止（日期）<text class="red">*</text></text>
+			
 			<view >
 				 <picker  mode="date"  :value="assignEndTimeDate"   :end="endDate" @change="bindDateChange" data-index="assignEndTimeDate">
 				      <view class="picker-view text-lg">
 					   <text :class="{transparent :!assignEndTimeDate_has_input}">{{assignEndTimeDate}}</text>
-					   <text v-if ="!assignEndTimeDate_has_input">（请选择）</text>
-					    <text v-if="assignEndTimeDate_has_input">（已选择）</text>
+					   <text v-if ="!assignEndTimeDate_has_input"></text>
+					    <text v-if="assignEndTimeDate_has_input"></text>
 					   </view>
 				 </picker>
 			</view>
-			
+			<image src="/static/lightning.png" mode="widthFix" class="xm-icon" ></image>
 		</view>
 		
 		<view class="cu-form-group" >
-			<text class="title-name">装货截止（时间）<text class="red">*</text></text>
-			<!-- 时刻 -->  
+			<text class="title-name">装货止（时间）<text class="red">*</text></text>
+			  
 			<view>
 				 <picker mode="time"  :value="assignEndTimeTime" start="00:00"   end="23:59" @change="bindTimeChange" data-index="assignEndTimeTime">
 				      <view class="picker-view text-lg">
 					        <text :class="{transparent :!assignEndTimeTime_has_input}">{{assignEndTimeTime}}</text>
-					        <text v-if ="!assignEndTimeTime_has_input">（请选择）</text>
-					         <text v-if="assignEndTimeTime_has_input">（已选择）</text>
+					        <text v-if ="!assignEndTimeTime_has_input"></text>
+					         <text v-if="assignEndTimeTime_has_input"></text>
 					  </view>
 					  
 				 </picker>
 			</view>
-			
+			<image src="/static/lightning.png" mode="widthFix" class="xm-icon" ></image>
 		</view>
 		
 		<view class="current-state margin-top">
@@ -332,12 +368,11 @@
 		</view>
 		
 		<view class="btn-row">
-			             <!-- <button class="next-btn bg-gradual-blue round" 
-			                @click="makeDraft">草稿</button> -->
-							<button class="next-btn bg-gradual-green round"
+			            
+							<button class="next-btn blue-btn radius"
 							@click="backward">关闭</button> 
 							
-							 <button class="next-btn round" :class="{'bg-gradual-green':active}"
+							 <button class="next-btn radius" :class="{'blue-btn':active}"
 							 :disabled="disabled" 
 							  form-type="submit">提交</button>
 							
@@ -475,7 +510,11 @@
 				
 				params:{
 					
-				},		
+				},
+						
+				ordinary_cargo_box_type_chosen:[],
+				ordinary_vehicle_length_chosen:[],		
+				ordinary_cargo_box_label:[],
 				
 			}
 		},
@@ -562,7 +601,13 @@
 			 this.getVehicleLengthOptions()
 			 // 计价方式字典
 			 this.getSourceSettlementMethodOptions()
-			
+			 
+			 //给CargoBox 和vehicle Length 赋值
+			this.ordinary_cargo_box_type_chosen = uni.getStorageSync("ordinary_cargo_box_type_chosen")
+			this.ordinary_cargo_box_label = uni.getStorageSync("ordinary_cargo_box_label")
+			this.ordinary_vehicle_length_chosen = uni.getStorageSync("ordinary_vehicle_length_chosen")
+			this.params.cargoBoxType = this.ordinary_cargo_box_type_chosen
+			this.params.vehicleLengths = this.ordinary_vehicle_length_chosen
 		},
 		props:["index_key"],
 		computed: {
@@ -1120,7 +1165,15 @@
 			},
 			//后退
 			backward(){
-				
+				    try {consignor_contact
+				        uni.removeStorageSync('ordinary_cargo_box_label');
+				    	uni.removeStorageSync('ordinary_vehicle_length_chosen');
+				        uni.removeStorageSync('ordinary_cargo_box_label');
+				    	
+				    } catch (e) {
+				        // error
+				    }
+					
 					uni.switchTab({
 						url:"/pages/choose_order_type/choose_order_type"
 					})
@@ -1480,7 +1533,13 @@
 											title:"提交成功！"
 										})
 										
+										
+										
 										try {
+											uni.removeStorageSync('ordinary_cargo_box_label');
+											uni.removeStorageSync('ordinary_vehicle_length_chosen');
+											uni.removeStorageSync('ordinary_cargo_box_label');
+											
 										    uni.removeStorageSync('consignor_contact');
 											 uni.removeStorageSync('consignee_contact');
 										} catch (e) {
@@ -1728,7 +1787,10 @@
 	.cu-form-group textarea[disabled] .placeholder {
 		color: transparent;
 	}
-	
+	/*保证picker正常 ，勿删*/
+	.cu-form-group picker::after {
+	    display: none;  
+	} 
 	
 	
 	.picker-view{
@@ -1758,6 +1820,11 @@
 	.bg-gradual-blue {
 		background-image: linear-gradient(45deg, #0081ff, #1cbbb4);
 		color: #ffffff;
+	}
+	
+	.blue-btn{
+		background-color: #157cec;
+		color:#fff;
 	}
 	
 	.justify-center{
@@ -1806,4 +1873,32 @@
 		display: flex;
 		justify-content: flex-end;
 	}
+	
+	.make-flex{
+		display: flex;
+		flex-direction: row;
+		
+	}
+	
+	.chosen-label{
+		display: flex;
+		flex-direction:column;
+		.label-one-row{
+			margin-top: 5rpx;
+			text{
+				font-size: 30rpx;
+				margin-left:10rpx;
+			}
+		}
+		
+		.label-length-row{
+			margin-top: 5rpx;
+			text{
+				font-size: 30rpx;
+				margin-left:20rpx;
+			}
+		}
+	}
+	
+	
 </style>

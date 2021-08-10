@@ -12,97 +12,41 @@
 		  </view> 
 		  
 		  
-		 <view class="current-state margin-top">
-		 		<text >收发地</text>
-		 </view> 
-			
-		<view class="cu-form-group margin-top" @click="goSelectConsignorContact" >
-			
-			<view class="name">发货联系人<text class="red">*</text></view>
-                
-			     <view class="person-nums">
-			       <view>
-				        <text> {{consignor_contact_choosen}}</text>
-				   </view>
-			       
-			     </view>
-				 
-		</view> 
-		
-		<view class="cu-form-group margin-top" >
-			<!-- 发货人电话 -->
-			<view class="name"><image src="/static/phone-new.png" mode="widthFix" class="sm-icon" ></view>
-		        
-			     <view class="person-nums">
-			       <view>
-						 <view> 
-						   <text>{{consignor_contact_phone}}</text> 
-						 </view>
-				   </view>
-			       
-			     </view>
-				 <view></image></view>
-		</view> 
 		
 		
-		<view class="cu-form-group margin-top">
-			<!-- 发货人地址 -->
-			<view class="name"><image src="/static/positioning.png" mode="widthFix" class="sm-icon" ></view>
-		        
-			     <view class="person-nums">
-			       <view>
-				       
-						 <view> {{consignor_contact_address}}</view>
-				   </view>
-			        
-			     </view>
-				 <view></view>
-		</view> 
+		<view class="go-group margin-top a-line" >
+					  <image src="/static/start.png" mode="widthFix" class="sm-icon margin-left" ></image>
+					  <view class="middle-content" >
+						  <view class="middle-title">
+							  <text class="name">{{consignor_contact_choosen}}</text>
+							  <text class="phone">{{consignor_contact_phone}}</text>
+						  </view>
+						  <view class="address">
+							  {{consignor_contact_address}}
+						  </view>
+					  </view>
+					  <view class="badge">
+						  <text>发货地址</text>
+									  
+					  </view>
+		 </view>
 		
-		<view class="cu-form-group margin-top justify-center" >
-			<image src="/static/downward.svg" mode="widthFix" class="sm-icon" >
+		<view class="go-group" >
+					  <image src="/static/end.png" mode="widthFix" class="sm-icon margin-left" ></image>
+					  <view class="middle-content" >
+						  <view class="middle-title">
+							  <text class="name">{{consignee_contact_choosen}}</text>
+							  <text class="phone">{{consignee_contact_phone}}</text>
+						  </view>
+						  <view class="address">
+							  {{consignee_contact_address}}
+						  </view>
+					  </view>
+					  <view class="badge">
+									
+						  收货地址
+					  </view>
 		</view>
-		
-		<view class="cu-form-group">
-			<view class="name">收货联系人 <text class="red">*</text></view>
-			
-			<view class="person-nums">
-			  <text>{{consignee_contact_choosen}}</text>
-			   
-			</view>
-			
-		</view>
-		
-		<view class="cu-form-group margin-top">
-			<!-- 收货人电话 -->
-			<view class="name"><image src="/static/phone-new.png" mode="widthFix" class="sm-icon" ></view>
-		        
-			     <view class="person-nums">
-			       <view>
-				       
-						 <view> 
-						 
-						 <text>{{consignee_contact_phone}}</text> 
-						 </view>
-				   </view>
-			        
-			     </view>
-				 <view></image></view>
-		</view> 
-		
-		<view class="cu-form-group margin-top">
-			<!-- 收货人地址 -->
-			<view class="name"><image src="/static/positioning.png" mode="widthFix" class="sm-icon" ></view>
-		        
-			     <view class="person-nums">
-			       <view>
-				       
-						 <view> {{consignee_contact_address}}</view>
-				   </view>
-			        
-			     </view>
-				 <view></view>
-		</view> 
 		
 		<view class="current-state margin-top">
 				<text >货物详情</text>
@@ -352,7 +296,7 @@
 		
 		<view class="btn-row">
 			           
-							   <button class="next-btn bg-gradual-green round" 
+							   <button class="next-btn blue-btn radius" 
 						 @click="backward">关闭</button> 
 		</view>
        </form>
@@ -566,7 +510,7 @@
 						
 							
 							this.orderSourceDetail = res.data.data
-							console.log(this.orderSourceDetail,'orderSourceDetail');
+							
 							this.consignor_contact_choosen = this.orderSourceDetail.iscmSourceInformationRecord.shipperName
 							this.consignor_contact_phone = this.orderSourceDetail.iscmSourceInformationRecord.shipperPhone
 							this.consignor_contact_address = this.orderSourceDetail.iscmSourceInformationRecord.shipperAddress
@@ -1131,6 +1075,39 @@
 </script>
 
 <style lang="scss" scoped>
+	.go-group{
+		display: flex;
+		flex-direction: row;
+		background-color: #fff;
+		padding-bottom: 10rpx;
+		.middle-content{
+			border-bottom: #e2e2e2 ;
+			padding-top: 10rpx;
+			padding-right: 10rpx;
+			width: 70%;
+			.middle-title{
+				font-weight: 600;
+				font-size:30rpx;
+				.name{
+					margin-right:20rpx;
+				}
+			}
+			.address{
+				margin-top: 10rpx;
+				color:#a9a9a9;
+				font-size: 30rpx;
+			}
+		}
+	}
+	
+	.badge{
+		border-left:1rpx solid #e6e6e6;
+		height:80%;
+		width:80rpx;
+		padding-top: 20rpx;
+		padding-left: 10rpx;
+	}
+	
 	.current-state{
 			 margin-top:10rpx;
 			 margin-left:10rpx;
@@ -1189,6 +1166,10 @@
 	}
 	
 	
+	.blue-btn{
+		background-color: #157cec;
+		color:#fff;
+	}
 	
 	.name{
 			 color:#000;
@@ -1311,7 +1292,10 @@
 		color: transparent;
 	}
 	
-	
+	/*保证picker正常 ，勿删*/
+	.cu-form-group picker::after {
+	    display: none;  
+	} 
 	
 	.picker-view{
 		   color:#222;
@@ -1334,6 +1318,7 @@
 	
 	.page{
 		padding-bottom: 20rpx;
+		background-color: #f1f1f1;
 	}
 	
 	.bg-gradual-blue {
@@ -1349,5 +1334,52 @@
 		display: flex;
 		flex-direction: row;
 		margin-right: 20rpx;
+	}
+	
+	.margin-left{
+		margin-top:50rpx;
+		margin-left: 2%;
+		margin-right: 4%;
+	}
+	
+	.a-line{
+		padding-bottom: 10rpx;
+		border-bottom: 1rpx solid #d2d2d2;
+	}
+	
+	.xm-icon{
+		width:25rpx;
+		height:25rpx;
+	}
+	
+	.image-frame{
+		display: flex;
+		justify-content: flex-end;
+	}
+	
+	.make-flex{
+		display: flex;
+		flex-direction: row;
+		
+	}
+	
+	.chosen-label{
+		display: flex;
+		flex-direction:column;
+		.label-one-row{
+			margin-top: 5rpx;
+			text{
+				font-size: 30rpx;
+				margin-left:10rpx;
+			}
+		}
+		
+		.label-length-row{
+			margin-top: 5rpx;
+			text{
+				font-size: 30rpx;
+				margin-left:20rpx;
+			}
+		}
 	}
 </style>

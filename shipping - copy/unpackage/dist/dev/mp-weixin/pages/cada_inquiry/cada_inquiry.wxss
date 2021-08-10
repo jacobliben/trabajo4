@@ -1,0 +1,51 @@
+.current-state.data-v-402fd0e6 {
+  margin-top: 10rpx;
+  margin-left: 10rpx;
+  margin-bottom: 25rpx;
+  border-left: 3rpx solid blue;
+  padding-left: 30rpx;
+  color: #000;
+  font-size: 30rpx;
+  font-weight: 600;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.current-state .hand-input.data-v-402fd0e6 {
+  color: blue;
+  font-size: 20rpx;
+  font-weight: 300;
+  margin-right: 10%;
+}
+.star.data-v-402fd0e6 {
+  color: #f00;
+}
+.name.data-v-402fd0e6 {
+  color: #000;
+}
+.ref-name.data-v-402fd0e6 {
+  font-size: 29rpx;
+  color: #999;
+}
+.btn-row.data-v-402fd0e6 {
+  width: 100%;
+  margin-top: 200rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+.next-btn.data-v-402fd0e6 {
+  margin-top: 20rpx;
+  width: 30%;
+}
+
