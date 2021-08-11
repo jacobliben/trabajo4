@@ -1,7 +1,7 @@
 <template>
 	<view class="full-screen ">
 		<form class="screen-cover" @submit="formSubmit" @reset="formReset">
-			<view class="head">
+			<!-- <view class="head">
 				<image src="/static/driver-version.png" mode="widthFix" class="drivers"></image>
 			</view>
 		    
@@ -12,7 +12,7 @@
 					
 				</view>
 				
-				<!-- hide password -->
+				
 				<view class="user-password" v-if="hidePass">
 					<text class="cuIcon-lock text-style text-blue"></text>
 					<input type="text" placeholder="请输入验证码"  @input="getUserVerifyCode" class="password-input">
@@ -27,8 +27,37 @@
 		  
 				<button  form-type="submit" class="footer margin-top margin-bottom text-center self-center radius" data-class="fade" role="button" hover-class="button-hover">
 					<text class="self-center">登录</text>
-				</button>
+				</button> -->
+		<view class="head-title">
+		   验证码登录
+		</view>	
+		
+		<view class="get-inputs">
+			<view class="user-tel">
+				<text class="user-pre">+86</text>
+				<input type="number" placeholder="请输入用户手机号" maxlength="11"   @input="getUserPhoneNum" class="tel-input">
+			  
+			</view>
 			
+			<view class="user-veri">
+				<view class="user-pre">
+					<image src="/static/lock.svg" mode="widthFix" class="lock"></image>
+				</view>
+			  
+			  <input type="text" placeholder="请输入验证码"  @input="getUserVerifyCode" class="veri-input">
+			  <view  @click="getVerifyCode" :disabled="codeDisabled" role="button"  class=" text-get "  >
+			  	<text class="text-df">{{codeText}}</text>
+			  </view>
+			</view>
+			
+			
+		</view>
+		
+		<button  form-type="submit"  class="login-btn margin-top margin-bottom text-center self-center radius" data-class="fade" role="button" :disabled="login_disable">
+			<text class="self-center">立即登录</text>
+		</button>
+		
+		
 		
 		<view class="more-choices margin-top">
 			<view>
@@ -54,11 +83,13 @@
 	export default {
 		data() {
 			return {
-				codeText:"获取",
+				codeText:"获取验证码",
 				userPhoneNum:"",
 				userVerifyCode:"",
 				hidePass:true,
 				codeDisabled:false,
+				
+				login_disable:true,
 			}
 		},
 		methods: {
@@ -68,6 +99,11 @@
 			
 			getUserVerifyCode(e){
 				this.userVerifyCode = e.target.value
+				if (this.userVerifyCode.length ==4){
+					this.login_disable = false
+				}else{
+					this.login_disable = true
+				}
 			},
 			//send verifying code to your phone
 			async getVerifyCode(){
@@ -119,6 +155,8 @@
 						icon:"none"
 					})
 				}
+				
+				
 			},
 			
 			async formSubmit(){
@@ -270,8 +308,9 @@
 		 display: flex;
 		 flex-direction: row;
 		 justify-content: space-between;
-		 width:80%;
-		 margin-left:10%;
+		 width:100%;
+		 margin-left:0;
+		 font-weight:500;
 		 font-size:30rpx;
 		  .choices{
 			   color:#aaa;
@@ -284,10 +323,7 @@
 	 			  margin-right:10rpx;
 	 }
 	 
-	 .text-get{
-		 width:200rpx;
-		 height:50rpx;
-	 }
+	 
 	 .text-df{
 		 font-size: 25rpx;
 	 }
@@ -315,4 +351,73 @@
 			  transform: scale(1.2);
 		 }
 	 
+	 
+	 
+	 
+	 .full-screen{
+	 		padding: 5%; 
+	 }
+	 
+	 .head-title{
+	 		 margin-top: 20%;
+	 		 letter-spacing:0rpx;
+	 		 font-size: 40rpx;
+	 		 font-weight: 600;
+	 		 margin-bottom: 45rpx;
+	 		 
+	 }
+	 
+	 .user-tel{
+		 display: flex;
+		 flex-direction: row;
+		  height:75rpx ;
+		 border-bottom: 1rpx solid #4e98fc;
+		 .tel-input{
+			margin-left: 40rpx;
+			margin-bottom: 5rpx; 
+		 }
+	 }
+	 
+	 .user-pre{
+		 width: 15%;
+	 }
+	 
+	 .lock{
+		 margin-top: 25rpx;
+		 width: 25rpx;
+		 height:25rpx ;
+		 margin-left: 15rpx;
+	 }
+	 
+	 .user-veri{
+		 display: flex;
+		 flex-direction: row;
+		  height:95rpx ;
+		 border-bottom: 1rpx solid #e5e5e5;
+		 .veri-input{
+			       margin-top: 20rpx;
+		 			margin-left: 40rpx;
+		 			margin-bottom: 15rpx; 
+		 }
+	 }
+	 
+	 .text-get{
+		     border-left: 8rpx solid #f1f1f1;
+			 color: #978887;
+			 font-size: 40rpx;
+			 font-weight: 600;
+			 padding-left: 40rpx;
+			 margin-top: 30rpx;
+	 		 width:200rpx;
+	 		 height:50rpx;
+	 }
+	 
+	 .login-btn{
+		     margin-top: 30rpx;
+	 		 background-color: #1684fc;
+	 		 color:#fff;
+	 		 font-size: 30rpx;
+	 		 font-weight: 600;
+	 		 border-radius:250rpx;
+	 }
 </style>

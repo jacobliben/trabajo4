@@ -23,7 +23,7 @@
 						<text v-if ="item.iscmWaybillInformationRecord.consigneeCityName==='市辖区'">{{item.iscmWaybillInformationRecord.consigneeRegionName}}</text>
 					</view>
 					<view>
-						<view class="goods_name">货物名称：{{item.iscmSource.goodsName}}</view>		
+						<view class="goods_name">{{item.iscmSource.goodsName}}</view>		
 						<view>货物重量：{{item.goodsWeight}}吨</view>
 						<view>目前剩余重量：{{item.surplusGoodsWeight}}吨</view>
 					</view>

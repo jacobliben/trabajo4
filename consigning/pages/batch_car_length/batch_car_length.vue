@@ -97,7 +97,117 @@
 			this.getCargoBoxTypeOptions()
 			//车长字典
 			this.getVehicleLengthOptions()
+			
+			try {
+			    uni.removeStorageSync('batch_cargo_box_type_chosen');
+				 uni.removeStorageSync('batch_cargo_box_label');
+				 uni.removeStorageSync('batch_vehicle_length_chosen');
+			} catch (e) {
+			    // error
+			}
 		},
+		
+		watch: {
+			isActivedafault(newValue, oldValue) {
+				if (newValue==true){
+					this.cargoBoxTypeOptions = []
+					this.cargoBoxTypeLabel = []
+				}else{
+					
+				}
+			},
+			
+			isActivecriteria(newValue, oldValue) {
+				if (newValue==true){
+					this.cargoBoxTypeOptions.push("5")
+					this.cargoBoxTypeLabel.push("标箱")
+				}else{
+					this.cargoBoxTypeOptions.pop("5")
+					this.cargoBoxTypeLabel.pop("标箱")
+				}
+			},
+			
+			isActiveHigh(newValue, oldValue) {
+				if (newValue==true){
+					this.cargoBoxTypeOptions.push("2")
+					this.cargoBoxTypeLabel.push("高栏")
+				}else{
+					this.cargoBoxTypeOptions.pop("2")
+					this.cargoBoxTypeLabel.pop("高栏")
+				}
+			},
+			
+			isActiveFlat(newValue, oldValue) {
+				if (newValue==true){
+					this.cargoBoxTypeOptions.push("1")
+					this.cargoBoxTypeLabel.push("平板")
+				}else{
+					this.cargoBoxTypeOptions.pop("1")
+					this.cargoBoxTypeLabel.pop("平板")
+				}
+			},
+			
+			isActiveBox(newValue, oldValue) {
+				if (newValue==true){
+					this.cargoBoxTypeOptions.push("4")
+					this.cargoBoxTypeLabel.push("厢式")
+				}else{
+					this.cargoBoxTypeOptions.pop("4")
+					this.cargoBoxTypeLabel.pop("厢式")
+				}
+			},
+			
+			isActiveContainer(newValue, oldValue) {
+				if (newValue==true){
+					this.cargoBoxTypeOptions.push("1028")
+					this.cargoBoxTypeLabel.push("集装箱")
+				}else{
+					this.cargoBoxTypeOptions.pop("1028")
+					this.cargoBoxTypeLabel.pop("集装箱")
+				}
+			},
+			
+			isActiveFly(newValue, oldValue) {
+				if (newValue==true){
+					this.cargoBoxTypeOptions.push("7")
+				    this.cargoBoxTypeLabel.push("飞翼")
+				}else{
+					this.cargoBoxTypeOptions.pop("7")
+					this.cargoBoxTypeLabel.pop("飞翼")
+				}
+			},
+			
+			isActiveSelfDismantle(newValue, oldValue) {
+				if (newValue==true){
+					this.cargoBoxTypeOptions.push("8")
+					this.cargoBoxTypeLabel.push("自卸车")
+				}else{
+					this.cargoBoxTypeOptions.push("8")
+					this.cargoBoxTypeLabel.push("自卸车")
+				}
+			},
+			
+			isActiveLow(newValue, oldValue) {
+				if (newValue==true){
+					this.cargoBoxTypeOptions.push("3")
+					this.cargoBoxTypeLabel.push("低平板")
+				}else{
+					this.cargoBoxTypeOptions.pop("3")
+					this.cargoBoxTypeLabel.pop("低平板")
+				}
+			},
+			
+			isActiveAxis(newValue, oldValue) {
+				if (newValue==true){
+					this.cargoBoxTypeOptions.push("6")
+					this.cargoBoxTypeLabel.push("轴线车")
+				}else{
+					this.cargoBoxTypeOptions.pop("6")
+					this.cargoBoxTypeLabel.pop("轴线车")
+				}
+			},
+		},
+		
 		methods: {
 			//车辆类型字典
 			async getCargoBoxTypeOptions(){
@@ -134,112 +244,52 @@
 			//不限
 			getActivedafault(){
 				this.isActivedafault = !this.isActivedafault
-				if (this.isActivedafault){
-					this.cargoBoxTypeOptions = []
-					this.cargoBoxTypeLabel = []
-				}else{
-					
-				}
+				
 			},
 			//标箱
 			getActivecriteria(){
 				this.isActivecriteria = !this.isActivecriteria
-				if (this.isActivecriteria){
-					this.cargoBoxTypeOptions.push("5")
-					this.cargoBoxTypeLabel.push("标箱")
-				}else{
-					this.cargoBoxTypeOptions.pop("5")
-					this.cargoBoxTypeLabel.pop("标箱")
-				}
 				
 			},
 			//高栏
 			getActiveHigh(){
 				this.isActiveHigh = !this.isActiveHigh
-				if (this.isActiveHigh){
-					this.cargoBoxTypeOptions.push("2")
-					this.cargoBoxTypeLabel.push("高栏")
-				}else{
-					this.cargoBoxTypeOptions.pop("2")
-					this.cargoBoxTypeLabel.pop("高栏")
-				}
+				
 			},
 			//平板
 			getActiveFlat(){
 				this.isActiveFlat = !this.isActiveFlat
-				if (this.isActiveFlat){
-					this.cargoBoxTypeOptions.push("1")
-					this.cargoBoxTypeLabel.push("平板")
-				}else{
-					this.cargoBoxTypeOptions.pop("1")
-					this.cargoBoxTypeLabel.pop("平板")
-				}
+				
 			},
 			//厢式
 			getActiveBox(){
 				this.isActiveBox = !this.isActiveBox
-				if (this.isActiveBox){
-					this.cargoBoxTypeOptions.push("4")
-					this.cargoBoxTypeLabel.push("厢式")
-				}else{
-					this.cargoBoxTypeOptions.pop("4")
-					this.cargoBoxTypeLabel.pop("厢式")
-				}
+				
 			},
 			//集装箱
 			getActiveContainer(){
 				this.isActiveContainer = !this.isActiveContainer
-				if (this.isActiveContainer){
-					this.cargoBoxTypeOptions.push("1028")
-					this.cargoBoxTypeLabel.push("集装箱")
-				}else{
-					this.cargoBoxTypeOptions.pop("1028")
-					this.cargoBoxTypeLabel.pop("集装箱")
-				}
+				
 			},
 			//飞翼
 			getActiveFly(){
 				this.isActiveFly = !this.isActiveFly
-				if (this.isActiveContainer){
-					this.cargoBoxTypeOptions.push("7")
-					this.cargoBoxTypeLabel.push("飞翼")
-				}else{
-					this.cargoBoxTypeOptions.pop("7")
-					this.cargoBoxTypeLabel.pop("飞翼")
-				}
+				
 			},
 			//自卸车
 			getActiveSelfDismantle(){
 				this.isActiveSelfDismantle = !this.isActiveSelfDismantle
-				if (this.isActiveSelfDismantle){
-					this.cargoBoxTypeOptions.push("8")
-					this.cargoBoxTypeLabel.push("自卸车")
-				}else{
-					this.cargoBoxTypeOptions.pop("8")
-					this.cargoBoxTypeLabel.pop("自卸车")
-				}
+				
 			},
 			//低平板
 			getActiveLow(){
 				this.isActiveLow = !this.isActiveLow
-				if (this.isActiveLow){
-					this.cargoBoxTypeOptions.push("3")
-					this.cargoBoxTypeLabel.push("低平板")
-				}else{
-					this.cargoBoxTypeOptions.pop("3")
-					this.cargoBoxTypeLabel.pop("低平板")
-				}
+				
 			},
 			//轴线车
 			getActiveAxis(){
 				this.isActiveAxis = !this.isActiveAxis
-				if (this.isActiveAxis){
-					this.cargoBoxTypeOptions.push("6")
-					this.cargoBoxTypeLabel.push("轴线车")
-				}else{
-					this.cargoBoxTypeOptions.pop("6")
-					this.cargoBoxTypeLabel.pop("轴线车")
-				}
+				
 			},
 			
 			//不限
@@ -375,5 +425,7 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
+		color:#fff;
+		background-color: #157cec;
 	}
 </style>

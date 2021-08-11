@@ -2,7 +2,7 @@
 	<view class="vehicle-has-approved-body">
 		
 		<view class="cu-bar search bg-white">
-			 <text class="margin-left">车船牌照号码</text>
+			 <text class="margin-left title">车船牌照号码</text>
 			<view class="search-form round">
 				<text class="cuIcon-search"></text>
 				<input placeholder="通过车船牌照号码搜索" type="text" @input="searchVehiclePlateNumber"
@@ -13,18 +13,19 @@
 		 
 		
 		<view class="cu-bar search bg-white">
-			 <text class="margin-left">工作状态</text>
-			<view class="search-form round">
+			 <text class="margin-left title">工作状态</text>
+			<view class="search-form round big-padre">
 				<text class="cuIcon-search"></text>
 				<picker @change="bindPickerVehicleWorkStatusChange" :value="vehicle_work_status_index" :range="vehicleWorkStatusOptions">
-				    <view class="picker-view text-lg">{{vehicleWorkStatusOptions[vehicle_work_status_index]}}</view>
+				    <view class="picker-view gray">{{vehicleWorkStatusOptions[vehicle_work_status_index]}}</view>
 				 </picker>
+				 <button class="cu-btn btn-one bg-green shadow-blur round position-right" role="button"
+				 aria-disabled="false" @click="searchVehicleBtn" >搜索</button>
 			</view>
 			
-			<view class="action">
-				<button class="cu-btn bg-green shadow-blur round" role="button"
-				aria-disabled="false" @click="searchVehicleBtn" >搜索</button>
-			</view>
+			<!-- <view class="action">
+				
+			</view> -->
 		</view>
 		
 		
@@ -84,7 +85,7 @@
 			  show_not_found:false,
 			  queryParams: {
 			          pageNum: 1,
-			          pageSize:6,
+			          pageSize:7,
 			          }
 			}
 		},
@@ -262,7 +263,7 @@
 		background-color: #fff;
 	}
 	.scroll-Y{
-		height:65vh;
+		height:880rpx;
 	}
 	
 	.vehicle_content{
@@ -312,5 +313,27 @@
 		
 		
 	}
+	
+	.title{
+		width: 200rpx;
+	}
+	
+	.gray{
+		color:#777;
+	}
+	
+	.position-right{
+		position: absolute;
+		right:4rpx;
+	}
+	
+	.big-padre{
+		position: relative;
+	}
+	.btn-one{
+		height:90%;
+		
+	}
+	
 </style>
 

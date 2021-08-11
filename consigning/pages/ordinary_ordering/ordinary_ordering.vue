@@ -575,8 +575,13 @@
 							 	this.has_consignee_contact = false//尚未选择收货联系人
 							 }
 							
-							
-		   				
+							this.params = uni.getStorageSync("get_params")
+		   				    this.goodsName = this.params.goodsName
+							this.goodsWeight = this.params.goodsWeight
+							this.packageNumber = this.params.packageNumber
+							this.goodsName = this.params.goodsName
+							this.goodsName = this.params.goodsName
+							this.goodsName = this.params.goodsName
 		   
 			 
 			 
@@ -601,6 +606,18 @@
 			 this.getVehicleLengthOptions()
 			 // 计价方式字典
 			 this.getSourceSettlementMethodOptions()
+			 
+			 
+			 this.params = uni.getStorageSync("get_params")
+			 this.goodsName = this.params.goodsName
+			 this.goodsWeight = this.params.goodsWeight
+			 this.packageNumber = this.params.packageNumber
+			 this.goodsName = this.params.goodsName
+			 this.goodsName = this.params.goodsName
+			 this.goodsName = this.params.goodsName
+			 
+			 
+			 
 			 
 			 //给CargoBox 和vehicle Length 赋值
 			this.ordinary_cargo_box_type_chosen = uni.getStorageSync("ordinary_cargo_box_type_chosen")
@@ -797,7 +814,7 @@
 			},
 			getGoodsName(e){
 				             this.goodsName = e.target.value
-							this.params. goodsName = e.target.value
+							this.params.goodsName = e.target.value
 							
 						},
 			getGoodsWeight(e){
@@ -843,11 +860,20 @@
 									
 									 this.params.packageType =this.packageTypeSendValue[package_type_index]
 									
-						        },	
+						        },
+									
+			//choose cargo box						
 			goVehicleLength(){
+				console.log(this.params,"params");
+				const get_params = this.params
+				console.log(get_params,"get_params");
+				uni.setStorageSync("get_params",get_params)
+				
 				uni.navigateTo({
 					url:"/pages/choose_car_length/choose_car_length"
 				})
+				
+				
 			},					
 			//车辆类型选择					
 			checkboxCargoBoxTypeChange: function (e) {
@@ -1529,11 +1555,7 @@
 												  
 										}
 										
-										uni.showToast({
-											title:"提交成功！"
-										})
-										
-										
+									
 										
 										try {
 											uni.removeStorageSync('ordinary_cargo_box_label');
@@ -1545,6 +1567,17 @@
 										} catch (e) {
 										    // error
 										}
+										
+										
+										
+										
+										
+										setTimeout(()=>{
+											uni.showToast({
+												title:"提交成功,进入待审核状态！",
+												icon:"none"
+											})
+										},2000)
 										
 										uni.switchTab({
 																					                       //此处必须用相对路径，保证刷新

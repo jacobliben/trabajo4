@@ -1,21 +1,18 @@
 <template>
-	<view>
-		<view class="flex first-row ">
+	<view class="page">
+	<!-- 	<view class="flex first-row ">
 			<view class="left-first-row">
 				<view class="shipping_num">运单编号：{{received_info.waybillNo}}</view>
 				<view class="details">
 					<text>{{received_info.goodsName}}</text>
-					<!-- <text>JOVNO005</text>
-					<text>WMS005</text> -->
+					
 				</view>
 				
 				<view class="details_weight">
-					<!-- <text>20托盘</text>
-					<text>|</text> -->
+					
 					<view class="margin-top"><text>货物总重： {{received_info.goodsWeight}} 吨</text></view>
 					<view class="margin-top"><text>目前剩余重量： {{received_info.surplusGoodsWeight}} 吨</text></view>
-					<!-- <text>|</text>
-					<text>150立方</text> -->
+					
 				</view>
 			</view>
 			
@@ -40,8 +37,7 @@
 			<view class="person-details">
 				<view class="person-name">副驾驶员</view>
 				<view class="person-nums">
-					<!-- <text class="cellphone bg-gray-gradual">请选择副驾驶员</text>
-					<text class="cuIcon-right lg text-gray"></text>	 -->
+					
 				</view>
 			</view>
 		</view>
@@ -88,11 +84,120 @@
 				</view>
 				
 			</view>
-		</view>
+		</view> -->
 			
-	<!-- 	</view> -->
+	    <view class="shipping_no">运单编号：{{received_info.waybillNo}}</view>
+		<view class="total_weight">
+			<text class="title">总重量:</text>
+			<text class="num">{{received_info.goodsWeight}} 吨</text>
+		</view>
+		
+		<view class="address">
+			<view>
+				<text class="transport">运输地址</text>
+			</view>
+			<view>
+				<!-- <text class="distance">运输地址</text> -->
+			</view>
+		</view>
 		  
-		<button type="default" class="submit-btn" :loading="loading" :disabled="disabled" size="mini" @click="upload" >提交</button>
+		  
+		  <view>
+			  <view class="start-point">
+				  <image src="/static/green-circle.png" mode="widthFix" class="circle"></image>
+				  <text>{{received_info.iscmWaybillInformationRecord.shipperProvinceName}}-</text>
+				 
+				   <text v-if ="received_info.iscmWaybillInformationRecord.shipperCityName!=='市辖区'">{{received_info.iscmWaybillInformationRecord.shipperCityName}}-</text>
+				   <text >{{received_info.iscmWaybillInformationRecord.shipperRegionName}}</text>
+				   
+				   <view class="addr">
+				   	 <input type="text"  :value="received_info.iscmWaybillInformationRecord.shipperAddress" disabled @input="" class="addr-input">
+				   				
+				   </view>
+			  </view>
+			  
+		  </view>
+		  
+		  <view class="vertical-line">
+			  
+		  </view>
+		  <view>
+		  			  <view class="start-point">
+		  				  <image src="/static/pink-circle.png" mode="widthFix" class="circle"></image>
+		  				  <text>{{received_info.iscmWaybillInformationRecord.consigneeProvinceName}}-</text>
+		  				 
+		  				   <text v-if ="received_info.iscmWaybillInformationRecord.consigneeCityName!=='市辖区'">{{received_info.iscmWaybillInformationRecord.consigneeCityName}}-</text>
+		  				   <text>{{received_info.iscmWaybillInformationRecord.consigneeRegionName}}</text>
+						   
+						   <view class="addr">
+						   	 <input type="text"  :value="received_info.iscmWaybillInformationRecord.consigneeAddress" disabled @input="" class="addr-input">
+						   				
+						   </view>
+		  			  </view>
+		  </view>
+		  
+		  
+		  <view class="choose-driver" @click="goSelectChiefDriver">
+		    <text class="red">*</text>
+		  	<view class="driver-details">
+		  		<view class="driver-name">主驾驶员</view>
+		  		<view class="driver-input">
+		  			<text v-if ="has_chief_driver">{{chief_driver_choosen}}</text>
+		  			<text v-if ="!has_chief_driver" class="cellphone">请选择主驾驶员</text>
+		  			
+		  		</view>
+		  	</view>
+		  </view>
+		  
+		  <view class="choose-driver" @click="goSelectVehicle">
+		    <text class="red">*</text>
+		  	<view class="driver-details">
+		  		<view class="driver-name">运输车辆</view>
+		  		<view class="driver-input">
+		  			<text v-if ="has_vehicle">{{vehicle_choosen}}</text>
+		  			<text v-if ="!has_vehicle" class="cellphone">请选择车辆</text>
+		  			
+		  		</view>
+		  	</view>
+		  </view>
+		  
+		  <view>
+			  <text class="wait">待分配:</text>
+			  <text class="ton-color">{{received_info.surplusGoodsWeight}} 吨</text>
+		  </view>
+		  
+		  <view class="choose-driver" >
+		  	<text class="red">*</text>
+		  	<view class="driver-details">
+		  		<view class="driver-name">分配重量</view>
+		  		<view class="driver-input">
+		  			
+		  			<input class="cellphone"
+		  			
+		  			type="number" maxlength="20"
+		  			 placeholder="请输入分配给该车的重量" @input="getWeight"></input>
+		  			
+		  		</view>
+		  	</view>
+		  </view>
+		  
+		  
+		  <view class="choose-driver" @input="getNote">
+		  	
+		  	<view class="driver-details">
+		  		<view class="driver-name margin-left-xm">备注</view>
+		  		<view class="driver-input">
+		  			
+		  			<input class="cellphone"
+		  			type="text" maxlength="200"
+		  			 placeholder="请输入备注"></input>
+		  			
+		  		</view>
+		  		
+		  	</view>
+		  </view>
+		  
+		<button type="default" class="submit" :loading="loading" :disabled="disabled"  @click="upload" >提交</button>
 		
 		
 	</view>
@@ -139,6 +244,7 @@
 		 onLoad(options){
 			var that = this
 		    this.received_info = uni.getStorageSync("accepted_shipping_orders")
+			console.log(this.received_info,'received_info');
 			this.queryParams.waybillId =   this.received_info.waybillId
 			this.btn_title = options.btn_title
 			
@@ -577,4 +683,121 @@
    	color: #f00;
    }
    
+   
+   
+  
+   .page{
+	   padding:5%;
+   }
+   .shipping_no{
+	   color: #1684FC;
+	   font-size: 30rpx;
+	   font-family: SourceHanSansSC-bold PingFangSC-bold SourceHanSansSC-regular PingFangSC-regular Arial;
+   }
+   
+   .total_weight{
+	   margin-top: 12rpx;
+	   margin-bottom: 30rpx;
+	   .title{
+		   font-weight: 800;
+		   font-size: 32rpx;
+	   }
+	   .num{
+		    color: #1684FC;
+		   font-size: 30rpx;
+		   margin-left: 20rpx;
+	   }
+   }
+   
+   .address{
+	   display: flex;
+	   flex-direction: row;
+	   justify-content: space-between;
+	   .transport{
+		    font-size: 40rpx;
+			font-weight: 800;
+			
+	   }
+   }
+   
+   
+   
+   
+   
+   .submit{
+	   margin-top: 20rpx;
+	   width: 80%;
+	   background-color: #3894ff;
+	   color: #fff;
+   }
+   
+   .circle{
+	   width: 25rpx;
+	   height:20rpx ;
+   }
+   
+   .start-point{
+	   padding: 20rpx;
+	   text{
+		   margin-left: 40rpx;
+		   font-size: 38rpx;
+		   font-weight: 600;
+	   }
+   }
+   .addr{
+	   margin: 10rpx;
+	   margin-left: 60rpx;
+	   .addr-input{
+		  color: #8ca2b5; 
+	   }
+	   
+	   
+   }
+   
+   .vertical-line{
+	   margin-top: -50rpx;
+	   margin-left:30rpx;
+	   height: 40rpx;
+	   border-left:1rpx solid #cbcbcb;
+   }
+   
+   .red{
+   	color: #f00;
+   }
+   
+   .choose-driver{
+	  margin-top: 20rpx; 
+	 display: flex;
+	 flex-direction: row;
+	 border-bottom: 1rpx dashed #c1c1c1;
+	 padding-bottom: 15rpx;
+	 .driver-details{
+		 display: flex;
+		 flex-direction: row;
+		 .driver-name{
+			font-size: 38rpx; 
+			font-weight: 800;
+			width: 200rpx;
+		 }
+		 
+		 .driver-input{
+			 margin-left: 50rpx;
+			 color: #272736;
+		 }
+	 }
+   }
+   
+   
+   .wait{
+	   color: #50555e;
+	   margin-top: 10rpx;
+   }
+   
+   .ton-color{
+	   color: #f00;
+   }
+   
+   .margin-left-xm{
+	   margin-left: 10rpx;
+   }
 </style>

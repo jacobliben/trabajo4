@@ -387,9 +387,9 @@
 				has_consignee_contact:false,
 				
 				//货物名称
-				goodsName:"",
+				goodsName:null,
 				//货物重量
-				goodsWeight:"",	
+				goodsWeight:null,	
 				// 货物分类字典
 				goodsTypeOptions: [],
 				goodsTypeSendValue: [],
@@ -486,24 +486,15 @@
 				//是否显示“草稿”和“提交”按钮
 				show_btn:true,
 				
-				params:{
-					
-				},
-						
+				params:{},
+		
 				batch_cargo_box_type_chosen:[],
 				batch_vehicle_length_chosen:[],		
 				batch_cargo_box_label:[],		
 				
 			}
 		},
-		
-		
-		mounted(){
-			
-			
-			
-			
-			
+		created(){
 			// 下单方式字典
 			this.getSourceOrderWayOptions()
 			  // 货物分类字典
@@ -551,6 +542,15 @@
 			 }else{
 			 	this.has_consignee_contact = false//尚未选择收货联系人
 			 }
+		},
+		
+		mounted(){
+			
+			this.goodsName = uni.getStorageSync("goodsName")
+			
+			this.goodsWeight = uni.getStorageSync("goodsWeight")
+			
+			this.goods_type_index = uni.getStorageSync("goods_type_index")
 			
 			//给CargoBox 和vehicle Length 赋值
 			this.batch_cargo_box_type_chosen = uni.getStorageSync("batch_cargo_box_type_chosen")
@@ -562,7 +562,7 @@
 			
 			
 		},
-		props:["index_key"],
+		
 		computed: {
 		      
 		        endDate() {
@@ -751,15 +751,16 @@
 				
 			},
 			getGoodsName(e){
-				             this.goodsName = e.target.value
-							this.params.goodsName = e.target.value
-							
+				
+				              this.goodsName = e.target.value
+							 this.params.goodsName = e.target.value
+							 uni.setStorageSync("goodsName",this.goodsName)
 						},
 			getGoodsWeight(e){
 				             this.goodsWeight = e.target.value
 							this.params.goodsWeight = e.target.value
 							this.params.remainingGoodsWeight = e.target.value
-							
+							uni.setStorageSync("goodsWeight",this.goodsWeight)
 							//计算运费金额
 							if (this.params.unitPrice != null || this.params.unitPrice!=""||this.params.unitPrice.length >0){
 								this.consignorRates = parseFloat(this.unitPrice)  *  parseFloat(this.goodsWeight)
@@ -775,12 +776,13 @@
 			getPackageNumber(e){
 				           
 							this.params.packageNumber = e.target.value
-							
+							console.log(this.params,"params");
 						},						
 			//货物分类选择
 			bindPickerGoodsTypeChange(e) {
 						         
 						            this.goods_type_index = e.target.value
+									uni.setStorageSync("goods_type_index",this.goods_type_index)
 									
 									var goods_type_index = this.goods_type_index
 									
@@ -802,6 +804,11 @@
 						        },	
 								
 			goVehicleLength(){
+				
+				// const get_params = this.params
+				
+				// uni.setStorageSync("get_params",get_params)
+				
 				uni.navigateTo({
 					url:"/pages/batch_car_length/batch_car_length"
 				})
@@ -1479,9 +1486,7 @@
 										
 										
 										
-										uni.showToast({
-											title:"提交成功！"
-										})
+										
 										
 										
 										try {
@@ -1491,7 +1496,12 @@
 										    // error
 										}
 										
-										
+										setTimeout(()=>{
+											uni.showToast({
+												title:"提交成功,进入待审核状态！",
+												icon:"none"
+											})
+										},1000)
 										 uni.switchTab({
 											                       //此处必须用相对路径，保证刷新
 										                            url: '../choose_order_type/choose_order_type',

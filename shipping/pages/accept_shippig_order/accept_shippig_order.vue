@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="flex first-row ">
+		<!--<view class="flex first-row ">
 			<view class="left-first-row">
 				<view class="shipping_num">{{received_info.waybillNo}}</view>
 				<view class="details">
@@ -10,11 +10,7 @@
 				</view>
 				
 				<view class="details_weight">
-					<!-- <text>20托盘</text>
-					<text>|</text> -->
 					<text>{{received_info.goodsWeight}}吨</text>
-					<!-- <text>|</text>
-					<text>150立方</text> -->
 				</view>
 			</view>
 			
@@ -23,20 +19,8 @@
 			</view>
 		</view>
 		
-		<!-- 
-		<view class="person">
-			<image src="/static/person.png" mode="aspectFit" class="person-img"></image>
-			<view class="person-details">
-				<view class="person-name">张三</view>
-				<view class="person-nums">
-					<text class="cellphone">1388888888,</text>
-					<text>021-7878738</text>
-				</view>
-			</view>
-			<image src="/static/phone-new.png" mode="aspectFit" class="phone-new"></image>
-		</view> -->
 		
-		<view class="person">
+		 <view class="person">
 			<image src="/static/positioning.png" mode="aspectFit" class="person-img"></image>
 			<view class="person-details">
 				<view class="address-name">{{received_info.consignee_address}}</view>
@@ -46,7 +30,7 @@
 					<text v-if ="received_info.iscmWaybillInformationRecord.shipperCityName==='市辖区'">{{received_info.iscmWaybillInformationRecord.shipperRegionName}}</text>
 					<text class="cuIcon-pullright lg text-gray margin-left margin-right"> </text>
 					<text>{{received_info.iscmWaybillInformationRecord.consigneeProvinceName}}</text>
-					<!-- 判断是否为“直辖市” -->
+					
 					<text v-if ="received_info.iscmWaybillInformationRecord.consigneeCityName!=='市辖区'">{{received_info.iscmWaybillInformationRecord.consigneeCityName}}</text>
 					<text v-if ="received_info.iscmWaybillInformationRecord.consigneeCityName==='市辖区'">{{received_info.iscmWaybillInformationRecord.consigneeRegionName}}</text>
 				</view>
@@ -55,11 +39,232 @@
 					<text>{{received_info.iscmWaybillInformationRecord.shipperAddress}} </text>
 				</view>
 			</view>
+		</view> -->
+		
+		
+		
+		
+		
+		
+		
+		<view class="details-body">
+			<!-- #ifndef MP-WEIXIN -->
+			<view class="current-state" v-if = "this.btn_title!='查阅'"><text>当前状态</text></view>
+			<view v-else></view>
+			
+			<view class="cu-steps" v-if = "this.btn_title!='查阅'">
+				<view class="cu-item text-green">
+					<text :class="(this.btn_title=='发车'||this.btn_title=='签收'||this.btn_title=='查看')?'cuIcon-roundcheckfill':'cuIcon-title'">
+					</text>
+					待发车
+				</view>
+				
+				<view class="cu-item " :class="(this.btn_title=='签收'||this.btn_title=='查看')?'text-green':'ordinary'">
+					<text  :class="(this.btn_title=='签收'||this.btn_title=='查看')?'cuIcon-roundcheckfill':'cuIcon-title'">
+					</text>
+					待签收
+				</view>
+				
+				
+				
+				<view class="cu-item" :class="(this.btn_title=='查看')?'text-green':'ordinary'" >
+					<text  :class="(this.btn_title=='查看')?'cuIcon-roundcheckfill':'cuIcon-title'">
+					</text>
+					已完成
+				</view>
+			</view>
+			<view v-else></view>
 			
 			
+			 <view  class="top-gap">
+				 <view class="current-state">运单信息</view>
+				 
+				  <view class="cu-form-group" >
+				 	 <view>
+				 		 <text class="name">运单编号</text>
+				 	 </view>
+				 	 <view>
+				 		 <text class="ref-name">{{received_info.waybillNo}}</text>
+				 	 		
+				 	 </view>    
+				  </view>
+				  
+				  <view class="cu-form-group">
+				  				 <view>
+				  				 		<text class="name">货物名称</text>		 
+				  				 </view>
+				  				 <view>
+				  					   <text class="ref-name">{{received_info.iscmSource.goodsName}}</text>
+				  				 		
+				  				 </view>
+				  </view>
+				  
+				  <view class="cu-form-group">
+				  				 <view>
+				  				 		<text class="name">货物重量</text>		 
+				  				 </view>
+				  				 <view>
+				  				 		<text class="ref-name">{{received_info.dispatchGoodsWeight||received_info.goodsWeight}}吨</text>		 
+				  				 				 
+				  				 </view>
+				  </view>
+				  
+				  <view class="cu-form-group">
+				  				 <view>
+				  				 		<text class="name">货物类型</text>		 
+				  				 </view>
+				  				 <view>
+				  				 		<text class="ref-name">{{goodsType}}</text>		 
+				  				 				 
+				  				 </view>
+				  </view>
+				  <view class="cu-form-group">
+				  				 <view>
+				  				 		<text class="name">包装类型</text>		 
+				  				 </view>
+				  				 <view>
+				  				 		<text class="ref-name">{{packageType}}</text>		 
+				  				 				 
+				  				 </view>
+				  </view>
+				  <view class="cu-form-group">
+				  				 	<view>
+				  				 			 <text class="name">运单状态</text>		 
+				  				 	</view>
+				  				 	<view>
+				  				 		 <text class="ref-name">待接收</text>
+				  				 				 
+				  				 	</view>    
+				  </view>
+				  <view class="cu-form-group">
+				  				 <view>
+				  				 		<text class="name">装货开始时间</text>		 
+				  				 </view>
+				  				 <view>
+				  				 		<text class="ref-name">{{received_info.iscmSource.assignSendTime}}</text>		 
+				  				 				 
+				  				 </view>
+				  </view>
+				  <view class="cu-form-group">
+				  				 <view>
+				  				 		<text class="name">装货截止时间</text>		 
+				  				 </view>
+				  				 <view>
+				  				 		<text class="ref-name">{{received_info.iscmSource.assignEndTime}}</text>		 
+				  				 				 
+				  				 </view>
+				  </view>
+				  <view class="cu-form-group">
+				  				 <view>
+				  				 		<text class="name">要求到货时间</text>		 
+				  				 </view>
+				  				 <view>
+				  				 		<text class="ref-name">{{received_info.iscmSource.needArrivalTime}}</text>		 
+				  				 				 
+				  				 </view>
+				  </view>
+					<view class="cu-form-group">
+			 			 <view>
+			 			 	<text class="name">承运人</text>			 
+			 			 </view>
+			 			 <view>
+			 			 	 <text class="ref-name">{{received_info.iscmCarrier.carrierName}}</text> 			 
+			 			 				 
+			 			 </view>
+					</view>
+				  
+				  
+				  
+			 </view>
+			
+			 
+			  <view class="current-state">发货人信息</view>
+			
+			 
+			 <view class="cu-form-group" @click="goShipperDetail">
+			 			 <view>
+			 			 	<text class="name">托运人</text>			 
+			 			 </view>
+			 			 <view>
+			 			 	<text class="ref-name">{{received_info.iscmWaybillInformationRecord.shipper}}</text>			 
+			 			 		 
+			 			 </view>
+			 </view>
+			 
+			 <view class="cu-form-group">
+				 <view>
+				 	<text class="name">发货联系人</text>			 
+				 </view>
+				 <view>
+				 	<text class="ref-name">{{received_info.iscmWaybillInformationRecord.shipperName}}</text>			 
+				 	 
+				 </view>
+			 </view>
+			 
+			 <view class="cu-form-group">
+				 <view>
+				 	<text class="name">发货联系人电话</text>			 
+				 </view>
+				 <view>
+				 	<text class="ref-name">{{received_info.iscmWaybillInformationRecord.shipperPhone}}</text>			 
+				 		 
+				 </view>
+			 </view>
+			 
+			 <view class="cu-form-group">
+				 <view>
+				 	<text class="name">发货地址</text>			 
+				 </view>
+				 <view>
+				 	<text class="ref-name">{{received_info.iscmWaybillInformationRecord.shipperAddress}}</text>			 
+				 	 
+				 </view>
+			 </view>
+			 
+			 <view class="current-state">收货人信息</view>
+			 <view class="cu-form-group">
+				 <view>
+				 	<text class="name">收货人(公司)</text>			 
+				 </view>
+				 <view>
+				 	<text class="ref-name">{{received_info.iscmWaybillInformationRecord.consignee}}</text>			 
+				 		 
+				 </view>
+			 </view>
+			 
+			 <view class="cu-form-group">
+				 <view>
+				 	<text class="name">收货联系人</text>			 
+				 </view>
+				 <view>
+				 	<text class="ref-name">{{received_info.iscmWaybillInformationRecord.consigneeName}}</text>			 
+				 		 
+				 </view>
+			 </view>
+			 
+			 <view class="cu-form-group">
+				 <view>
+				 	<text class="name">收货联系人电话</text>			 
+				 </view>
+				 <view>
+				 	<text class="ref-name">{{received_info.iscmWaybillInformationRecord.consigneePhone}}</text>			 
+				 		 
+				 </view>
+			 </view>
+			 
+			 <view class="cu-form-group">
+				 <view>
+				 	<text class="name">收货地址</text>			 
+				 </view>
+				 <view>
+				 	<!-- <text class="ref-name">{{received_info.iscmWaybillInformationRecord.consigneeAddress}}</text> -->			 
+				 	<input type="text" class="ref-name" disabled :value = "received_info.iscmWaybillInformationRecord.consigneeAddress">		 
+				 </view>
+			 </view>
+			 
+			 
+			<!-- #endif --> 
 		</view>
-		
-		
 		  
 		<button type="default" class="submit-btn" :loading="loading" :disabled="disabled" size="mini" @click="accept" >{{btn_title}}</button>
 		
@@ -451,8 +656,48 @@
 	  line-height: 100rpx;
 	 
   }
-  
+  .top-gap{
+  	  margin-top:40rpx;
+  }
 
-   
+   .details-body{
+   	background-color: #fff;
+   }
+    .current-state{
+   	 margin-top:10rpx;
+   	 margin-left:10rpx;
+   	 margin-bottom: 25rpx;
+   	 border-left:3rpx solid orange;
+   	 padding-left: 30rpx;
+   	 color:#000;
+   	 font-size:30rpx;
+   	 font-weight: 800;
+    }
+    
+    
+    .top-line{
+   	 border-top:1rpx solid #d5d5d8;
+    }
+    
+    .flex-bar{
+   	 display: flex;
+   	 justify-content: space-between;
+   	 padding-left: 5%;
+   	 padding-right: 5%;;
+   	 padding-top:15rpx;
+   	 padding-bottom:15rpx;
+    }
+    
+    .ordinary{
+   	 color: #a1a1a1;
+    }
+    
+    .name{
+   	 color:#999999;
+    }
+    .ref-name{
+    		 font-size:25rpx;
+   		 color:#999;
+    }
    
 </style>

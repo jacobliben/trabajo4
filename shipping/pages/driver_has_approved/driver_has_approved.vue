@@ -1,9 +1,9 @@
 <template>
 	<view class="vehicle-has-approved-body">
 		
-		<view style="width:100%;height: 320rpx;">
+		<view class="search-body">
 			<view class="cu-bar search bg-white">
-				 <text class="margin-left">姓名</text>
+				 <text class="margin-left title">姓名</text>
 				<view class="search-form round">
 					<text class="cuIcon-search"></text>
 					<input placeholder="通过姓名搜索" type="text" @input="searchDriverName"
@@ -13,7 +13,7 @@
 			
 			
 			<view class="cu-bar search bg-white">
-				 <text class="margin-left">身份证号码</text>
+				 <text class="margin-left title">身份证号码</text>
 				<view class="search-form round">
 					<text class="cuIcon-search"></text>
 					<input placeholder="通过身份证号码搜索" type="text" @input="searchDriverIdNumber"
@@ -22,17 +22,16 @@
 			</view>
 			
 			<view class="cu-bar search bg-white">
-				 <text class="margin-left">手机号码</text>
+				 <text class="margin-left title">手机号码</text>
 				<view class="search-form round">
 					<text class="cuIcon-search"></text>
 					<input placeholder="通过手机号码搜索" type="text" @input="searchDriverPhone"
 					selection-start="-1"  selection-end="-1" cursor="-1" />
-				</view>
-				
-				<view class="action">
 					<button class="cu-btn bg-green shadow-blur round" role="button"
 					aria-disabled="false" @click="searchDriverBtn" >搜索</button>
 				</view>
+				
+			
 			</view>
 		</view>
 		
@@ -143,7 +142,7 @@
 			  show_not_found:false,
 			  queryParams: {
 			          pageNum: 1,
-			          pageSize:5,
+			          pageSize:7,
 			          }
 			}
 		},
@@ -417,11 +416,24 @@
 </script>
 
 <style lang="scss" scoped>
+	.search-body{
+		width:100%;
+		height: 320rpx;
+	}
 	.vehicle-has-approved-body{
 		background-color: #fff;
 	}
+	
+	.title{
+		width: 150rpx;
+	}
+	
+	.gray{
+		color:#777;
+	}
+	
 	.scroll-Y{
-		 height: 650rpx;
+		 height: 750rpx;
 		
 	}
 	.truck{

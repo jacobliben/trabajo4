@@ -372,5 +372,7 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
+		color:#fff;
+		background-color: #157cec;
 	}
 </style>

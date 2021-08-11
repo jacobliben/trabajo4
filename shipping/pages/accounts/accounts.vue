@@ -10,161 +10,108 @@
 							   class="tachar" v-if="tachar_avatar"></image>
 						  </view>
 						   <view>
-							  <text class="user-name"> {{this.user.data.user.nickName}}</text>
+							  <text class="user-name"> {{user.data.user.nickName}}</text>
 							  <text class="has-accreditted"> 已认证</text> 
 						   </view>
 						  <view class="user-accounts"> 账号： {{user.data.user.phonenumber}}</view>
 					  </view>
 		</view>
-		<view class="cu-form-group" hover-class="one-icon-hover" @click="goWayBill">
-				      <view>
-						  <image src="/static/way-bill.png"  class="sm-pic"></image>
-						  <text>我的派车单</text>
-					  </view>
-					<text class="cuIcon-right lg text-gray"></text>
-		</view>
-	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goShipping" v-if="show_shipping_order">
-		      <view>
-				  <image src="/static/folder.png"  class="sm-pic"></image>
-				  <text>我的运单</text>
-			  </view>
-	   			<text class="cuIcon-right lg text-gray"></text>
-	   </view>
-	   
-	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goLoading">
-		  
-		  <view>
-		        <image src="/static/despatching.png"  class="sm-pic"></image>
-	   			<text>确认装货</text>
-			</view>	
-	   			<text class="cuIcon-right lg text-gray"></text>
-	   </view>
-	   
-	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goDespatching">
-	   		  
-	   		  <view>
-	   		        <image src="/static/globe.png"  class="sm-pic"></image>
-	   			<text>确认发车</text>
-	   			</view>	
-	   			<text class="cuIcon-right lg text-gray"></text>
-	   </view>
-	   
-	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goReceiving">
-	   		   <view>
-	   		        <image src="/static/box.png"  class="sm-pic"></image>
-	   			<text>确认签收</text>
-	   			</view>	
-	   			<text class="cuIcon-right lg text-gray"></text>
-	   </view>
+		
 	   
 	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goDispatchBefore" v-if="show_dispatch_before" >
-	   		   <view>
+	   		   <view class="lite-bar">
 	   		        <image src="/static/billboard.png"  class="sm-pic"></image>
-	   			<text>历史派车单</text>
+	   			     <text class="lite-title">历史派车单</text>
 	   			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
 	   <view class="cu-form-group" v-if="false">
-		   <view>
+		   <view class="lite-bar">
 		        <image src="/static/card.png"  class="sm-pic"></image>
-	   			<text>结算申请</text>
+	   			<text class="lite-title">结算申请</text>
 			</view>		
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
 	   <view class="cu-form-group" v-if="false">
-		   <view>
+		   <view class="lite-bar">
 		        <image src="/static/boy.png"  class="sm-pic"></image>
-	   			<text>发货人管理</text>
+	   			<text class="lite-title">发货人管理</text>
 			</view>
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
 	   <view class="cu-form-group" @click="goAddCarBoss" v-if="false">
-		   <view>
+		   <view class="lite-bar">
 		        <image src="/static/vr.png"  class="sm-pic"></image>
-	   			<text>车老板列表</text>
+	   			<text class="lite-title">车老板列表</text>
 			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
-	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goInquiry" v-if="show_shipping_order" >
-		   	<view>
-				<image src="/static/bill.png"  class="sm-pic"></image>
-	   			<text>询价单</text>
-			</view> 
-	   			<text class="cuIcon-right lg text-gray"></text>
-	   </view>
 	   
-	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goQuote" v-if="show_shipping_order">
-	   		   	<view>
-	   				<image src="/static/document.png"  class="sm-pic"></image>
-	   			<text>报价单</text>
-	   			</view> 
-	   			<text class="cuIcon-right lg text-gray"></text>
-	   </view>
 	   
 	   <view class="cu-form-group" @click="goVehicle"  v-if="show_vehicle">
-		   <view>
+		   <view class="lite-bar">
 		   	    <image src="/static/cars.png"  class="sm-pic"></image>
-				<text>车辆管理</text>
+				<text class="lite-title">车辆管理</text>
 			</view> 
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
 	   <view class="cu-form-group" @click="goBankCard" v-if="show_bankcard">
-	   		   <view>
+	   		   <view class="lite-bar">
 	   		   	    <image src="/static/archive.png"  class="sm-pic"></image>
-	   				<text>银行卡管理</text>
+	   				<text class="lite-title">银行卡管理</text>
 	   			</view> 
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
 	   <view class="cu-form-group" @click="goDriver" v-if="show_driver">
-	   		   <view>
+	   		   <view class="lite-bar">
 	   		   	    <image src="/static/driver.png"  class="sm-pic"></image>
-	   				<text>司机管理</text>
+	   				<text class="lite-title">司机管理</text>
 	   			</view> 
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
 	   <view class="cu-form-group" @click="goPersonalInfo">
-		   <view>
+		   <view class="lite-bar">
 		   	    <image src="/static/brain.png"  class="sm-pic"></image>
-	   			<text>个人资料</text>
+	   			<text class="lite-title">个人资料</text>
 			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
 	   <view class="cu-form-group" @click="goMember"  v-if="false">
-	   		   <view>
-	   		   	    <image src="/static/medal.png"  class="sm-pic"></image>
-	   			<text>承运人会员管理</text>
+	   		   <view class="lite-bar">
+	   		   	<image src="/static/medal.png"  class="sm-pic"></image>
+	   			<text class="lite-title">承运人会员管理</text>
 	   			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
 	   <view class="cu-form-group" v-if="false">
-		   <view>
+		   <view class="lite-bar">
 		   	    <image src="/static/money.png"  class="sm-pic"></image>
-	   			<text>我的钱包</text>
+	   			<text class="lite-title">我的钱包</text>
 			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
 	   <view class="cu-form-group" @click="phoneCall" >
-	   		   <view>
+	   		   <view class="lite-bar">
 	   		   	    <image src="/static/speech.svg"  class="sm-pic"></image>
-	   			<text>客服热线</text>
+	   			<text class="lite-title">客服热线</text>
 	   			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
 	   <view class="cu-form-group" @click="logout">
-	   		   <view>
+	   		   <view class="lite-bar">
 	   		   	    <image src="/static/wrench.png"  class="sm-pic" ></image>
-	   			<text>退出登录</text>
+	   			<text class="lite-title">退出登录</text>
 	   			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
@@ -176,7 +123,7 @@
 	export default {
 		data() {
 			return {
-				user:"",
+				user_get:"",
 				imgAvatarUrl:"/static/user.png",
 				tachar_avatar:false,
 				
@@ -202,13 +149,13 @@
 			   	  	 	
 			   	  	 })
 					
-				this.user = resUserInfo	 
+				this.user_get = resUserInfo	 
 				
 			
-			      const user = resUserInfo			
+			      const user_get = resUserInfo			
 			   
 				   
-				   const user_permissions = user.data.permissions
+				   const user_permissions = user_get.data.permissions
 				   
 				   let result_shipping_order = user_permissions.findIndex(ele => ele === 'iscm:waybill:list')
 				   
@@ -413,35 +360,7 @@
 				},500)
 				this.tachar_avatar =false
 			},	
-			goWayBill(){
-				uni.switchTab({
-					url:'/pages/way_bill/way_bill'
-				})
-			},
-			goShipping(){
-				uni.switchTab({
-					url:'/pages/shipping_order/shipping_order'
-				})
-			},
-			goLoading(){
-				uni.setStorageSync("nav_state","loading")
-				uni.switchTab({
-					url:`/pages/way_bill/way_bill`
-				})
-			},
-			goDespatching(){
-				uni.setStorageSync("nav_state","dispatching")
-				uni.switchTab({
-					url:`/pages/way_bill/way_bill`
-				})
-			},
-			goReceiving(){
-				uni.setStorageSync("nav_state","receiving")
-				uni.switchTab({
-					
-					url:`/pages/way_bill/way_bill`
-				})
-			},
+			
 			goDispatchBefore(){
 				
 				uni.navigateTo({
@@ -449,20 +368,7 @@
 				})
 			},
 			
-			goInquiry(){
-				
-				uni.navigateTo({
-					url:'/pages/inquiry/inquiry'
-				})
-			},
 			
-			
-			goQuote(){
-				
-				uni.navigateTo({
-					url:'/pages/quote/quote'
-				})
-			},
 			
 			
 			goVehicle(){
@@ -594,6 +500,16 @@
 	 		 padding-top:15rpx;
 	 		 padding-bottom:15rpx;
 	 }
+	 
+	 .lite-bar{
+		 display:flex;
+		 flex-direction:row;
+		 align-items: middle;
+		 .lite-title{
+			 margin-left:20rpx;
+		 }
+	 }
+	 
 	 
 	 .one-icon-hover{
 	 	

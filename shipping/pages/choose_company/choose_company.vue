@@ -1,6 +1,6 @@
 <template>
-	<view>
-		<view class="title" v-if="carrierReviewStatus==1">请选择所属公司</view>
+	<view class="full-screen">
+		<!-- <view class="title" v-if="carrierReviewStatus==1">请选择所属公司</view>
 		<view class="title" v-if="carrierReviewStatus==2">身份审核中</view>
 		<view class="" v-if="carrierReviewStatus==1">
 			 <radio-group @change="radioChange">
@@ -9,10 +9,7 @@
 			                        <radio :value="item.carrierCompanyId.toString()" :checked="index === current" />
 			                    </view>
 			                    <view class="name">{{item.companyName}}</view>
-								<!-- <view class="state">
-									<view>确认状态</view>
-									<view>{{item.state}}</view>
-								</view> -->
+								
 								
 			                </label>
 			 </radio-group>						
@@ -38,7 +35,43 @@
 		
 		<view class="notes">
 			<view>{{received_msg}}</view>
+		</view> -->
+		
+		<view class="head-sec">
+			<view class="head-title">
+			   欢迎登录徐工智联
+			</view>
+			<view class="head-title">
+			   <text class="sub-title">智联你我   不付所托</text>
+			</view>
 		</view>
+		
+		
+		<view class="choices" v-if="carrierReviewStatus==1">
+			<button class="pizhou-lilian" :class="{'xz-lilian':selected_xuzhou}" @click="pickXuzhou">徐州徐工智联物流服务有限公司</button>
+			
+			<button class="pizhou-lilian" :class="{'xz-lilian':selected_pizhou}" @click="pickPizhou">
+				徐州徐工智联物流邳州分公司
+			</button>	
+		</view>
+		
+		
+		
+		<view class="notices margin-top">
+			<view v-if="carrierReviewStatus==1">已被平台审核通过需先确定进入的公司，如有问题请联系平台客服</view>
+			<view v-if="carrierReviewStatus==2">账号信息正在审核中，可点击 ‘退出’ 按钮，退出登录。如有问题请联系平台客服</view>
+		</view>
+		
+		<view class="btns margin-top">
+			<button  v-if="carrierReviewStatus==1" type="primary" class="final-btn" @click="confirmCompany">确认</button>
+			<button v-if="carrierReviewStatus==2" type="warn" class="back-btn" @click="backoff">退出</button>
+		</view>
+		
+		<view class="explain">
+			<view>1.登录后如需切换公司可到 <text class="foco">我的-->切换公司</text>进行切换</view>
+			<view>2.如果当前写明没有任何公司可选,请退出等待审核。加急审核联系电话:<text class="tel" @click="phoneCall">0516-87739070</text></view>
+		</view>
+		
 	</view>
 </template>
 
@@ -48,10 +81,11 @@
 			return {
 				received_msg:"",
 				current: -1,
-				companyID:"",
+				companyID:null,
 				carrierReviewStatus:"",
 				items:[],
-				
+				selected_xuzhou:false,
+				selected_pizhou:false,
 			}
 		},
 		mounted(){
@@ -60,6 +94,12 @@
 			
 		},
 		methods: {
+			phoneCall(){
+				uni.makePhoneCall({
+				    phoneNumber: '051687739070' ,
+					
+				});
+			},	
 			async getCarrierCompaniesList(){
 				//get the company names list
 				const token_id = uni.getStorageSync("token")
@@ -69,7 +109,7 @@
 					 		"Authorization": token_id
 					 	},
 					 })
-					
+					console.log( res,' res');
 					 this.items = res.data.data
 					 
 					 //如果res.data.data 为空数组，证明正在审核中，返回审核中的页面
@@ -121,6 +161,16 @@
 			                 }
 			             }
 			         },
+			pickXuzhou(){
+				this.selected_xuzhou = true
+				this.selected_pizhou = false
+				this.companyID = 101
+			},
+			pickPizhou(){
+				this.selected_xuzhou = false
+				this.selected_pizhou = true
+				this.companyID = 102
+			}, 
 			async confirmCompany(){
 				var that = this
 				var authorization = uni.getStorageSync("token")
@@ -224,4 +274,93 @@
 	 	   justify-content: center;
 	 }
 	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 .full-screen{
+	 		padding: 5%; 
+	 }
+	 
+	 .head-title{
+	 		 margin-top: 5%;
+	 		 letter-spacing: 20rpx;
+	 		 font-size: 50rpx;
+	 		 font-weight: 500;
+	 		 margin-bottom: 5rpx;
+	 		 
+	 }
+	 
+	 .sub-title{
+	 	font-size: 35rpx;
+	 	font-weight: 400;
+	 	margin-left: 10%;
+		
+		
+	 }
+	 
+	 .head-sec{
+		 padding-bottom: 40rpx;
+		 border-bottom: 3rpx solid #e8e8e8;
+	 }
+	 
+	 .choices{
+		 display: flex;
+		 flex-direction: row;
+		 margin-top: 10%;
+		 font-size: 35rpx;
+		 background-color: #fff;
+		 color: #976666;
+	 }
+	 
+	 
+	 .xz-lilian{
+		 width: 48%;
+		 font-size: 35rpx;
+		 background-color: #3894ff;
+		 color: #fff;
+		 border-radius: 40rpx;
+	 }
+	 
+	 .pizhou-lilian{
+		 width: 48%;
+		
+		 
+		  border-radius: 40rpx;
+	 }
+	 
+	 .notices{
+		 padding-top: 5%;
+		 color: #27394e;
+		 padding-bottom:5% ;
+		 border-bottom: 3rpx solid #e8e8e8;
+	 }
+	 
+	 .final-btn{
+		 color: #fff;
+		 background-color: #3894ff;
+		 width: 55%;
+		 box-shadow: -5px 5px 5px #ddd;
+	 }
+	 
+	 .back-btn{
+		 color: #fff;
+		 background-color: #f00;
+		 width: 55%;
+		 box-shadow: -5px 5px 5px #ddd;
+	 }
+	 
+	 .explain{
+		 margin-top: 25rpx;
+		 line-height: 45rpx;
+		 height: 45rpx ;
+		 .foco{
+			 font-weight: 600;
+		 }
+		 .tel{
+			 color: #3894ff;
+		 }
+	 }
 </style>

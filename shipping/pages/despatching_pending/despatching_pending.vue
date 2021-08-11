@@ -35,7 +35,7 @@
 							<text>{{item.iscmDispatchInformationRecord.consigneeProvinceName}}</text>
 							<!-- 判断是否为“直辖市” -->
 							<text v-if ="item.iscmDispatchInformationRecord.consigneeCityName!=='市辖区'">{{item.iscmDispatchInformationRecord.consigneeCityName}}</text>
-							<text v-if ="item.iscmDispatchInformationRecord.consigneeCityName==='市辖区'">{{item.iscmDispatchInformationRecord.consigneeRegionName}}</text>
+							<text v-if ="item.iscmDispatchInformationRecord.consigneeCityName!=='市辖区'">{{item.iscmDispatchInformationRecord.consigneeRegionName}}</text>
 						</text>
 					</view> 
 					<view>

@@ -1,11 +1,46 @@
 <template>
 	<view class="full-screen ">
 		<form class="screen-cover" @submit="formSubmit" @reset="formReset">
-			<view class="head">
+			<!-- <view class="head">
 				<image src="/static/driver-version.png" mode="widthFix" class="drivers"></image>
+			</view> -->
+			
+			<view class="head-title">
+			   欢迎登录徐工智联
 			</view>
-		    
-			<view class="login-inputs radius">
+		    <view class="head-title">
+		       <text class="sub-title">网络货运平台</text>
+			   <text class="title-blue">司机版</text>
+		    </view>
+			
+			<view class="get-inputs">
+				<view class="user-name">
+				  <input type="text" placeholder="请输入用户账号" :value="username"  @input="getUserAccount" class="username-input">
+				</view>
+				
+				<view class="user-name" v-if="hidePass">
+				  <input type="text" placeholder="请输入用户密码" :value="password" password @input="getUserpassword" class="username-input">
+				  <image src="/static/blind.svg" mode="widthFix" class="end-icon"  @click="hidePass=!hidePass" ></image>
+				</view>
+				
+				<view class="user-name" v-if="!hidePass">
+				  <input type="text" placeholder="请输入用户密码" :value="password" @input="getUserpassword" class="username-input">
+				  <image src="/static/eye.svg" mode="widthFix" class="end-icon"  @click="hidePass=!hidePass"></image>
+				</view>
+			</view>
+			
+			<view class="terms">
+				 <label class="radio"><radio class="radio-icon" value="r1" :checked="terms_checked"  @click="radioChange"/>
+				   <text>登录代表同意徐工智联</text>
+				   <text class="blue-terms" @click.prevent="goTerms"><<用户协议>></text>
+				 </label>
+			</view>
+			
+			<button  form-type="submit"  class="login-btn margin-top margin-bottom text-center self-center radius" data-class="fade" role="button" :disabled="login_disable">
+				<text class="self-center">立即登录</text>
+			</button>
+			
+			<!-- <view class="login-inputs radius">
 				<view class="user-login">
 					<text class="cuIcon-people text-style text-blue"></text>
 					<input type="text" placeholder="请输入用户账号" :value="username"  focus @input="getUserAccount" class="account-input">
@@ -21,11 +56,11 @@
 					<input type="text" placeholder="请输入用户密码"  :value="password" @input="getUserpassword" class="password-input">
 					<text class="cuIcon-attention text-style text-gray end-icon" @click="hidePass=!hidePass"></text>
 				</view>
-			</view>
+			</view> -->
 		
-			<button  form-type="submit"  class="footer margin-top margin-bottom text-center self-center radius" data-class="fade" role="button" aria-disabled = "false" hover-class="button-hover">
+			<!-- <button  form-type="submit"  class="footer margin-top margin-bottom text-center self-center radius" data-class="fade" role="button" aria-disabled = "false" hover-class="button-hover">
 				<text class="self-center">登录</text>
-			</button>
+			</button> -->
 		<!-- </view> -->
 		
 		<view class="more-choices margin-top">
@@ -34,7 +69,7 @@
 				
 				
 				<view class="change-pass">
-					<navigator url="/pages/tel_login/tel_login"><text class="no-use-more">短信登录</text></navigator>
+					<navigator url="/pages/tel_login/tel_login"><text class="no-use-more">验证码登录</text></navigator>
 				</view>
 				
 				<view class="change-pass">
@@ -152,6 +187,9 @@
 				force_update:false,
 				username:"",
 				password:"",
+				
+				terms_checked:false,
+				login_disable:false,
 			}
 		},
 		
@@ -166,8 +204,24 @@
 				this.password = uni.getStorageSync("password")			
 							
 		},
-	    
+	    watch: {
+			
+	    	terms_checked(newValue, oldValue) {
+				if (newValue == true){
+					this.login_disable = false
+				}else{
+					this.login_disable = true
+				}
+	    		
+	    	}
+	    },
 		methods: {
+			
+			goTerms(){
+				uni.navigateTo({
+					url:"/pages/terms/terms"
+				})
+			},
 			showModal(){
 				//显示modal消息
 				this.show_modal = true 
@@ -256,6 +310,11 @@
 				url:"/pages/index/index"
 				})
 			},
+			
+			radioChange: function(evt) {
+			            this.terms_checked = !this.terms_checked
+						
+			        },
 			
 			 async formSubmit(){
 				//encode the username
@@ -394,7 +453,7 @@
 <style lang="scss" scoped>
 	.screen-cover{
 		background-color: #f5f6f8;
-		padding-bottom:100rpx;
+		padding-bottom:50rpx;
 	}
 	
 	.head{
@@ -445,26 +504,24 @@
 		 margin-left:10rpx;
 	 }
 	 
-	 .end-icon{
-		position:absolute;
-		right:20rpx;
-	 }
+	 
 	 
 	 .more-choices{
 		 display: flex;
 		 flex-direction: row;
 		 justify-content: space-between;
-		 width:80%;
-		 margin-left:10%;
-		 font-size:30rpx;
+		 width:100%;
+		 font-weight:500;
+		 margin-left:0;
+		 font-size:25rpx;
 		  .choices{
-			   color:#aaa;
+			   color:#000;
 			   font-size:30rpx;
 		  }
 		  
 		  .no-use-more{
 			  color:#0081FF;
-			  margin-right:10rpx;
+			 
 			  font-size:30rpx;
 		  }
 		  .change-phone{
@@ -600,10 +657,97 @@
 		 width: 35%;
 		 margin-bottom:10% ;
 	 }
-	 .show{
-		 width:82%;
-		 height:50%;
-		 margin-top:25%;
-		 margin-left:10%
+	 /* .show{
+		//  width:82%;
+		//  height:50%;
+		//  margin-top:25%;
+		//  margin-left:10%
+	  }*/
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 .full-screen{
+		padding: 5%; 
+	 }
+	 
+	 .head-title{
+		 margin-top: 20%;
+		 letter-spacing: 20rpx;
+		 font-size: 50rpx;
+		 font-weight: 500;
+		 margin-bottom: 5rpx;
+		 
+	 }
+	 
+	 .sub-title{
+	 	font-size: 35rpx;
+	 	font-weight: 400;
+		margin-left: 10%;
+	 }
+	 
+	 .title-blue{
+		 padding: 10rpx;
+		 background-color: #3291f8;
+		  letter-spacing: 3rpx;
+		 font-size: 40rpx;
+		 font-weight: 400;
+		 color: #fff;
+		 border-radius: 10%;
+	 }
+	 
+	 .user-name{
+		 position: relative;
+	 }
+	 
+	 .get-inputs{
+		margin-top: 40rpx; 
+	 }
+	 
+	 .username-input{
+		 border-bottom: 1rpx solid #dcdcdc ;
+		 height:100rpx ;
+	 }
+	 
+	 .end-icon{
+	 		position:absolute;
+	 		right:20rpx;
+			top:20rpx;
+			width: 40rpx;	
+			height: 40rpx;
+	 }
+	 
+	 .terms{
+		 margin-top:15rpx ;
+		 font-size: 25rpx;
+	 }
+	 
+	 .radio{
+		 color: #000;
+		 
+		 transform:scale(0.7)
+	 }
+	 
+	 .radio-icon{
+		 color: #000;
+		 
+		 transform:scale(0.6)
+	 }
+	 
+	 .blue-terms{
+		 color: #76b5fa;
+	 }
+	 
+	 .login-btn{
+		 background-color: #1684fc;
+		 color:#fff;
+		 font-size: 30rpx;
+		 font-weight: 600;
+		 border-radius:15rpx;
 	 }
 </style>

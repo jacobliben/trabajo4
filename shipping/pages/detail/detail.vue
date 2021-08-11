@@ -52,7 +52,7 @@
 				 </view>
 				 <view>
 					 <text class="ref-name">{{passed_info.dispatchStatus}}</text>
-					<!-- <text class="cuIcon-right lg text-gray"></text> -->
+				
 				 </view>   
 			 </view>
 		</view>
@@ -66,7 +66,7 @@
 			 	 </view>
 			 	 <view>
 			 		 <text class="ref-name">{{passed_info.waybillNo}}</text>
-			 	 	<!-- <text class="cuIcon-right lg text-gray"></text>	 --> 
+			 	 	
 			 	 </view>    
 			  </view>
 			  <view class="cu-form-group">
@@ -88,7 +88,7 @@
 			 </view>
 			 <view>
 				   <text class="ref-name margin-right">{{passed_info.goodsName}}</text>
-			 		<!-- 	<text class="cuIcon-right lg text-gray"></text>	 -->
+			 		
 			 </view>
 		 </view>
 		 
@@ -98,7 +98,7 @@
 			 </view>
 			 <view>
 			 		<text class="ref-name">{{passed_info.dispatchGoodsWeight||passed_info.goodsWeight}}吨</text>		 
-			 		<!-- 	<text class="cuIcon-right lg text-gray"></text>	 -->		 
+			 			 
 			 </view>
 		 </view>
 		 

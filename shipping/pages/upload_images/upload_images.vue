@@ -2,43 +2,36 @@
 	<view>
 		<view class="flex first-row ">
 			<view class="left-first-row">
-				<view class="shipping_num">{{received_info.dispatchNo}}</view>
-				<view class="details">
+				<!-- <view class="shipping_num">{{received_info.dispatchNo}}</view> 
+				  <view class="details">
 					<text>{{received_info.goodsName}}</text>
-					<!-- <text>JOVNO005</text>
-					<text>WMS005</text> -->
+					
 				</view>
 				
 				<view class="details_weight">
-					<!-- <text>20托盘</text>
-					<text>|</text> -->
 					<text>货物重量 : {{received_info.dispatchGoodsWeight}}吨</text>
-					<!-- <text>|</text>
-					<text>150立方</text> -->
 				</view>
 				
 				<view class="details_weight" v-if="btn_title==='查看'||btn_title==='查阅'||btn_title==='签收'">
-					<!-- <text>20托盘</text>
-					<text>|</text> -->
+					
 					<text>发车时间 : {{received_info.departureTime}}</text>
-					<!-- <text>|</text>
-					<text>150立方</text> -->
-				</view>
+					
+				</view> -->
 			</view>
 			
-			<view   class="right-first-row">
+			<!-- <view   class="right-first-row">
 				<button type="primary" class="detail-btn" plain size="mini" @click="goWaybillDetails()">派车单状态和详情</button>
-			</view>
+			</view> -->
 		</view>
 		
 		
-		<view class="person">
+		<!-- <view class="person">
 			<image src="/static/person.png" mode="aspectFit" class="person-img"></image>
 			<view class="person-details">
 				<view class="person-name">收货联系人：{{received_info.iscmDispatchInformationRecord.consigneeName}}</view>
 				<view class="person-nums">
 					<text class="cellphone">Tel: {{received_info.iscmDispatchInformationRecord.consigneePhone}}</text>
-					<!-- <text>021-7878738</text> -->
+					
 				</view>
 				<view class="person-nums">
 					<text>收货地址：{{received_info.iscmDispatchInformationRecord.consigneeAddress}}</text>
@@ -58,24 +51,216 @@
 					<text v-if ="received_info.iscmDispatchInformationRecord.shipperCityName==='市辖区'">{{received_info.iscmDispatchInformationRecord.shipperRegionName}}</text>
 					<text class="cuIcon-pullright lg text-gray margin-left margin-right"> </text>
 					<text>{{received_info.iscmDispatchInformationRecord.consigneeProvinceName}}</text>
-					<!-- 判断是否为“直辖市” -->
+					
 					<text v-if ="received_info.iscmDispatchInformationRecord.consigneeCityName!=='市辖区'">{{received_info.iscmDispatchInformationRecord.consigneeCityName}}</text>
 					<text v-if ="received_info.iscmDispatchInformationRecord.consigneeCityName==='市辖区'">{{received_info.iscmDispatchInformationRecord.consigneeRegionName}}</text>
 				</view>
-				
 			</view>
-			<!-- <view>
-				<view class="phone-new">进场</view>
-				
-			</view> -->
+		</view> -->
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<view class="details-body ">
+			<!-- #ifndef MP-WEIXIN -->
+			<view class="current-state" v-if = "this.btn_title!='查阅'"><text>当前状态</text></view>
+			<view v-else></view>
 			
+			<view class="cu-steps border-bottom" v-if = "this.btn_title!='查阅'">
+				<view class="cu-item text-green">
+					<text :class="(this.btn_title=='发车'||this.btn_title=='签收'||this.btn_title=='查看')?'cuIcon-roundcheckfill':'cuIcon-title'">
+					</text>
+					待发车
+				</view>
+				
+				<view class="cu-item " :class="(this.btn_title=='签收'||this.btn_title=='查看')?'text-green':'ordinary'">
+					<text  :class="(this.btn_title=='签收'||this.btn_title=='查看')?'cuIcon-roundcheckfill':'cuIcon-title'">
+					</text>
+					待签收
+				</view>
+				
+				<view class="cu-item" :class="(this.btn_title=='查看')?'text-green':'ordinary'" >
+					<text  :class="(this.btn_title=='查看')?'cuIcon-roundcheckfill':'cuIcon-title'">
+					</text>
+					已完成
+				</view>
+			</view>
+			<view v-else></view>
+			
+			
+			<view class="top-gap">
+				<view class="current-state " >派车单信息</view>
+				 <view class="cu-form-group"
+				  @click="goWayBillDetail"
+				  >
+					 <view>
+						 <text class="name">派车单编号</text>
+					 </view>
+					 <view>
+					 		<text class="ref-name">{{received_info.dispatchNo}}</text>
+					 	<!--	<text class="cuIcon-right lg text-gray"></text>	 --> 
+					 </view>
+				 </view>
+				 
+				<view class="cu-form-group">
+								 <view>
+								 		<text class="name">货物名称</text>		 
+								 </view>
+								 <view>
+									   <text class="ref-name">{{received_info.goodsName}}</text>
+								 		
+								 </view>
+				</view>
+				
+				<view class="cu-form-group">
+								 <view>
+								 		<text class="name">运输吨位</text>		 
+								 </view>
+								 <view>
+								 		<text class="ref-name">{{received_info.dispatchGoodsWeight||received_info.goodsWeight}}吨</text>		 
+								 			 
+								 </view>
+				</view>
+				
+				
+				<view class="cu-form-group">
+								 <view>
+								 		<text class="name">发车时间</text>		 
+								 </view>
+								 <view>
+								 		<text class="ref-name">{{received_info.departureTime}}</text>		 
+								 			 
+								 </view>
+				</view>
+				
+				<view class="cu-form-group">
+								 <view>
+								 		<text class="name">要求到货时间</text>		 
+								 </view>
+								 <view>
+								 		<text class="ref-name">{{received_info.iscmSource.needArrivalTime}}</text>		 
+								 			 
+								 </view>
+				</view>
+				
+				<view class="cu-form-group border-bottom" @click="goCarrierDetail">
+							 <view>
+							 	<text class="name">承运人</text>			 
+							 </view>
+							 <view>
+							 	<text class="ref-name">{{received_info.carrierName}}</text> 			 
+							 			<!-- <text class="cuIcon-right lg text-gray"></text>		 -->	 
+							 </view>
+				</view>
+			</view>
+			
+			
+			 <view  v-if ="received_info.waybillNo =null">
+				 <view class="current-state">运单信息</view>
+				  <view class="cu-form-group" @click="goShippingOrderNumberDetail">
+				 	 <view>
+				 		 <text class="name">运单编号</text>
+				 	 </view>
+				 	 <view>
+				 		 <text class="ref-name">{{received_info.waybillNo}}</text>
+				 	 	
+				 	 </view>    
+				  </view>
+				  <view class="cu-form-group">
+				 	<view>
+				 			 <text class="name">运单状态</text>		 
+				 	</view>
+				 	<view>
+				 		 <text class="ref-name">待接收</text>
+				 			 	<text class="cuIcon-right lg text-gray"></text>	 	 
+				 	</view>    
+				  </view>
+			 </view>
+			<view v-else></view>
+			 
+			
+			
+			 
+			 
+			 
+			 <!-- <view class="cu-form-group" @click="goGoodsNumberDetail">
+				 <view>
+				 	<text class="name">货源编号</text>			 
+				 </view>
+				 <view>
+				 	<text class="ref-name">HY0A210306593687</text>			 
+				 		<text class="cuIcon-right lg text-gray"></text>	 
+				</view>
+			 </view> --> 
+			 
+			 
+			
+			 
+			
+			 
+			 <view class="current-state">收货人信息</view>
+			 <view class="cu-form-group">
+				 <view>
+				 	<text class="name">收货人(公司)</text>			 
+				 </view>
+				 <view>
+				 	<text class="ref-name">{{received_info.iscmDispatchInformationRecord.consignee}}</text>			 
+				 		<!-- 	<text class="cuIcon-right lg text-gray"></text>	 -->		 
+				 </view>
+			 </view>
+			 
+			 <view class="cu-form-group">
+				 <view>
+				 	<text class="name">收货联系人</text>			 
+				 </view>
+				 <view>
+				 	<text class="ref-name">{{received_info.iscmDispatchInformationRecord.consigneeName}}</text>			 
+				 		<!-- 	<text class="cuIcon-right lg text-gray"></text>	 -->		 
+				 </view>
+			 </view>
+			 
+			 <view class="cu-form-group">
+				 <view>
+				 	<text class="name">收货联系人电话</text>			 
+				 </view>
+				 <view>
+				 	<text class="ref-name">{{received_info.iscmDispatchInformationRecord.consigneePhone}}</text>			 
+				 		<!-- 	<text class="cuIcon-right lg text-gray"></text>	 -->		 
+				 </view>
+			 </view>
+			 
+			 <view class="cu-form-group border-bottom">
+				 <view>
+				 	<text class="name">收货地址</text>			 
+				 </view>
+				 <view>
+				 			 
+				 	<input type="text" class="ref-name" disabled :value = "received_info.iscmDispatchInformationRecord.consigneeAddress">		 
+				 </view>
+			 </view>
+			 
+			 
+			
+			<!-- #endif --> 
 		</view>
 		
-		<view class="person" v-if="this.btn_title==='签收'">
-			<image src="/static/weight.png" mode="aspectFit" class="person-img"></image>
-			<view class="person-details">
-				<view class="person-name">签收货物重量(吨)<text class="red">*</text></view>
-				<view class="person-nums">
+		
+		
+		
+		
+		<view class="cu-form-group" v-if="this.btn_title==='签收'">
+		<!-- 	<image src="/static/weight.png" mode="aspectFit" class="person-img"></image> -->
+			
+				<view class="name black">签收重量(吨)<text class="red">*</text></view>
+				<view class="ref-name">
 					
 					<input class="cellphone"
 					placeholder-style="margin-left:5%;font-size:16rpx;color:#ddd;"
@@ -83,61 +268,39 @@
 					 placeholder="请输入签收货物重量(吨)" @input="getSignWeight"></input>
 					
 				</view>
-			</view>
+			
 		</view>
 		
-		<view class="person" v-if="this.btn_title==='装货'||this.btn_title==='发车'||this.btn_title==='签收'">
-			<image src="/static/notes.png" mode="aspectFit" class="person-img"></image>
-			<view class="person-details">
-				<view class="person-name">备注</view>
-				<view class="person-nums">
+		<view class="cu-form-group" v-if="this.btn_title==='装货'||this.btn_title==='发车'||this.btn_title==='签收'">
+			<!-- <image src="/static/notes.png" mode="aspectFit" class="person-img"></image> -->
+			
+				<view class="name black">备注</view>
+				<view class="ref-name">
 					
 					<input class="cellphone" @input="getNote"
 					type="text" maxlength="100"
 					 placeholder="请输入备注"></input>
 					
 				</view>
-			</view>
+			
 		</view>
 		
-		<view class="person">
-			<image src="/static/chronometer.png" mode="aspectFit" class="person-img"></image>
-			<view class="person-details">
-				<view class="person-name">收发货地之间</view>
-				<view class="person-nums">
-					<text class="cellphone">最短距离约 {{short_distance}} 公里 </text>
+		<view class="cu-form-group">
+			<!-- <image src="/static/chronometer.png" mode="aspectFit" class="person-img"></image> -->
+			
+				<view class="name black">收发货地之间</view>
+				<view class="ref-name">
+					<text>距离约 {{short_distance}} 公里 </text>
 				</view>
-			</view>
-			<view class="flex right-navigate"  @click="goMap">
+		
+		<!-- 	<view class="flex right-navigate"  @click="goMap">
 				<image src="/static/navigate.png" mode="aspectFit" class="navi"></image>
 				<text class="navi-text">导航</text>
-			</view>
+			</view> -->
 		</view>
 		
-		<!-- <view>
-			<text>{{lng}}</text>
-			<text>、、、、</text>
-			<text>{{lat}}</text>
-		</view>
-		
-		<view>
-			<text>startCountrySubdivisionCode</text>
-			<text>、、、、</text>
-			<text>{{startCountrySubdivisionCode}}</text>
-		</view>
-		
-		<view>
-			<text>endCountrySubdivisionCode</text>
-			<text>。。。。</text>
-			<text>{{endCountrySubdivisionCode}}</text>
-		</view> -->
 		
 		<view class="bars" v-if=" canDispatch && (btn_title==='装货'||this.btn_title==='发车'||this.btn_title==='签收') ">
-			<!-- <view @click="letsScan">
-				<image src="/static/bar-code.png" mode="aspectFit" class="barcode big-image" ></image>
-				<image src="/static/tachar.png" mode="aspectFit" class="tachar" v-if="tachar_scan" ></image>
-				<view>扫一扫</view>
-			</view> -->
 			
 			<view @click="takePhoto" v-if="this.btn_title==='装货'" data-index="people_vehicle_goods_photo">
 				<image  :src="imgGoodsUrl" class="big-image" mode="aspectFit"></image>
@@ -230,6 +393,7 @@
 		onLoad(options){
 			var that = this
 		    this.received_info = uni.getStorageSync("upload_item")
+			console.log (this.received_info,'received_info')
              this.signed_weight = this.received_info.dispatchGoodsWeight
 			this.btn_title = options.btn_title
 			
@@ -775,43 +939,7 @@
 	  align-items: center;
 	  margin-left:5rpx;
   }
-  .person{
-	  width: 100%;
-	 
-	  border-top:1px solid #f4f4f4;
-	  padding:10rpx;
-	  display: flex;
-	  flex-direction:row;
-	  .person-details{
-		  width:60%;
-	  }
-	  .person-img{
-		  width:100rpx;
-		  height:100rpx;
-		  margin-left:50rpx;
-		  margin-right:50rpx;
-	  }
-	  
-	  .person-name{
-		  font-size: 25rpx;
-	  }
-	  
-	  .person-nums{
-		  color:#8e8e8e ;
-		  margin-top:10rpx;
-		  .cellphone{
-			  margin-right:20rpx;
-		  }
-	  }
-	  
-	  .phone-new{
-		  width:90rpx;
-		  height:90rpx;
-		  margin-left:20rpx;
-		  font-size: 30rpx;
-		  color: #caba89;
-	  }
-  }
+ 
   .address-name{
 	  font-size: 20rpx;
   }
@@ -875,6 +1003,9 @@
 	margin-top:30rpx;
   }
   
+  .top-gap{
+	  margin-top:40rpx;
+  }
   .submit-btn{
 	  background-color: #3dbf41;
 	  margin:30rpx auto;
@@ -886,8 +1017,53 @@
 	  line-height: 100rpx;
 	  margin-left: 30rpx;
   }
-  
+  .details-body{
+  	background-color: #fff;
+  }
+   .current-state{
+  	 margin-top:10rpx;
+  	 margin-left:10rpx;
+  	 margin-bottom: 25rpx;
+  	 border-left:3rpx solid orange;
+	
+  	 padding-left: 30rpx;
+  	 color:#000;
+  	 font-size:30rpx;
+  	 font-weight: 800;
+   }
+   
 
    
+   .top-line{
+  	 border-top:1rpx solid #d5d5d8;
+   }
+   
+   .flex-bar{
+  	 display: flex;
+  	 justify-content: space-between;
+  	 padding-left: 5%;
+  	 padding-right: 5%;;
+  	 padding-top:15rpx;
+  	 padding-bottom:15rpx;
+   }
+   
+   .ordinary{
+  	 color: #a1a1a1;
+   }
+   
+   .name{
+  	 color:#999999;
+   }
+   .ref-name{
+   		 font-size:25rpx;
+  		 color:#999;
+   }
+.red{
+	color:#f00;
+}
+ 
+ .black{
+	 color:#333;
+ }  
    
 </style>
