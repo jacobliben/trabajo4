@@ -78,7 +78,8 @@
 								<view class="cu-form-group">
 											     <view class="name">收货地址</view>
 											     <view class="ref-name">
-													<view>{{detailed.iscmOrderInformationRecord.consigneeAddress}}</view>
+													<!-- <view>{{detailed.iscmOrderInformationRecord.consigneeAddress}}</view> -->
+													<input type="text" :value="detailed.iscmOrderInformationRecord.consigneeAddress" disabled class="minput">
 												 </view>
 								</view>
 								
@@ -100,7 +101,7 @@
 											     <view class="name">需求车辆长度(米)</view>
 											    <view class="ref-name">
 													<text v-for ="(item,index) in detailed.vehicleLength.split(',')" :key="index">
-													   <text class="margin-left">{{item}}</text>
+													   <text >{{item}}</text>
 													</text>
 												 </view>
 								</view>
@@ -110,7 +111,7 @@
 											     <view class="name">需求车厢类型</view>
 											     <view class="ref-name">
 													<text v-for ="(item,index) in detailed.cargoBoxType.split(',')" :key="index">
-													   <text class="margin-left">{{cargoBoxTypeOptions[cargoBoxTypeSendValue.findIndex(value=>value == item)]}}</text>
+													   <text>{{cargoBoxTypeOptions[cargoBoxTypeSendValue.findIndex(value=>value == item)]}}</text>
 													</text>
 												 </view>
 								</view>
@@ -600,10 +601,12 @@
 	
  .name{
    		 color:#000;
+		 width: 35%;
    }
    .ref-name{
    		 font-size:29rpx;
    	     color:#999;
+		 width: 65%;
    }
   
   .btn-row{
@@ -620,5 +623,10 @@
   		 width:30%;
   		
   } 
+  
+  .minput{
+	   color:#999; 
+	   
+  }
    
 </style>

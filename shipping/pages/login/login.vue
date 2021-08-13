@@ -188,7 +188,7 @@
 				username:"",
 				password:"",
 				
-				terms_checked:false,
+				terms_checked:true,
 				login_disable:false,
 			}
 		},

@@ -50,11 +50,11 @@
 			<view class="cu-form-group">
 						     <view class="name">是否新能源 </view>
 						     <view class="ref-name">
-								<radio-group class="truck-type" @change="radioEnergyChange">
+								<radio-group class="truck-type" style="margin-left:-145rpx;" @change="radioEnergyChange">
 								                <label class="cell" v-for="(item, index) in energy_items" 
 														:key="item.value">
 								                    <view>
-								                        <radio :value="item.value" :checked="index === energy_current" />
+								                        <radio :value="item.value" class="radio" :checked="index === energy_current" />
 								                    </view>
 								                    <view>{{item.name}}</view>
 								                </label>
@@ -69,7 +69,7 @@
 		      					                <label class="cell" v-for="(item, index) in car_items" 
 		      											:key="item.value">
 		      					                    <view>
-		      					                        <radio :value="item.value" :checked="index === car_current" />
+		      					                        <radio :value="item.value" class="radio" :checked="index === car_current" />
 		      					                    </view>
 		      					                    <view>{{item.name}}</view>
 		      					                </label>
@@ -81,7 +81,7 @@
 			  
 			  <view class="cu-form-group">
 			  			     <view class="name">车船牌照号<text class="star">*</text>
-							             <text class="text-green  text-sm margin-left" @click="goQuery">(查资质)</text>
+							       <text class="text-green  text-sm margin-left" @click="goQuery">(查资质)</text>
 							 </view>
 			  			     <view class="ref-name">
 			  					<input type="text" placeholder="请输入车船牌照号码" maxlength="10"
@@ -91,7 +91,7 @@
 			  
 			  <view class="cu-form-group" >
 			  			     <view class="name space-line" >该车船牌照号已注册？
-							                 <navigator url="/pages/bind_vehicle/bind_vehicle"><text class="text-green text-lg  margin-left">绑定车船牌照号</text></navigator>
+							       <navigator url="/pages/bind_vehicle/bind_vehicle"><text class="text-green text-lg  margin-left">绑定车船牌照号</text></navigator>
 			  							           
 			  				</view>
 			  			     
@@ -104,7 +104,7 @@
 			  			<view class="cu-form-group">
 			  						     <view class="name">车辆所有人 <text class="star">*</text></view>
 			  						     <view class="ref-name">
-			  								<input type="text" placeholder="请输入车辆所有人" :value="vehicleOwnName" @input ="getVehicleOwnName">
+			  								<input type="text"  placeholder="请输入车辆所有人" :value="vehicleOwnName" @input ="getVehicleOwnName">
 			  								
 			  							 </view>
 			  			</view>
@@ -114,7 +114,7 @@
 			  						     <view class="ref-name" >
 			  							     
 			  										<picker @change="bindPickerTypeChange" :value="owner_type_index" :range="owner_type_list">
-			  										                      <view class="picker-view text-lg">{{owner_type_list[owner_type_index]}}</view>
+			  										          <view class="picker-view  mleft text-lg">{{owner_type_list[owner_type_index]}}</view>
 			  										 </picker>	 
 			  							 </view>
 			  			</view>
@@ -134,7 +134,7 @@
 			  						     <view class="name">车辆类型 <text class="star">*</text></view>
 			  						     <view class="ref-name">
 			  								<picker @change="bindPickerCarTypeChange" :value="car_type_index" :range="car_type_list">
-			  								                      <view class="picker-view text-lg">{{car_type_list[car_type_index]}}</view>
+			  								      <view class="picker-view  mleft text-lg">{{car_type_list[car_type_index]}}</view>
 			  								 </picker>
 			  							 </view>
 			  </view>
@@ -150,7 +150,7 @@
 			  						     <view class="name">车辆能源类型 <text class="star">*</text></view>
 			  						     <view class="ref-name">
 			  								<picker @change="bindPickerEnergyTypeChange" :value="energy_type_index" :range="energy_type_list">
-			  								                      <view class="picker-view text-lg">{{energy_type_list[energy_type_index]}}</view>
+			  								                      <view class="picker-view  mleft text-lg">{{energy_type_list[energy_type_index]}}</view>
 			  								 </picker>
 			  							 </view>
 			  </view>
@@ -159,7 +159,7 @@
 			  			     <view class="name">车牌颜色 <text class="star">*</text></view>
 			  			     <view class="ref-name" >
 								<picker @change="bindPickerColorChange" :value="plate_type_index" :range="list">
-								                      <view class="picker-view text-lg">{{list[plate_color_index]}}</view>
+								                      <view class="picker-view  mleft text-lg">{{list[plate_color_index]}}</view>
 								 </picker>		  
 			  				 </view>
 			  </view>
@@ -175,10 +175,10 @@
 			
 			  
 			  <view class="cu-form-group" >
-			  	<text class="name">行驶证注册日期<text  class=" text-sm text-green" v-if = "!received_info.vehicleRegisterDate&&btn_title == '修改'">(未填)</text></text>
+			  	<text class="name">行驶证注册日<text  class=" text-sm text-green" v-if = "!received_info.vehicleRegisterDate&&btn_title == '修改'">(未填)</text></text>
 			  	<view >
 			  		 <picker v-if="driving_cert_register_date_has_input" mode="date" :value="driving_cert_register_date"  :end="endDate" @change="bindDateChange" data-index="driving_cert_register_date">
-			  		      <view class="picker-view text-lg" >{{driving_cert_register_date}}</view>
+			  		      <view class="picker-view date-left text-lg" >{{driving_cert_register_date}}</view>
 			  		 </picker>
 			  	</view>
 				
@@ -189,36 +189,36 @@
 			  </view>
 			  
 			  <view class="cu-form-group" >
-			  	<text class="name">行驶证发证日期</text>
+			  	<text class="name">行驶证发证日</text>
 			  	<view >
 			  		 <picker mode="date" v-if="driving_cert_issuing_date_has_input" :value="driving_cert_issuing_date"   :end="endDate" @change="bindDateChange" data-index="driving_cert_issuing_date">
-			  		      <view class="picker-view text-lg">{{driving_cert_issuing_date}}</view>
+			  		      <view class="picker-view date-left text-lg">{{driving_cert_issuing_date}}</view>
 			  		 </picker>
 			  	</view>
 				<view @click="driving_cert_issuing_date_has_input = true"  >
 					
-					 <view  class="picker-view text-lg"  v-if="!driving_cert_issuing_date_has_input" >选择行驶证发证日期</view>
+					 <view  class="picker-view  text-lg"  v-if="!driving_cert_issuing_date_has_input" >选择行驶证发证日期</view>
 				</view>
 			  </view>
 			   
 			   <view class="cu-form-group" >
-			   	<text class="name">行驶证失效日期<text  class=" text-sm text-green" v-if = "!received_info.vehicleLicenseExpireDate&&btn_title == '修改'">(未填)</text></text>
+			   	<text class="name">行驶证失效日<text  class=" text-sm text-green" v-if = "!received_info.vehicleLicenseExpireDate&&btn_title == '修改'">(未填)</text></text>
 			   	<view >
 			   		 <picker mode="date" v-if="driving_cert_expiry_date_has_input" :value="driving_cert_expiry_date"   :end="endDate" @change="bindDateChange" data-index="driving_cert_expiry_date">
-			   		      <view class="picker-view text-lg">{{driving_cert_expiry_date}}</view>
+			   		      <view class="picker-view date-left text-lg">{{driving_cert_expiry_date}}</view>
 			   		 </picker>
 			   	</view>
 				<view @click="driving_cert_expiry_date_has_input = true"  >
 					
-					 <view  class="picker-view text-lg"  v-if="!driving_cert_expiry_date_has_input" >选择行驶证失效日期</view>
+					 <view  class="picker-view text-lg" style="margin-left:130rpx;" v-if="!driving_cert_expiry_date_has_input" >选择行驶证失效日期</view>
 				</view>
 			   </view>
 			   
 			   <view class="cu-form-group" >
-			   	<text class="name">运输证到期日期<text class="star">*</text></text>
+			   	<text class="name">运输证到期日<text class="star">*</text></text>
 			   	<view >
 			   		 <picker mode="date" v-if="road_cert_expiry_date_has_input" :value="road_cert_expiry_date"   :end="endDate" @change="bindDateChange" data-index="road_cert_expiry_date">
-			   		      <view class="picker-view text-lg">{{road_cert_expiry_date}}</view>
+			   		      <view class="picker-view date-left text-lg">{{road_cert_expiry_date}}</view>
 			   		 </picker>
 			   	</view>
 				<view @click="road_cert_expiry_date_has_input = true"  >
@@ -250,7 +250,7 @@
 			  			     <view class="name">货箱长度</view>
 			  			     <view class="ref-name">
 			  					<picker @change="bindPickercargoBoxLengthChange" :value="box_length_index" :range="box_length_list">
-			  					                      <view class="picker-view text-lg">{{box_length_list[box_length_index]}}</view>
+			  					                      <view class="picker-view mleft text-lg">{{box_length_list[box_length_index]}}</view>
 			  					 </picker>
 			  				 </view>
 			  </view>
@@ -259,7 +259,7 @@
 			  			     <view class="name">货箱类型<text class="star">*</text></view>
 			  			     <view class="ref-name">
 			  					<picker @change="bindPickercargoBoxTypeChange" :value="box_type_index" :range="box_type_list">
-			  					                      <view class="picker-view text-lg">{{box_type_list[box_type_index]}}</view>
+			  					                      <view class="picker-view mleft text-lg">{{box_type_list[box_type_index]}}</view>
 			  					 </picker>
 			  				 </view>
 			  </view>
@@ -745,7 +745,7 @@
 				this.vehicleOwnTypeOptions = vehicleOwnTypeOptions.data.data.map(e=>e.dictLabel)
 				
 				this.owner_type_list = this.vehicleOwnTypeOptions
-				this.owner_type_list.unshift("请选择车主类型")
+				this.owner_type_list.unshift("车主类型")
 			},
 			
 			async getVehiclePlateTypeOptions(){
@@ -761,7 +761,7 @@
 				const vehicleEnergyTypeOptions = await this.$getRegistDicts("vehicle_energy_type")
 				this.vehicleEnergyTypeOptions = vehicleEnergyTypeOptions.data.data.map(e=>e.dictLabel)
 				this.energy_type_list = this.vehicleEnergyTypeOptions
-				this.energy_type_list.unshift("请选择车辆能源类型")
+				this.energy_type_list.unshift("车辆能源类型")
 				
 				this.vehicleEnergyTypeSendValue = vehicleEnergyTypeOptions.data.data.map(e=>e.dictValue)
 				
@@ -774,7 +774,7 @@
 				const vehicleTypeOptions = await this.$getRegistDicts("vehicle_type")
 				this.vehicleTypeOptions =  vehicleTypeOptions.data.data.map(e=>e.dictLabel)
 				this.car_type_list = this.vehicleTypeOptions
-				this.car_type_list.unshift("请选择车辆类型")
+				this.car_type_list.unshift("车辆类型")
 				
 				this.vehicleTypeSendValue = vehicleTypeOptions.data.data.map(e=>e.dictValue)
 				
@@ -790,7 +790,7 @@
 				this.vehicleCargoBoxLengthOptions = vehicleCargoBoxLengthOptions
 				this.vehicleCargoBoxLengthOptions = this.vehicleCargoBoxLengthOptions.data.data.map(e=>e.dictLabel)
 				this.box_length_list = this.vehicleCargoBoxLengthOptions
-				this.box_length_list.unshift("请选择货箱长度")
+				this.box_length_list.unshift("货箱长度")
 				
 				this.vehicleCargoBoxLengthSendValue = vehicleCargoBoxLengthOptions.data.data.map(e=>e.dictValue)
 				const cargoBoxLength = this.received_info.cargoBoxLength
@@ -805,7 +805,7 @@
 				this.vehicleCargoBoxTypeOptions = this.vehicleCargoBoxTypeOptions.data.data.map(e=>e.dictLabel)
 				this.vehicleCargoBoxTypeSendValue = vehicleCargoBoxTypeOptions.data.data.map(e=>e.dictValue)
 				 this.box_type_list = this.vehicleCargoBoxTypeOptions
-				 this.box_type_list.unshift("请选择货箱类型")
+				 this.box_type_list.unshift("货箱类型")
 				
 				const cargoBoxType = this.received_info.cargoBoxType
 				
@@ -1911,7 +1911,9 @@
    }
    .picker-view{
 	   color:#222;
-	   width:calc(100vw - 380rpx);
+	   
+	  
+	   width:calc(100vw - 300rpx);
    }
    
    .cu-form-group picker::after {
@@ -1919,12 +1921,15 @@
    } 
    
   .truck-type{
+	  position: absolute;
+	  right: 110rpx;
 	  display: flex;
 	  flex-direction: row;
   }
    
    .name{
    		 color:#000;
+		 
    }
    .ref-name{
    		 font-size:18rpx;
@@ -1942,7 +1947,9 @@
 	   background-color: #eee;
    }
    .cell{
-	   margin-right: 10rpx;
+	    color:000;
+	   display: flex;
+	   flex-direction: row;
    }
    .star{
 	   color:#f00;
@@ -1989,4 +1996,34 @@
 	 display: flex;
 	 justify-content: space-between;
  }
+ 
+ .cu-form-group{
+	 position: relative;
+ }
+ 
+ .radio{
+	 transform: scale(0.6);
+	 margin-left: 15rpx;
+	 font-size: 30rpx;
+ }
+ 
+ .gray{
+	 color:#888;
+	 
+ }
+ 
+ .mleft{
+	 padding-left: 30rpx;
+	
+ }
+ 
+ .date-left{
+	 padding-left: 90rpx;
+	 
+ }
+ 
+ .radio-text{
+	 color:000;
+ }
+ 
 </style>

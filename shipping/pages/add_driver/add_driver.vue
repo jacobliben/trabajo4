@@ -113,7 +113,9 @@
 				
 				<view @click="driver_cert_begin_date_has_input = true"  >
 					
-					 <view  class="picker-view text-lg"  v-if="!driver_cert_begin_date_has_input" >选择驾驶证有效期起</view>
+					 <view  class="picker-view text-lg"  v-if="!driver_cert_begin_date_has_input" >
+						 <text class="dLeft gray">驾驶证有效期起</text>
+					</view>
 				</view>
 			</view>
 			
@@ -127,7 +129,9 @@
 				
 				<view @click="driver_cert_expiry_date_has_input = true"  >
 					
-					 <view  class="picker-view text-lg"  v-if="!driver_cert_expiry_date_has_input" >选择驾驶证有效期至</view>
+					 <view  class="picker-view text-lg"  v-if="!driver_cert_expiry_date_has_input" >
+						 <text class="dLeft gray">驾驶证有效期至</text>
+					</view>
 				</view>
 			</view>
 			
@@ -159,7 +163,9 @@
 				
 				<view @click="expiry_date_has_input = true"  >
 					
-					 <view  class="picker-view text-lg"  v-if="!expiry_date_has_input" >选择资格证失效日期</view>
+					 <view  class="picker-view text-lg  "  v-if="!expiry_date_has_input" >
+						 <text class="dLeft gray">资格证失效日期</text>
+					</view>
 				</view>
 			</view>
 			
@@ -167,13 +173,17 @@
 				<text class="name">身份证有效期起</text>
 				<view >
 					 <picker mode="date" v-if="id_begin_date_has_input" :value="id_begin_date"   :end="endDate" @change="bindDateChange" data-index="id_begin_date">
-					      <view class="picker-view text-lg">{{id_begin_date}}</view>
+					      <view class="picker-view text-lg">
+						    <text >{{id_begin_date}}</text>
+						  </view>
 					 </picker>
 				</view>
 				
 				<view @click="id_begin_date_has_input = true"  >
 					
-					 <view  class="picker-view text-lg"  v-if="!id_begin_date_has_input" >选择身份证有效期起</view>
+					 <view  class="picker-view text-lg"  v-if="!id_begin_date_has_input" >
+						 <text class="dLeft gray">身份证有效期起</text> 
+					</view>
 				</view>
 			</view>
 			
@@ -187,7 +197,9 @@
 				
 				<view @click="id_expiry_date_has_input = true"  >
 					
-					 <view  class="picker-view text-lg"  v-if="!id_expiry_date_has_input" >选择身份证有效期至</view>
+					 <view  class="picker-view text-lg"  v-if="!id_expiry_date_has_input" >
+						 <text class="dLeft gray">身份证有效期至</text> 
+					</view>
 				</view>
 			</view>
 			
@@ -803,7 +815,7 @@
 				this.imgDriverIDFrontUrl ="/static/id_front.jpg",
 				setTimeout(()=>{
 					uni.showToast({
-						title:"删除照片成功，请重新选择",
+						title:"删除照片成功，请重新",
 						icon:"none"
 					})
 				},500)
@@ -813,7 +825,7 @@
 				this.imgDriverIDBackUrl ="/static/id-back.jpg"
 				setTimeout(()=>{
 					uni.showToast({
-						title:"删除照片成功，请重新选择",
+						title:"删除照片成功，请重新",
 						icon:"none"
 					})
 				},500)
@@ -824,7 +836,7 @@
 				this.imgDriverLicensePhotoUrl = "/static/driving_license.jpg"
 				setTimeout(()=>{
 					uni.showToast({
-						title:"删除照片成功，请重新选择",
+						title:"删除照片成功，请重新",
 						icon:"none"
 					})
 				},500)
@@ -835,7 +847,7 @@
 				this.imgDrivingCertificateUrl ="/static/roadcert.jpg"
 				setTimeout(()=>{
 					uni.showToast({
-						title:"删除照片成功，请重新选择",
+						title:"删除照片成功，请重新",
 						icon:"none"
 					})
 				},500)
@@ -1183,5 +1195,15 @@
 	.name-special{
  		 color:#000;
  		 width:55%;
+ }
+ 
+ .dLeft{
+	 
+	 margin-left: -60rpx;
+ }
+ 
+ .gray{
+	 color: #666;
+	 font-size: 30rpx;
  }
 </style>

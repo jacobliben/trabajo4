@@ -6,20 +6,18 @@
 			 <view class="cu-form-group">
 			 			     <view class="name">银行类别 <text class="star">*</text></view>
 			 			     <view class="date-begin-input">
-			 								 <picker @change="bindBankClassPickerChange"  :value="bank_class_index" :range="bank_list">
-			 								          <view class="picker-view text-lg">{{bank_list[bank_class_index]}}</view>
-			 								 </picker>
+			 					<picker @change="bindBankClassPickerChange"  :value="bank_class_index" :range="bank_list">
+			 						<view class="picker-view text-lg">{{bank_list[bank_class_index]}}</view>
+			 					</picker>
 			 				 </view>
 			 </view>
 			  
 			  <view class="cu-form-group">
 			  			     <view class="name">账号类型 <text class="star">*</text></view>
 			  			     <view class="ref-name">
-			  					
 								  <picker @change="bindAccountTypePickerChange" :value="account_type_index" :range="account_type_list">
-								                        <view class="picker-view text-lg">{{account_type_list[account_type_index]}}</view>
-								   </picker>		
-										
+								         <view class="picker-view text-lg">{{account_type_list[account_type_index]}}</view>
+								   </picker>
 			  				 </view>
 			  </view>
 			  
@@ -27,8 +25,8 @@
 			   
 			   <view class="cu-form-group">
 			   			     <view class="name">银行卡号 <text class="star">*</text></view>
-			   			     <view class="ref-name">
-			   					<input type="number" placeholder="请输入银行卡号" :value="bankcardAccount" @input ="getBankcardNumber">
+			   			     <view class="ref-name mleft" >
+			   					<input type="number" class="minput" placeholder="请输入银行卡号" :value="bankcardAccount" @input ="getBankcardNumber">
 			   				 </view>
 			   </view>
 			   
@@ -45,8 +43,8 @@
 			   <view class="cu-form-group">
 			    			     <view class="name">银行名称<text class="star">*</text></view>
 			    			     <view class="ref-name">
-			    				      <multiselect class="picker-view text-lg" v-model="value" :value="bank_name" :options="bank_options" track-by="dictLabel" label="dictLabel" @input ="getBank" :placeholder="bank_placeholder">
-			   									<template  slot="singleLabel" slot-scope="{ option }" > {{ option.dictLabel }}</template>
+			    				      <multiselect class="picker-view text-lg total-width" v-model="value" :value="bank_name" :options="bank_options" track-by="dictLabel" label="dictLabel" @input ="getBank" :placeholder="bank_placeholder">
+			   							<template  slot="singleLabel"   slot-scope="{ option }" ><text>{{ option.dictLabel }}</text> </template>
 			   										  
 			   						 </multiselect>
 			    				 </view>
@@ -65,10 +63,10 @@
 			  <view class="cu-form-group">
 			   			     <view class="name">支行联行<text class="star">*</text></view>
 			   			     <view class="ref-name">
-			   				      <multiselect v-model="branch_value" class="picker-view text-lg" :value="branch_name" :options="branch_options" track-by="paymentBankNumber" label="fullNameOfTheBank" @input ="getBranch" :placeholder="branch_placeholder">
-			  									<template  slot="singleLabel" slot-scope="{option }" > {{option.fullNameOfTheBank }}</template>
+			   				    <multiselect v-model="branch_value" class="picker-view text-lg total-width" :value="branch_name" :options="branch_options" track-by="paymentBankNumber" label="fullNameOfTheBank" @input ="getBranch" :placeholder="branch_placeholder">
+			  						<template  slot="singleLabel" slot-scope="{option }" > {{option.fullNameOfTheBank }}</template>
 			  										  
-			  						 </multiselect>
+			  					</multiselect>
 			   				 </view>
 			   </view>
 			   <!-- #endif -->
@@ -79,7 +77,7 @@
 			  			     <view class="name">默认账户 <text class="star">*</text></view>
 			  			     <view class="ref-name">
 			  					<picker @change="bindPickerDefaultAccountChange" :value="default_account_index" :range="default_list">
-			  					                      <view class="picker-view text-lg">{{default_list[default_account_index]}}</view>
+			  					     <view class="picker-view text-lg">{{default_list[default_account_index]}}</view>
 			  					 </picker>
 			  				 </view>
 			  </view>
@@ -87,7 +85,7 @@
 			  <view class="cu-form-group">
 			  			     <view class="name">备注 </view>
 			  			     <view class="ref-name">
-			  					<input type="text" placeholder="请输入备注" :value="remark"  @input ="getRemark">
+			  					<input type="text" placeholder="请输入备注" class="minput" :value="remark"  @input ="getRemark">
 			  				 </view>
 			  </view>
 			  
@@ -140,12 +138,12 @@
 				bank_class_index: 0,
 				account_type_index:0,
 				account_type_list: [
-					           "请选择账号类型",
+					           "账号类型",
 					           '个人',
 				               '企业',
 				               
 				            ],			
-				default_list: ["请选择是否默认账户",
+				default_list: ["是否默认账户",
 					           '是',
 				               '否',
 				            ],
@@ -256,7 +254,7 @@
 				 //array 就是银行名称的列表
 				this.array = res.data.data.map(e =>e=e.dictLabel)
 				this.bank_options = res.data.data
-				this.array.unshift("请选择银行名称")
+				this.array.unshift("银行名称")
 				
 				this.list_code= res.data.data.map(e =>e=e.dictValue)
 				
@@ -301,7 +299,7 @@
 				
 				 this.branch_list = resBranchName.data.rows.map(e=>e.fullNameOfTheBank)
 				 this.branch_code_list = resBranchName.data.rows.map(e=>e.paymentBankNumber)
-				 this.branch_list.unshift("请选择支行联行名称")
+				 this.branch_list.unshift("支行联行名称")
 			     
 				 if(this.btn_title == "修改"){
 				 	 this.bindPickerBranchChange()
@@ -370,7 +368,7 @@
 				
 				 this.branch_list = resBranchName.data.rows.map(e=>e.fullNameOfTheBank)
 				 this.branch_code_list = resBranchName.data.rows.map(e=>e.paymentBankNumber)
-				 this.branch_list.unshift("请选择支行联行名称")
+				 this.branch_list.unshift("支行联行名称")
 			    
 				 if(this.btn_title == "修改"){
 				 	 this.bindPickerBranchChange()
@@ -594,11 +592,17 @@
    
    .name{
    		 color:#000;
+		 width:30%;
+		
    }
+   
    .ref-name{
-   		 font-size:18rpx;
+   		 
+		 width:65%;
    	     color:#999;
+		 
    }
+   
    .text-name{
 	   margin-left: 5%;
 	   margin-bottom: 20rpx;
@@ -649,6 +653,19 @@
    .disabled-btn{
    		 background-color: #ddd;
    }
+   
   
- 
+  
+  .total-width{
+	  width:100%;
+	  font-size: 30rpx;
+  }
+   
+   .date-begin-input{
+	   width:65%;
+   }
+   
+   .minput{
+	   font-size: 35rpx;
+   }
 </style>

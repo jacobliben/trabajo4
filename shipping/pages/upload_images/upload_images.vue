@@ -60,9 +60,16 @@
 		
 		
 		
+		<view class="goods-sec ">
+			<view class="dispatch-no" >
+				<view>货物信息</view>
+				<view>{{received_info.dispatchNo}}</view>
+			</view>
+		</view>
 		
-		
-		
+		<view class="address-sec ">
+			
+		</view>
 		
 		
 		
@@ -472,15 +479,46 @@
 			this.lng = LocationMy.rLng();
 			this.lat =LocationMy.rLat();
 			
-			//启动前台服务/SDK监管(已经弃用！！！！)
-			 //获取宿主上下文
+			
+			// class ShippingNoteInfo {
+			//     constructor(shippingNoteNumber, serialNumber,startCountrySubdivisionCode,endCountrySubdivisionCode) {
+			//         this.shippingNoteNumber = shippingNoteNumber;
+			//         this.serialNumber = serialNumber;
+			// 		this.startCountrySubdivisionCode = startCountrySubdivisionCode;
+			// 		this.endCountrySubdivisionCode = endCountrySubdivisionCode;
+			//     }
+			   
+			// }
+			var ShippingNoteInfo = plus.android.importClass("com.hdgq.locationlib.entity.ShippingNoteInfo ")
+			var shippingNoteInfos = new ShippingNoteInfo();
+			shippingNoteInfos.setShippingNoteNumber("PC0A210722627545") 
+			shippingNoteInfos.setSerialNumber("0000")  
+			shippingNoteInfos.setStartCountrySubdivisionCode("310113") 
+			shippingNoteInfos.setEndCountrySubdivisionCode("320305")
+			console.log(shippingNoteInfos,"shippingNoteInfos");
+			
+			var StartIt = plus.android.importClass("io.dcloud.UNIACABF38.StartIt")
+			var StartIt = new  StartIt(shippingNoteInfos); 
+			StartIt.start(shippingNoteInfos) // 这个方法一定要执行一次就行了
+			
+			
+			 // //获取宿主上下文
 			 // var main = plus.android.runtimeMainActivity();
-			   //通过反射获取Android的Intent对象
-			  // var Intent = plus.android.importClass("android.content.Intent");
-			  // //通过宿主上下文创建 intent
-			  // var intent = new Intent(LocationMy.getIntent());
-			  // //设置要开启的Activity包类路径  com.HBuilder.integrate.MainActivity换掉你自己的界面
-			  // intent.setClassName(LocationMy, "io.dcloud.UNIACABF38.MyService");
+			 //   //通过反射获取Android的Intent对象
+			 //  var Intent = plus.android.importClass("android.content.Intent");
+			 //  //通过宿主上下文创建 intent
+			 //  var intent = new Intent(main.getIntent());
+			 //  //设置要开启的Activity包类路径  com.HBuilder.integrate.MainActivity换掉你自己的界面
+			 //  intent.setClassName(main, "io.dcloud.UNIACABF38.ThankSend");
+			 //   //开启新的任务栈 （跨进程）
+			 //    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			 //    //向原生界面传值操作
+			 //    intent.putExtra("uni_key","来自uniapp的值");
+			 //    //开启新的界面
+			 //    main.startActivity(intent);
+			 
+			  
+			  
 			  //    //开启新的Service
 			  //    LocationMy.startForeground(intent);
 			  //==================================================================================
@@ -1065,5 +1103,19 @@
  .black{
 	 color:#333;
  }  
+ 
+ 
+ 
+ 
+ .goods-sec{
+	 padding: 10rpx;
+ }
+ 
+ 
+ .dispatch-no{
+	 display: flex;
+	 flex-direction: row;
+	 justify-content: space-between;
+ }
    
 </style>
