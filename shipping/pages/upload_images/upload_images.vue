@@ -60,17 +60,84 @@
 		
 		
 		
-		<view class="goods-sec ">
+		<!-- <view class="goods-sec ">
 			<view class="dispatch-no" >
-				<view>货物信息</view>
-				<view>{{received_info.dispatchNo}}</view>
+				<view class="dispatch-title">货物信息</view>
+				<view class="dispatch-num">{{received_info.dispatchNo}}</view>
 			</view>
-		</view>
-		
-		<view class="address-sec ">
+			
+			<view class="vehicle-info">
+				<view class="first-driver">{{received_info.firstDriverName}}</view>
+				<view class="first-driver">{{received_info.vehiclePlateNumber}}</view>
+				<view class="goods-weight">{{received_info.dispatchGoodsWeight}}吨</view>
+			</view>
+			
+			<view class="vehicle-info">
+				<view class="goods-nombre">{{received_info.goodsName}}</view>
+				<view class="goods-nombre">{{received_info.iscmSource.goodsType}}</view>
+				<view class="goods-nombre">{{received_info.iscmSource.packageType}}</view>
+			</view>
 			
 		</view>
 		
+		<view class="address-sec ">
+			<view class="address-no" >
+				<view class="address-title">地址信息</view>
+				<view class="dispatch-num">{{short_distance}}公里</view>
+			</view>
+			
+			<view>
+						  <view class="start-point">
+							  <image src="/static/green-circle.png" mode="widthFix" class="circle"></image>
+							  <text>{{received_info.iscmDispatchInformationRecord.shipperProvinceName}}-</text>
+							 
+							   <text v-if ="received_info.iscmDispatchInformationRecord.shipperCityName!=='市辖区'">{{received_info.iscmDispatchInformationRecord.shipperCityName}}-</text>
+							   <text >{{received_info.iscmDispatchInformationRecord.shipperRegionName}}</text>
+							   
+							   <view class="addr">
+							   	 <input type="text"  :value="received_info.iscmDispatchInformationRecord.shipperAddress" disabled @input="" class="addr-input">
+							   				
+							   </view>
+							   
+							   <view>
+								   <text class="shipper-name-new">{{received_info.iscmDispatchInformationRecord.shipperName}}</text>
+								   <text class="telephone">{{received_info.iscmDispatchInformationRecord.shipperPhone}}</text><strong></strong>
+							   </view>
+						  </view>
+						  
+						   <view class="load">
+						       								   <view class="load-info" >
+						       									   <text class="load-title">装货</text>
+						       									   <text class="load-time">{{received_info.iscmDispatchInformationRecord.shipperPhone}}</text>
+						       								   </view>
+						       								   <view class="load-info">
+						       								   		<text class="load-title">发车</text>
+						       								   		<text class="load-time">{{received_info.departureTime}}</text>							   
+						       								   </view>
+						   </view>
+			</view>
+			
+			<view class="vertical-line">
+						  
+			</view>
+			<view>
+						  <view class="start-point">
+							  <image src="/static/pink-circle.png" mode="widthFix" class="circle"></image>
+							  <text>{{received_info.iscmDispatchInformationRecord.consigneeProvinceName}}-</text>
+							 
+							   <text v-if ="received_info.iscmDispatchInformationRecord.consigneeCityName!=='市辖区'">{{received_info.iscmDispatchInformationRecord.consigneeCityName}}-</text>
+							   <text>{{received_info.iscmDispatchInformationRecord.consigneeRegionName}}</text>
+									   
+									   <view class="addr">
+									   	 <input type="text"  :value="received_info.iscmDispatchInformationRecord.consigneeAddress" disabled @input="" class="addr-input">
+									   				
+									   </view>
+						  </view>
+			</view>
+			
+			
+		</view>
+		 -->
 		
 		
 		
@@ -366,6 +433,7 @@
 				tachar_goods:false,
 				tachar_order:false,		
 				received_info:{},
+				upload_info:{},
 				btn_title:"",
 				signed_weight:"",
 				shippingNoteInfos:[],//运单信息数组
@@ -397,10 +465,27 @@
 			this.canDispatch= uni.getStorageSync("canDispatch")
 		},
 	
-		onLoad(options){
+		async onLoad(options){
 			var that = this
-		    this.received_info = uni.getStorageSync("upload_item")
-			console.log (this.received_info,'received_info')
+		    this.upload_info = uni.getStorageSync("upload_item")
+			
+			console.log (this.upload_info,'upload_info')
+			const dispatchId = this.upload_info.dispatchId
+			console.log (dispatchId,'dispatchId')
+			
+			 var authorization = uni.getStorageSync("token")
+			const resDispatch = await this.$request({
+				url:"/app/dispatch/getDispatchVo/" + dispatchId ,
+				
+				header:{
+					Authorization:authorization,
+				},
+				
+			})
+			
+			console.log (resDispatch,'resDispatch')
+			this.received_info = resDispatch.data.data
+			
              this.signed_weight = this.received_info.dispatchGoodsWeight
 			this.btn_title = options.btn_title
 			
@@ -1108,7 +1193,12 @@
  
  
  .goods-sec{
-	 padding: 10rpx;
+	 padding: 30rpx;
+	 margin:20rpx;
+	 height: 200rpx;
+	 background-color: #5fcf6f;
+	 border-radius: 25rpx;
+	 box-shadow: 5rpx 5rpx 5rpx #ccc;
  }
  
  
@@ -1116,6 +1206,139 @@
 	 display: flex;
 	 flex-direction: row;
 	 justify-content: space-between;
+	 color: #fff;
  }
-   
+  
+  
+  .dispatch-title{
+	  font-weight: 600;
+	  font-size: 40rpx;
+	  
+  } 
+  
+  
+  .vehicle-info{
+	  margin: 10rpx;
+	  display: flex;
+	  flex-direction: row;
+	  justify-content: space-between;
+  }
+  
+  .first-driver{
+	  font-weight: 600;
+	  font-size: 35rpx;
+	  color: #000;
+  }
+  
+  .goods-weight{
+	  color: #fff;
+	  font-weight: 600;
+	  font-size: 30rpx;
+  }
+  
+  .goods-nombre{
+	  color: #fff;
+	  border:1rpx solid #ccc;
+	  font-size: 25rpx;
+	  border-radius: 5rpx;
+	  padding: 5rpx;
+  }
+  
+  .address-sec{
+	  padding: 30rpx;
+	  margin:20rpx;
+	  height: 500rpx;
+	  border: 1rpx solid #bfbfbf;
+	  background-color: #fff;
+	  border-radius: 25rpx;
+	  box-shadow: 5rpx 5rpx 5rpx #ccc;
+  }
+  
+  .address-no{
+	  display: flex;
+	  flex-direction: row;
+	  justify-content: space-between;
+	  color: #000;
+  }
+  
+  
+  .address-title{
+  	  font-weight: 600;
+  	  font-size: 40rpx;
+  	  
+  } 
+  
+  .dispatch-num{
+	  font-weight: 600;
+	  font-size: 25rpx;
+  }
+  
+  
+  .circle{
+  	   width: 25rpx;
+  	   height:20rpx ;
+  }
+  
+  .start-point{
+  	   padding: 20rpx;
+  	   text{
+  		   margin-left: 40rpx;
+  		   font-size: 38rpx;
+  		   font-weight: 600;
+  	   }
+  }
+  .addr{
+  	   margin: 10rpx;
+  	   margin-left: 60rpx;
+  	   .addr-input{
+  		  color: #8ca2b5; 
+  	   }
+  	   
+  	   
+  }
+  
+  .vertical-line{
+  	   margin-top: -50rpx;
+  	   margin-left:30rpx;
+  	   height: 40rpx;
+  	   border-left:1rpx solid #cbcbcb;
+  }
+  
+  .red{
+  	color: #f00;
+  }
+  
+  
+  .shipper-name-new{
+	  margin: 10rpx;
+	  padding-left: 20rpx;
+	  
+  }
+  
+  .telephone{
+	 color: #1366d7; 
+  }
+  
+  .load{
+	  display: flex;
+	  flex-direction: row;
+	  justify-content: space-between;
+	  padding-left: 20rpx;
+	  margin-left: 50rpx;
+	  font-size:25rpx;
+	  font-weight:400;
+	 
+  }
+  
+  .load-info{
+	 
+  	  .load-title{
+		 color: #1f89d7; 
+		 background-color: #f0f0f0;
+		 padding: 10rpx;
+		 border-radius: 5rpx;
+		 margin-right: 20rpx;
+	  }
+  }
+  
 </style>

@@ -901,7 +901,7 @@
             "path" : "pages/cada_inquiry/cada_inquiry",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "报价详情",
+                "navigationBarTitleText": "报价",
                 "enablePullDownRefresh": false
             }
             
@@ -911,6 +911,15 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "货源大厅",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/cada_quote/cada_quote",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "报价详情",
                 "enablePullDownRefresh": false
             }
             

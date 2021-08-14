@@ -57,6 +57,8 @@
 				    
 				    <view class="actions" v-if="(Date.parse(item.stopTime)- Date.parse(new Date()))>0" >
 						 <!-- <image src="/static/ing.svg" class="bg-pic" v-if="item.enquiryStatus==2"  ></image> -->	
+						
+						
 						<button type="default" size="default" 
 						 class="receive-btn radius" 
 						  @click="quote(item)">报价</button>
@@ -212,6 +214,11 @@
 				
 				
 			},
+			
+			goQuoteDetail(item){
+				
+			},
+			
 			copy(data){
 				var that = this
 				uni.setClipboardData({
@@ -230,6 +237,7 @@
 					
 				});
 				      },
+			
 					  
 			async searchInquiry(){
 				
@@ -272,7 +280,9 @@
 					  }
 				 
 				
-			}
+			},
+			
+			
 		}
 	}
 </script>

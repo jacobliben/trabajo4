@@ -97,7 +97,7 @@
 					<view class="long">
 						<view>
 						    <image src="/static/arrow-nav.png" mode="widthFix" class="nav"></image>
-						    <text>总距离:  {{distance_to_origin[index]}}公里</text>	
+						    <text>总距离 {{distance_to_origin[index]}}公里</text>	
 						</view>
 						
 						<view class="goods-name">
@@ -140,12 +140,12 @@
 						</view>
 					</view>
 					    -->
-					    <view class="actions" v-if="(Date.parse(item.stopTime)- Date.parse(new Date()))>0" >
-							 <!-- <image src="/static/ing.svg" class="bg-pic" v-if="item.enquiryStatus==2"  ></image> -->	
+					  <!--  <view class="actions" v-if="(Date.parse(item.stopTime)- Date.parse(new Date()))>0" >
+							 	
 							<button type="default" size="default" 
 							 class="receive-btn radius" 
 							  @click="quote(item)">报价</button>
-						</view>
+						</view> -->
 					
 				</view>
 				
@@ -163,11 +163,16 @@
 					<text v-for ="(item,index) in item.vehicleLength" :key="index" class="cargoBoxType "></text>
 				</view>
 				
-				<!-- <view class="address">
+				<!-- <view class="address"> 
 					<text>公司：{{item.companyName}}</text>
 				</view> -->
+				
+				
+				  
 				<view class="btn-level">
-					<button size="mini" class="btn"
+					<button size="mini" class="detail-btn" :disabled="checkQuoted(item)"
+					  @click="goQuoteDetail(item)">报价详情</button>
+					<button size="mini" class="btn" :disabled="disable_quote"
 				@click="quote(item)">报价</button>
 				</view>
 			</view>
@@ -222,6 +227,11 @@
 			  btn_text:"",
 			  //是否可以“发车”，“签收”等
 			  canDispatch:null,
+			  //permite to quote(with remaining time )
+			  disable_quote:false,
+			   //permite to see quote detail(if has quoted a price )
+			  disable_quote_detail:false,
+			  
 			   queryParams: {
 			             pageNum: 1,
 			             pageSize: 3,
@@ -325,7 +335,15 @@
 			
 			},
 					
-			
+			goQuoteDetail(item){
+				    var that = this
+					uni.setStorageSync('quote_item',item)
+					uni.navigateTo({
+						url:`/pages/cada_quote/cada_quote`
+					})
+				
+				
+			},
 			        
 			quote(item){
 				var that = this
@@ -375,13 +393,6 @@
 					  	 })
 				
 					    console.log(res,'jh');
-						
-						
-					
-									
-						
-						
-						
 						
 						
 						
@@ -476,8 +487,10 @@
 					var day = parseInt(restTime/(60*60*24*1000))
 					var hour = parseInt(restTime/(60*60*1000)%24)
 					var min = parseInt(restTime/(60*1000)%60)
+					this.disable_quote = false
 					return day + "天" + hour + "时" + min + "分"
 				}else{
+					this.disable_quote = true
 				 	return "已过期"
 				 }
 				
@@ -489,6 +502,15 @@
 				}) 
 				
 			},
+			
+			checkQuoted(item){
+				console.log(item,"checkQuoted");
+				if (item.iscmQuote!=null){
+					return false
+				}else{
+					return true
+				}
+			}
 		}
 	}
 </script>
@@ -744,5 +766,8 @@
 		font-size: 30rpx;
 		background-color: #4190fc;
 	}
-	
+	.detail-btn{
+		background-color: #1cb081;
+		color:#fff;
+	}
 </style>
