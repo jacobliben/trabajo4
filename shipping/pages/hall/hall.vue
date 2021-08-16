@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="primer-frase">
+		<!-- <view class="primer-frase">
 			您可以进行询价和报价
 		</view>
 		    
@@ -28,7 +28,7 @@
 			<view>
 				<image src="/static/areafiftyone.svg" class="driver-img" mode=""></image>
 			</view>
-		</view>
+		</view> -->
 		
 		<view class="waybill-body">
 			<scroll-view  scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
@@ -61,7 +61,7 @@
 				<view class="first-row">
 					<view class="distance">
 						<text >距报价截止时间剩余</text>
-						<text class="distance-num"> {{getRemainingTime(item)}}   </text> 
+						<text class="distance-num"> {{remainingTime[index]}}   </text> 
 					</view>
 					<view class="ton">
 						{{item.iscmOrder.surplusGoodsWeight}}吨
@@ -98,6 +98,7 @@
 						<view>
 						    <image src="/static/arrow-nav.png" mode="widthFix" class="nav"></image>
 						    <text>总距离 {{distance_to_origin[index]}}公里</text>	
+							
 						</view>
 						
 						<view class="goods-name">
@@ -139,8 +140,8 @@
 							<text class="carrier">货源单号:{{item.sourceNo}}</text>		
 						</view>
 					</view>
-					    -->
-					  <!--  <view class="actions" v-if="(Date.parse(item.stopTime)- Date.parse(new Date()))>0" >
+					   
+					  <view class="actions" v-if="(Date.parse(item.stopTime)- Date.parse(new Date()))>0" >
 							 	
 							<button type="default" size="default" 
 							 class="receive-btn radius" 
@@ -155,11 +156,11 @@
 					<view class="fecha">截止: {{item.iscmSource.assignEndTime}}</view>
 				</view>
 				
-				<view class="various">
+				<view class="various" v-if = "item.cargoBoxType != null">
 					<text v-for ="(item,index) in item.cargoBoxType" :key="index" class="cargoBoxType "></text>
 				</view>
 				
-				<view class="various">
+				<view class="various" v-if = "item.vehicleLength != null">
 					<text v-for ="(item,index) in item.vehicleLength" :key="index" class="cargoBoxType "></text>
 				</view>
 				
@@ -170,7 +171,7 @@
 				
 				  
 				<view class="btn-level">
-					<button size="mini" class="detail-btn" :disabled="checkQuoted(item)"
+					<button size="mini" class="detail-btn" :disabled="item.iscmQuote==null"
 					  @click="goQuoteDetail(item)">报价详情</button>
 					<button size="mini" class="btn" :disabled="disable_quote"
 				@click="quote(item)">报价</button>
@@ -219,8 +220,11 @@
 			  short_distance:0,
 			  distance_to_origin: [],
 			  index:0,
-			  
+			 
 			  inquiry_list:[],
+			  
+			  remainingTime:[],
+			  
 			  show_not_found:false,
 		      now_state:this.transporte_state,
 			  state_text:"",
@@ -262,8 +266,23 @@
 			
 		},
 		
-		
-		
+		onShow(){
+			var that = this
+			
+		    that.searchInquiry()
+			
+			
+		},
+		onPullDownRefresh() {
+		        //监听下拉刷新动作的执行方法，每次手动下拉刷新都会执行一次
+		        var that = this
+		        
+		        that.searchInquiry()
+				
+		        setTimeout(function () {
+		            uni.stopPullDownRefresh();  //停止下拉刷新动画
+		        }, 3000);
+		},
 		methods:{
 			
 			upper: function(e) {
@@ -379,95 +398,233 @@
 				
 				var that = this
 				
-			     var queryParams= this.queryParams 
 				
-				 var authorization = uni.getStorageSync("token")
+					var queryParams= that.queryParams
+					
+					 var authorization = uni.getStorageSync("token")
+					  
+						  const res = await that.$request({
+						  	 	url:"/app/enquiry/list",
+						  	 	
+						  	 	header:{
+						  	 		Authorization:authorization,
+						  	 	},
+						  	 	data:queryParams
+						  	 })
+					
+						    console.log(res,'jh');
+							
+							
+							
+						  if(res.data.total == 0){
+						  	setTimeout(()=>{
+						  		that.show_not_found = true
+						  	},30)
+						  	return
+						  }
+						  
+						  //stop sending request
+						  if (that.queryParams.pageNum*that.queryParams.pageSize>=res.data.total){
+						  	that.load_more = false
+						  }
+						  
+						  if (that.inquiry_list.length< res.data.total){
+						  	that.inquiry_list =[...that.inquiry_list,...res.data.rows]
+						  	that.show_not_found = false
+						  }else{
+						  	uni.showToast({
+						  		title:"没有更多的信息了",
+						  		icon:"none"
+						  	})
+							
+						  }
+						  
+						  
+						  for (var i = 0; i < that.inquiry_list.length; i++) {
+							 
+							  var inquiry_every = that.inquiry_list[i]
+							 if (that.load_more_address == true){
+								 //get distance between sender and receiver
+								 uni.request({
+								 	//传入高德web服务端key和发货地址
+								 	url: `https://restapi.amap.com/v3/geocode/geo?address=${inquiry_every.iscmOrderInformationRecord.shipperAddress}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
+								 	success: (res) => {
+								 		if (res == null){
+											return
+										}
+								 		origin_location = res.data.geocodes[0].location.split(",")
+								 		
+								 		origin_latitude = parseFloat(origin_location[1])
+								 		origin_longitude = parseFloat(origin_location[0])
+								 		
+								 		uni.request({
+								 			//传入高德web服务端key和目的地址
+								 			 url: `https://restapi.amap.com/v3/geocode/geo?address=${inquiry_every.iscmOrderInformationRecord.consigneeAddress}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
+								 			
+								 			success:(res)=>{
+								 				
+								 					 destiny_location  = res.data.geocodes[0].location.split(",")
+								 					  destiny_latitude =parseFloat(destiny_location[1]) 
+								 					  destiny_longitude = parseFloat(destiny_location[0])
+								 												 
+								 												 uni.request({
+								 												 	//传入高德web服务端key和规划线路
+								 												 	// url: `https://restapi.amap.com/v4/direction/truck?origin=${origin_longitude}%2C${origin_latitude}&destination=${destiny_longitude}%2C${destiny_latitude}&size=3&key=ae8b30ff7c227fb962010579230bf568`, //货车规划
+								 												 	url: `https://restapi.amap.com/v3/direction/driving?origin=${origin_longitude}%2C${origin_latitude}&destination=${destiny_longitude}%2C${destiny_latitude}&key=ae8b30ff7c227fb962010579230bf568`,
+								 												 	success:(res)=>{
+								 												 			   
+								 															  that.short_distance=parseFloat(res.data.route.paths[0].distance)/1000
+								 															  
+								 															    that.short_distance= that.short_distance.toFixed(2)
+								 																var short_distance = that.short_distance
+								 																
+								 																that.distance_to_origin.push(short_distance)
+								 																	
+								 		                     
+								 															 //console.log( res.data.data.route.paths.duration,"货车规划")									 			 
+								 												     }
+								 												 })
+								 												 
+								 					 
+								 		    }
+								 		})	
+								 	}
+								 		
+								 })
+							 } 
+							 
+							//decide if should continue fetch address
+							if (i == that.inquiry_list.length-1){
+								that.load_more_address = false
+							}
+							
+							//decide the remaining time 
+					if(new Date(inquiry_every.stopTime).getTime()-new Date().getTime()>=0){
+						var restTime = new Date(inquiry_every.stopTime).getTime()-new Date().getTime()
+						var day = parseInt(restTime/(60*60*24*1000))
+						var hour = parseInt(restTime/(60*60*1000)%24)
+						var min = parseInt(restTime/(60*1000)%60)
+						that.disable_quote = false
+						var remaining_time = day + "天" + hour + "时" + min + "分"
+					}else{
+						that.disable_quote = true
+					 	remaining_time = "已过期"
+					 }
+						
+						that.remainingTime.push(remaining_time)
+						
+							
+					}
+				
+				
+				
+			 //     var queryParams= that.queryParams 
+				
+				//  var authorization = uni.getStorageSync("token")
 				  
-					  const res = await this.$request({
-					  	 	url:"/app/enquiry/list",
+				// 	  const res = await that.$request({
+				// 	  	 	url:"/app/enquiry/list",
 					  	 	
-					  	 	header:{
-					  	 		Authorization:authorization,
-					  	 	},
-					  	 	data:queryParams
-					  	 })
+				// 	  	 	header:{
+				// 	  	 		Authorization:authorization,
+				// 	  	 	},
+				// 	  	 	data:queryParams
+				// 	  	 })
 				
-					    console.log(res,'jh');
+				// 	    console.log(res,'jh');
 						
 						
 						
-					  if(res.data.total == 0){
-					  	setTimeout(()=>{
-					  		this.show_not_found = true
-					  	},30)
-					  	return
-					  }
+				// 	  if(res.data.total == 0){
+				// 	  	setTimeout(()=>{
+				// 	  		that.show_not_found = true
+				// 	  	},30)
+				// 	  	return
+				// 	  }
 					  
-					  //stop sending request
-					  if (this.queryParams.pageNum*this.queryParams.pageSize>=res.data.total){
-					  	this.load_more = false
-					  }
+				// 	  //stop sending request
+				// 	  if (that.queryParams.pageNum*that.queryParams.pageSize>=res.data.total){
+				// 	  	that.load_more = false
+				// 	  }
 					  
-					  if (this.inquiry_list.length<res.data.total){
-					  	this.inquiry_list =[...this.inquiry_list,...res.data.rows]
-					  	this.show_not_found = false
-					  }else{
-					  	uni.showToast({
-					  		title:"没有更多的信息了",
-					  		icon:"none"
-					  	})
+				// 	  if (that.inquiry_list.length<= res.data.total){
+				// 	  	that.inquiry_list =[...that.inquiry_list,...res.data.rows]
+				// 	  	that.show_not_found = false
+				// 	  }else{
+				// 	  	uni.showToast({
+				// 	  		title:"没有更多的信息了",
+				// 	  		icon:"none"
+				// 	  	})
 						
-					  }
+				// 	  }
 					  
 					  
-					  for (var i = 0; i < that.inquiry_list.length; i++) {
+				// 	  for (var i = 0; i < that.inquiry_list.length; i++) {
 						 
-						  var inquiry_every = that.inquiry_list[i]
-					  	uni.request({
-					  		//传入高德web服务端key和发货地址
-					  		url: `https://restapi.amap.com/v3/geocode/geo?address=${inquiry_every.iscmOrderInformationRecord.shipperAddress}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
-					  		success: (res) => {
+				// 		  var inquiry_every = that.inquiry_list[i]
+						  
+				// 		  //get distance between sender and receiver
+				// 	  	uni.request({
+				// 	  		//传入高德web服务端key和发货地址
+				// 	  		url: `https://restapi.amap.com/v3/geocode/geo?address=${inquiry_every.iscmOrderInformationRecord.shipperAddress}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
+				// 	  		success: (res) => {
 								
-					  			origin_location = res.data.geocodes[0].location.split(",")
+				// 	  			origin_location = res.data.geocodes[0].location.split(",")
 					  			
-					  			origin_latitude = parseFloat(origin_location[1])
-					  			origin_longitude = parseFloat(origin_location[0])
+				// 	  			origin_latitude = parseFloat(origin_location[1])
+				// 	  			origin_longitude = parseFloat(origin_location[0])
 					  			
-					  			uni.request({
-					  				//传入高德web服务端key和目的地址
-					  				 url: `https://restapi.amap.com/v3/geocode/geo?address=${inquiry_every.iscmOrderInformationRecord.consigneeAddress}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
+				// 	  			uni.request({
+				// 	  				//传入高德web服务端key和目的地址
+				// 	  				 url: `https://restapi.amap.com/v3/geocode/geo?address=${inquiry_every.iscmOrderInformationRecord.consigneeAddress}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
 					  				
-					  				success:(res)=>{
+				// 	  				success:(res)=>{
 										
-					  						 destiny_location  = res.data.geocodes[0].location.split(",")
-					  						  destiny_latitude =parseFloat(destiny_location[1]) 
-					  						  destiny_longitude = parseFloat(destiny_location[0])
+				// 	  						 destiny_location  = res.data.geocodes[0].location.split(",")
+				// 	  						  destiny_latitude =parseFloat(destiny_location[1]) 
+				// 	  						  destiny_longitude = parseFloat(destiny_location[0])
 					  													 
-					  													 uni.request({
-					  													 	//传入高德web服务端key和规划线路
-					  													 	// url: `https://restapi.amap.com/v4/direction/truck?origin=${origin_longitude}%2C${origin_latitude}&destination=${destiny_longitude}%2C${destiny_latitude}&size=3&key=ae8b30ff7c227fb962010579230bf568`, //货车规划
-					  													 	url: `https://restapi.amap.com/v3/direction/driving?origin=${origin_longitude}%2C${origin_latitude}&destination=${destiny_longitude}%2C${destiny_latitude}&key=ae8b30ff7c227fb962010579230bf568`,
-					  													 	success:(res)=>{
+				// 	  													 uni.request({
+				// 	  													 	//传入高德web服务端key和规划线路
+				// 	  													 	// url: `https://restapi.amap.com/v4/direction/truck?origin=${origin_longitude}%2C${origin_latitude}&destination=${destiny_longitude}%2C${destiny_latitude}&size=3&key=ae8b30ff7c227fb962010579230bf568`, //货车规划
+				// 	  													 	url: `https://restapi.amap.com/v3/direction/driving?origin=${origin_longitude}%2C${origin_latitude}&destination=${destiny_longitude}%2C${destiny_latitude}&key=ae8b30ff7c227fb962010579230bf568`,
+				// 	  													 	success:(res)=>{
 					  													 			   
-					  																  that.short_distance=parseFloat(res.data.route.paths[0].distance)/1000
+				// 	  																  that.short_distance=parseFloat(res.data.route.paths[0].distance)/1000
 					  																  
-					  																    that.short_distance= that.short_distance.toFixed(2)
-																						var short_distance = that.short_distance
+				// 	  																    that.short_distance= that.short_distance.toFixed(2)
+				// 																		var short_distance = that.short_distance
 					  																	
-					  																	that.distance_to_origin.push(short_distance)
+				// 	  																	that.distance_to_origin.push(short_distance)
 					  																		
 					  			                     
-					  																 //console.log( res.data.data.route.paths.duration,"货车规划")									 			 
-					  													     }
-					  													 })
+				// 	  																 //console.log( res.data.data.route.paths.duration,"货车规划")									 			 
+				// 	  													     }
+				// 	  													 })
 					  													 
 					  						 
-					  			    }
-					  			})	
-					  		}
+				// 	  			    }
+				// 	  			})	
+				// 	  		}
 					  			
-					  	})
-					  }
+				// 	  	})
+				// 		//decide the remaining time 
+				// if(new Date(inquiry_every.stopTime).getTime()-new Date().getTime()>=0){
+				// 	var restTime = new Date(inquiry_every.stopTime).getTime()-new Date().getTime()
+				// 	var day = parseInt(restTime/(60*60*24*1000))
+				// 	var hour = parseInt(restTime/(60*60*1000)%24)
+				// 	var min = parseInt(restTime/(60*1000)%60)
+				// 	that.disable_quote = false
+				// 	var remaining_time = day + "天" + hour + "时" + min + "分"
+				// }else{
+				// 	that.disable_quote = true
+				//  	remaining_time = "已过期"
+				//  }
+					
+				// 	that.remainingTime.push(remaining_time)
+					
+						
+				// }
 				 
 				
 			},
@@ -503,14 +660,6 @@
 				
 			},
 			
-			checkQuoted(item){
-				console.log(item,"checkQuoted");
-				if (item.iscmQuote!=null){
-					return false
-				}else{
-					return true
-				}
-			}
 		}
 	}
 </script>
@@ -562,6 +711,7 @@
 		color:#0081FF;
 	}
 	.waybill-body{
+		margin:10rpx;
 		background-color: #fff;
 		
 		padding-bottom: 20rpx;
@@ -740,7 +890,7 @@
 	}
 	
 	.fecha{
-		font-size: 13rpx;
+		font-size: 30rpx;
 		
 	}
 	

@@ -5,27 +5,27 @@
 			 <text class="margin-left">车船牌照号码</text>
 			<view class="search-form round">
 				<text class="cuIcon-search"></text>
-				<input placeholder="通过车船牌照号码搜索" type="text" @input="searchVehiclePlateNumber"
+				<input placeholder="通过车船牌照号码搜索" type="text" @input="searchVehiclePlateNumber" class="vehicle-plate-num"
 				selection-start="-1"  selection-end="-1" cursor="-1" />
 			</view>
 		</view>
 		
 		<view class="cu-bar search bg-white">
-			 <text class="margin-left">车辆入网状态</text>
+			 <text class="margin-left ">车辆入网状态</text>
 			<view class="search-form round">
 				<text class="cuIcon-search"></text>
 				<picker @change="bindPickerVehicleNetStatusChange" :value="vehicle_net_status_index" :range="vehicleNetStatusOptions">
-				    <view class="picker-view text-lg">{{vehicleNetStatusOptions[vehicle_net_status_index]}}</view>
+				    <view class="picker-view text-lg state-value">{{vehicleNetStatusOptions[vehicle_net_status_index]}}</view>
 				 </picker>
 			</view>
 		</view>
 		
 		<view class="cu-bar search bg-white">
-			 <text class="margin-left">车辆工作状态</text>
+			 <text class="margin-left ">车辆工作状态</text>
 			<view class="search-form round">
 				<text class="cuIcon-search"></text>
 				<picker @change="bindPickerVehicleWorkStatusChange" :value="vehicle_work_status_index" :range="vehicleWorkStatusOptions">
-				    <view class="picker-view text-lg">{{vehicleWorkStatusOptions[vehicle_work_status_index]}}</view>
+				    <view class="picker-view text-lg state-value">{{vehicleWorkStatusOptions[vehicle_work_status_index]}}</view>
 				 </picker>
 			</view>
 			<view class="action">
@@ -371,5 +371,10 @@
 		}
 		
 		
+	}
+	
+	.state-value,.vehicle-plate-num{
+		font-size: 27rpx;
+		color:#777;
 	}
 </style>

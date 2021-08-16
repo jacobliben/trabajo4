@@ -189,7 +189,7 @@
 					},30)
 					return
 				}
-				 console.log(res,'55447');
+				
 				if (this.receiving_shipping_order_list.length<res.data.total){
 					this.receiving_shipping_order_list =[...this.receiving_shipping_order_list,...res.data.rows]
 					this.show_not_found = false

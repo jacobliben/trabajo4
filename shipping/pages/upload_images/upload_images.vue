@@ -574,17 +574,19 @@
 			//     }
 			   
 			// }
-			var ShippingNoteInfo = plus.android.importClass("com.hdgq.locationlib.entity.ShippingNoteInfo ")
-			var shippingNoteInfos = new ShippingNoteInfo();
-			shippingNoteInfos.setShippingNoteNumber("PC0A210722627545") 
-			shippingNoteInfos.setSerialNumber("0000")  
-			shippingNoteInfos.setStartCountrySubdivisionCode("310113") 
-			shippingNoteInfos.setEndCountrySubdivisionCode("320305")
-			console.log(shippingNoteInfos,"shippingNoteInfos");
 			
-			var StartIt = plus.android.importClass("io.dcloud.UNIACABF38.StartIt")
-			var StartIt = new  StartIt(shippingNoteInfos); 
-			StartIt.start(shippingNoteInfos) // 这个方法一定要执行一次就行了
+			//有用
+			// var ShippingNoteInfo = plus.android.importClass("com.hdgq.locationlib.entity.ShippingNoteInfo ")
+			// var shippingNoteInfos = new ShippingNoteInfo();
+			// shippingNoteInfos.setShippingNoteNumber("PC0A210722627545") 
+			// shippingNoteInfos.setSerialNumber("0000")  
+			// shippingNoteInfos.setStartCountrySubdivisionCode("310113") 
+			// shippingNoteInfos.setEndCountrySubdivisionCode("320305")
+			// console.log(shippingNoteInfos,"shippingNoteInfos");
+			
+			// var StartIt = plus.android.importClass("io.dcloud.UNIACABF38.StartIt")
+			// var StartIt = new  StartIt(shippingNoteInfos); 
+			// StartIt.start(shippingNoteInfos) // 这个方法一定要执行一次就行了
 			
 			
 			 // //获取宿主上下文

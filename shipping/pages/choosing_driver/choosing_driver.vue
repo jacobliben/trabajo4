@@ -87,6 +87,7 @@
 		</view> -->
 			
 	    <view class="shipping_no">运单编号：{{received_info.waybillNo}}</view>
+		
 		<view class="total_weight">
 			<text class="title">总重量:</text>
 			<text class="num">{{received_info.goodsWeight}} 吨</text>
@@ -105,10 +106,13 @@
 		  <view>
 			  <view class="start-point">
 				  <image src="/static/green-circle.png" mode="widthFix" class="circle"></image>
-				  <text>{{received_info.iscmWaybillInformationRecord.shipperProvinceName}}-</text>
-				 
-				   <text v-if ="received_info.iscmWaybillInformationRecord.shipperCityName!=='市辖区'">{{received_info.iscmWaybillInformationRecord.shipperCityName}}-</text>
-				   <text >{{received_info.iscmWaybillInformationRecord.shipperRegionName}}</text>
+				  <text class="chief-addr">
+					  <text>{{received_info.iscmWaybillInformationRecord.shipperProvinceName}}-</text>
+					  				 
+					   <text v-if ="received_info.iscmWaybillInformationRecord.shipperCityName!=='市辖区'">{{received_info.iscmWaybillInformationRecord.shipperCityName}}-</text>
+					   <text >{{received_info.iscmWaybillInformationRecord.shipperRegionName}}</text>
+				  </text>
+				  
 				   
 				   <view class="addr">
 				   	 <input type="text"  :value="received_info.iscmWaybillInformationRecord.shipperAddress" disabled @input="" class="addr-input">
@@ -121,13 +125,16 @@
 		  <view class="vertical-line">
 			  
 		  </view>
-		  <view>
+		  <view >
 		  			  <view class="start-point">
 		  				  <image src="/static/pink-circle.png" mode="widthFix" class="circle"></image>
-		  				  <text>{{received_info.iscmWaybillInformationRecord.consigneeProvinceName}}-</text>
-		  				 
-		  				   <text v-if ="received_info.iscmWaybillInformationRecord.consigneeCityName!=='市辖区'">{{received_info.iscmWaybillInformationRecord.consigneeCityName}}-</text>
-		  				   <text>{{received_info.iscmWaybillInformationRecord.consigneeRegionName}}</text>
+		  				 <text class="chief-addr">
+							 <text>{{received_info.iscmWaybillInformationRecord.consigneeProvinceName}}-</text>
+							 		  				 
+							  <text v-if ="received_info.iscmWaybillInformationRecord.consigneeCityName!=='市辖区'">{{received_info.iscmWaybillInformationRecord.consigneeCityName}}-</text>
+							  <text>{{received_info.iscmWaybillInformationRecord.consigneeRegionName}}</text>
+						 </text>
+						  
 						   
 						   <view class="addr">
 						   	 <input type="text"  :value="received_info.iscmWaybillInformationRecord.consigneeAddress" disabled @input="" class="addr-input">
@@ -142,7 +149,7 @@
 		  	<view class="driver-details">
 		  		<view class="driver-name">主驾驶员</view>
 		  		<view class="driver-input">
-		  			<text v-if ="has_chief_driver">{{chief_driver_choosen}}</text>
+		  			<text v-if ="has_chief_driver" class="cellphone">{{chief_driver_choosen}}</text>
 		  			<text v-if ="!has_chief_driver" class="cellphone">请选择主驾驶员</text>
 		  			
 		  		</view>
@@ -154,7 +161,7 @@
 		  	<view class="driver-details">
 		  		<view class="driver-name">运输车辆</view>
 		  		<view class="driver-input">
-		  			<text v-if ="has_vehicle">{{vehicle_choosen}}</text>
+		  			<text v-if ="has_vehicle" class="cellphone">{{vehicle_choosen}}</text>
 		  			<text v-if ="!has_vehicle" class="cellphone">请选择车辆</text>
 		  			
 		  		</view>
@@ -174,7 +181,7 @@
 		  			
 		  			<input class="cellphone"
 		  			
-		  			type="number" maxlength="20"
+		  			type="number" maxlength="20" :value="dispatch_goods_weight"
 		  			 placeholder="请输入分配给该车的重量" @input="getWeight"></input>
 		  			
 		  		</view>
@@ -218,7 +225,7 @@
 	export default {
 		data() {
 			return {
-				
+				uni_token:"",
 				 percent:0,
 				 loading:false,
 				 disabled:false,
@@ -230,6 +237,7 @@
 				has_chief_driver:false,
 				has_vehicle:false,
 				goods_weight:"",
+				dispatch_goods_weight:"",
 				note:"",
 				queryParams:{
 					waybillId:"",
@@ -269,8 +277,9 @@
 					 	this.has_chief_driver = true
 					 }
 					 
-					 
+					 let dispatch_goods_weight_filled = uni.getStorageSync("dispatch_goods_weight")
 					  
+					   this.dispatch_goods_weight = dispatch_goods_weight_filled 
 					   
 					  //try catch 是否有getStorageSync('vehicle_choosen') 
 					  try {
@@ -305,6 +314,7 @@
 							  
 							   
 							   var authorization = uni.getStorageSync("token")
+							   that.uni_token = uni.getStorageSync("token")
 							   const res = await this.$request({
 							   	url:`/app/dispatch/getRecentlyUsedVehicle/${carrierId}/${firstDriverId}`,
 							   	header:{
@@ -374,7 +384,7 @@
 			getWeight(e){
 				
 				this.queryParams.dispatchGoodsWeight = e.target.value
-				
+				uni.setStorageSync("dispatch_goods_weight",this.queryParams.dispatchGoodsWeight)
 			},
 			getNote(){
 				
@@ -473,7 +483,7 @@
 				//半测试版
 				 xhr.open('POST',' http://116.62.172.131:88/stage-api/app/waybill/chooseDriverAndVehicle')
 				 //测试库
-				// xhr.open('POST',' http://10.22.2.138:8080/app/waybill/chooseDriverAndVehicle')
+				 //xhr.open('POST',' http://10.22.2.138:8080/app/waybill/chooseDriverAndVehicle')
 				//xhr.open('POST','http://10.22.0.136:8080/app/waybill/chooseDriverAndVehicle')
 				 xhr.setRequestHeader('Content-Type','application/json')//确定header里为Content-Type','application/json'
 				 //并防止uni.request 自动添加“charset = utf-8”
@@ -589,16 +599,18 @@
 		  font-size: 25rpx;
 	  }
 	  
-	  .person-nums{
+	 /*   .person-nums{
 		  color:#8e8e8e ;
 		  margin-top:10rpx;
 		  display: flex;
 		  flex-direction: row;
 		  justify-content: space-between;
-		  .cellphone{
+		.cellphone{
 			  margin-right:20rpx;
+			  font-size: 40rpx;
+			  color:#ccc;
 		  }
-	  }
+	  }*/
 	  
 	  .phone-new{
 		  width:90rpx;
@@ -690,20 +702,21 @@
 	   padding:5%;
    }
    .shipping_no{
+	   margin-top:60rpx;
 	   color: #1684FC;
 	   font-size: 30rpx;
 	   font-family: SourceHanSansSC-bold PingFangSC-bold SourceHanSansSC-regular PingFangSC-regular Arial;
    }
    
    .total_weight{
-	   margin-top: 12rpx;
-	   margin-bottom: 30rpx;
+	   margin-top: 30rpx;
+	   margin-bottom: 120rpx;
 	   .title{
 		   font-weight: 800;
 		   font-size: 32rpx;
 	   }
 	   .num{
-		    color: #1684FC;
+		    color: #4f70e7;
 		   font-size: 30rpx;
 		   margin-left: 20rpx;
 	   }
@@ -737,6 +750,7 @@
    }
    
    .start-point{
+	  
 	   padding: 20rpx;
 	   text{
 		   margin-left: 40rpx;
@@ -744,7 +758,15 @@
 		   font-weight: 600;
 	   }
    }
+   
+   .chief-addr{
+	 
+	 width:60%;
+	 margin-left:10%;
+   }
+   
    .addr{
+	   
 	   margin: 10rpx;
 	   margin-left: 60rpx;
 	   .addr-input{
@@ -766,11 +788,11 @@
    }
    
    .choose-driver{
-	  margin-top: 20rpx; 
+	  margin-top: 135rpx; 
 	 display: flex;
 	 flex-direction: row;
 	 border-bottom: 1rpx dashed #c1c1c1;
-	 padding-bottom: 15rpx;
+	 padding-bottom: 40rpx;
 	 .driver-details{
 		 display: flex;
 		 flex-direction: row;
@@ -800,4 +822,10 @@
    .margin-left-xm{
 	   margin-left: 10rpx;
    }
+   
+   .cellphone{
+			  margin-right:20rpx;
+			  font-size: 40rpx;
+			  color:#777;
+		  }
 </style>

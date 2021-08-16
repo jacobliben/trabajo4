@@ -6,11 +6,10 @@
 			</view> -->
 			
 			<view class="head-title">
-			   欢迎登录徐工智联
+			   欢迎登录徐工智联 <text class="title-blue">司机版</text>
 			</view>
-		    <view class="head-title">
-		       <text class="sub-title">网络货运平台</text>
-			   <text class="title-blue">司机版</text>
+		    <view class="sub-head-title">
+		       <text class="sub-title">智联你我  不负所托</text>
 		    </view>
 			
 			<view class="get-inputs">
@@ -681,24 +680,37 @@
 		 letter-spacing: 20rpx;
 		 font-size: 50rpx;
 		 font-weight: 500;
-		 margin-bottom: 5rpx;
+		 margin-bottom: 17rpx;
+		 position: relative;
 		 
 	 }
+	 .sub-head-title{
+		
+		padding-left: 0rpx;
+		
+	 }
+	 
+	 
 	 
 	 .sub-title{
+		 
+		letter-spacing: 25rpx;
 	 	font-size: 35rpx;
 	 	font-weight: 400;
 		margin-left: 10%;
 	 }
 	 
 	 .title-blue{
-		 padding: 10rpx;
+		 padding: 5rpx;
 		 background-color: #3291f8;
 		  letter-spacing: 3rpx;
-		 font-size: 40rpx;
+		 font-size: 25rpx;
 		 font-weight: 400;
 		 color: #fff;
 		 border-radius: 10%;
+		 position: absolute;
+		 top:0;
+		 
 	 }
 	 
 	 .user-name{

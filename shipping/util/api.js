@@ -2,7 +2,7 @@
 //正式版
 //const BASE_URL = 'https://wl.xcmgzhilian.com' + '/prod-api'
 //半测试版
-const BASE_URL = 'http://116.62.172.131:88'  + '/stage-api'
+ const BASE_URL = 'http://116.62.172.131:88'  + '/stage-api'
 //测试版
  //const BASE_URL = 'http://10.22.2.138:8080'  
 //const BASE_URL = 'http://10.22.0.136:8080'

@@ -48,11 +48,14 @@
 		
 		
 		<view class="choices" v-if="carrierReviewStatus==1">
-			<button class="pizhou-lilian" :class="{'xz-lilian':selected_xuzhou}" @click="pickXuzhou">徐州徐工智联物流服务有限公司</button>
+			<!-- <button class="pizhou-lilian" :class="{'xz-lilian':selected_xuzhou}" @click="pickXuzhou">徐州徐工智联物流服务有限公司</button>
 			
 			<button class="pizhou-lilian" :class="{'xz-lilian':selected_pizhou}" @click="pickPizhou">
 				徐州徐工智联物流邳州分公司
-			</button>	
+			</button> -->
+				<button v-for = "(item,index) in company_names" class="a-btn" :class="{'xz-lilian':tabCurrentIndex === item.carrierCompanyId}" @click="pick(item)">
+					{{item.companyName}}
+				</button>
 		</view>
 		
 		
@@ -63,7 +66,7 @@
 		</view>
 		
 		<view class="btns margin-top">
-			<button  v-if="carrierReviewStatus==1" type="primary" class="final-btn" @click="confirmCompany">确认</button>
+			<button  v-if="carrierReviewStatus==1" type="primary" class="final-btn" @click="confirmCompany" :disabled="confirm_disabled">确认</button>
 			<button v-if="carrierReviewStatus==2" type="warn" class="back-btn" @click="backoff">退出</button>
 		</view>
 		
@@ -81,11 +84,14 @@
 			return {
 				received_msg:"",
 				current: -1,
-				companyID:null,
+				carrierCompanyId:null,
 				carrierReviewStatus:"",
+				company_names:[],
 				items:[],
+				tabCurrentIndex:0,
 				selected_xuzhou:false,
 				selected_pizhou:false,
+				confirm_disabled:true,
 			}
 		},
 		mounted(){
@@ -111,7 +117,7 @@
 					 })
 					console.log( res,' res');
 					 this.items = res.data.data
-					 
+					 this.company_names = res.data.data
 					 //如果res.data.data 为空数组，证明正在审核中，返回审核中的页面
 					 if (res.data.data.length <1){
 						 this.carrierReviewStatus=2
@@ -151,37 +157,33 @@
 					
 			},
 			
-			 radioChange: function(evt) {
-				
-				 this.companyID= evt.detail.value
-			             for (let i = 0; i < this.items.length; i++) {
-			                 if (this.items[i].value === evt.target.value) {
-			                     this.current = i;
-			                     break;
-			                 }
-			             }
-			         },
-			pickXuzhou(){
+			 
+			
+			pick(item){
+				console.log(item,'item')
+				this.tabCurrentIndex = item.carrierCompanyId
 				this.selected_xuzhou = true
-				this.selected_pizhou = false
-				this.companyID = 101
+				this.carrierCompanyId = item.carrierCompanyId
+				this.confirm_disabled = false
 			},
-			pickPizhou(){
-				this.selected_xuzhou = false
-				this.selected_pizhou = true
-				this.companyID = 102
-			}, 
 			async confirmCompany(){
 				var that = this
 				var authorization = uni.getStorageSync("token")
 				const res = await this.$request({
-					 	url:"/app/carrier/switchUser/"+ that.companyID,
+					 	url:"/app/carrier/switchUser/"+ that.carrierCompanyId,
 						header:{
 							Authorization:authorization,
 						}
 					 })
-				
-				uni.setStorageSync("company_id",that.companyID )
+					 console.log(res,"code");
+				if (res.data.code !=200){
+					uni.showToast({
+						title:"请求失败",
+						icon:"none"
+					})
+					return
+				}
+				uni.setStorageSync("company_id",that.carrierCompanyId )
 				uni.switchTab({
 				url:"/pages/index/index"
 				})
@@ -317,19 +319,19 @@
 	 
 	 
 	 .xz-lilian{
-		 width: 48%;
-		 font-size: 35rpx;
+		 
 		 background-color: #3894ff;
 		 color: #fff;
-		 border-radius: 40rpx;
+		 
 	 }
 	 
-	 .pizhou-lilian{
-		 width: 48%;
-		
-		 
-		  border-radius: 40rpx;
+	 .a-btn{
+		width: 48%;
+		font-size: 35rpx; 
+		margin-right:20rpx;
+		border-radius: 40rpx;
 	 }
+	
 	 
 	 .notices{
 		 padding-top: 5%;

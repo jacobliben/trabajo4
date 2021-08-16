@@ -126,7 +126,7 @@
 				user_get:"",
 				imgAvatarUrl:"/static/user.png",
 				tachar_avatar:false,
-				
+				user:{},
 				show_dispatch_before:false,
 				
 				show_shipping_order:true,
