@@ -167,7 +167,16 @@
 				this.confirm_disabled = false
 			},
 			async confirmCompany(){
+				
+				
 				var that = this
+				if(that.confirm_disabled){
+					uni.showToast({
+						title:"请先选择所属公司",
+						icon:"none"
+					})
+					return
+				}
 				var authorization = uni.getStorageSync("token")
 				const res = await this.$request({
 					 	url:"/app/carrier/switchUser/"+ that.carrierCompanyId,
@@ -355,7 +364,7 @@
 	 }
 	 
 	 .explain{
-		 margin-top: 25rpx;
+		 margin-top: 35rpx;
 		 line-height: 45rpx;
 		 height: 45rpx ;
 		 .foco{

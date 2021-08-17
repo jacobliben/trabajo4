@@ -486,7 +486,7 @@
 			
 			backBusiness(){
 				uni.switchTab({
-					url:'/pages/hall/hall'
+					url:'/pages/hall_opener/hall_opener'
 				})
 			},
 			
@@ -551,7 +551,7 @@
 								})
 								setTimeout(()=>{
 								   uni.switchTab({
-								   	url:"/pages/inquiry/inquiry"
+								   	url:'/pages/hall_opener/hall_opener'
 								   })
 								},800)
 							}else{

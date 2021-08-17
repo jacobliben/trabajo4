@@ -484,6 +484,15 @@
 					 	 })
 					
 				console.log(res,'mmm');
+				
+				if (res.data.code !=200){
+					uni.showToast({
+						title:"请求失败",
+						icon:"none"
+					})
+					return
+				}
+				
 				uni.reLaunch({
 								url:"/pages/shipping_order/shipping_order"
 							})

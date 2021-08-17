@@ -60,13 +60,14 @@
 					<image src="/static/calculator.png" mode="aspectFit"></image>
 					<text>派车单</text>
 				</view>
-				<view class="one-icon" hover-class="one-icon-hover" @click="goLoading">
-					<image src="/static/despatching.png" mode="aspectFit"></image>
-					<text>确认装货</text>
-				</view>
+				
+                  <view class="one-icon" hover-class="one-icon-hover" @click="goOrderDistributing"
+                  	v-if="show_shipping_order">
+                  	<image src="/static/delivery.png" mode="aspectFit"></image>
+                  	<text>分配运力</text>
+                  </view>
 
-
-				<view class="one-icon" hover-class="one-icon-hover" @click="goHall">
+				<view class="one-icon" hover-class="one-icon-hover" @click="goHall" v-if="show_shipping_order">
 					<image src="/static/home-drivers.png" mode="aspectFit"></image>
 					<text>货源大厅</text>
 				</view>
@@ -98,14 +99,10 @@
 				    					  <text>全部</text>
 				    </view> -->
 
-				<view class="one-icon" hover-class="one-icon-hover" @click="goOrderDistributing"
-					v-if="show_shipping_order">
-					<image src="/static/delivery.png" mode="aspectFit"></image>
-					<text>分配运力</text>
+				<view class="one-icon" hover-class="one-icon-hover" @click="goLoading">
+					<image src="/static/despatching.png" mode="aspectFit"></image>
+					<text>确认装货</text>
 				</view>
-
-
-
 
 				<view class="one-icon" hover-class="one-icon-hover" @click="goDespatching">
 					<image src="/static/globe.png" mode="aspectFit"></image>

@@ -220,7 +220,7 @@
 								 		<text class="name">要求到货时间</text>		 
 								 </view>
 								 <view>
-								 		<text class="ref-name">{{received_info.iscmSource.needArrivalTime}}</text>		 
+								 		<text class="ref-name" v-if="received_info.iscmSource!= null">{{received_info.iscmSource.needArrivalTime}}</text>		 
 								 			 
 								 </view>
 				</view>
@@ -286,7 +286,7 @@
 				 	<text class="name">收货人(公司)</text>			 
 				 </view>
 				 <view>
-				 	<text class="ref-name">{{received_info.iscmDispatchInformationRecord.consignee}}</text>			 
+				 	<text class="ref-name" v-if="received_info.iscmDispatchInformationRecord!= null">{{received_info.iscmDispatchInformationRecord.consignee}}</text>			 
 				 		<!-- 	<text class="cuIcon-right lg text-gray"></text>	 -->		 
 				 </view>
 			 </view>
@@ -296,7 +296,7 @@
 				 	<text class="name">收货联系人</text>			 
 				 </view>
 				 <view>
-				 	<text class="ref-name">{{received_info.iscmDispatchInformationRecord.consigneeName}}</text>			 
+				 	<text class="ref-name" v-if="received_info.iscmDispatchInformationRecord!= null">{{received_info.iscmDispatchInformationRecord.consigneeName}}</text>			 
 				 		<!-- 	<text class="cuIcon-right lg text-gray"></text>	 -->		 
 				 </view>
 			 </view>
@@ -306,18 +306,18 @@
 				 	<text class="name">收货联系人电话</text>			 
 				 </view>
 				 <view>
-				 	<text class="ref-name">{{received_info.iscmDispatchInformationRecord.consigneePhone}}</text>			 
+				 	<text class="ref-name" v-if="received_info.iscmDispatchInformationRecord!= null">{{received_info.iscmDispatchInformationRecord.consigneePhone}}</text>			 
 				 		<!-- 	<text class="cuIcon-right lg text-gray"></text>	 -->		 
 				 </view>
 			 </view>
 			 
-			 <view class="cu-form-group border-bottom">
+			 <view class="cu-form-group border-bottom ">
 				 <view>
 				 	<text class="name">收货地址</text>			 
 				 </view>
 				 <view>
 				 			 
-				 	<input type="text" class="ref-name" disabled :value = "received_info.iscmDispatchInformationRecord.consigneeAddress">		 
+				 	<input type="text" v-if="received_info.iscmDispatchInformationRecord!= null" class="ref-name flex-group" disabled :value = "received_info.iscmDispatchInformationRecord.consigneeAddress">		 
 				 </view>
 			 </view>
 			 
@@ -362,7 +362,7 @@
 		<view class="cu-form-group">
 			<!-- <image src="/static/chronometer.png" mode="aspectFit" class="person-img"></image> -->
 			
-				<view class="name black">收发货地之间</view>
+				<view class="name" >收发货地之间</view>
 				<view class="ref-name">
 					<text>距离约 {{short_distance}} 公里 </text>
 				</view>
@@ -564,58 +564,6 @@
 			this.lng = LocationMy.rLng();
 			this.lat =LocationMy.rLat();
 			
-			
-			// class ShippingNoteInfo {
-			//     constructor(shippingNoteNumber, serialNumber,startCountrySubdivisionCode,endCountrySubdivisionCode) {
-			//         this.shippingNoteNumber = shippingNoteNumber;
-			//         this.serialNumber = serialNumber;
-			// 		this.startCountrySubdivisionCode = startCountrySubdivisionCode;
-			// 		this.endCountrySubdivisionCode = endCountrySubdivisionCode;
-			//     }
-			   
-			// }
-			
-			//有用
-			// var ShippingNoteInfo = plus.android.importClass("com.hdgq.locationlib.entity.ShippingNoteInfo ")
-			// var shippingNoteInfos = new ShippingNoteInfo();
-			// shippingNoteInfos.setShippingNoteNumber("PC0A210722627545") 
-			// shippingNoteInfos.setSerialNumber("0000")  
-			// shippingNoteInfos.setStartCountrySubdivisionCode("310113") 
-			// shippingNoteInfos.setEndCountrySubdivisionCode("320305")
-			// console.log(shippingNoteInfos,"shippingNoteInfos");
-			
-			// var StartIt = plus.android.importClass("io.dcloud.UNIACABF38.StartIt")
-			// var StartIt = new  StartIt(shippingNoteInfos); 
-			// StartIt.start(shippingNoteInfos) // 这个方法一定要执行一次就行了
-			
-			
-			 // //获取宿主上下文
-			 // var main = plus.android.runtimeMainActivity();
-			 //   //通过反射获取Android的Intent对象
-			 //  var Intent = plus.android.importClass("android.content.Intent");
-			 //  //通过宿主上下文创建 intent
-			 //  var intent = new Intent(main.getIntent());
-			 //  //设置要开启的Activity包类路径  com.HBuilder.integrate.MainActivity换掉你自己的界面
-			 //  intent.setClassName(main, "io.dcloud.UNIACABF38.ThankSend");
-			 //   //开启新的任务栈 （跨进程）
-			 //    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			 //    //向原生界面传值操作
-			 //    intent.putExtra("uni_key","来自uniapp的值");
-			 //    //开启新的界面
-			 //    main.startActivity(intent);
-			 
-			  
-			  
-			  //    //开启新的Service
-			  //    LocationMy.startForeground(intent);
-			  //==================================================================================
-			  // var main = plus.android.runtimeMainActivity();  
-			  // var Intent = plus.android.importClass('android.content.Intent');  
-			  // var intent = new Intent();  
-			  // intent.setClassName(main, "io.dcloud.UNIACABF38.MyService2");  
-			  // main.startService(intent);
-			  
-			   
 			// #endif
 				
 		},
@@ -885,7 +833,7 @@
 						//向监管SDK发信息
 						
 						 const shippingNoteNumber = this.received_info.dispatchNo
-						 const serialNumber = "0000"
+						 const serialNumber = "000000"
 						 
 						const startCountrySubdivisionCode = this.startCountrySubdivisionCode                                                             
 						const endCountrySubdivisionCode = this.endCountrySubdivisionCode
@@ -900,20 +848,12 @@
 						const shippingNoteInfos = this.shippingNoteInfos
 						
 						//#ifdef APP-PLUS
-						 //  //启动前台服务/SDK监管(专为传值！！！！)
-						 // //获取宿主上下文
-						 //   var main = plus.android.runtimeMainActivity();
-						 //    //通过反射获取Android的Intent对象
-						 //   var Intent = plus.android.importClass("android.content.Intent");
-						 //   //通过宿主上下文创建 intent
-						 //   var intent = new Intent(main.getIntent());
-						 //   //设置要开启的Activity包类路径  com.HBuilder.integrate.MainActivity换掉你自己的界面
-						 //   intent.setClassName(main, "io.dcloud.UNIACABF38.ServiceStart");
-						 
-						 //   //向原生界面传值操作
-						 //   intent.putExtra("shippingNoteNumber",shippingNoteInfos.shippingNoteNumber);
-						 //   //开启新的界面
-						 //   main.startService(intent);
+						//Android 获取class
+						var StartIt = plus.android.importClass("io.dcloud.UNIACABF38.StartIt")
+						var StartIt = new StartIt();  //实例化该class
+						StartIt.start(); // 这个方法一定要执行一次就行了
+						
+						
 						
 						
 						//#endif
@@ -1343,4 +1283,10 @@
 	  }
   }
   
+  .flex-group{
+	 
+	  display: flex;
+	  flex-direction: row;
+	  justify-content: cneter;
+  }
 </style>

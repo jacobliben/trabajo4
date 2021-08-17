@@ -61,7 +61,8 @@
 				<view class="first-row">
 					<view class="distance">
 						<text >距报价截止时间剩余</text>
-						<text class="distance-num"> {{remainingTime[index]}}   </text> 
+					<!-- 	<text class="distance-num"> {{remainingTime[index]}}   </text> --> 
+					<text class="distance-num"> {{(new Date(item.stopTime).getTime()-new Date().getTime()>=0)?( (parseInt(((new Date(item.stopTime).getTime()-new Date().getTime())/(60*60*24*1000)))+"天")  +     (parseInt(((new Date(item.stopTime).getTime()-new Date().getTime())/(60*60*1000)%24))   +"时")      ):"已过期"}}   </text>
 					</view>
 					<view class="ton">
 						{{item.iscmOrder.surplusGoodsWeight}}吨
@@ -97,8 +98,8 @@
 					<view class="long">
 						<view>
 						    <image src="/static/arrow-nav.png" mode="widthFix" class="nav"></image>
-						    <text>总距离 {{distance_to_origin[index]}}公里</text>	
-							
+						    <!-- <text>总距离 {{distance_to_origin[index]}}公里</text>	 -->
+							 <text>总距离 {{item.short_distance}}公里</text>
 						</view>
 						
 						<view class="goods-name">
@@ -151,9 +152,9 @@
 				</view>
 				
 				<view class="loading-time">
-					<view class="fecha-de-despacho">装货日期</view>
-					<view class="fecha">开始: {{item.iscmSource.assignSendTime}}</view>
-					<view class="fecha">截止: {{item.iscmSource.assignEndTime}}</view>
+					<view class="fecha-de-despacho">询价日期</view>
+					<view class="fecha">开始: {{item.startTime}}</view>
+					<view class="fecha">截止: {{item.stopTime}}</view>
 				</view>
 				
 				<view class="various" v-if = "item.cargoBoxType != null">
@@ -173,7 +174,7 @@
 				<view class="btn-level">
 					<button size="mini" class="detail-btn" :disabled="item.iscmQuote==null"
 					  @click="goQuoteDetail(item)">报价详情</button>
-					<button size="mini" class="btn" :disabled="disable_quote"
+					<button size="mini" class="btn" :disabled="new Date(item.stopTime).getTime()-new Date().getTime()<0"
 				@click="quote(item)">报价</button>
 				</view>
 			</view>
@@ -243,7 +244,7 @@
 			           },
 			}
 		},
-		
+		props:["source","refresh_index"],
 		
 		components:{
 			infoNotFound
@@ -260,7 +261,14 @@
 			
 		},
 		mounted(){
-			
+			console.log (this.source ,"source")
+			if (this.source.state ==1){
+				
+			}else if (this.source.state ==2){
+				this.queryParams.designatedStatus = [1,2]
+			}else if (this.source.state ==3){
+				this.queryParams.designatedStatus = [3]
+			}
 			this.searchInquiry()
 			
 			
@@ -479,7 +487,7 @@
 								 																var short_distance = that.short_distance
 								 																
 								 																that.distance_to_origin.push(short_distance)
-								 																	
+								 															   that.inquiry_list[i].short_distance =short_distance
 								 		                     
 								 															 //console.log( res.data.data.route.paths.duration,"货车规划")									 			 
 								 												     }
@@ -517,115 +525,6 @@
 					}
 				
 				
-				
-			 //     var queryParams= that.queryParams 
-				
-				//  var authorization = uni.getStorageSync("token")
-				  
-				// 	  const res = await that.$request({
-				// 	  	 	url:"/app/enquiry/list",
-					  	 	
-				// 	  	 	header:{
-				// 	  	 		Authorization:authorization,
-				// 	  	 	},
-				// 	  	 	data:queryParams
-				// 	  	 })
-				
-				// 	    console.log(res,'jh');
-						
-						
-						
-				// 	  if(res.data.total == 0){
-				// 	  	setTimeout(()=>{
-				// 	  		that.show_not_found = true
-				// 	  	},30)
-				// 	  	return
-				// 	  }
-					  
-				// 	  //stop sending request
-				// 	  if (that.queryParams.pageNum*that.queryParams.pageSize>=res.data.total){
-				// 	  	that.load_more = false
-				// 	  }
-					  
-				// 	  if (that.inquiry_list.length<= res.data.total){
-				// 	  	that.inquiry_list =[...that.inquiry_list,...res.data.rows]
-				// 	  	that.show_not_found = false
-				// 	  }else{
-				// 	  	uni.showToast({
-				// 	  		title:"没有更多的信息了",
-				// 	  		icon:"none"
-				// 	  	})
-						
-				// 	  }
-					  
-					  
-				// 	  for (var i = 0; i < that.inquiry_list.length; i++) {
-						 
-				// 		  var inquiry_every = that.inquiry_list[i]
-						  
-				// 		  //get distance between sender and receiver
-				// 	  	uni.request({
-				// 	  		//传入高德web服务端key和发货地址
-				// 	  		url: `https://restapi.amap.com/v3/geocode/geo?address=${inquiry_every.iscmOrderInformationRecord.shipperAddress}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
-				// 	  		success: (res) => {
-								
-				// 	  			origin_location = res.data.geocodes[0].location.split(",")
-					  			
-				// 	  			origin_latitude = parseFloat(origin_location[1])
-				// 	  			origin_longitude = parseFloat(origin_location[0])
-					  			
-				// 	  			uni.request({
-				// 	  				//传入高德web服务端key和目的地址
-				// 	  				 url: `https://restapi.amap.com/v3/geocode/geo?address=${inquiry_every.iscmOrderInformationRecord.consigneeAddress}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
-					  				
-				// 	  				success:(res)=>{
-										
-				// 	  						 destiny_location  = res.data.geocodes[0].location.split(",")
-				// 	  						  destiny_latitude =parseFloat(destiny_location[1]) 
-				// 	  						  destiny_longitude = parseFloat(destiny_location[0])
-					  													 
-				// 	  													 uni.request({
-				// 	  													 	//传入高德web服务端key和规划线路
-				// 	  													 	// url: `https://restapi.amap.com/v4/direction/truck?origin=${origin_longitude}%2C${origin_latitude}&destination=${destiny_longitude}%2C${destiny_latitude}&size=3&key=ae8b30ff7c227fb962010579230bf568`, //货车规划
-				// 	  													 	url: `https://restapi.amap.com/v3/direction/driving?origin=${origin_longitude}%2C${origin_latitude}&destination=${destiny_longitude}%2C${destiny_latitude}&key=ae8b30ff7c227fb962010579230bf568`,
-				// 	  													 	success:(res)=>{
-					  													 			   
-				// 	  																  that.short_distance=parseFloat(res.data.route.paths[0].distance)/1000
-					  																  
-				// 	  																    that.short_distance= that.short_distance.toFixed(2)
-				// 																		var short_distance = that.short_distance
-					  																	
-				// 	  																	that.distance_to_origin.push(short_distance)
-					  																		
-					  			                     
-				// 	  																 //console.log( res.data.data.route.paths.duration,"货车规划")									 			 
-				// 	  													     }
-				// 	  													 })
-					  													 
-					  						 
-				// 	  			    }
-				// 	  			})	
-				// 	  		}
-					  			
-				// 	  	})
-				// 		//decide the remaining time 
-				// if(new Date(inquiry_every.stopTime).getTime()-new Date().getTime()>=0){
-				// 	var restTime = new Date(inquiry_every.stopTime).getTime()-new Date().getTime()
-				// 	var day = parseInt(restTime/(60*60*24*1000))
-				// 	var hour = parseInt(restTime/(60*60*1000)%24)
-				// 	var min = parseInt(restTime/(60*1000)%60)
-				// 	that.disable_quote = false
-				// 	var remaining_time = day + "天" + hour + "时" + min + "分"
-				// }else{
-				// 	that.disable_quote = true
-				//  	remaining_time = "已过期"
-				//  }
-					
-				// 	that.remainingTime.push(remaining_time)
-					
-						
-				// }
-				 
 				
 			},
 			

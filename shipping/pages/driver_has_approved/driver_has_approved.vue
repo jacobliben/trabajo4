@@ -1,7 +1,7 @@
 <template>
 	<view class="vehicle-has-approved-body">
 		
-		<view class="search-body">
+		
 			<view class="cu-bar search bg-white">
 				 <text class="margin-left title">姓名</text>
 				<view class="search-form round">
@@ -33,7 +33,7 @@
 				
 			
 			</view>
-		</view>
+		
 		
 		
 		<!-- <view class="cu-bar search bg-white">
@@ -416,10 +416,7 @@
 </script>
 
 <style lang="scss" scoped>
-	.search-body{
-		width:100%;
-		height: 320rpx;
-	}
+	
 	.vehicle-has-approved-body{
 		background-color: #fff;
 	}
@@ -433,7 +430,7 @@
 	}
 	
 	.scroll-Y{
-		 height: 750rpx;
+		 height: 880rpx;
 		
 	}
 	.truck{

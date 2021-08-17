@@ -910,7 +910,7 @@
             "path" : "pages/hall/hall",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "货源大厅",
+                "navigationBarTitleText": "",
                 "enablePullDownRefresh": true
             }
             
@@ -928,7 +928,7 @@
             "path" : "pages/hall_opener/hall_opener",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "货源大厅",
                 "enablePullDownRefresh": false
             }
             
@@ -960,7 +960,7 @@
 			"selectedIconPath":"static/orders-selected.png"
 			},
 			{"text":"货源大厅",
-			"pagePath":"pages/hall/hall",
+			"pagePath":"pages/hall_opener/hall_opener",
 			"iconPath":"static/hall.png",
 			"selectedIconPath":"static/hall-selected.png"
 			},

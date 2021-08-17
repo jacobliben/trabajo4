@@ -155,7 +155,7 @@
 											     <view class="name">需求车辆长度(米)</view>
 											    <view class="ref-name" v-if = "detailed.vehicleLength">
 													<text v-for ="(item,index) in detailed.vehicleLength.split(',')" :key="index">
-													   <text >{{item}}</text>
+													   <text class="margin-right">{{item}}</text>
 													</text>
 												 </view>
 								</view>
@@ -165,7 +165,7 @@
 											     <view class="name">需求车厢类型</view>
 											     <view class="ref-name" v-if = "detailed.cargoBoxType">
 													<text v-for ="(item,index) in detailed.cargoBoxType.split(',')" :key="index">
-													   <text>{{cargoBoxTypeOptions[cargoBoxTypeSendValue.findIndex(value=>value == item)]}}</text>
+													   <text class="margin-right">{{cargoBoxTypeOptions[cargoBoxTypeSendValue.findIndex(value=>value == item)]}}</text>
 													</text>
 												 </view>
 								</view>
@@ -245,7 +245,7 @@
 					
 				},
 				received_info:null,
-				detailed:"",
+				detailed:{},
 				// 货物分类字典
 				goodsTypeOptions: [],
 				goodsTypeSendValue: [],
@@ -279,7 +279,7 @@
 				//计价方式
 				settlementMethodOptions: [],
 				settlementMethodSendValue: [],
-				
+				quote_item:{},
 				
 				disabled:true,
 				active:false,
@@ -304,10 +304,23 @@
 			this.getSourceOrderWayOptions()
 			//计价方式
 			this.getSettlementMethodOptions()
+			this.quote_item = uni.getStorageSync("quote_item")
+			console.log(this.quote_item,'quote_item')
+			const enquiryId = this.quote_item.enquiryId
+			console.log(enquiryId,'enquiryId')
+			var Authorization = uni.getStorageSync("token")
+			const res_quote = await this.$request({
+				url:"/app/enquiry/getEnquiryInfo/"+ enquiryId ,
+				
+				header:{
+					authorization:Authorization
+				}
+				
+			})
+			console.log (res_quote,"res_quote")
 			
 			
-			this.received_info = uni.getStorageSync("quote_item")
-			this.detailed = this.received_info
+			this.detailed = res_quote.data.data 
 			console.log(this.detailed,'detailed')
 									
 									if (this.detailed.orderWay ==2 ){
@@ -516,7 +529,7 @@
 			
 			backBusiness(){
 				uni.switchTab({
-					url:'/pages/hall/hall'
+					url:'/pages/hall_opener/hall_opener'
 				})
 			},
 			
