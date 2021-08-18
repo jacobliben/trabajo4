@@ -2,19 +2,26 @@
 	<view class="content">
 		
 	  <!-- head section -->
-	  <view class="navbar">
-		  <scroll-view v-for ="(item,index) in navList" :key="index" enable-flex="true"
-		  class="nav-item" :class="{current: tabCurrentIndex === index }" 
-		  @click ="tabClick(index)" scroll-x="true"  scroll-left="120">
-		  	<text>{{item.text}}</text>
-		  </scroll-view>
+	  <view class="head-sect">
+		  <view class="navbar">
+		  		  <view v-for ="(item,index) in navList" :key="index" enable-flex="true"
+		  		  class="nav-item" :class="{current: tabCurrentIndex === index }" 
+		  		  @click ="tabClick(index)" scroll-x="true"  scroll-left="120">
+		  		  	<text>{{item.text}}</text>
+		  		  </view>
+		  		  
+		  </view>
+		  <view class="plus" @click="addRefresh">
+		  			  <image src="/static/rotate.png" mode="" class="add" :class="{rotate: activeRotate }"></image>
+		  </view>
 	  </view>
+	  
 		
 		<!-- body section -->
 		<view class="shipping-body">
 			<view class="list" v-for = "(item,index) in navList" :key="index"  v-if="tabCurrentIndex===index">
 				<!-- {{item.state}} -->
-				<receiving-shipping-order  :transporte_state="item"/>
+				<receiving-shipping-order :key="refresh_index"  :transporte_state="item"/>
 				<!-- <distribute-drivers v-if="item.state===1"/> -->
 				
 			</view>
@@ -34,6 +41,8 @@
 		data() {
 			return {
 				tabCurrentIndex:0,
+				refresh_index:0,
+				activeRotate:false,
 				navList:[
 					{
 						state:0,
@@ -80,6 +89,14 @@
 		},
 		
 		methods:{
+			addRefresh(){
+				var that = this
+				this.activeRotate = true;
+				this.refresh_index++;
+				setTimeout(()=>{
+					that.activeRotate = false
+				},3000)
+			},
 			changeTab(e){
 				this.tabCurrentIndex = e.target.current
 			},
@@ -92,7 +109,14 @@
 </script>
 
 <style lang="scss" scoped>
-	
+	.head-sect{
+		width:100%;
+		height:80rpx;
+		display: flex;
+		margin-top: 20rpx;
+		flex-direction: row;
+		padding-right:30rpx;
+	}
 	.navbar{
 		display: flex;
 		height:80rpx;
@@ -101,6 +125,7 @@
 		position: sticky;
 		top:10rpx;
 		z-index:3;
+		justify-content: space-between;
 		background-color: #fff;
 		.nav-item{
 			flex:1;
@@ -133,6 +158,37 @@
 	
 	.content{
 		background-color: #fff;
+	}
+	
+	.plus{
+		width:10%;
+		color:000;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		font-size: 70rpx;
+		margin:15rpx;
+		
+	}
+	
+	@keyframes turnZ{
+	
+	  0%{transform:rotateZ(0deg);}
+	
+	  100%{transform:rotateZ(360deg);}
+	
+	}
+	
+	.add{
+		width:35rpx;
+		height:35rpx;
+		
+	} 
+	
+	.rotate{
+		
+			
+		 animation: turnZ 1s linear infinite;
 	}
 
 </style>

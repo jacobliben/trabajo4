@@ -78,9 +78,9 @@ public class LocationMy {
                             + amapLocation.getErrorInfo ());
 
                     if (mycode ==4){
-                        makeText (getApplicationContext (), "定位失败, 请检查网络！"  , LENGTH_SHORT).show ();
+                       // makeText (getApplicationContext (), "定位失败, 请检查网络！"  , LENGTH_SHORT).show ();
                     }else{
-                        makeText (getApplicationContext (), "定位失败！"  , LENGTH_SHORT).show ();
+                        //makeText (getApplicationContext (), "定位失败！"  , LENGTH_SHORT).show ();
                     }
 
                     //todo mycode 为12时，为缺少定位权限，mycode要传到uni-app 提醒用户开启权限  具体错误码：https://lbs.amap.com/api/android-location-sdk/guide/utilities/errorcode/

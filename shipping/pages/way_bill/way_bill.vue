@@ -2,22 +2,26 @@
 	<view class="content">
 		
 	  <!-- head section -->
-	  <view class="navbar">
-		
-		  <scroll-view v-for ="(item,index) in navList" :key="index"  enable-flex="true"
-		  class="nav-item" :class="{current: tabCurrentIndex === index }" 
-		  @click ="tabClick(index)" scroll-x="true"  scroll-left="120">
-		  	     <text>{{item.text}}</text>
-		  </scroll-view>
-		
-	  </view>
+	   <view class="head-sect">
+		   <view class="navbar">
+		   		  <view v-for ="(item,index) in navList" :key="index"  enable-flex="true"
+		   		  class="nav-item" :class="{current: tabCurrentIndex === index }" 
+		   		  @click ="tabClick(index)" scroll-x="true"  scroll-left="120">
+		   		  	     <text>{{item.text}}</text>
+		   		  </view>
+		   </view>
+		   <view class="plus" @click="addRefresh">
+		   		<image src="/static/rotate.png" mode="" class="add" :class="{rotate: activeRotate }"></image>
+		   </view>
+	   </view>
+	  
 		
 		<!-- body section -->
 		<view class="shipping-body">
 		
 				<view class="list" v-for = "(item,index) in navList" :key="index"  v-if="tabCurrentIndex===index">
 					<!-- {{item.state}} -->
-					<despatching-pending :transporte_state="item"/>
+					<despatching-pending :key="refresh_index" :transporte_state="item"/>
 					
 					
 					<!--<task-finished v-if="item.state===4"/>
@@ -41,6 +45,8 @@
 		data() {
 			return {
 				tabCurrentIndex:0,
+				refresh_index:0,
+				activeRotate:false,
 				nav_state:"",  
 				navList:[
 					{
@@ -115,6 +121,14 @@
 		},
 		
 		methods:{
+			addRefresh(){
+				var that = this
+				this.activeRotate = true;
+				this.refresh_index++;
+				setTimeout(()=>{
+					that.activeRotate = false
+				},3000)
+			},
 			changeTab(e){
 				this.tabCurrentIndex = e.target.current
 			},
@@ -184,6 +198,35 @@
 	
 	.content{
 		background-color: #fff;
+	}
+	
+	.plus{
+		width:10%;
+		color:000;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		font-size: 70rpx;
+		margin:15rpx;
+		margin-left:670rpx;
+	}
+	
+	@keyframes turnZ{
+	
+	  0%{transform:rotateZ(0deg);}
+	
+	  100%{transform:rotateZ(360deg);}
+	
+	}
+	
+	.add{
+		width:35rpx;
+		height:35rpx;
+		
+	} 
+	
+	.rotate{
+		 animation: turnZ 1s linear infinite;
 	}
 
 </style>

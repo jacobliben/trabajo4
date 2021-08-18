@@ -777,7 +777,8 @@
 	.fecha-de-despacho{
 		background-color:#f0f0f0 ;
 		color: #1f76cd;
-		width: 120rpx;
+		width: 90rpx;
+		
 		margin: 10rpx;
 		border-radius: 10rpx;
 	}

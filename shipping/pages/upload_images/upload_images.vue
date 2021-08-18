@@ -382,8 +382,8 @@
 				 class="tachar" v-if="tachar_goods"></image>
 				<view class="big-caption">人车货合照</view>
 			</view>
-			<view @click="takePhoto" data-index="ticket_photo">
-				<image :src="imgOrderUrl" class="big-image" mode="aspectFit"></image>
+			<view >
+				<image :src="imgOrderUrl" class="big-image" mode="aspectFit" @click="takePhoto" data-index="ticket_photo"></image>
 				<image src="/static/tachar.png" mode="aspectFit" @click="cancelOrder"
 				class="tachar" v-if="tachar_order"></image>
 				<view class="big-caption">{{btn_title}}单据</view>
@@ -485,8 +485,10 @@
 			
 			console.log (resDispatch,'resDispatch')
 			this.received_info = resDispatch.data.data
-			
+			//reappear dispatch weight as pre-determined signed weight
              this.signed_weight = this.received_info.dispatchGoodsWeight
+			 //put this weight into the params data
+			 this.queryParams.signWeight =this.received_info.dispatchGoodsWeight
 			this.btn_title = options.btn_title
 			
 			//for calcating distance of delivery
@@ -753,13 +755,23 @@
 			    
 				cancelOrder(){
 					this.imgOrderUrl = "/static/camera-scan.png"
-					setTimeout(()=>{
-						uni.showToast({
-							title:"删除运单照片成功，请重新选择",
-							icon:"none"
-						})
-					},500)
-					this.tachar_order=false
+					if (this.btn_title==='发车'&& this.canDispatch){
+						setTimeout(()=>{
+							uni.showToast({
+								title:"删除运单照片成功",
+								icon:"none"
+							})
+						},500)
+						this.tachar_order=false
+					}else if (this.btn_title==='签收'&& this.canDispatch){
+						setTimeout(()=>{
+						     	uni.showToast({
+						     		title:"删除运单照片成功,请重新选择",
+						     		icon:"none"
+						     	})
+						     },500)
+						this.tachar_order=false
+					}   
 				},
 				
 				
@@ -822,13 +834,13 @@
 						
 						var queryParams = this.queryParams
 						
-						if (!this.queryParams.leavePhoto){
-							uni.showToast({
-								title:"请上传发车单据！",
-								icon:"none"
-							})
-							return
-						} 
+						// if (!this.queryParams.leavePhoto){
+						// 	uni.showToast({
+						// 		title:"请上传发车单据！",
+						// 		icon:"none"
+						// 	})
+						// 	return
+						// } 
 						
 						//向监管SDK发信息
 						
@@ -851,6 +863,12 @@
 						//Android 获取class
 						var StartIt = plus.android.importClass("io.dcloud.UNIACABF38.StartIt")
 						var StartIt = new StartIt();  //实例化该class
+						//pass data to the sdk
+						StartIt.getShippingNoteInfosData(shippingNoteNumber)
+						StartIt.getSerialNumberData(serialNumber)
+						StartIt.getStartCountrySubdivisionCodeData(startCountrySubdivisionCode)
+						StartIt.getEndCountrySubdivisionCodeData(endCountrySubdivisionCode)
+						
 						StartIt.start(); // 这个方法一定要执行一次就行了
 						
 						
@@ -941,8 +959,8 @@
 						}
 					}else{
 						//"已完成"和"全部"时
-						uni.navigateBack({
-							
+						uni.reLaunch({
+							url:"/pages/way_bill/way_bill"
 						})
 					}
 					
@@ -1117,10 +1135,11 @@
    }
    
    .name{
+	 font-size:35rpx;
   	 color:#999999;
    }
    .ref-name{
-   		 font-size:25rpx;
+   		 font-size:30rpx;
   		 color:#999;
    }
 .red{

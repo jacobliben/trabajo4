@@ -188,7 +188,7 @@
 				password:"",
 				
 				terms_checked:true,
-				login_disable:false,
+				login_disable:true,
 			}
 		},
 		
@@ -201,7 +201,12 @@
 				
 				this.username = uni.getStorageSync("username")
 				this.password = uni.getStorageSync("password")			
-							
+				console.log (typeof this.username,"username")
+				if (this.username!="" && this.password!=""){
+					this.login_disable = false
+				}else{
+					this.login_disable = true
+				}
 		},
 	    watch: {
 			
@@ -302,7 +307,7 @@
 				this.password = e.target.value
 				
 				uni.setStorageSync("password",this.password)
-				
+				this.login_disable = false
 			},
 			wechatLogin(){
 				uni.switchTab({

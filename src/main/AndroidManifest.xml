@@ -32,7 +32,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <uses-feature android:name="android.hardware.Camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -46,12 +46,15 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         tools:replace="android:name">
+        <activity android:name=".ThankSend"></activity>
+        <activity android:name=".SendActivity" />
+
         <service
             android:name=".ServiceStart"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
-        <activity android:name=".Camera"></activity>
+        <activity android:name=".Camera" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|navigation"
