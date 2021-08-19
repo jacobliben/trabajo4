@@ -36,9 +36,7 @@ public class StartIt<shippingNoteInfos, shippingNoteInfo0, shippingNoteInfo1> {
 
 
     ShippingNoteInfo shippingNoteInfo0 = new ShippingNoteInfo();
-    ShippingNoteInfo shippingNoteInfo1 = new ShippingNoteInfo();
-    ShippingNoteInfo shippingNoteInfo2 = new ShippingNoteInfo();
-    ShippingNoteInfo shippingNoteInfo3 = new ShippingNoteInfo();
+
 
 
 
@@ -56,31 +54,31 @@ public class StartIt<shippingNoteInfos, shippingNoteInfo0, shippingNoteInfo1> {
     public void getSerialNumberData(String serialNumber){
 
         Log.i("mmm serialNumber",serialNumber);
-        shippingNoteInfo1.setSerialNumber( serialNumber);
+        shippingNoteInfo0.setSerialNumber( serialNumber);
     };
 
     public void getStartCountrySubdivisionCodeData(String startCountrySubdivisionCode){
 
         Log.i("mmm startCountry",startCountrySubdivisionCode);
-        shippingNoteInfo2.setStartCountrySubdivisionCode(startCountrySubdivisionCode);
+        shippingNoteInfo0.setStartCountrySubdivisionCode(startCountrySubdivisionCode);
     };
 
     public void getEndCountrySubdivisionCodeData(String endCountrySubdivisionCode){
 
         Log.i("mmm endCountry",endCountrySubdivisionCode);
-        shippingNoteInfo3.setEndCountrySubdivisionCode(endCountrySubdivisionCode);
+        shippingNoteInfo0.setEndCountrySubdivisionCode(endCountrySubdivisionCode);
 
 
     };
 
 
-    ShippingNoteInfo[] shippingNoteInfos = new  ShippingNoteInfo[]{shippingNoteInfo0,shippingNoteInfo1,shippingNoteInfo2,shippingNoteInfo3};
+    ShippingNoteInfo[] shippingNoteInfos = new  ShippingNoteInfo[]{shippingNoteInfo0};
 
 
 
 
     public void start(){
-        //Log.i("mmm ok", Arrays.toString(shippingNoteInfos));
+
         LocationOpenApi.start((Application) getApplicationContext(),
                 shippingNoteInfos, listener);
     }

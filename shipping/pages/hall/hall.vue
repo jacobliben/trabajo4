@@ -157,13 +157,13 @@
 					<view class="fecha">截止: {{item.stopTime}}</view>
 				</view>
 				
-				<view class="various" v-if = "item.cargoBoxType != null">
+				<!-- <view class="various" v-if = "item.cargoBoxType != null">
 					<text v-for ="(item,index) in item.cargoBoxType" :key="index" class="cargoBoxType "></text>
 				</view>
 				
 				<view class="various" v-if = "item.vehicleLength != null">
 					<text v-for ="(item,index) in item.vehicleLength" :key="index" class="cargoBoxType "></text>
-				</view>
+				</view> -->
 				
 				<!-- <view class="address"> 
 					<text>公司：{{item.companyName}}</text>

@@ -2,7 +2,7 @@
 	<view>
 		<form @submit="formSubmit" class="margin-bottom" >
 				
-					            <view class="cu-form-group">
+					           <view class="cu-form-group">
 					            			     <view class="name">报价单编号 <text class="star">*</text></view>
 					            			     <view class="ref-name">
 					            					<view>{{detailed.iscmQuote.quoteNo}}</view>

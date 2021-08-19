@@ -470,6 +470,8 @@
 		    this.upload_info = uni.getStorageSync("upload_item")
 			
 			console.log (this.upload_info,'upload_info')
+			console.log (this.upload_info.waybillNo,'waybillNo')
+			
 			const dispatchId = this.upload_info.dispatchId
 			console.log (dispatchId,'dispatchId')
 			
@@ -485,6 +487,7 @@
 			
 			console.log (resDispatch,'resDispatch')
 			this.received_info = resDispatch.data.data
+			console.log (this.received_info,'received_info')
 			//reappear dispatch weight as pre-determined signed weight
              this.signed_weight = this.received_info.dispatchGoodsWeight
 			 //put this weight into the params data
@@ -530,11 +533,22 @@
 							 })	 
 				    }
 				})
-		
+		    
+			const total_shipper_address = that.received_info.iscmDispatchInformationRecord.shipperProvinceName 
+			+ that.received_info.iscmDispatchInformationRecord.shipperCityName 
+			+ that.received_info.iscmDispatchInformationRecord.shipperRegionName 
+			+ that.received_info.iscmDispatchInformationRecord.shipperAddress
+			console.log(total_shipper_address,'total_shipper_address')
+			
+			const total_consignee_address = that.received_info.iscmDispatchInformationRecord.consigneeProvinceName
+			+ that.received_info.iscmDispatchInformationRecord.consigneeCityName
+			+ that.received_info.iscmDispatchInformationRecord.consigneeRegionName
+			+ that.received_info.iscmDispatchInformationRecord.consigneeAddress
+			console.log(total_consignee_address,'total_consignee_address')
 			//解析目的地地址信息
 				uni.request({
 					//传入高德web服务端key和发货地址
-					 url: `https://restapi.amap.com/v3/geocode/geo?address=${this.received_info.iscmDispatchInformationRecord.shipperAddress}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
+					 url: `https://restapi.amap.com/v3/geocode/geo?address=${total_shipper_address}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
 					// #ifdef APP-PLUS
 					success:(res)=>{
 						
@@ -543,7 +557,7 @@
 							main.data =	this.startCountrySubdivisionCode					   
 							 uni.request({
 							 	//传入高德web服务端key和目的地址
-							 	 url: `https://restapi.amap.com/v3/geocode/geo?address=${this.received_info.iscmDispatchInformationRecord.consigneeAddress}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
+							 	 url: `https://restapi.amap.com/v3/geocode/geo?address=${total_consignee_address}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
 							 	
 							 	success:(res)=>{
 							 		     
@@ -844,20 +858,12 @@
 						
 						//向监管SDK发信息
 						
-						 const shippingNoteNumber = this.received_info.dispatchNo
-						 const serialNumber = "000000"
+						 const shippingNoteNumber = this.upload_info.waybillNo
+						 const serialNumber = "0000"
 						 
 						const startCountrySubdivisionCode = this.startCountrySubdivisionCode                                                             
-						const endCountrySubdivisionCode = this.endCountrySubdivisionCode
+						const endCountrySubdivisionCode =  this.endCountrySubdivisionCode
 						
-						this.shippingNoteInfos[0] = shippingNoteNumber
-						this.shippingNoteInfos[1] = serialNumber
-						this.shippingNoteInfos[2] = startCountrySubdivisionCode
-						this.shippingNoteInfos[3] = endCountrySubdivisionCode
-						
-						
-						
-						const shippingNoteInfos = this.shippingNoteInfos
 						
 						//#ifdef APP-PLUS
 						//Android 获取class

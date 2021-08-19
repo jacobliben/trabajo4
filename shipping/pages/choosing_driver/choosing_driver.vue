@@ -276,10 +276,12 @@
 					 	this.chief_driver_choosen =	chief_driver_choosen.driverName
 					 	this.has_chief_driver = true
 					 }
-					 
+					 //reappear the signed weight
 					 let dispatch_goods_weight_filled = uni.getStorageSync("dispatch_goods_weight")
 					  
 					   this.dispatch_goods_weight = dispatch_goods_weight_filled 
+					   
+					   this.queryParams.dispatchGoodsWeight = dispatch_goods_weight_filled 
 					   
 					  //try catch 是否有getStorageSync('vehicle_choosen') 
 					  try {
@@ -516,11 +518,11 @@
 				 
 				 
 				 
-				//remove driver and vehicle storage
+				//remove driver and vehicle storage buffers
 				try {
 				    uni.removeStorageSync('chief_driver_choosen');
 					uni.removeStorageSync('vehicle_choosen');
-					
+					uni.removeStorageSync('dispatch_goods_weight');
 				} catch (e) {
 				    // error
 				}
