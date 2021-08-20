@@ -13,7 +13,7 @@
 								<view class="cu-form-group">
 											     <view class="name">报价信息 <text class="star">*</text></view>
 											     <view class="ref-name">
-													<view>{{detailed.iscmQuote.quotePrice}}元</view>
+													<view class="make-heavy-int">{{detailed.iscmQuote.quotePrice}}元</view>
 													
 												 </view>
 								</view>
@@ -21,7 +21,7 @@
 								<view class="cu-form-group">
 											     <view class="name">运输重量 <text class="star">*</text></view>
 											     <view class="ref-name">
-													<view>{{detailed.iscmQuote.transportWeight}}吨</view>
+													<view class="make-heavy-int">{{detailed.iscmQuote.transportWeight}}吨</view>
 													
 												 </view>
 								</view>
@@ -29,7 +29,7 @@
 								<view class="cu-form-group">
 											     <view class="name">运输天数 <text class="star">*</text></view>
 											     <view class="ref-name">
-													<view>{{detailed.iscmQuote.transportDays}}天</view>
+													<view class="make-heavy-int">{{detailed.iscmQuote.transportDays}}天</view>
 													
 												 </view>
 								</view>
@@ -37,26 +37,12 @@
 								<view class="cu-form-group">
 											     <view class="name">是否中标</view>
 											     <view class="ref-name">
-													<view> {{isBiddingOptions[isBiddingSendValue.findIndex(value=>value == detailed.iscmQuote.isBidding)]}}</view>
+													<view :class="{'make-heavy':detailed.iscmQuote.isBidding==1}" > {{isBiddingOptions[isBiddingSendValue.findIndex(value=>value == detailed.iscmQuote.isBidding)]}}</view>
 													
 												 </view>
 								</view>
 								
-								<view class="cu-form-group">
-											     <view class="name">下单方式</view>
-											     <view class="ref-name">
-													<view> {{sourceOrderWayOptions[detailed.iscmQuote.orderWay-1]}}</view>
-													
-												 </view>
-								</view>
 								
-								<view class="cu-form-group">
-											     <view class="name">计价方式</view>
-											     <view class="ref-name">
-													<view> {{settlementMethodOptions[settlementMethodSendValue.findIndex(value=>value == detailed.iscmQuote.settlementMethod)]}}</view>
-													
-												 </view>
-								</view>
 					  			
 					  			<view class="cu-form-group">
 					  						     <view class="name">询价单编号 <text class="star">*</text></view>
@@ -654,7 +640,7 @@
   
   .btn-row{
   	width: 100%;
-  	margin-top:200rpx;
+  	margin-top:20rpx;
   	display: flex;
   	justify-content: center;
   }
@@ -662,7 +648,7 @@
   
    
   .next-btn{
-  		 margin-top:20rpx;
+  		 margin-top:5rpx;
   		 width:30%;
   		
   } 
@@ -670,6 +656,16 @@
   .minput{
 	   color:#999; 
 	   
+  }
+  
+  .make-heavy{
+	  color: #4f8ded;
+	  font-weight: 600;
+  }
+  
+  .make-heavy-int{
+	  color: #4f8ded;
+	  
   }
    
 </style>

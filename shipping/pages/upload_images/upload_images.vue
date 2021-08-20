@@ -494,6 +494,22 @@
 			 this.queryParams.signWeight =this.received_info.dispatchGoodsWeight
 			this.btn_title = options.btn_title
 			
+			//for reappear in tabs
+			
+			if(this.btn_title == "查验"){
+				getApp().globalData.way_bill_page =0
+			}else if (this.btn_title == "发车"){
+				getApp().globalData.way_bill_page =1
+			}else if (this.btn_title == "签收"){
+				getApp().globalData.way_bill_page =2
+			}else if (this.btn_title == "查看"){
+				getApp().globalData.way_bill_page =3
+			}else if (this.btn_title == "查阅"){
+				getApp().globalData.way_bill_page =4
+			}
+			
+			
+			
 			//for calcating distance of delivery
 				uni.request({
 					//传入高德web服务端key和发货地址

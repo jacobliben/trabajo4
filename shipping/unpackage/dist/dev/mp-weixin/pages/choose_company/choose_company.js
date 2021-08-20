@@ -97,26 +97,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var l0 =
-    _vm.carrierReviewStatus == 1
-      ? _vm.__map(_vm.items, function(item, index) {
-          var $orig = _vm.__get_orig(item)
-
-          var g0 = item.carrierCompanyId.toString()
-          return {
-            $orig: $orig,
-            g0: g0
-          }
-        })
-      : null
-  _vm.$mp.data = Object.assign(
-    {},
-    {
-      $root: {
-        l0: l0
-      }
-    }
-  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -194,16 +174,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
     return {
       received_msg: "",
       current: -1,
-      companyID: "",
+      carrierCompanyId: null,
       carrierReviewStatus: "",
-      items: [] };
-
+      company_names: [],
+      items: [],
+      tabCurrentIndex: 0,
+      selected_xuzhou: false,
+      selected_pizhou: false,
+      confirm_disabled: true };
 
   },
   mounted: function mounted() {
@@ -212,6 +232,12 @@ var _default =
 
   },
   methods: {
+    phoneCall: function phoneCall() {
+      uni.makePhoneCall({
+        phoneNumber: '051687739070' });
+
+
+    },
     getCarrierCompaniesList: function getCarrierCompaniesList() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var token_id, res, carrierId, res_carrier_review_status;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
                 //get the company names list
                 token_id = uni.getStorageSync("token");_context.next = 3;return (
@@ -221,22 +247,22 @@ var _default =
                       "Authorization": token_id } }));case 3:res = _context.sent;
 
 
-
+                console.log(res, ' res');
                 _this.items = res.data.data;
-
+                _this.company_names = res.data.data;
                 //如果res.data.data 为空数组，证明正在审核中，返回审核中的页面
-                if (!(res.data.data.length < 1)) {_context.next = 8;break;}
-                _this.carrierReviewStatus = 2;return _context.abrupt("return");case 8:
+                if (!(res.data.data.length < 1)) {_context.next = 10;break;}
+                _this.carrierReviewStatus = 2;return _context.abrupt("return");case 10:
 
 
 
                 //get the carrier review status to decide show the contents
-                carrierId = res.data.data[0].carrierId;_context.next = 11;return (
+                carrierId = res.data.data[0].carrierId;_context.next = 13;return (
 
                   _this.$request({
                     url: "/iscm/carrier/" + carrierId,
                     header: {
-                      "Authorization": token_id } }));case 11:res_carrier_review_status = _context.sent;
+                      "Authorization": token_id } }));case 13:res_carrier_review_status = _context.sent;
 
 
 
@@ -258,34 +284,49 @@ var _default =
                   uni.setNavigationBarTitle({
                     title: "\u9009\u62E9\u516C\u53F8" });
 
-                }case 13:case "end":return _context.stop();}}}, _callee);}))();
+                }case 15:case "end":return _context.stop();}}}, _callee);}))();
 
 
     },
 
-    radioChange: function radioChange(evt) {
 
-      this.companyID = evt.detail.value;
-      for (var i = 0; i < this.items.length; i++) {
-        if (this.items[i].value === evt.target.value) {
-          this.current = i;
-          break;
-        }
-      }
+
+    pick: function pick(item) {
+      console.log(item, 'item');
+      this.tabCurrentIndex = item.carrierCompanyId;
+      this.selected_xuzhou = true;
+      this.carrierCompanyId = item.carrierCompanyId;
+      this.confirm_disabled = false;
     },
     confirmCompany: function confirmCompany() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var that, authorization, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
-                that = _this2;
-                authorization = uni.getStorageSync("token");_context2.next = 4;return (
+
+
+                that = _this2;if (!
+                that.confirm_disabled) {_context2.next = 4;break;}
+                uni.showToast({
+                  title: "请先选择所属公司",
+                  icon: "none" });return _context2.abrupt("return");case 4:
+
+
+
+                authorization = uni.getStorageSync("token");_context2.next = 7;return (
                   _this2.$request({
-                    url: "/app/carrier/switchUser/" + that.companyID,
+                    url: "/app/carrier/switchUser/" + that.carrierCompanyId,
                     header: {
-                      Authorization: authorization } }));case 4:res = _context2.sent;
+                      Authorization: authorization } }));case 7:res = _context2.sent;
+
+
+                console.log(res, "code");if (!(
+                res.data.code != 200)) {_context2.next = 12;break;}
+                uni.showToast({
+                  title: "请求失败",
+                  icon: "none" });return _context2.abrupt("return");case 12:
 
 
 
-                uni.setStorageSync("company_id", that.companyID);
+                uni.setStorageSync("company_id", that.carrierCompanyId);
                 uni.switchTab({
-                  url: "/pages/index/index" });case 7:case "end":return _context2.stop();}}}, _callee2);}))();
+                  url: "/pages/index/index" });case 14:case "end":return _context2.stop();}}}, _callee2);}))();
 
     },
     backoff: function backoff() {

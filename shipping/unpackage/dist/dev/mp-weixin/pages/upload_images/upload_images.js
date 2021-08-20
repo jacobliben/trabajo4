@@ -307,6 +307,243 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _pattern = __webpack_require__(/*! @/util/pattern.js */ 15);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}
 var _self;
 var origin_location;
@@ -328,6 +565,7 @@ var destiny_longitude;var _default =
       tachar_goods: false,
       tachar_order: false,
       received_info: {},
+      upload_info: {},
       btn_title: "",
       signed_weight: "",
       shippingNoteInfos: [], //运单信息数组
@@ -359,76 +597,107 @@ var destiny_longitude;var _default =
     this.canDispatch = uni.getStorageSync("canDispatch");
   },
 
-  onLoad: function onLoad(options) {var _this = this;
-    var that = this;
-    this.received_info = uni.getStorageSync("upload_item");
-    this.signed_weight = this.received_info.dispatchGoodsWeight;
-    this.btn_title = options.btn_title;
+  onLoad: function onLoad(options) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var that, dispatchId, authorization, resDispatch, total_shipper_address, total_consignee_address;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+              that = _this;
+              _this.upload_info = uni.getStorageSync("upload_item");
 
-    //for calcating distance of delivery
-    uni.request({
-      //传入高德web服务端key和发货地址
-      url: "https://restapi.amap.com/v3/geocode/geo?address=".concat(this.received_info.iscmDispatchInformationRecord.shipperAddress, "&key=ae8b30ff7c227fb962010579230bf568"), //请求地名变经纬度
+              console.log(_this.upload_info, 'upload_info');
+              console.log(_this.upload_info.waybillNo, 'waybillNo');
 
-      success: function success(res) {
-        origin_location = res.data.geocodes[0].location.split(",");
-        origin_latitude = parseFloat(origin_location[1]);
-        origin_longitude = parseFloat(origin_location[0]);
+              dispatchId = _this.upload_info.dispatchId;
+              console.log(dispatchId, 'dispatchId');
 
-        uni.request({
-          //传入高德web服务端key和目的地址
-          url: "https://restapi.amap.com/v3/geocode/geo?address=".concat(_this.received_info.iscmDispatchInformationRecord.consigneeAddress, "&key=ae8b30ff7c227fb962010579230bf568"), //请求地名变经纬度
+              authorization = uni.getStorageSync("token");_context.next = 9;return (
+                _this.$request({
+                  url: "/app/dispatch/getDispatchVo/" + dispatchId,
 
-          success: function success(res) {
-
-            destiny_location = res.data.geocodes[0].location.split(",");
-            destiny_latitude = parseFloat(destiny_location[1]);
-            destiny_longitude = parseFloat(destiny_location[0]);
-
-            uni.request({
-              //传入高德web服务端key和规划线路
-              // url: `https://restapi.amap.com/v4/direction/truck?origin=${origin_longitude}%2C${origin_latitude}&destination=${destiny_longitude}%2C${destiny_latitude}&size=3&key=ae8b30ff7c227fb962010579230bf568`, //货车规划
-              url: "https://restapi.amap.com/v3/direction/driving?origin=".concat(origin_longitude, "%2C").concat(origin_latitude, "&destination=").concat(destiny_longitude, "%2C").concat(destiny_latitude, "&key=ae8b30ff7c227fb962010579230bf568"),
-              success: function success(res) {
-
-                that.short_distance = parseFloat(res.data.route.paths[0].distance) / 1000;
-
-                that.short_distance = that.short_distance.toFixed(2);
-
-                //console.log( res.data.data.route.paths.duration,"货车规划")									 			 
-              } });
-
-
-
-          } });
-
-      } });
-
-
-    //解析目的地地址信息
-    uni.request({
-      //传入高德web服务端key和发货地址
-      url: "https://restapi.amap.com/v3/geocode/geo?address=".concat(this.received_info.iscmDispatchInformationRecord.shipperAddress, "&key=ae8b30ff7c227fb962010579230bf568") //请求地名变经纬度
-    });
+                  header: {
+                    Authorization: authorization } }));case 9:resDispatch = _context.sent;
 
 
 
 
+              console.log(resDispatch, 'resDispatch');
+              _this.received_info = resDispatch.data.data;
+              console.log(_this.received_info, 'received_info');
+              //reappear dispatch weight as pre-determined signed weight
+              _this.signed_weight = _this.received_info.dispatchGoodsWeight;
+              //put this weight into the params data
+              _this.queryParams.signWeight = _this.received_info.dispatchGoodsWeight;
+              _this.btn_title = options.btn_title;
+
+              //for reappear in tabs
+
+              if (_this.btn_title == "查验") {
+                getApp().globalData.way_bill_page = 0;
+              } else if (_this.btn_title == "发车") {
+                getApp().globalData.way_bill_page = 1;
+              } else if (_this.btn_title == "签收") {
+                getApp().globalData.way_bill_page = 2;
+              } else if (_this.btn_title == "查看") {
+                getApp().globalData.way_bill_page = 3;
+              } else if (_this.btn_title == "查阅") {
+                getApp().globalData.way_bill_page = 4;
+              }
 
 
 
+              //for calcating distance of delivery
+              uni.request({
+                //传入高德web服务端key和发货地址
+                url: "https://restapi.amap.com/v3/geocode/geo?address=".concat(_this.received_info.iscmDispatchInformationRecord.shipperAddress, "&key=ae8b30ff7c227fb962010579230bf568"), //请求地名变经纬度
+
+                success: function success(res) {
+                  origin_location = res.data.geocodes[0].location.split(",");
+                  origin_latitude = parseFloat(origin_location[1]);
+                  origin_longitude = parseFloat(origin_location[0]);
+
+                  uni.request({
+                    //传入高德web服务端key和目的地址
+                    url: "https://restapi.amap.com/v3/geocode/geo?address=".concat(_this.received_info.iscmDispatchInformationRecord.consigneeAddress, "&key=ae8b30ff7c227fb962010579230bf568"), //请求地名变经纬度
+
+                    success: function success(res) {
+
+                      destiny_location = res.data.geocodes[0].location.split(",");
+                      destiny_latitude = parseFloat(destiny_location[1]);
+                      destiny_longitude = parseFloat(destiny_location[0]);
+
+                      uni.request({
+                        //传入高德web服务端key和规划线路
+                        // url: `https://restapi.amap.com/v4/direction/truck?origin=${origin_longitude}%2C${origin_latitude}&destination=${destiny_longitude}%2C${destiny_latitude}&size=3&key=ae8b30ff7c227fb962010579230bf568`, //货车规划
+                        url: "https://restapi.amap.com/v3/direction/driving?origin=".concat(origin_longitude, "%2C").concat(origin_latitude, "&destination=").concat(destiny_longitude, "%2C").concat(destiny_latitude, "&key=ae8b30ff7c227fb962010579230bf568"),
+                        success: function success(res) {
+
+                          that.short_distance = parseFloat(res.data.route.paths[0].distance) / 1000;
+
+                          that.short_distance = that.short_distance.toFixed(2);
+
+                          //console.log( res.data.data.route.paths.duration,"货车规划")									 			 
+                        } });
 
 
 
+                    } });
+
+                } });
 
 
+              total_shipper_address = that.received_info.iscmDispatchInformationRecord.shipperProvinceName +
+              that.received_info.iscmDispatchInformationRecord.shipperCityName +
+              that.received_info.iscmDispatchInformationRecord.shipperRegionName +
+              that.received_info.iscmDispatchInformationRecord.shipperAddress;
+              console.log(total_shipper_address, 'total_shipper_address');
 
-
-
-
-
-
-
+              total_consignee_address = that.received_info.iscmDispatchInformationRecord.consigneeProvinceName +
+              that.received_info.iscmDispatchInformationRecord.consigneeCityName +
+              that.received_info.iscmDispatchInformationRecord.consigneeRegionName +
+              that.received_info.iscmDispatchInformationRecord.consigneeAddress;
+              console.log(total_consignee_address, 'total_consignee_address');
+              //解析目的地地址信息
+              uni.request({
+                //传入高德web服务端key和发货地址
+                url: "https://restapi.amap.com/v3/geocode/geo?address=".concat(total_shipper_address, "&key=ae8b30ff7c227fb962010579230bf568") //请求地名变经纬度
+              });case 23:case "end":return _context.stop();}}}, _callee);}))();
 
 
 
@@ -506,15 +775,15 @@ var destiny_longitude;var _default =
       this.queryParams.remark = e.target.value;
 
     },
-    takePhoto: function takePhoto(e) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {var authorization, resChoosePhoto, _resChoosePhoto, _resChoosePhoto2, _resChoosePhoto3;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:
+    takePhoto: function takePhoto(e) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6() {var authorization, resChoosePhoto, _resChoosePhoto, _resChoosePhoto2, _resChoosePhoto3;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:
                 _self = _this2;
                 authorization = uni.getStorageSync("token");if (!(
-                e.currentTarget.dataset.index == "people_vehicle_goods_photo")) {_context5.next = 8;break;}_context5.next = 5;return (
+                e.currentTarget.dataset.index == "people_vehicle_goods_photo")) {_context6.next = 8;break;}_context6.next = 5;return (
 
 
 
                   _this2.$photo({
-                    success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+                    success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
                                 tempFilePaths = res.tempFilePaths;
 
 
@@ -525,54 +794,27 @@ var destiny_longitude;var _default =
                                 _self.tachar_goods = true;
 
                                 //upload
-                                _context.next = 6;return _self.$upload({
+                                _context2.next = 6;return _self.$upload({
                                   url: _pattern.ossLocation.dispatch.rch,
                                   file_path: tempFilePaths[0],
                                   header: {
-                                    Authorization: authorization } });case 6:resPhoto = _context.sent;case 7:case "end":return _context.stop();}}}, _callee);}))();
+                                    Authorization: authorization } });case 6:resPhoto = _context2.sent;case 7:case "end":return _context2.stop();}}}, _callee2);}))();
 
 
 
 
-                    } }));case 5:resChoosePhoto = _context5.sent;_context5.next = 25;break;case 8:if (!(
+                    } }));case 5:resChoosePhoto = _context6.sent;_context6.next = 25;break;case 8:if (!(
 
 
-                e.currentTarget.dataset.index == "ticket_photo")) {_context5.next = 25;break;}if (!(
-                _this2.btn_title === '装货')) {_context5.next = 15;break;}_context5.next = 12;return (
-
-
-
-                  _this2.$photo({
-                    success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
-                                tempFilePaths = res.tempFilePaths;
-
-
-                                //upload the img
-                                _self.imgOrderUrl = tempFilePaths[0];
-
-                                //make the tachar img appear
-                                _self.tachar_order = true;
-
-                                //upload
-                                _context2.next = 5;return _self.$upload({
-                                  url: _pattern.ossLocation.dispatch.fhd,
-                                  file_path: tempFilePaths[0],
-                                  header: {
-                                    Authorization: authorization } });case 5:resPhoto = _context2.sent;case 6:case "end":return _context2.stop();}}}, _callee2);}))();
-
-
-
-
-                    } }));case 12:_resChoosePhoto = _context5.sent;_context5.next = 25;break;case 15:if (!(
-
-                _this2.btn_title === '发车')) {_context5.next = 21;break;}_context5.next = 18;return (
-
+                e.currentTarget.dataset.index == "ticket_photo")) {_context6.next = 25;break;}if (!(
+                _this2.btn_title === '装货')) {_context6.next = 15;break;}_context6.next = 12;return (
 
 
 
                   _this2.$photo({
                     success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
                                 tempFilePaths = res.tempFilePaths;
+
 
                                 //upload the img
                                 _self.imgOrderUrl = tempFilePaths[0];
@@ -582,7 +824,7 @@ var destiny_longitude;var _default =
 
                                 //upload
                                 _context3.next = 5;return _self.$upload({
-                                  url: _pattern.ossLocation.dispatch.leave,
+                                  url: _pattern.ossLocation.dispatch.fhd,
                                   file_path: tempFilePaths[0],
                                   header: {
                                     Authorization: authorization } });case 5:resPhoto = _context3.sent;case 6:case "end":return _context3.stop();}}}, _callee3);}))();
@@ -590,14 +832,41 @@ var destiny_longitude;var _default =
 
 
 
-                    } }));case 18:_resChoosePhoto2 = _context5.sent;_context5.next = 25;break;case 21:if (!(
+                    } }));case 12:_resChoosePhoto = _context6.sent;_context6.next = 25;break;case 15:if (!(
 
-                _this2.btn_title === '签收')) {_context5.next = 25;break;}_context5.next = 24;return (
+                _this2.btn_title === '发车')) {_context6.next = 21;break;}_context6.next = 18;return (
+
 
 
 
                   _this2.$photo({
                     success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
+                                tempFilePaths = res.tempFilePaths;
+
+                                //upload the img
+                                _self.imgOrderUrl = tempFilePaths[0];
+
+                                //make the tachar img appear
+                                _self.tachar_order = true;
+
+                                //upload
+                                _context4.next = 5;return _self.$upload({
+                                  url: _pattern.ossLocation.dispatch.leave,
+                                  file_path: tempFilePaths[0],
+                                  header: {
+                                    Authorization: authorization } });case 5:resPhoto = _context4.sent;case 6:case "end":return _context4.stop();}}}, _callee4);}))();
+
+
+
+
+                    } }));case 18:_resChoosePhoto2 = _context6.sent;_context6.next = 25;break;case 21:if (!(
+
+                _this2.btn_title === '签收')) {_context6.next = 25;break;}_context6.next = 24;return (
+
+
+
+                  _this2.$photo({
+                    success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {var tempFilePaths, resPhoto;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:
                                 tempFilePaths = res.tempFilePaths;
 
                                 //preview the photos
@@ -614,16 +883,16 @@ var destiny_longitude;var _default =
                                 _self.tachar_order = true;
 
                                 //upload
-                                _context4.next = 5;return _self.$upload({
+                                _context5.next = 5;return _self.$upload({
                                   url: _pattern.ossLocation.dispatch.receive,
                                   file_path: tempFilePaths[0],
                                   header: {
-                                    Authorization: authorization } });case 5:resPhoto = _context4.sent;case 6:case "end":return _context4.stop();}}}, _callee4);}))();
+                                    Authorization: authorization } });case 5:resPhoto = _context5.sent;case 6:case "end":return _context5.stop();}}}, _callee5);}))();
 
 
 
 
-                    } }));case 24:_resChoosePhoto3 = _context5.sent;case 25:case "end":return _context5.stop();}}}, _callee5);}))();
+                    } }));case 24:_resChoosePhoto3 = _context6.sent;case 25:case "end":return _context6.stop();}}}, _callee6);}))();
 
 
 
@@ -648,19 +917,29 @@ var destiny_longitude;var _default =
 
     cancelOrder: function cancelOrder() {
       this.imgOrderUrl = "/static/camera-scan.png";
-      setTimeout(function () {
-        uni.showToast({
-          title: "删除运单照片成功，请重新选择",
-          icon: "none" });
+      if (this.btn_title === '发车' && this.canDispatch) {
+        setTimeout(function () {
+          uni.showToast({
+            title: "删除运单照片成功",
+            icon: "none" });
 
-      }, 500);
-      this.tachar_order = false;
+        }, 500);
+        this.tachar_order = false;
+      } else if (this.btn_title === '签收' && this.canDispatch) {
+        setTimeout(function () {
+          uni.showToast({
+            title: "删除运单照片成功,请重新选择",
+            icon: "none" });
+
+        }, 500);
+        this.tachar_order = false;
+      }
     },
 
 
-    confirm: function confirm() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6() {var authorization, queryParams, res, shippingNoteNumber, serialNumber, startCountrySubdivisionCode, endCountrySubdivisionCode, shippingNoteInfos, _res, _res2;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:
+    confirm: function confirm() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee7() {var authorization, queryParams, res, shippingNoteNumber, serialNumber, startCountrySubdivisionCode, endCountrySubdivisionCode, _res, _res2;return _regenerator.default.wrap(function _callee7$(_context7) {while (1) {switch (_context7.prev = _context7.next) {case 0:
                 authorization = uni.getStorageSync("token");if (!(
-                _this3.btn_title === '装货' && _this3.canDispatch)) {_context6.next = 20;break;}
+                _this3.btn_title === '装货' && _this3.canDispatch)) {_context7.next = 20;break;}
                 //派车单确认装货
 
                 _this3.queryParams.dispatchId = _this3.received_info.dispatchId;
@@ -668,16 +947,16 @@ var destiny_longitude;var _default =
                 _this3.queryParams.packingListPhoto = uni.getStorageSync("packing_list_photo"); //发货单据
                 queryParams = _this3.queryParams;if (
 
-                _this3.queryParams.groupPhoto) {_context6.next = 11;break;}
+                _this3.queryParams.groupPhoto) {_context7.next = 11;break;}
                 uni.showToast({
                   title: "请上传人车货合照！",
-                  icon: "none" });return _context6.abrupt("return");case 11:if (
+                  icon: "none" });return _context7.abrupt("return");case 11:if (
 
 
-                _this3.queryParams.packingListPhoto) {_context6.next = 14;break;}
+                _this3.queryParams.packingListPhoto) {_context7.next = 14;break;}
                 uni.showToast({
                   title: "请上传发货单据！",
-                  icon: "none" });return _context6.abrupt("return");case 14:_context6.next = 16;return (
+                  icon: "none" });return _context7.abrupt("return");case 14:_context7.next = 16;return (
 
 
 
@@ -689,7 +968,7 @@ var destiny_longitude;var _default =
                     data: queryParams,
                     header: {
                       Authorization: authorization,
-                      "Content-Type": "application/x-www-form-urlencoded" } }));case 16:res = _context6.sent;
+                      "Content-Type": "application/x-www-form-urlencoded" } }));case 16:res = _context7.sent;
 
 
 
@@ -707,41 +986,31 @@ var destiny_longitude;var _default =
                     title: res.data.msg,
                     duration: 9000 });
 
-                }_context6.next = 61;break;case 20:if (!(
-                _this3.btn_title === '发车' && _this3.canDispatch)) {_context6.next = 42;break;}
+                }_context7.next = 53;break;case 20:if (!(
+                _this3.btn_title === '发车' && _this3.canDispatch)) {_context7.next = 34;break;}
                 //派车单确认发车
 
                 _this3.queryParams.dispatchId = _this3.received_info.dispatchId;
 
                 _this3.queryParams.leavePhoto = uni.getStorageSync("dispatch_pending_photo");
 
-                queryParams = _this3.queryParams;if (
+                queryParams = _this3.queryParams;
 
-                _this3.queryParams.leavePhoto) {_context6.next = 27;break;}
-                uni.showToast({
-                  title: "请上传发车单据！",
-                  icon: "none" });return _context6.abrupt("return");case 27:
-
-
-
+                // if (!this.queryParams.leavePhoto){
+                // 	uni.showToast({
+                // 		title:"请上传发车单据！",
+                // 		icon:"none"
+                // 	})
+                // 	return
+                // } 
 
                 //向监管SDK发信息
 
-                shippingNoteNumber = _this3.received_info.dispatchNo;
+                shippingNoteNumber = _this3.upload_info.waybillNo;
                 serialNumber = "0000";
 
                 startCountrySubdivisionCode = _this3.startCountrySubdivisionCode;
-                endCountrySubdivisionCode = _this3.endCountrySubdivisionCode;
-
-                _this3.shippingNoteInfos[0] = shippingNoteNumber;
-                _this3.shippingNoteInfos[1] = serialNumber;
-                _this3.shippingNoteInfos[2] = startCountrySubdivisionCode;
-                _this3.shippingNoteInfos[3] = endCountrySubdivisionCode;
-
-
-
-                shippingNoteInfos = _this3.shippingNoteInfos;_context6.next = 38;return (
-
+                endCountrySubdivisionCode = _this3.endCountrySubdivisionCode;_context7.next = 30;return (
 
 
 
@@ -773,7 +1042,7 @@ var destiny_longitude;var _default =
                     method: "PUT",
                     data: queryParams,
                     header: {
-                      Authorization: authorization } }));case 38:_res = _context6.sent;
+                      Authorization: authorization } }));case 30:_res = _context7.sent;
 
 
 
@@ -790,26 +1059,26 @@ var destiny_longitude;var _default =
                   uni.showToast({
                     title: _res.data.msg });
 
-                }_context6.next = 61;break;case 42:if (!(
+                }_context7.next = 53;break;case 34:if (!(
 
 
-                _this3.btn_title === '签收' && _this3.canDispatch)) {_context6.next = 60;break;}
+                _this3.btn_title === '签收' && _this3.canDispatch)) {_context7.next = 52;break;}
                 //派车单确认签收
 
                 _this3.queryParams.dispatchId = _this3.received_info.dispatchId;
                 _this3.queryParams.receiptPhoto = uni.getStorageSync("receipt_pending_photo");
 
                 queryParams = _this3.queryParams;if (
-                _this3.queryParams.receiptPhoto) {_context6.next = 51;break;}
+                _this3.queryParams.receiptPhoto) {_context7.next = 43;break;}
                 uni.showToast({
                   title: "请上传签收单据！",
-                  icon: "none" });return _context6.abrupt("return");case 51:if (
+                  icon: "none" });return _context7.abrupt("return");case 43:if (
 
 
-                _this3.queryParams.signWeight) {_context6.next = 54;break;}
+                _this3.queryParams.signWeight) {_context7.next = 46;break;}
                 uni.showToast({
                   title: "请输入签收货物重量！",
-                  icon: "none" });return _context6.abrupt("return");case 54:_context6.next = 56;return (
+                  icon: "none" });return _context7.abrupt("return");case 46:_context7.next = 48;return (
 
 
 
@@ -820,7 +1089,7 @@ var destiny_longitude;var _default =
                     method: "PUT",
                     data: queryParams,
                     header: {
-                      Authorization: authorization } }));case 56:_res2 = _context6.sent;
+                      Authorization: authorization } }));case 48:_res2 = _context7.sent;
 
 
 
@@ -841,11 +1110,11 @@ var destiny_longitude;var _default =
                     title: _res2.data.msg,
                     icon: "none" });
 
-                }_context6.next = 61;break;case 60:
+                }_context7.next = 53;break;case 52:
 
                 //"已完成"和"全部"时
-                uni.navigateBack({});case 61:case "end":return _context6.stop();}}}, _callee6);}))();
-
+                uni.reLaunch({
+                  url: "/pages/way_bill/way_bill" });case 53:case "end":return _context7.stop();}}}, _callee7);}))();
 
 
 

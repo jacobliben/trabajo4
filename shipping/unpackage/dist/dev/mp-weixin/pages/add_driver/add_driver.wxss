@@ -126,4 +126,11 @@
   color: #000;
   width: 55%;
 }
+.dLeft.data-v-3e6b80f4 {
+  margin-left: -60rpx;
+}
+.gray.data-v-3e6b80f4 {
+  color: #666;
+  font-size: 30rpx;
+}
 

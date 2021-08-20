@@ -102,12 +102,12 @@
 					 </view>
 				</view>
 				<view v-if = "force_update">
-					<button  class="update"  size="mini" @click="hasSee()">升级体验</button>
+					<button  class="update"  size="mini" @click="updataNow()">升级体验</button>
 				</view>
 				
 				<view v-if = "!force_update" class="free-update">
 					<button  class="update-later"  size="mini" @click="hideModal()">稍后升级</button>
-					<button  class="update-later"  size="mini" @click="hasSee()">升级体验</button>
+					<button  class="update-later"  size="mini" @click="updataNow()">升级体验</button>
 				</view>
 				
 			</view>
@@ -189,11 +189,25 @@
 				
 				terms_checked:true,
 				login_disable:true,
+				
+				update_flag:0
 			}
 		},
 		
 		created() {
-			 this.AndroidCheckUpdate();
+			try {
+			    const value = uni.getStorageSync('update_flag');
+			    if (value) {
+			        this.update_flag = value
+			    }
+			} catch (e) {
+			    // error
+			}
+			
+			if (update_flag==0){
+				 this.AndroidCheckUpdate();
+			}
+			
 			
 		},
 		mounted() {
@@ -230,11 +244,13 @@
 				//显示modal消息
 				this.show_modal = true 
 			},
-			
+			//暂不更新
 			hideModal(){
 				this.show_modal = false
+				this.update_flag = 1
+				uni.setStorageSync("update_flag",1)
 			},
-			hasSee(){
+			updataNow(){
 				var that = this
 				this.show_modal = false
 				//设置 最新版本apk的下载链接

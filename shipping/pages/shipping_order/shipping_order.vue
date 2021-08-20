@@ -22,7 +22,7 @@
 			<view class="list" v-for = "(item,index) in navList" :key="index"  v-if="tabCurrentIndex===index">
 				<!-- {{item.state}} -->
 				<receiving-shipping-order :key="refresh_index"  :transporte_state="item"/>
-				<!-- <distribute-drivers v-if="item.state===1"/> -->
+				
 				
 			</view>
 		</view>
@@ -64,6 +64,7 @@
 				]
 			};
 		},
+		
 		components:{
 			receivingShippingOrder,
 			
@@ -71,23 +72,20 @@
 		},
 		onLoad(options){
 			this.tabCurrentIndex = 0
-		},
-		onShow(){
-			this.nav_state = uni.getStorageSync("nav_state")
-			if (this.nav_state==="order-distributing"){
-				
-				
-				this.tabClick(1)
-			}else if (this.nav_state==="order-receiving"){
-				
-				
-				this.tabClick(0)
-			}else{
-				this.tabClick(0)
-			}
+			
+			
 			
 		},
-		
+		onShow(options){
+			const now_page = getApp().globalData.shipping_order_page
+			
+			this.tabClick(now_page)
+			
+			
+		},
+		mounted() {
+			
+		},
 		methods:{
 			addRefresh(){
 				var that = this

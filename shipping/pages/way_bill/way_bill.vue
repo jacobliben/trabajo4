@@ -30,14 +30,16 @@
 			
 			
 		</view>
-		
+		<view >
+			<tabbar-waybill  class="custom-tab-bar"></tabbar-waybill>
+		</view>
 	</view>
 </template>
 
 <script>
 	
 	import despatchingPending from "@/pages/despatching_pending/despatching_pending"
-
+     import tabbarWaybill from "@/pages/tabbar_waybill/tabbar_waybill"
 	
 	import overall from "@/components/overall.vue"
 	
@@ -46,6 +48,7 @@
 			return {
 				tabCurrentIndex:0,
 				refresh_index:0,
+				show_shipping_order: true,
 				activeRotate:false,
 				nav_state:"",  
 				navList:[
@@ -92,31 +95,36 @@
 			
 			
 			despatchingPending,
-			
+			tabbarWaybill,
 			
 			overall
 		},
 		onLoad(options){
 			this.tabCurrentIndex = 0
 			
+			try {
+			    const value = uni.getStorageSync('show_shipping_order');
+			    if (value) {
+			        this.show_shipping_order = value
+					if (this.show_shipping_order == true) {
+						uni.showTabBar();
+					}else{
+						
+						uni.hideTabBar(); 
+					}
+			    }
+			} catch (e) {
+			    // error
+			}
 		},
 		onShow(){
-			this.nav_state = uni.getStorageSync("nav_state")
-			if (this.nav_state==="receiving"){
-				
-				
-				this.tabClick(2)
-			}else if (this.nav_state==="dispatching"){
-				
-				
-				this.tabClick(1)
-			}else if (this.nav_state==="loading"){
-				
-				
-				this.tabClick(0)
-			}else{
-				this.tabClick(0)
-			}
+			
+			const now_page = getApp().globalData.way_bill_page
+			console.log(now_page,"now_page2");
+			this.tabClick(now_page)
+			
+			
+			
 			
 		},
 		
@@ -194,6 +202,7 @@
 	
 	.shipping-body{
 		margin-top:55rpx;
+		padding-bottom:80rpx;
 	}
 	
 	.content{
@@ -227,6 +236,15 @@
 	
 	.rotate{
 		 animation: turnZ 1s linear infinite;
+	}
+	
+	.custom-tab-bar{
+		border: 1rpx solid red;
+		width:200rpx;
+		height:100rpx;
+		position: fixed;
+		border: 0;
+		left:0;
 	}
 
 </style>

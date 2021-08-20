@@ -1005,7 +1005,7 @@ var components
 try {
   components = {
     uniNumberBox: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-number-box/components/uni-number-box/uni-number-box */ "uni_modules/uni-number-box/components/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-number-box/components/uni-number-box/uni-number-box.vue */ 1026))
+      return __webpack_require__.e(/*! import() | uni_modules/uni-number-box/components/uni-number-box/uni-number-box */ "uni_modules/uni-number-box/components/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-number-box/components/uni-number-box/uni-number-box.vue */ 1042))
     }
   }
 } catch (e) {
@@ -1826,7 +1826,7 @@ var _self;var _default =
                 _this2.vehicleOwnTypeOptions = vehicleOwnTypeOptions.data.data.map(function (e) {return e.dictLabel;});
 
                 _this2.owner_type_list = _this2.vehicleOwnTypeOptions;
-                _this2.owner_type_list.unshift("请选择车主类型");case 6:case "end":return _context2.stop();}}}, _callee2);}))();
+                _this2.owner_type_list.unshift("车主类型");case 6:case "end":return _context2.stop();}}}, _callee2);}))();
     },
 
     getVehiclePlateTypeOptions: function getVehiclePlateTypeOptions() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var vehiclePlateTypeOptions;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.next = 2;return (
@@ -1842,7 +1842,7 @@ var _self;var _default =
                   _this5.$getRegistDicts("vehicle_energy_type"));case 2:vehicleEnergyTypeOptions = _context5.sent;
                 _this5.vehicleEnergyTypeOptions = vehicleEnergyTypeOptions.data.data.map(function (e) {return e.dictLabel;});
                 _this5.energy_type_list = _this5.vehicleEnergyTypeOptions;
-                _this5.energy_type_list.unshift("请选择车辆能源类型");
+                _this5.energy_type_list.unshift("车辆能源类型");
 
                 _this5.vehicleEnergyTypeSendValue = vehicleEnergyTypeOptions.data.data.map(function (e) {return e.dictValue;});
 
@@ -1855,7 +1855,7 @@ var _self;var _default =
                   _this6.$getRegistDicts("vehicle_type"));case 2:vehicleTypeOptions = _context6.sent;
                 _this6.vehicleTypeOptions = vehicleTypeOptions.data.data.map(function (e) {return e.dictLabel;});
                 _this6.car_type_list = _this6.vehicleTypeOptions;
-                _this6.car_type_list.unshift("请选择车辆类型");
+                _this6.car_type_list.unshift("车辆类型");
 
                 _this6.vehicleTypeSendValue = vehicleTypeOptions.data.data.map(function (e) {return e.dictValue;});
 
@@ -1871,7 +1871,7 @@ var _self;var _default =
                 _this7.vehicleCargoBoxLengthOptions = vehicleCargoBoxLengthOptions;
                 _this7.vehicleCargoBoxLengthOptions = _this7.vehicleCargoBoxLengthOptions.data.data.map(function (e) {return e.dictLabel;});
                 _this7.box_length_list = _this7.vehicleCargoBoxLengthOptions;
-                _this7.box_length_list.unshift("请选择货箱长度");
+                _this7.box_length_list.unshift("货箱长度");
 
                 _this7.vehicleCargoBoxLengthSendValue = vehicleCargoBoxLengthOptions.data.data.map(function (e) {return e.dictValue;});
                 cargoBoxLength = _this7.received_info.cargoBoxLength;
@@ -1886,7 +1886,7 @@ var _self;var _default =
                 _this8.vehicleCargoBoxTypeOptions = _this8.vehicleCargoBoxTypeOptions.data.data.map(function (e) {return e.dictLabel;});
                 _this8.vehicleCargoBoxTypeSendValue = vehicleCargoBoxTypeOptions.data.data.map(function (e) {return e.dictValue;});
                 _this8.box_type_list = _this8.vehicleCargoBoxTypeOptions;
-                _this8.box_type_list.unshift("请选择货箱类型");
+                _this8.box_type_list.unshift("货箱类型");
 
                 cargoBoxType = _this8.received_info.cargoBoxType;
 

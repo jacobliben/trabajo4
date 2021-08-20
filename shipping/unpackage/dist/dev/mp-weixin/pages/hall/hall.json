@@ -1,5 +1,7 @@
 {
-  "navigationBarTitleText": "货源大厅",
-  "enablePullDownRefresh": false,
-  "usingComponents": {}
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "info-not-found": "/pages/info_not_found/info_not_found"
+  }
 }

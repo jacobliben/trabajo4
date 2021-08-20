@@ -31,7 +31,11 @@
 		    "style" :                                                                                    
 		    {
 		        "navigationBarTitleText": "运单",
-		        "enablePullDownRefresh": false
+		        "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "pop-in",
+				        "animationDuration": 300
+				    }
 		    }
 		    
 		},
@@ -65,7 +69,11 @@
 		    "style" :                                                                                    
 		    {
 		        "navigationBarTitleText": "我的",
-		        "enablePullDownRefresh": false
+		        "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "zoom-fade-out",
+				        "animationDuration": 300
+				    }
 		    }
 		    
 		},
@@ -77,7 +85,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "注册",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "slide-in-top",
+				        "animationDuration": 300
+				    }
             }
             
         }
@@ -87,7 +99,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "找回账号密码",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "slide-in-bottom",
+				        "animationDuration": 300
+				    }
             }
             
         },
@@ -98,7 +114,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "zoom-out",
+				        "animationDuration": 300
+				    }
             }
             
         }
@@ -107,7 +127,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "fade-in",
+				        "animationDuration": 300
+				    }
             }
             
         }
@@ -117,7 +141,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "注册 请确定您的角色",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "zoom-out",
+				        "animationDuration": 300
+				    }
             }
             
         }
@@ -169,7 +197,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "车辆管理",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "zoom-out",
+				        "animationDuration": 300
+				    }
 				
 				
             }
@@ -180,7 +212,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "zoom-fade-out",
+				        "animationDuration": 300
+				    }
             }
             
         }
@@ -216,7 +252,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "zoom-fade-out",
+				        "animationDuration": 300
+				    }
             }
             
         }
@@ -225,7 +265,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "slide-in-top",
+				        "animationDuration": 300
+				    }
             }
             
         }
@@ -234,7 +278,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "车辆详情",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "slide-in-bottom",
+				        "animationDuration": 300
+				    }
             }
             
         }
@@ -252,7 +300,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "个人资料",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "pop-in",
+				        "animationDuration": 300
+				    }
             }
             
         }
@@ -426,7 +478,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "运单接收",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "zoom-out",
+				        "animationDuration": 300
+				    }
             }
             
         }
@@ -435,7 +491,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "派车单详情",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "zoom-out",
+				        "animationDuration": 300
+				    }
             }
             
         }
@@ -577,7 +637,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "选择主驾驶员",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "zoom-out",
+				        "animationDuration": 300
+				    }
             }
             
         }
@@ -692,7 +756,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "银行卡信息维护",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "slide-in-right",
+				        "animationDuration": 300
+				    }
             }
             
         }
@@ -728,7 +796,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "更换密码",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "slide-in-right",
+				        "animationDuration": 300
+				    }
             }
             
         }
@@ -746,7 +818,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "绑定车船牌照号",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "slide-in-bottom",
+				        "animationDuration": 300
+				    }
             }
             
         }
@@ -801,7 +877,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "历史派车单",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "slide-in-bottom",
+				        "animationDuration": 300
+				    }
             }
             
         },
@@ -848,7 +928,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "消息中心",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "slide-in-bottom",
+				        "animationDuration": 300
+				    }
             }
             
         }
@@ -866,7 +950,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "历史派车单详情",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "slide-in-bottom",
+				        "animationDuration": 300
+				    }
             }
             
         }
@@ -884,7 +972,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "询价单",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "fade-in",
+				        "animationDuration": 300
+				    }
             }
             
         }
@@ -893,7 +985,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "报价单",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "fade-in",
+				        "animationDuration": 300
+				    }
             }
             
         }
@@ -902,7 +998,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "报价",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "fade-in",
+				        "animationDuration": 300
+				    }
             }
             
         }
@@ -911,7 +1011,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
-                "enablePullDownRefresh": true
+                "enablePullDownRefresh": true,
+				"app-plus": {
+				        "animationType": "zoom-fade-out",
+				        "animationDuration": 300
+				    }
             }
             
         }
@@ -920,7 +1024,11 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "报价详情",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "fade-in",
+				        "animationDuration": 300
+				    }
             }
             
         }
@@ -929,6 +1037,46 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "货源大厅",
+                "enablePullDownRefresh": false,
+				"app-plus": {
+				        "animationType": "fade-in",
+				        "animationDuration": 300
+				    }
+            }
+            
+        }
+        ,{
+            "path" : "pages/tab_bar/tab_bar",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/tabbar_index/tabbar_index",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/tabbar_waybill/tabbar_waybill",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/tabbar_accounts/tabbar_accounts",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
             

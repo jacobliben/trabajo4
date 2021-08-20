@@ -367,6 +367,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 var _pattern = __webpack_require__(/*! @/util/pattern.js */ 15);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var xflSelect = function xflSelect() {__webpack_require__.e(/*! require.ensure | components/xfl-select/xfl-select */ "components/xfl-select/xfl-select").then((function () {return resolve(__webpack_require__(/*! @/components/xfl-select/xfl-select.vue */ 318));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
 
@@ -956,7 +968,7 @@ var _self;var _default =
       this.imgDriverIDFrontUrl = "/static/id_front.jpg",
       setTimeout(function () {
         uni.showToast({
-          title: "删除照片成功，请重新选择",
+          title: "删除照片成功，请重新",
           icon: "none" });
 
       }, 500);
@@ -966,7 +978,7 @@ var _self;var _default =
       this.imgDriverIDBackUrl = "/static/id-back.jpg";
       setTimeout(function () {
         uni.showToast({
-          title: "删除照片成功，请重新选择",
+          title: "删除照片成功，请重新",
           icon: "none" });
 
       }, 500);
@@ -977,7 +989,7 @@ var _self;var _default =
       this.imgDriverLicensePhotoUrl = "/static/driving_license.jpg";
       setTimeout(function () {
         uni.showToast({
-          title: "删除照片成功，请重新选择",
+          title: "删除照片成功，请重新",
           icon: "none" });
 
       }, 500);
@@ -988,7 +1000,7 @@ var _self;var _default =
       this.imgDrivingCertificateUrl = "/static/roadcert.jpg";
       setTimeout(function () {
         uni.showToast({
-          title: "删除照片成功，请重新选择",
+          title: "删除照片成功，请重新",
           icon: "none" });
 
       }, 500);

@@ -362,6 +362,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var _default =
 {
   data: function data() {
@@ -650,8 +651,8 @@ var _default =
     },
 
     backBusiness: function backBusiness() {
-      uni.navigateTo({
-        url: '/pages/inquiry/inquiry' });
+      uni.switchTab({
+        url: '/pages/hall_opener/hall_opener' });
 
     },
 
@@ -715,8 +716,8 @@ var _default =
 
 
                   setTimeout(function () {
-                    uni.navigateTo({
-                      url: "/pages/inquiry/inquiry" });
+                    uni.switchTab({
+                      url: '/pages/hall_opener/hall_opener' });
 
                   }, 800);
                 } else {

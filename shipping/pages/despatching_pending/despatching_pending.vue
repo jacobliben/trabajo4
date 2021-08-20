@@ -111,6 +111,7 @@
 				this.now_state = this.transporte_state
 				this.state_text =this.now_state.text
 				this.btn_text =this.now_state.btn
+				console.log (this.now_state.state,"state")
 				if (this.now_state.state!=0){
 					this.queryParams.dispatchStatus= this.now_state.businessStatus
 				}
@@ -130,6 +131,7 @@
 						  this.canDispatch = true
 			}else if (this.btn_text ==="查验"&& user_permissions.includes("iscm:dispatch:sign") ){
 						  this.canDispatch = true
+						  
 			}
 			
 			//显示按钮

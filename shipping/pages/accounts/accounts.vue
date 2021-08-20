@@ -115,11 +115,14 @@
 	   			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
+	   <view>
+	   	<tabbar-accounts  class="custom-tab-bar"></tabbar-accounts>
+	   </view>
 	</view>
 </template>
 
 <script>
-	
+	import tabbarAccounts from "@/pages/tabbar_accounts/tabbar_accounts"
 	export default {
 		data() {
 			return {
@@ -188,6 +191,16 @@
 		  
 		},
 		async onShow(){
+			try {
+			    const value = uni.getStorageSync('show_shipping_order');
+			    if (value) {
+			        this.show_shipping_order = value
+			    }
+			} catch (e) {
+			    // error
+			}
+			
+			
 			       const token = uni.getStorageSync('token')
 			          //get this user's permission rights
 			          const resUserInfo = await this.$request({
@@ -283,7 +296,10 @@
 			//this.imgAvatarUrl = uni.getStorageSync("user_avatar")||'http://10.22.2.138:8080' + this.user.data.user.avatar
 			//this.imgAvatarUrl = uni.getStorageSync("user_avatar")||'http://10.22.0.136:8080' + this.user.data.user.avatar
 		},
+		components: {
+		     tabbarAccounts
 		
+		},
 		onHide(){
 			//restore the original shipping order status
 			this.show_shipping_order = true
@@ -511,7 +527,12 @@
 	 }
 	 
 	 
-	 .one-icon-hover{
-	 	
+	 .custom-tab-bar{
+	 	border: 1rpx solid red;
+	 	width:200rpx;
+	 	height:100rpx;
+	 	position: fixed;
+	 	border: 0;
+	 	left:0;
 	 }
 </style>

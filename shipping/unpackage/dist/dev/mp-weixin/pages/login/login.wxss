@@ -1,6 +1,6 @@
 .screen-cover.data-v-b237504c {
   background-color: #f5f6f8;
-  padding-bottom: 100rpx;
+  padding-bottom: 50rpx;
 }
 .head.data-v-b237504c {
   width: 100%;
@@ -53,10 +53,6 @@
   margin-top: 0rpx;
   margin-left: 10rpx;
 }
-.end-icon.data-v-b237504c {
-  position: absolute;
-  right: 20rpx;
-}
 .more-choices.data-v-b237504c {
   display: -webkit-box;
   display: -webkit-flex;
@@ -68,17 +64,17 @@
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
           justify-content: space-between;
-  width: 80%;
-  margin-left: 10%;
-  font-size: 30rpx;
+  width: 100%;
+  font-weight: 500;
+  margin-left: 0;
+  font-size: 25rpx;
 }
 .more-choices .choices.data-v-b237504c {
-  color: #aaa;
+  color: #000;
   font-size: 30rpx;
 }
 .more-choices .no-use-more.data-v-b237504c {
   color: #0081FF;
-  margin-right: 10rpx;
   font-size: 30rpx;
 }
 .more-choices .change-phone.data-v-b237504c {
@@ -226,10 +222,83 @@
   width: 35%;
   margin-bottom: 10%;
 }
-.show.data-v-b237504c {
-  width: 82%;
-  height: 50%;
-  margin-top: 25%;
+
+/* .show{
+		//  width:82%;
+		//  height:50%;
+		//  margin-top:25%;
+		//  margin-left:10%
+	  }*/
+.full-screen.data-v-b237504c {
+  padding: 5%;
+}
+.head-title.data-v-b237504c {
+  margin-top: 20%;
+  letter-spacing: 20rpx;
+  font-size: 50rpx;
+  font-weight: 500;
+  margin-bottom: 17rpx;
+  position: relative;
+}
+.sub-head-title.data-v-b237504c {
+  padding-left: 0rpx;
+}
+.sub-title.data-v-b237504c {
+  letter-spacing: 25rpx;
+  font-size: 35rpx;
+  font-weight: 400;
   margin-left: 10%;
+}
+.title-blue.data-v-b237504c {
+  padding: 5rpx;
+  background-color: #3291f8;
+  letter-spacing: 3rpx;
+  font-size: 25rpx;
+  font-weight: 400;
+  color: #fff;
+  border-radius: 10%;
+  position: absolute;
+  top: 0;
+}
+.user-name.data-v-b237504c {
+  position: relative;
+}
+.get-inputs.data-v-b237504c {
+  margin-top: 40rpx;
+}
+.username-input.data-v-b237504c {
+  border-bottom: 1rpx solid #dcdcdc;
+  height: 100rpx;
+}
+.end-icon.data-v-b237504c {
+  position: absolute;
+  right: 20rpx;
+  top: 20rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+.terms.data-v-b237504c {
+  margin-top: 15rpx;
+  font-size: 25rpx;
+}
+.radio.data-v-b237504c {
+  color: #000;
+  -webkit-transform: scale(0.7);
+          transform: scale(0.7);
+}
+.radio-icon.data-v-b237504c {
+  color: #000;
+  -webkit-transform: scale(0.6);
+          transform: scale(0.6);
+}
+.blue-terms.data-v-b237504c {
+  color: #76b5fa;
+}
+.login-btn.data-v-b237504c {
+  background-color: #1684fc;
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: 600;
+  border-radius: 15rpx;
 }
 

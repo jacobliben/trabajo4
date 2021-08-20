@@ -84,6 +84,9 @@
 		},
 		async mounted(){
 			
+		
+			
+			
 			uni.setNavigationBarTitle({
 				title:`${this.now_state.text}`
 			})

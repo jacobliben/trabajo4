@@ -232,6 +232,118 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 var _self;
@@ -245,7 +357,7 @@ var destiny_longitude;var _default =
 {
   data: function data() {
     return {
-
+      uni_token: "",
       percent: 0,
       loading: false,
       disabled: false,
@@ -257,6 +369,7 @@ var destiny_longitude;var _default =
       has_chief_driver: false,
       has_vehicle: false,
       goods_weight: "",
+      dispatch_goods_weight: "",
       note: "",
       queryParams: {
         waybillId: "",
@@ -271,6 +384,7 @@ var destiny_longitude;var _default =
   onLoad: function onLoad(options) {
     var that = this;
     this.received_info = uni.getStorageSync("accepted_shipping_orders");
+    console.log(this.received_info, 'received_info');
     this.queryParams.waybillId = this.received_info.waybillId;
     this.btn_title = options.btn_title;
 
@@ -278,12 +392,16 @@ var destiny_longitude;var _default =
 
   },
 
-  onShow: function onShow() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var that, value, chief_driver_choosen, _value, vehicle_choosen, firstDriverId, carrier, carrierId, authorization, res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+  onShow: function onShow() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var that, value, chief_driver_choosen, dispatch_goods_weight_filled, _value, vehicle_choosen, firstDriverId, carrier, carrierId, authorization, res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+
+              getApp().globalData.shipping_order_page = 1;
+
+
               that = _this;
               //try catch 是否有getStorageSync('chief_driver_choosen')
-              _context.prev = 1;
+              _context.prev = 2;
               value = uni.getStorageSync('chief_driver_choosen');if (!
-              value) {_context.next = 32;break;}
+              value) {_context.next = 37;break;}
 
               //if chief driver has been choosen, make it appeared.
               chief_driver_choosen = uni.getStorageSync("chief_driver_choosen");
@@ -294,14 +412,17 @@ var destiny_longitude;var _default =
                 _this.chief_driver_choosen = chief_driver_choosen.driverName;
                 _this.has_chief_driver = true;
               }
+              //reappear the signed weight
+              dispatch_goods_weight_filled = uni.getStorageSync("dispatch_goods_weight");
 
+              _this.dispatch_goods_weight = dispatch_goods_weight_filled;
 
-
+              _this.queryParams.dispatchGoodsWeight = dispatch_goods_weight_filled;
 
               //try catch 是否有getStorageSync('vehicle_choosen') 
-              _context.prev = 8;
+              _context.prev = 12;
               _value = uni.getStorageSync('vehicle_choosen');if (!
-              _value) {_context.next = 18;break;}
+              _value) {_context.next = 22;break;}
 
 
               //if vehicle has been choosen, make it appeared.
@@ -311,7 +432,7 @@ var destiny_longitude;var _default =
               _this.vehicle_choosen = vehicle_choosen.vehiclePlateNumber;
               _this.has_vehicle = true;
               //fetch the chosen vehicleId from local storage
-              _this.queryParams.vehicleId = vehicle_choosen.vehicleId;_context.next = 28;break;case 18:
+              _this.queryParams.vehicleId = vehicle_choosen.vehicleId;_context.next = 33;break;case 22:
 
 
 
@@ -330,11 +451,12 @@ var destiny_longitude;var _default =
               carrierId = carrier.data.user.userBusinessId;
 
 
-              authorization = uni.getStorageSync("token");_context.next = 24;return (
+              authorization = uni.getStorageSync("token");
+              that.uni_token = uni.getStorageSync("token");_context.next = 29;return (
                 _this.$request({
                   url: "/app/dispatch/getRecentlyUsedVehicle/".concat(carrierId, "/").concat(firstDriverId),
                   header: {
-                    Authorization: authorization } }));case 24:res = _context.sent;
+                    Authorization: authorization } }));case 29:res = _context.sent;
 
 
 
@@ -345,7 +467,7 @@ var destiny_longitude;var _default =
               _this.vehicle_choosen = res.data.data.vehiclePlateNumber;
               _this.has_vehicle = true;
               //use the bound vehicle ID
-              _this.queryParams.vehicleId = res.data.data.vehicleId;case 28:_context.next = 32;break;case 30:_context.prev = 30;_context.t0 = _context["catch"](8);case 32:_context.next = 36;break;case 34:_context.prev = 34;_context.t1 = _context["catch"](1);case 36:case "end":return _context.stop();}}}, _callee, null, [[1, 34], [8, 30]]);}))();
+              _this.queryParams.vehicleId = res.data.data.vehicleId;case 33:_context.next = 37;break;case 35:_context.prev = 35;_context.t0 = _context["catch"](12);case 37:_context.next = 41;break;case 39:_context.prev = 39;_context.t1 = _context["catch"](2);case 41:case "end":return _context.stop();}}}, _callee, null, [[2, 39], [12, 35]]);}))();
 
 
 
@@ -369,10 +491,11 @@ var destiny_longitude;var _default =
   },
 
   methods: {
-    goShippingOrderDetails: function goShippingOrderDetails() {
 
-      uni.navigateTo({
-        url: "/pages/shipping_order_details/shipping_order_details" });
+    goBack: function goBack() {
+
+      uni.reLaunch({
+        url: "/pages/shipping_order/shipping_order" });
 
 
     },
@@ -400,7 +523,7 @@ var destiny_longitude;var _default =
     getWeight: function getWeight(e) {
 
       this.queryParams.dispatchGoodsWeight = e.target.value;
-
+      uni.setStorageSync("dispatch_goods_weight", this.queryParams.dispatchGoodsWeight);
     },
     getNote: function getNote() {
 
@@ -532,11 +655,11 @@ var destiny_longitude;var _default =
 
 
 
-                //remove driver and vehicle storage
+                //remove driver and vehicle storage buffers
                 try {
                   uni.removeStorageSync('chief_driver_choosen');
                   uni.removeStorageSync('vehicle_choosen');
-
+                  uni.removeStorageSync('dispatch_goods_weight');
                 } catch (e) {
                   // error
                 }case 15:case "end":return _context2.stop();}}}, _callee2);}))();

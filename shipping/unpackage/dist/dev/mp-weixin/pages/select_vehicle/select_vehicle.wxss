@@ -91,4 +91,8 @@
   font-size: 22rpx;
   color: #39B54A;
 }
+.state-value.data-v-2458f1a6, .vehicle-plate-num.data-v-2458f1a6 {
+  font-size: 27rpx;
+  color: #777;
+}
 

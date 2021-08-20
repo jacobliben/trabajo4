@@ -247,12 +247,14 @@
 }
 .picker-view.data-v-1aadc4b8 {
   color: #222;
-  width: calc(100vw - 380rpx);
+  width: calc(100vw - 300rpx);
 }
 .cu-form-group picker.data-v-1aadc4b8::after {
   display: none;
 }
 .truck-type.data-v-1aadc4b8 {
+  position: absolute;
+  right: 110rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -279,7 +281,14 @@
   background-color: #eee;
 }
 .cell.data-v-1aadc4b8 {
-  margin-right: 10rpx;
+  color: 000;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
 }
 .star.data-v-1aadc4b8 {
   color: #f00;
@@ -325,5 +334,26 @@
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
           justify-content: space-between;
+}
+.cu-form-group.data-v-1aadc4b8 {
+  position: relative;
+}
+.radio.data-v-1aadc4b8 {
+  -webkit-transform: scale(0.6);
+          transform: scale(0.6);
+  margin-left: 15rpx;
+  font-size: 30rpx;
+}
+.gray.data-v-1aadc4b8 {
+  color: #888;
+}
+.mleft.data-v-1aadc4b8 {
+  padding-left: 30rpx;
+}
+.date-left.data-v-1aadc4b8 {
+  padding-left: 90rpx;
+}
+.radio-text.data-v-1aadc4b8 {
+  color: 000;
 }
 

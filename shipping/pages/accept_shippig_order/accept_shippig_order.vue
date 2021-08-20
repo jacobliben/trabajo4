@@ -1,4 +1,4 @@
-<template>
+ <template>
 	<view>
 		<!--<view class="flex first-row ">
 			<view class="left-first-row">
@@ -258,7 +258,7 @@
 				 </view>
 				 <view>
 				 	<!-- <text class="ref-name">{{received_info.iscmWaybillInformationRecord.consigneeAddress}}</text> -->			 
-				 	<input type="text" class="ref-name" disabled :value = "received_info.iscmWaybillInformationRecord.consigneeAddress">		 
+				 	<input type="text" class="ref-name-m" disabled :value = "received_info.iscmWaybillInformationRecord.consigneeAddress">		 
 				 </view>
 			 </view>
 			 
@@ -312,7 +312,8 @@
 				
 				packageTypeOptions: [], 
 				packageTypeSendValue: [],
-				package_type_index:0,	
+				package_type_index:0,
+				
 			};
 		},
 		
@@ -391,9 +392,10 @@
 			
 				
 		},
-		mounted(){
-			
+		onShow() {
+			 getApp().globalData.shipping_order_page =0
 		},
+		
 		methods:{
 			// 货物分类字典
 			async getGoodsTypeOptions(){
@@ -469,6 +471,7 @@
 			
 			
 			async accept(){
+				var that = this
 				var waybillID = this.received_info.waybillId
 				console.log(waybillID,'999');
 				 var authorization = uni.getStorageSync("token")
@@ -493,6 +496,7 @@
 					return
 				}
 				
+				that.now_page = 0
 				uni.reLaunch({
 								url:"/pages/shipping_order/shipping_order"
 							})
@@ -708,5 +712,10 @@
     		 font-size:25rpx;
    		 color:#999;
     }
+	
+	.ref-name-m{
+		
+		padding-left:50%;
+	}
    
 </style>

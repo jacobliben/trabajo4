@@ -611,7 +611,7 @@
   
   .btn-row{
   	width: 100%;
-  	margin-top:200rpx;
+  	margin-top:20rpx;
   	display: flex;
   	justify-content: center;
   }

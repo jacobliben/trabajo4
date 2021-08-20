@@ -139,7 +139,7 @@
   display: block;
   padding: 8px 40px 0 8px;
   border-radius: 5px;
-  border: 1px solid #e8e8e8;
+ border: 1px solid #e8e8e8;
   background: #fff;
   font-size: 14px;
 }
@@ -233,7 +233,9 @@
   content: "";
 }
 .multiselect__placeholder {
-  color: #adadad;
+ /* color: #adadad; */
+ color:#000;
+ font-size: 30rpx;
   display: inline-block;
   margin-bottom: 10px;
   padding-top: 2px;

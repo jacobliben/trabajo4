@@ -91,9 +91,10 @@
 }
 .name.data-v-6f794c46 {
   color: #000;
+  width: 30%;
 }
 .ref-name.data-v-6f794c46 {
-  font-size: 18rpx;
+  width: 65%;
   color: #999;
 }
 .text-name.data-v-6f794c46 {
@@ -141,5 +142,15 @@
 }
 .disabled-btn.data-v-6f794c46 {
   background-color: #ddd;
+}
+.total-width.data-v-6f794c46 {
+  width: 100%;
+  font-size: 30rpx;
+}
+.date-begin-input.data-v-6f794c46 {
+  width: 65%;
+}
+.minput.data-v-6f794c46 {
+  font-size: 35rpx;
 }
 

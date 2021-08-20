@@ -200,6 +200,9 @@ var _info_not_found = _interopRequireDefault(__webpack_require__(/*! @/pages/inf
 
   mounted: function mounted() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var token, resUserInfo, user, user_permissions, result;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
 
+
+
+
               uni.setNavigationBarTitle({
                 title: "".concat(_this.now_state.text) });
 
@@ -305,7 +308,7 @@ var _info_not_found = _interopRequireDefault(__webpack_require__(/*! @/pages/inf
                 }, 30);return _context2.abrupt("return");case 9:
 
 
-                console.log(res, '55447');
+
                 if (_this3.receiving_shipping_order_list.length < res.data.total) {
                   _this3.receiving_shipping_order_list = [].concat(_toConsumableArray(_this3.receiving_shipping_order_list), _toConsumableArray(res.data.rows));
                   _this3.show_not_found = false;
@@ -317,7 +320,7 @@ var _info_not_found = _interopRequireDefault(__webpack_require__(/*! @/pages/inf
 
                 }
 
-                uni.setStorageSync("receiving_shipping_order_list", _this3.receiving_shipping_order_list);case 12:case "end":return _context2.stop();}}}, _callee2);}))();
+                uni.setStorageSync("receiving_shipping_order_list", _this3.receiving_shipping_order_list);case 11:case "end":return _context2.stop();}}}, _callee2);}))();
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

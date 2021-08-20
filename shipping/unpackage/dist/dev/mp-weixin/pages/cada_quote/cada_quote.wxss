@@ -1,0 +1,63 @@
+.current-state.data-v-9aeb3f74 {
+  margin-top: 10rpx;
+  margin-left: 10rpx;
+  margin-bottom: 25rpx;
+  border-left: 3rpx solid blue;
+  padding-left: 30rpx;
+  color: #000;
+  font-size: 30rpx;
+  font-weight: 600;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.current-state .hand-input.data-v-9aeb3f74 {
+  color: blue;
+  font-size: 20rpx;
+  font-weight: 300;
+  margin-right: 10%;
+}
+.star.data-v-9aeb3f74 {
+  color: #f00;
+}
+.name.data-v-9aeb3f74 {
+  color: #000;
+  width: 35%;
+}
+.ref-name.data-v-9aeb3f74 {
+  font-size: 29rpx;
+  color: #999;
+  width: 65%;
+}
+.btn-row.data-v-9aeb3f74 {
+  width: 100%;
+  margin-top: 20rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+.next-btn.data-v-9aeb3f74 {
+  margin-top: 5rpx;
+  width: 30%;
+}
+.minput.data-v-9aeb3f74 {
+  color: #999;
+}
+.make-heavy.data-v-9aeb3f74 {
+  color: #4f8ded;
+  font-weight: 600;
+}
+.make-heavy-int.data-v-9aeb3f74 {
+  color: #4f8ded;
+}
+

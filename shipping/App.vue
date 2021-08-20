@@ -104,7 +104,10 @@
 			
 		},
 		globalData:{
-			
+			//for appear tab in shipping order
+			shipping_order_page:0,
+			//for appear tab in way bill
+			way_bill_page:0,
 		}
 	}
 </script>

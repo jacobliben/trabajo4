@@ -291,6 +291,40 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _vuex = __webpack_require__(/*! vuex */ 12);
 
 
@@ -321,12 +355,29 @@ var Base64 = _base.default.Base64;var _default =
 
       force_update: false,
       username: "",
-      password: "" };
+      password: "",
+
+      terms_checked: true,
+      login_disable: true,
+
+      update_flag: 0 };
 
   },
 
   created: function created() {
-    this.AndroidCheckUpdate();
+    try {
+      var value = uni.getStorageSync('update_flag');
+      if (value) {
+        this.update_flag = value;
+      }
+    } catch (e) {
+      // error
+    }
+
+    if (update_flag == 0) {
+      this.AndroidCheckUpdate();
+    }
+
 
   },
   mounted: function mounted() {
@@ -334,19 +385,42 @@ var Base64 = _base.default.Base64;var _default =
 
     this.username = uni.getStorageSync("username");
     this.password = uni.getStorageSync("password");
-
+    console.log(typeof this.username, "username");
+    if (this.username != "" && this.password != "") {
+      this.login_disable = false;
+    } else {
+      this.login_disable = true;
+    }
   },
+  watch: {
+
+    terms_checked: function terms_checked(newValue, oldValue) {
+      if (newValue == true) {
+        this.login_disable = false;
+      } else {
+        this.login_disable = true;
+      }
+
+    } },
 
   methods: _objectSpread({
+
+    goTerms: function goTerms() {
+      uni.navigateTo({
+        url: "/pages/terms/terms" });
+
+    },
     showModal: function showModal() {
       //显示modal消息
       this.show_modal = true;
     },
-
+    //暂不更新
     hideModal: function hideModal() {
       this.show_modal = false;
+      this.update_flag = 1;
+      uni.setStorageSync("update_flag", 1);
     },
-    hasSee: function hasSee() {
+    updataNow: function updataNow() {
       var that = this;
       this.show_modal = false;
       //设置 最新版本apk的下载链接
@@ -419,11 +493,16 @@ var Base64 = _base.default.Base64;var _default =
       this.password = e.target.value;
 
       uni.setStorageSync("password", this.password);
-
+      this.login_disable = false;
     },
     wechatLogin: function wechatLogin() {
       uni.switchTab({
         url: "/pages/index/index" });
+
+    },
+
+    radioChange: function radioChange(evt) {
+      this.terms_checked = !this.terms_checked;
 
     },
 

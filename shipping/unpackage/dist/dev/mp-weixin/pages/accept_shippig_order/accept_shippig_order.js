@@ -201,6 +201,211 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 var _self;
@@ -240,6 +445,7 @@ var destiny_longitude;var _default =
       packageTypeOptions: [],
       packageTypeSendValue: [],
       package_type_index: 0 };
+
 
   },
 
@@ -318,9 +524,10 @@ var destiny_longitude;var _default =
 
 
   },
-  mounted: function mounted() {
-
+  onShow: function onShow() {
+    getApp().globalData.shipping_order_page = 0;
   },
+
   methods: {
     // 货物分类字典
     getGoodsTypeOptions: function getGoodsTypeOptions() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var that, authorization, res, goodsType, goodsTypeIndex, goodsTypeOptions;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
@@ -395,24 +602,35 @@ var destiny_longitude;var _default =
     },
 
 
-    accept: function accept() {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var waybillID, authorization, res;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
+    accept: function accept() {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var that, waybillID, authorization, res;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
+                that = _this4;
                 waybillID = _this4.received_info.waybillId;
                 console.log(waybillID, '999');
-                authorization = uni.getStorageSync("token");_context4.next = 5;return (
+                authorization = uni.getStorageSync("token");_context4.next = 6;return (
 
 
                   _this4.$request({
                     url: "/app/waybill/waybillAccept/".concat(waybillID),
 
                     header: {
-                      Authorization: authorization } }));case 5:res = _context4.sent;
+                      Authorization: authorization } }));case 6:res = _context4.sent;
 
 
 
 
-                console.log(res, 'mmm');
+                console.log(res, 'mmm');if (!(
+
+                res.data.code != 200)) {_context4.next = 11;break;}
+                uni.showToast({
+                  title: "请求失败",
+                  icon: "none" });return _context4.abrupt("return");case 11:
+
+
+
+
+                that.now_page = 0;
                 uni.reLaunch({
-                  url: "/pages/shipping_order/shipping_order" });case 8:case "end":return _context4.stop();}}}, _callee4);}))();
+                  url: "/pages/shipping_order/shipping_order" });case 13:case "end":return _context4.stop();}}}, _callee4);}))();
 
 
 

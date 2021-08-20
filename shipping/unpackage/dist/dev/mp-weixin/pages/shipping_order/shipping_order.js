@@ -130,7 +130,14 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
 
 
 
@@ -183,35 +190,43 @@ var _distribute_drivers = _interopRequireDefault(__webpack_require__(/*! @/pages
 //
 //
 //
-var _default = { data: function data() {return { tabCurrentIndex: 0, navList: [{ state: 0, text: "运单接收", state_pending: "待接受", orderList: [], waybillStatus: this.$waitAccept, btn: "接受" }, { state: 1, text: "分配运力", state_pending: "待分配", orderList: [], waybillStatus: this.$waitSendDispatch, btn: "分配" }] };
-
-
-  },
-  components: {
+//
+//
+//
+//
+//
+//
+//
+var _default = { data: function data() {return { tabCurrentIndex: 0, refresh_index: 0, activeRotate: false, navList: [{ state: 0, text: "运单接收", state_pending: "待接受", orderList: [], waybillStatus: this.$waitAccept, btn: "接受" }, { state: 1, text: "分配运力", state_pending: "待分配", orderList: [], waybillStatus: this.$waitSendDispatch, btn: "分配" }] };}, components: {
     receivingShippingOrder: _receiving_shipping_order.default,
 
     distributeDrivers: _distribute_drivers.default },
 
   onLoad: function onLoad(options) {
     this.tabCurrentIndex = 0;
-  },
-  onShow: function onShow() {
-    this.nav_state = uni.getStorageSync("nav_state");
-    if (this.nav_state === "order-distributing") {
 
 
-      this.tabClick(1);
-    } else if (this.nav_state === "order-receiving") {
-
-
-      this.tabClick(0);
-    } else {
-      this.tabClick(0);
-    }
 
   },
+  onShow: function onShow(options) {
+    var now_page = getApp().globalData.shipping_order_page;
 
+    this.tabClick(now_page);
+
+
+  },
+  mounted: function mounted() {
+
+  },
   methods: {
+    addRefresh: function addRefresh() {
+      var that = this;
+      this.activeRotate = true;
+      this.refresh_index++;
+      setTimeout(function () {
+        that.activeRotate = false;
+      }, 3000);
+    },
     changeTab: function changeTab(e) {
       this.tabCurrentIndex = e.target.current;
     },
@@ -219,7 +234,6 @@ var _default = { data: function data() {return { tabCurrentIndex: 0, navList: [{
       this.tabCurrentIndex = index;
 
     } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
@@ -423,6 +437,9 @@ var _info_not_found = _interopRequireDefault(__webpack_require__(/*! @/pages/inf
 
   mounted: function mounted() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var token, resUserInfo, user, user_permissions, result;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
 
+
+
+
               uni.setNavigationBarTitle({
                 title: "".concat(_this.now_state.text) });
 
@@ -528,7 +545,7 @@ var _info_not_found = _interopRequireDefault(__webpack_require__(/*! @/pages/inf
                 }, 30);return _context2.abrupt("return");case 9:
 
 
-                console.log(res, '55447');
+
                 if (_this3.receiving_shipping_order_list.length < res.data.total) {
                   _this3.receiving_shipping_order_list = [].concat(_toConsumableArray(_this3.receiving_shipping_order_list), _toConsumableArray(res.data.rows));
                   _this3.show_not_found = false;
@@ -540,7 +557,7 @@ var _info_not_found = _interopRequireDefault(__webpack_require__(/*! @/pages/inf
 
                 }
 
-                uni.setStorageSync("receiving_shipping_order_list", _this3.receiving_shipping_order_list);case 12:case "end":return _context2.stop();}}}, _callee2);}))();
+                uni.setStorageSync("receiving_shipping_order_list", _this3.receiving_shipping_order_list);case 11:case "end":return _context2.stop();}}}, _callee2);}))();
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

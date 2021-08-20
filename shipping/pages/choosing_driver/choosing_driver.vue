@@ -85,7 +85,7 @@
 				
 			</view>
 		</view> -->
-			
+			<text class="cuIcon-back lg text-gray" @click="goBack"></text>
 	    <view class="shipping_no">运单编号：{{received_info.waybillNo}}</view>
 		
 		<view class="total_weight">
@@ -261,6 +261,10 @@
 		},
 		
 		 async onShow(){
+			 
+			 getApp().globalData.shipping_order_page =1
+			 
+			 
 			 var that = this
 			 //try catch 是否有getStorageSync('chief_driver_choosen')
 			 try {
@@ -355,10 +359,11 @@
 		},
 		
 		methods:{
-			goShippingOrderDetails(){
+			
+			goBack(){
 				
-				uni.navigateTo({
-					url:"/pages/shipping_order_details/shipping_order_details"
+				uni.reLaunch({
+					url:"/pages/shipping_order/shipping_order"
 				})
 				
 			},
@@ -502,7 +507,7 @@
 											   })
 											   
 											   uni.switchTab({
-											     		url:"/pages/shipping_order/shipping_order"
+											     		url:"/pages/shipping_order/shipping_order?page=2"
 											     	})
 										  } else {
 											  uni.showToast({

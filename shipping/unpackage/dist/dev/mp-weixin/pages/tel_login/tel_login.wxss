@@ -88,8 +88,9 @@
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
           justify-content: space-between;
-  width: 80%;
-  margin-left: 10%;
+  width: 100%;
+  margin-left: 0;
+  font-weight: 500;
   font-size: 30rpx;
 }
 .more-choices .choices.data-v-6f079adc {
@@ -98,10 +99,6 @@
 .no-use-more.data-v-6f079adc {
   color: #0081FF;
   margin-right: 10rpx;
-}
-.text-get.data-v-6f079adc {
-  width: 200rpx;
-  height: 50rpx;
 }
 .text-df.data-v-6f079adc {
   font-size: 25rpx;
@@ -135,5 +132,73 @@
 .button-hover.data-v-6f079adc {
   -webkit-transform: scale(1.2);
           transform: scale(1.2);
+}
+.full-screen.data-v-6f079adc {
+  padding: 5%;
+}
+.head-title.data-v-6f079adc {
+  margin-top: 20%;
+  letter-spacing: 0rpx;
+  font-size: 40rpx;
+  font-weight: 600;
+  margin-bottom: 45rpx;
+}
+.user-tel.data-v-6f079adc {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  height: 75rpx;
+  border-bottom: 1rpx solid #4e98fc;
+}
+.user-tel .tel-input.data-v-6f079adc {
+  margin-left: 40rpx;
+  margin-bottom: 5rpx;
+}
+.user-pre.data-v-6f079adc {
+  width: 15%;
+}
+.lock.data-v-6f079adc {
+  margin-top: 25rpx;
+  width: 25rpx;
+  height: 25rpx;
+  margin-left: 15rpx;
+}
+.user-veri.data-v-6f079adc {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  height: 95rpx;
+  border-bottom: 1rpx solid #e5e5e5;
+}
+.user-veri .veri-input.data-v-6f079adc {
+  margin-top: 20rpx;
+  margin-left: 40rpx;
+  margin-bottom: 15rpx;
+}
+.text-get.data-v-6f079adc {
+  border-left: 8rpx solid #f1f1f1;
+  color: #978887;
+  font-size: 40rpx;
+  font-weight: 600;
+  padding-left: 40rpx;
+  margin-top: 30rpx;
+  width: 200rpx;
+  height: 50rpx;
+}
+.login-btn.data-v-6f079adc {
+  margin-top: 30rpx;
+  background-color: #1684fc;
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: 600;
+  border-radius: 250rpx;
 }
 

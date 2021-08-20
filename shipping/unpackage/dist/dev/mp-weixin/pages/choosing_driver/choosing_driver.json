@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "选择司机和车辆",
   "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
   "usingComponents": {}
 }

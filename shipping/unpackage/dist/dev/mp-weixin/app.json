@@ -95,7 +95,10 @@
     "pages/inquiry/inquiry",
     "pages/quote/quote",
     "pages/cada_inquiry/cada_inquiry",
-    "pages/hall/hall"
+    "pages/hall/hall",
+    "pages/cada_quote/cada_quote",
+    "pages/hall_opener/hall_opener",
+    "pages/tab_bar/tab_bar"
   ],
   "subPackages": [],
   "window": {
@@ -127,7 +130,7 @@
       },
       {
         "text": "货源大厅",
-        "pagePath": "pages/hall/hall",
+        "pagePath": "pages/hall_opener/hall_opener",
         "iconPath": "static/hall.png",
         "selectedIconPath": "static/hall-selected.png"
       },

@@ -16,8 +16,14 @@
 .vehicle-has-approved-body.data-v-20e306ee {
   background-color: #fff;
 }
+.title.data-v-20e306ee {
+  width: 150rpx;
+}
+.gray.data-v-20e306ee {
+  color: #777;
+}
 .scroll-Y.data-v-20e306ee {
-  height: 650rpx;
+  height: 880rpx;
 }
 .truck.data-v-20e306ee {
   width: 50rpx;

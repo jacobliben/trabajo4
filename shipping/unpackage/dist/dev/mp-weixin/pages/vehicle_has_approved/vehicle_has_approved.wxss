@@ -17,7 +17,7 @@
   background-color: #fff;
 }
 .scroll-Y.data-v-db807334 {
-  height: 65vh;
+  height: 880rpx;
 }
 .vehicle_content.data-v-db807334 {
   display: -webkit-box;
@@ -86,5 +86,21 @@
 .one_vehicle .first-row .vehicle_state.data-v-db807334 {
   font-size: 22rpx;
   color: #39B54A;
+}
+.title.data-v-db807334 {
+  width: 200rpx;
+}
+.gray.data-v-db807334 {
+  color: #777;
+}
+.position-right.data-v-db807334 {
+  position: absolute;
+  right: 4rpx;
+}
+.big-padre.data-v-db807334 {
+  position: relative;
+}
+.btn-one.data-v-db807334 {
+  height: 90%;
 }
 

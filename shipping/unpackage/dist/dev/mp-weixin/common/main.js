@@ -220,7 +220,11 @@ __webpack_require__.r(__webpack_exports__);
   onHide: function onHide() {
 
   },
-  globalData: {} };exports.default = _default;
+  globalData: {
+    //for appear tab in shipping order
+    shipping_order_page: 0,
+    //for appear tab in way bill
+    way_bill_page: 0 } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

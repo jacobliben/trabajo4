@@ -11,7 +11,8 @@
 				<view class="text-gray">客服</view>
 			</view> -->
 			<view class="action text-gray add-action">
-				<input class="head-input" placeholder="  找货源" @tap="goHall"/>
+				<input class="head-input" placeholder="找货源" v-if="show_shipping_order" @tap="goHall"/>
+				<input class="head-input" placeholder="找车单" v-if="!show_shipping_order" @tap="goLoading"/>
 			</view>
 
 			<view @tap="goMessage">
@@ -70,6 +71,10 @@
 				<view class="one-icon" hover-class="one-icon-hover" @click="goHall" v-if="show_shipping_order">
 					<image src="/static/home-drivers.png" mode="aspectFit"></image>
 					<text>货源大厅</text>
+				</view>
+				
+				<view class="one-icon" hover-class="one-icon-hover" @click="goHall" v-if="!show_shipping_order">
+					  主要功能
 				</view>
 
 				<!-- <view class="one-icon" hover-class="one-icon-hover" @click="goCalculatingKm">
@@ -195,6 +200,9 @@
 				</view>
 			</view>
 		</view>
+		<view>
+			<tabbar-index  class="custom-tab-bar"></tabbar-index>
+		</view>
 	</view>
 </template>
 
@@ -204,7 +212,8 @@
 		mapMutations
 	} from 'vuex';
 	import permision from "@/js_sdk/wa-permission/permission.js"
-
+    import tabbarIndex from "@/pages/tabbar_index/tabbar_index"
+	
 	var start_location //目前地址
 	var start_latitude //目前latitude
 	var start_longitude //目前longitude
@@ -240,7 +249,7 @@
 		},
 		computed: mapState(['hasLogin', 'uerInfo']),
 		components: {
-
+            tabbarIndex
 
 		},
 		async onLoad() {
@@ -264,7 +273,12 @@
 
 			if (result_shipping_order == -1) {
 				this.show_shipping_order = false
-
+				uni.setStorageSync("show_shipping_order",false)
+                uni.hideTabBar(); 
+			}else{
+				this.show_shipping_order = true
+				uni.setStorageSync("show_shipping_order",true)
+				uni.showTabBar(); 
 			}
 
 
@@ -929,4 +943,15 @@
 		margin-left: 20rpx;
 		color: #0081FF;
 	}
+	
+	.custom-tab-bar{
+		border: 1rpx solid red;
+		width:200rpx;
+		height:100rpx;
+		position: fixed;
+		border: 0;
+		left:0;
+	}
+	
+	
 </style>

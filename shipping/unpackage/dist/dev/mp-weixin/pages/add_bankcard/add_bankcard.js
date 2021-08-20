@@ -132,9 +132,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 25));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var Multiselect = function Multiselect() {Promise.all(/*! require.ensure | node-modules/vue-multiselect/src/Multiselect */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/vue-multiselect/src/Multiselect")]).then((function () {return resolve(__webpack_require__(/*! @/node_modules/vue-multiselect/src/Multiselect.vue */ 1033));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 25));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var Multiselect = function Multiselect() {Promise.all(/*! require.ensure | node-modules/vue-multiselect/src/Multiselect */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/vue-multiselect/src/Multiselect")]).then((function () {return resolve(__webpack_require__(/*! @/node_modules/vue-multiselect/src/Multiselect.vue */ 1049));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
 
 
@@ -274,12 +272,12 @@ var _self;var _default =
       bank_class_index: 0,
       account_type_index: 0,
       account_type_list: [
-      "请选择账号类型",
+      "账号类型",
       '个人',
       '企业'],
 
 
-      default_list: ["请选择是否默认账户",
+      default_list: ["是否默认账户",
       '是',
       '否'],
 
@@ -390,7 +388,7 @@ var _self;var _default =
                 //array 就是银行名称的列表
                 _this.array = res.data.data.map(function (e) {return e = e.dictLabel;});
                 _this.bank_options = res.data.data;
-                _this.array.unshift("请选择银行名称");
+                _this.array.unshift("银行名称");
 
                 _this.list_code = res.data.data.map(function (e) {return e = e.dictValue;});
 
@@ -435,7 +433,7 @@ var _self;var _default =
 
                 _this2.branch_list = resBranchName.data.rows.map(function (e) {return e.fullNameOfTheBank;});
                 _this2.branch_code_list = resBranchName.data.rows.map(function (e) {return e.paymentBankNumber;});
-                _this2.branch_list.unshift("请选择支行联行名称");
+                _this2.branch_list.unshift("支行联行名称");
 
                 if (_this2.btn_title == "修改") {
                   _this2.bindPickerBranchChange();
@@ -504,7 +502,7 @@ var _self;var _default =
 
                 _this3.branch_list = resBranchName.data.rows.map(function (e) {return e.fullNameOfTheBank;});
                 _this3.branch_code_list = resBranchName.data.rows.map(function (e) {return e.paymentBankNumber;});
-                _this3.branch_list.unshift("请选择支行联行名称");
+                _this3.branch_list.unshift("支行联行名称");
 
                 if (_this3.btn_title == "修改") {
                   _this3.bindPickerBranchChange();
