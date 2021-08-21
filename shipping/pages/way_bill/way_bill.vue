@@ -31,7 +31,7 @@
 			
 		</view>
 		<view >
-			<tabbar-waybill  class="custom-tab-bar"></tabbar-waybill>
+			<tabbar-waybill  class="custom-tab-bar" v-if="!show_shipping_order"></tabbar-waybill>
 		</view>
 	</view>
 </template>
@@ -48,6 +48,7 @@
 			return {
 				tabCurrentIndex:0,
 				refresh_index:0,
+				user: '',
 				show_shipping_order: true,
 				activeRotate:false,
 				nav_state:"",  
@@ -99,26 +100,39 @@
 			
 			overall
 		},
-		onLoad(options){
+		async onLoad(options){
 			this.tabCurrentIndex = 0
 			
-			try {
-			    const value = uni.getStorageSync('show_shipping_order');
-			    if (value) {
-			        this.show_shipping_order = value
-					if (this.show_shipping_order == true) {
-						uni.showTabBar();
-					}else{
-						
-						uni.hideTabBar(); 
-					}
-			    }
-			} catch (e) {
-			    // error
+			const token = uni.getStorageSync('token')
+			//get this user's permission rights
+			const resUserInfo = await this.$request({
+				url: "/getInfo",
+			
+				header: {
+					Authorization: token,
+				},
+			
+			})
+			
+			this.user = resUserInfo
+			
+			const user = this.user
+			
+			const user_permissions = user.data.permissions
+			let result_shipping_order = user_permissions.findIndex(ele => ele === 'iscm:waybill:list')
+			
+			if (result_shipping_order == -1) {
+				this.show_shipping_order = false
+				
+			    uni.hideTabBar(); 
+			}else{
+				this.show_shipping_order = true
+				
+				uni.showTabBar(); 
 			}
 		},
 		onShow(){
-			
+			 
 			const now_page = getApp().globalData.way_bill_page
 			console.log(now_page,"now_page2");
 			this.tabClick(now_page)
@@ -144,7 +158,7 @@
 			//点击tab键更改下面的组件
 			tabClick(index){
 				this.tabCurrentIndex = index
-				
+				getApp().globalData.way_bill_page = index
 			},
 			//从后台请求表单数据
 			 async getLists(){  

@@ -100,7 +100,7 @@
 			},
 			tabClick(index){
 				this.tabCurrentIndex = index
-				
+				getApp().globalData.shipping_order_page = index
 			}
 		}
 	}

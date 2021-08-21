@@ -201,7 +201,7 @@
 			</view>
 		</view>
 		<view>
-			<tabbar-index  class="custom-tab-bar"></tabbar-index>
+			<tabbar-index  class="custom-tab-bar" v-if="!show_shipping_order" ></tabbar-index>
 		</view>
 	</view>
 </template>
@@ -213,6 +213,7 @@
 	} from 'vuex';
 	import permision from "@/js_sdk/wa-permission/permission.js"
     import tabbarIndex from "@/pages/tabbar_index/tabbar_index"
+	
 	
 	var start_location //目前地址
 	var start_latitude //目前latitude
@@ -273,11 +274,11 @@
 
 			if (result_shipping_order == -1) {
 				this.show_shipping_order = false
-				uni.setStorageSync("show_shipping_order",false)
+				
                 uni.hideTabBar(); 
 			}else{
 				this.show_shipping_order = true
-				uni.setStorageSync("show_shipping_order",true)
+				
 				uni.showTabBar(); 
 			}
 
@@ -637,6 +638,7 @@
 		color:#6d6d6d;
 		.head-input{
 			border: 4rpx solid #6d6d6d;
+			padding-left: 20rpx;
 			}
 	}
 	.first-row-waybill{

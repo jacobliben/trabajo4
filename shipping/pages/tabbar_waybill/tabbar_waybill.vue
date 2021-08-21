@@ -92,8 +92,10 @@
 		width:100%;
 		position: fixed;
 		bottom: 0;
-		height:80rpx;
+		height:120rpx;
 		display: flex;
+		
+		border-top:1rpx solid #c8c7cc ;
 		margin-top: 20rpx;
 		flex-direction: row;
 		padding-right:30rpx;
@@ -101,7 +103,7 @@
 	}
 	.tabbar{
 		display: flex;
-		height:80rpx;
+		height:120rpx;
 		width:100%;
 		padding: 15rpx 5rpx;
 		position: sticky;

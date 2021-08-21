@@ -337,9 +337,9 @@
 				<view class="ref-name">
 					
 					<input class="cellphone"
-					placeholder-style="margin-left:5%;font-size:16rpx;color:#ddd;"
+					placeholder-style="font-size:30rpx;color:#999999;"
 					type="number" maxlength="20" :value="signed_weight"
-					 placeholder="请输入签收货物重量(吨)" @input="getSignWeight"></input>
+					 placeholder="请输入签收重量" @input="getSignWeight"></input>
 					
 				</view>
 			
@@ -380,12 +380,17 @@
 				<image  :src="imgGoodsUrl" class="big-image" mode="aspectFit"></image>
 				<image src="/static/tachar.png" mode="aspectFit" @click="cancelGoods"
 				 class="tachar" v-if="tachar_goods"></image>
+				 <image src="/static/zoom.png" mode="aspectFit" @click=""
+				  class="zoom" v-if="zoom_goods"></image>
 				<view class="big-caption">人车货合照</view>
+				
 			</view>
 			<view >
 				<image :src="imgOrderUrl" class="big-image" mode="aspectFit" @click="takePhoto" data-index="ticket_photo"></image>
 				<image src="/static/tachar.png" mode="aspectFit" @click="cancelOrder"
 				class="tachar" v-if="tachar_order"></image>
+				<image src="/static/zoom.png" mode="aspectFit" @click="zoomOrder"
+				 class="zoom" v-if="zoom_order"></image>
 				<view class="big-caption">{{btn_title}}单据</view>
 			</view>
 			
@@ -404,8 +409,23 @@
 			  </view>
 			  
 		  </view>
-		
-		
+		   
+		  <!-- show the previewed image -->
+		   <view class="cu-modal show" v-if="show_order_modal" >
+		   	
+		   	<view class="cu-dialog" >
+		   		<view class="cu-bar justify-end text-white">
+		   			<view @click="hideOrderModal" class="action" >
+		   				<text class="cuIcon-close text-red"></text>
+		   			</view>
+		   		</view>
+				
+		   		<image :src="imgOrderUrl" mode="widthFix" class="car-version"></image>
+		   		
+				
+		   		
+		   	</view>
+		   </view>
 	</view>
 	
 	
@@ -431,7 +451,9 @@
 				imgOrderUrl:"/static/camera-scan.png",
 				tachar_scan:false,
 				tachar_goods:false,
-				tachar_order:false,		
+				zoom_goods:false,
+				tachar_order:false,
+				zoom_order:false,
 				received_info:{},
 				upload_info:{},
 				btn_title:"",
@@ -454,6 +476,7 @@
 				startCountrySubdivisionCode:"",//发货地起点行政区划代码
 				endCountrySubdivisionCode:"",//收货地终点行政区划代码
 				
+				show_order_modal:false,
 			};
 		},
 		mounted(){
@@ -660,6 +683,7 @@
 												  uni.setStorageSync("temp_photo_path", tempFilePaths[0])
 												 //make the tachar img appear
 												  _self.tachar_goods=true
+												  _self.zoom_goods=true
 												  
 												  //upload
 												  	const resPhoto = await _self.$upload({
@@ -689,7 +713,8 @@
 						 							
 						 							 //make the tachar img appear
 						 							  _self.tachar_order=true
-						 							  
+						 							   _self.zoom_order=true
+													   
 						 							  //upload
 						 							  	const resPhoto = await _self.$upload({
 						 							  		url:ossLocation.dispatch.fhd,
@@ -716,7 +741,8 @@
 					  							 
 					  							 //make the tachar img appear
 					  							  _self.tachar_order=true
-					  							  
+					  							  _self.zoom_order=true
+												  
 					  							  //upload
 					  							  	const resPhoto = await _self.$upload({
 					  							  		url:ossLocation.dispatch.leave,
@@ -749,7 +775,8 @@
 						  							 
 						  							 //make the tachar img appear
 						  							  _self.tachar_order=true
-						  							  
+						  							   _self.zoom_order=true
+													   
 						  							  //upload
 						  							  	const resPhoto = await _self.$upload({
 						  							  		url:ossLocation.dispatch.receive,
@@ -781,29 +808,56 @@
 						})
 					},500)
 					this.tachar_goods=false
+					this.zoom_goods=false
 				},
 			    
 				cancelOrder(){
 					this.imgOrderUrl = "/static/camera-scan.png"
 					if (this.btn_title==='发车'&& this.canDispatch){
+						
+						try {
+						    uni.removeStorageSync('dispatch_pending_photo');
+							
+						} catch (e) {
+						    // error
+						}
+						
 						setTimeout(()=>{
 							uni.showToast({
-								title:"删除运单照片成功",
+								title:"删除照片成功",
 								icon:"none"
 							})
 						},500)
 						this.tachar_order=false
 					}else if (this.btn_title==='签收'&& this.canDispatch){
+						
+						try {
+						    uni.removeStorageSync('receipt_pending_photo');
+							
+						} catch (e) {
+						    // error
+						}
+						
 						setTimeout(()=>{
 						     	uni.showToast({
-						     		title:"删除运单照片成功,请重新选择",
+						     		title:"删除照片成功,请重新选择",
 						     		icon:"none"
 						     	})
 						     },500)
 						this.tachar_order=false
+						this.zoom_order=false
 					}   
 				},
 				
+				zoomOrder(){
+					this.show_order_modal = true
+					
+				},
+				
+				hideOrderModal(){
+					this.show_order_modal = false
+					
+				},
 				
 				 async confirm(){
 					var authorization = uni.getStorageSync("token") 
@@ -845,6 +899,15 @@
 							uni.showToast({
 								title:"操作成功"
 							})
+							
+							
+							try {
+							    uni.removeStorageSync('people_vehicle_photo');
+								uni.removeStorageSync('packing_list_photo');
+							} catch (e) {
+							    // error
+							}
+							
 							uni.reLaunch({
 								url:"/pages/way_bill/way_bill"
 							})
@@ -919,9 +982,18 @@
 							uni.showToast({
 								title:"操作成功"
 							})
-							uni.reLaunch({
-								url:"/pages/way_bill/way_bill"
-							})
+							
+							try {
+							    uni.removeStorageSync('dispatch_pending_photo');
+							} catch (e) {
+							    // error
+							}
+							
+							setTimeout(()=>{
+								uni.reLaunch({
+									url:"/pages/way_bill/way_bill"
+								})
+							},1000)
 						}else{
 							
 							uni.showToast({
@@ -966,6 +1038,13 @@
 							uni.showToast({
 								title:"操作成功"
 							})
+							
+							try {
+							    uni.removeStorageSync('receipt_pending_photo');
+							} catch (e) {
+							    // error
+							}
+							
 							setTimeout(()=>{
 								uni.reLaunch({
 									url:"/pages/way_bill/way_bill"
@@ -1065,6 +1144,15 @@
 			  width:60rpx;
 			  height: 60rpx;
 			  left:40%;
+			  
+		  }
+		  
+		  .zoom{
+			  position: absolute;
+			  width:60rpx;
+			  height: 60rpx;
+			  right:0;
+			  
 		  }
 		  
 		  .big-image{
@@ -1329,5 +1417,10 @@
 	  display: flex;
 	  flex-direction: row;
 	  justify-content: cneter;
+  }
+  
+  .action{
+	
+	  margin-right: 30rpx;
   }
 </style>

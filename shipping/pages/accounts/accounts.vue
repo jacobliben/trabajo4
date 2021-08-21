@@ -1,5 +1,6 @@
 <template>
 	<view>
+	 
 		<view class="user-avatar bg-gradual-blue" style="height:300rpx;" hover-class="one-icon-hover" >
 				      <view>
 						  <view class="lg-pic" 
@@ -18,7 +19,7 @@
 		</view>
 		
 	   
-	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goDispatchBefore" v-if="show_dispatch_before" >
+	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goDispatchBefore" v-if="show_dispatch_before"  >
 	   		   <view class="lite-bar">
 	   		        <image src="/static/billboard.svg"  class="sm-pic"></image>
 	   			     <text class="lite-title">历史派车单</text>
@@ -52,7 +53,7 @@
 	   
 	   
 	   
-	   <view class="cu-form-group" @click="goVehicle"  v-if="show_vehicle">
+	   <view class="cu-form-group" @click="goVehicle"  v-if="show_vehicle" >
 		   <view class="lite-bar">
 		   	    <image src="/static/cars.png"  class="sm-pic"></image>
 				<text class="lite-title">车辆管理</text>
@@ -60,7 +61,7 @@
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
-	   <view class="cu-form-group" @click="goBankCard" v-if="show_bankcard">
+	   <view class="cu-form-group" @click="goBankCard" v-if="show_bankcard" >
 	   		   <view class="lite-bar">
 	   		   	    <image src="/static/archive.svg"  class="sm-pic"></image>
 	   				<text class="lite-title">银行卡管理</text>
@@ -68,7 +69,7 @@
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
-	   <view class="cu-form-group" @click="goDriver" v-if="show_driver">
+	   <view class="cu-form-group" @click="goDriver" v-if="show_driver" >
 	   		   <view class="lite-bar">
 	   		   	    <image src="/static/driver.svg"  class="sm-pic"></image>
 	   				<text class="lite-title">司机管理</text>
@@ -76,7 +77,7 @@
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
-	   <view class="cu-form-group" @click="goPersonalInfo">
+	   <view class="cu-form-group" @click="goPersonalInfo" >
 		   <view class="lite-bar">
 		   	    <image src="/static/brain.svg"  class="sm-pic"></image>
 	   			<text class="lite-title">个人资料</text>
@@ -100,7 +101,7 @@
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
-	   <view class="cu-form-group" @click="phoneCall" >
+	   <view class="cu-form-group" @click="phoneCall"  >
 	   		   <view class="lite-bar">
 	   		   	    <image src="/static/speech.svg"  class="sm-pic"></image>
 	   			<text class="lite-title">客服热线</text>
@@ -108,7 +109,7 @@
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   
-	   <view class="cu-form-group" @click="logout">
+	   <view class="cu-form-group" @click="logout" >
 	   		   <view class="lite-bar">
 	   		   	    <image src="/static/wrench.svg"  class="sm-pic" ></image>
 	   			<text class="lite-title">退出登录</text>
@@ -116,13 +117,15 @@
 	   			<text class="cuIcon-right lg text-gray"></text>
 	   </view>
 	   <view>
-	   	<tabbar-accounts  class="custom-tab-bar"></tabbar-accounts>
+	   	<tabbar-accounts  class="custom-tab-bar" v-if="!show_shipping_order"></tabbar-accounts>
 	   </view>
+	 
 	</view>
 </template>
 
 <script>
 	import tabbarAccounts from "@/pages/tabbar_accounts/tabbar_accounts"
+	
 	export default {
 		data() {
 			return {
@@ -164,8 +167,13 @@
 				   
 				   if (result_shipping_order == -1){
 				   	this.show_shipping_order = false
-				   	
-				   }
+					
+				   	uni.hideTabBar(); 
+				   }else{
+				    this.show_shipping_order = true
+				    
+				     uni.showTabBar(); 
+			       }
 				   
 				   let result_vehicle = user_permissions.findIndex(ele => ele === 'iscm:vehicle:list')
 				  
@@ -297,7 +305,8 @@
 			//this.imgAvatarUrl = uni.getStorageSync("user_avatar")||'http://10.22.0.136:8080' + this.user.data.user.avatar
 		},
 		components: {
-		     tabbarAccounts
+		     tabbarAccounts,
+			 
 		
 		},
 		onHide(){

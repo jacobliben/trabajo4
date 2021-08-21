@@ -92,9 +92,10 @@
 		width:100%;
 		position: fixed;
 		bottom: 0;
-		height:80rpx;
+		height:120rpx;
 		display: flex;
 		margin-top: 20rpx;
+		border-top:1rpx solid #c8c7cc ;
 		flex-direction: row;
 		padding-right:30rpx;
 		color:#c8c7cc;

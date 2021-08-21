@@ -170,11 +170,11 @@
 				</view> -->
 				
 				
-				  
+				<!--  if the current time is inferior to the Start Time or superior to the stop time, let the btn disabled -->
 				<view class="btn-level">
 					<button size="mini" class="detail-btn" :disabled="item.iscmQuote==null"
-					  @click="goQuoteDetail(item)">报价详情</button>
-					<button size="mini" class="btn" :disabled="new Date(item.stopTime).getTime()-new Date().getTime()<0"
+					  @click="goQuoteDetail(item)">报价详情</button> 
+					<button size="mini" class="btn" :disabled="(new Date(item.stopTime).getTime()-new Date().getTime()<0)||(new Date(item.startTime).getTime()-new Date().getTime()>0)"
 				@click="quote(item)">报价</button>
 				</view>
 			</view>

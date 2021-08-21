@@ -1045,15 +1045,7 @@
             }
             
         }
-        ,{
-            "path" : "pages/tab_bar/tab_bar",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
+       
         ,{
             "path" : "pages/tabbar_index/tabbar_index",
             "style" :                                                                                    
@@ -1091,6 +1083,7 @@
 		
 	},
 	"tabBar":{
+		"custom": true,
 		"list":[
 			{"text":"首页",
 			"pagePath":"pages/index/index",

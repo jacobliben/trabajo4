@@ -85,8 +85,11 @@
 				
 			</view>
 		</view> -->
-			<text class="cuIcon-back lg text-gray" @click="goBack"></text>
-	    <view class="shipping_no">运单编号：{{received_info.waybillNo}}</view>
+			<text class="cuIcon-back lg text-gray tmargin" @click="goBack"></text>
+	    <view class="shipping_no">
+			<text class="shipping-title">运单编号：</text>
+			<text>{{received_info.waybillNo}}</text>
+		</view>
 		
 		<view class="total_weight">
 			<text class="title">总重量:</text>
@@ -182,7 +185,7 @@
 		  			<input class="cellphone"
 		  			
 		  			type="number" maxlength="20" :value="dispatch_goods_weight"
-		  			 placeholder="请输入分配给该车的重量" @input="getWeight"></input>
+		  			 placeholder="分配给该车的重量" @input="getWeight"></input>
 		  			
 		  		</view>
 		  	</view>
@@ -709,15 +712,18 @@
 	   padding:5%;
    }
    .shipping_no{
-	   margin-top:60rpx;
+	   margin-top:30rpx;
 	   color: #1684FC;
 	   font-size: 30rpx;
 	   font-family: SourceHanSansSC-bold PingFangSC-bold SourceHanSansSC-regular PingFangSC-regular Arial;
+	   .shipping-title{
+		   font-weight: 600;
+	   }
    }
    
    .total_weight{
 	   margin-top: 30rpx;
-	   margin-bottom: 120rpx;
+	   margin-bottom: 50rpx;
 	   .title{
 		   font-weight: 800;
 		   font-size: 32rpx;
@@ -795,7 +801,7 @@
    }
    
    .choose-driver{
-	  margin-top: 135rpx; 
+	  margin-top: 70rpx; 
 	 display: flex;
 	 flex-direction: row;
 	 border-bottom: 1rpx dashed #c1c1c1;
@@ -835,4 +841,7 @@
 			  font-size: 40rpx;
 			  color:#777;
 		  }
+	.tmargin{
+		margin-top: 100rpx;
+	}	  
 </style>
