@@ -102,7 +102,7 @@
 	}
 	.tabbar{
 		display: flex;
-		height:80rpx;
+		height:120rpx;
 		width:100%;
 		padding: 15rpx 5rpx;
 		position: sticky;

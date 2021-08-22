@@ -842,6 +842,8 @@
 			  color:#777;
 		  }
 	.tmargin{
-		margin-top: 100rpx;
+		margin-top: 200rpx;
+		width:60rpx;
+		height:60rpx ;
 	}	  
 </style>

@@ -49,11 +49,19 @@
 			</view>
 			
 			<view class="address">
-				<text>装货地址：{{item.iscmWaybillInformationRecord.shipperAddress}}</text>
+				<text>装货地址：{{item.iscmWaybillInformationRecord.shipperProvinceName}}
+				<text>{{item.iscmWaybillInformationRecord.shipperCityName}}</text>
+				<text>{{item.iscmWaybillInformationRecord.shipperRegionName}}</text>
+				<text>{{item.iscmWaybillInformationRecord.shipperAddress}}</text>
+				</text>
 			</view>
 			
 			<view class="address">
-				<text>收货地址：{{item.iscmWaybillInformationRecord.consigneeAddress}}</text>
+				<text>收货地址：{{item.iscmWaybillInformationRecord.consigneeProvinceName}}
+				<text>{{item.iscmWaybillInformationRecord.consigneeCityName}}</text>
+				<text>{{item.iscmWaybillInformationRecord.consigneeRegionName}}</text>
+				<text>{{item.iscmWaybillInformationRecord.consigneeAddress}}</text>
+				</text>
 			</view>
 		</view>
 		<info-not-found v-if ="show_not_found"/>

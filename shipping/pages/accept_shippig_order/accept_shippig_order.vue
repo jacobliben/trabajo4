@@ -210,13 +210,17 @@
 				 		 
 				 </view>
 			 </view>
-			 
+			
 			 <view class="cu-form-group">
 				 <view>
 				 	<text class="name">发货地址</text>			 
 				 </view>
 				 <view>
-				 	<text class="ref-name">{{received_info.iscmWaybillInformationRecord.shipperAddress}}</text>			 
+				 	<input type="text" class="ref-name-m" disabled
+				 	 :value = "received_info.iscmWaybillInformationRecord.shipperProvinceName
+				 	 +received_info.iscmWaybillInformationRecord.shipperCityName
+				 	 +received_info.iscmWaybillInformationRecord.shipperRegionName
+				 	 +received_info.iscmWaybillInformationRecord.shipperAddress">					 
 				 	 
 				 </view>
 			 </view>
@@ -251,14 +255,18 @@
 				 		 
 				 </view>
 			 </view>
-			 
+		
 			 <view class="cu-form-group">
 				 <view>
 				 	<text class="name">收货地址</text>			 
 				 </view>
 				 <view>
-				 	<!-- <text class="ref-name">{{received_info.iscmWaybillInformationRecord.consigneeAddress}}</text> -->			 
-				 	<input type="text" class="ref-name-m" disabled :value = "received_info.iscmWaybillInformationRecord.consigneeAddress">		 
+				 		 
+				 	<input type="text" class="ref-name-m" disabled
+					 :value = "received_info.iscmWaybillInformationRecord.consigneeProvinceName
+					 +received_info.iscmWaybillInformationRecord.consigneeCityName
+					 +received_info.iscmWaybillInformationRecord.consigneeRegionName
+					 +received_info.iscmWaybillInformationRecord.consigneeAddress">		 
 				 </view>
 			 </view>
 			 
@@ -709,13 +717,14 @@
    	 color:#999999;
     }
     .ref-name{
-    		 font-size:25rpx;
-   		 color:#999;
+    		 font-size:30rpx;
+   		
     }
 	
 	.ref-name-m{
 		
-		padding-left:50%;
+		padding-left:40%;
+		padding-right:0;
 	}
    
 </style>

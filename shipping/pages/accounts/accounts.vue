@@ -21,7 +21,8 @@
 	   
 	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goDispatchBefore" v-if="show_dispatch_before"  >
 	   		   <view class="lite-bar">
-	   		        <image src="/static/billboard.svg"  class="sm-pic"></image>
+	   		       <!-- <image src="/static/billboard.svg"  class="sm-pic"></image> -->
+				   <text class="sm-pic billboard"></text>
 	   			     <text class="lite-title">历史派车单</text>
 	   			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -29,7 +30,8 @@
 	   
 	   <view class="cu-form-group" v-if="false">
 		   <view class="lite-bar">
-		        <image src="/static/card.png"  class="sm-pic"></image>
+		       <!-- <image src="/static/card.png"  class="sm-pic"></image> -->
+			    <text class="sm-pic card"></text>
 	   			<text class="lite-title">结算申请</text>
 			</view>		
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -55,7 +57,7 @@
 	   
 	   <view class="cu-form-group" @click="goVehicle"  v-if="show_vehicle" >
 		   <view class="lite-bar">
-		   	    <image src="/static/cars.png"  class="sm-pic"></image>
+		   	    <text class="sm-pic cars"></text>
 				<text class="lite-title">车辆管理</text>
 			</view> 
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -63,7 +65,8 @@
 	   
 	   <view class="cu-form-group" @click="goBankCard" v-if="show_bankcard" >
 	   		   <view class="lite-bar">
-	   		   	    <image src="/static/archive.svg"  class="sm-pic"></image>
+	   		   	   <!-- <image src="/static/archive.svg"  class="sm-pic"></image> -->
+				   <text class="sm-pic archive"></text>
 	   				<text class="lite-title">银行卡管理</text>
 	   			</view> 
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -71,7 +74,8 @@
 	   
 	   <view class="cu-form-group" @click="goDriver" v-if="show_driver" >
 	   		   <view class="lite-bar">
-	   		   	    <image src="/static/driver.svg"  class="sm-pic"></image>
+	   		   	   <!-- <image src="/static/driver.svg"  class="sm-pic"></image> -->
+				   <text class="sm-pic driver"></text>
 	   				<text class="lite-title">司机管理</text>
 	   			</view> 
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -79,7 +83,8 @@
 	   
 	   <view class="cu-form-group" @click="goPersonalInfo" >
 		   <view class="lite-bar">
-		   	    <image src="/static/brain.svg"  class="sm-pic"></image>
+		   	   <!-- <image src="/static/brain.svg"  class="sm-pic"></image> -->
+			   <text class="sm-pic brain"></text>
 	   			<text class="lite-title">个人资料</text>
 			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -103,7 +108,8 @@
 	   
 	   <view class="cu-form-group" @click="phoneCall"  >
 	   		   <view class="lite-bar">
-	   		   	    <image src="/static/speech.svg"  class="sm-pic"></image>
+	   		   	  <!--  <image src="/static/speech.svg"  class="sm-pic"></image> -->
+					 <text class="sm-pic speech"></text>
 	   			<text class="lite-title">客服热线</text>
 	   			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -111,7 +117,8 @@
 	   
 	   <view class="cu-form-group" @click="logout" >
 	   		   <view class="lite-bar">
-	   		   	    <image src="/static/wrench.svg"  class="sm-pic" ></image>
+	   		   	    <!-- <image src="/static/wrench.svg"  class="sm-pic" ></image> -->
+				 <text class="sm-pic wrench"></text>	
 	   			<text class="lite-title">退出登录</text>
 	   			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -144,6 +151,7 @@
 		},
 		
 		async onLoad(options){
+					
 			const token = uni.getStorageSync('token')
 			   //get this user's permission rights
 			   const resUserInfo = await this.$request({
@@ -196,7 +204,7 @@
 				   	
 				   }
 				
-		  
+		          
 		},
 		async onShow(){
 			try {
@@ -514,6 +522,9 @@
 		 width:50rpx;
 		 height:50rpx;
 		 margin-right:10rpx;
+		 background-size: 45rpx 45rpx;
+		  background-repeat: no-repeat;
+		  padding-left:60rpx;
 	 }
 	 
 	 .flex-bar{
@@ -543,5 +554,39 @@
 	 	position: fixed;
 	 	border: 0;
 	 	left:0;
+	 }
+	 
+	 .billboard{
+		 background-image: url(../../static/billboard.svg);
+		 
+	 }
+	 
+	 .card{
+	 		 background-image: url(../../static/card.png);
+	 }
+	 
+	 .cars{
+	 		 background-image: url(../../static/cars.png);
+			  
+	 }
+	 
+	 .archive{
+	 		 background-image: url(../../static/archive.svg);
+	 }
+	 
+	 .driver{
+	 		 background-image: url(../../static/driver.svg);
+	 }
+	 
+	 .brain{
+	 		 background-image: url(../../static/brain.svg);
+	 }
+	 
+	 .speech{
+	 		 background-image: url(../../static/speech.svg);
+	 }
+	 
+	 .wrench{
+	 		 background-image: url(../../static/wrench.svg);
 	 }
 </style>

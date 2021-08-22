@@ -316,8 +316,11 @@
 				 	<text class="name">收货地址</text>			 
 				 </view>
 				 <view>
-				 			 
-				 	<input type="text" v-if="received_info.iscmDispatchInformationRecord!= null" class="ref-name flex-group" disabled :value = "received_info.iscmDispatchInformationRecord.consigneeAddress">		 
+				 	<input type="text" class="ref-name-m" disabled v-if="received_info.iscmDispatchInformationRecord!= null"
+				 	 :value = "received_info.iscmDispatchInformationRecord.consigneeProvinceName
+				 	 +received_info.iscmDispatchInformationRecord.consigneeCityName
+				 	 +received_info.iscmDispatchInformationRecord.consigneeRegionName
+				 	 +received_info.iscmDispatchInformationRecord.consigneeAddress">
 				 </view>
 			 </view>
 			 
@@ -345,19 +348,7 @@
 			
 		</view>
 		
-		<view class="cu-form-group" v-if="this.btn_title==='装货'||this.btn_title==='发车'||this.btn_title==='签收'">
-			<!-- <image src="/static/notes.png" mode="aspectFit" class="person-img"></image> -->
-			
-				<view class="name black">备注</view>
-				<view class="ref-name">
-					
-					<input class="cellphone" @input="getNote"
-					type="text" maxlength="100"
-					 placeholder="请输入备注"></input>
-					
-				</view>
-			
-		</view>
+		
 		
 		<view class="cu-form-group">
 			<!-- <image src="/static/chronometer.png" mode="aspectFit" class="person-img"></image> -->
@@ -373,6 +364,20 @@
 			</view> -->
 		</view>
 		
+		
+		<view class="cu-form-group" v-if="this.btn_title==='装货'||this.btn_title==='发车'||this.btn_title==='签收'">
+			<!-- <image src="/static/notes.png" mode="aspectFit" class="person-img"></image> -->
+			
+				<view class="name black">备注</view>
+				<view class="ref-name">
+					
+					<input class="remark" @input="getNote"
+					type="text" maxlength="100"
+					 placeholder="请输入备注"></input>
+					
+				</view>
+			
+		</view>
 		
 		<view class="bars" v-if=" canDispatch && (btn_title==='装货'||this.btn_title==='发车'||this.btn_title==='签收') ">
 			
@@ -1250,17 +1255,25 @@
    }
    .ref-name{
    		 font-size:30rpx;
-  		 color:#999;
+  		
    }
 .red{
 	color:#f00;
 }
  
- .black{
-	 color:#333;
- }  
  
  
+ .ref-name-m{
+ 	
+ 	padding-left:40%;
+ 	padding-right:0;
+ }
+ 
+ .remark{
+ 	
+ 	padding-left:60%;
+ 	padding-right:0;
+ }
  
  
  .goods-sec{
@@ -1423,4 +1436,6 @@
 	
 	  margin-right: 30rpx;
   }
+  
+  
 </style>

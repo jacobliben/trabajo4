@@ -428,10 +428,39 @@
 															  uni.showToast({
 															  	title:"注册成功！"
 															  })
+															 
+															  try {
+															      uni.removeStorageSync('params_phone');
+																  uni.removeStorageSync('params_business');
+																  uni.removeStorageSync('params_vehicle');
+																  uni.removeStorageSync('params_license');
+																  uni.removeStorageSync('params_bank');
+																  uni.removeStorageSync('params_photos');
+																  //clear photo storage
+																  uni.removeStorageSync('legalPersonCerFront');
+																  uni.removeStorageSync('legalPersonCerReverse');
+																  uni.removeStorageSync('carrierCardFront');
+																  uni.removeStorageSync('carrierRoadTransportBusinessLicense');
+																  uni.removeStorageSync('vehicleLicensePhotoFirst');
+																  uni.removeStorageSync('vehicleLicensePhotoSecond');
+																  uni.removeStorageSync('vehicleRoadcertPhoto');
+																  uni.removeStorageSync('trailerLicensePhotoFirst');
+																  uni.removeStorageSync('peopleVehiclePhoto');
+																  uni.removeStorageSync('idcardFront');
+																  uni.removeStorageSync('idcardBack');
+																  uni.removeStorageSync('drivingLicensePhotoFirst');
+																  uni.removeStorageSync('qualificationCertPhoto');
+																  uni.removeStorageSync('carrierCardReverse');
+															  } catch (e) {
+															      // error
+															  }
 															  
-															 uni.reLaunch({
-															 		url:"/pages/finish_registering/finish_registering"
-															 	}) 
+															  setTimeout(()=>{
+															  	uni.reLaunch({
+															  			url:"/pages/finish_registering/finish_registering"
+															  		}) 
+															  },1000)
+															 
 															  
 							}
 							

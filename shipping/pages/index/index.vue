@@ -57,16 +57,18 @@
 					<image src="/static/ordered-record.png" mode="aspectFit"></image>
 					<text>运单接收</text>
 				</view>
-				<view class="one-icon " hover-class="one-icon-hover" @tap="goOrderReceiving" v-if="show_shipping_order">
-					<image src="/static/calculator.png" mode="aspectFit"></image>
-					<text>派车单</text>
-				</view>
+				
 				
                   <view class="one-icon" hover-class="one-icon-hover" @click="goOrderDistributing"
                   	v-if="show_shipping_order">
                   	<image src="/static/delivery.png" mode="aspectFit"></image>
                   	<text>分配运力</text>
                   </view>
+				  
+				  <view class="one-icon " hover-class="one-icon-hover" @tap="goVehicle" v-if="show_shipping_order">
+				  	<image src="/static/calculator.png" mode="aspectFit"></image>
+				  	<text>车辆管理</text>
+				  </view>
 
 				<view class="one-icon" hover-class="one-icon-hover" @click="goHall" v-if="show_shipping_order">
 					<image src="/static/home-drivers.png" mode="aspectFit"></image>
@@ -254,6 +256,11 @@
 
 		},
 		async onLoad() {
+			//initialize the global data 
+			const now_page_shipping = getApp().globalData.shipping_order_page
+			const now_page_waybill = getApp().globalData.way_bill_page
+			
+			
 			const token = uni.getStorageSync('token')
 			//get this user's permission rights
 			const resUserInfo = await this.$request({
@@ -520,6 +527,12 @@
 					url: `/pages/accounts/accounts`
 				})
 			},
+			
+			goVehicle(){
+				uni.navigateTo({
+					url:'/pages/vehicle_list/vehicle_list'
+				})
+			},
 			goShippingOrder() {
 				uni.switchTab({
 					url: "/pages/shipping_order/shipping_order"
@@ -534,11 +547,12 @@
 			goHall() {
 
 				uni.switchTab({
-					url: "/pages/hall/hall"
+					url: "/pages/hall_opener/hall_opener"
 				})
 			},
 			goDespatching() {
-				uni.setStorageSync("nav_state", "dispatching")
+				getApp().globalData.way_bill_page = 1
+				
 				uni.switchTab({
 					url: `/pages/way_bill/way_bill`
 				})
@@ -549,7 +563,7 @@
 				})
 			},
 			goReceiving() {
-				uni.setStorageSync("nav_state", "receiving")
+				getApp().globalData.way_bill_page = 2
 				uni.switchTab({
 
 					url: `/pages/way_bill/way_bill`
@@ -562,13 +576,14 @@
 			},
 
 			goLoading() {
-				uni.setStorageSync("nav_state", "loading")
+				getApp().globalData.way_bill_page = 0
 				uni.switchTab({
 					url: `/pages/way_bill/way_bill`
 				})
 			},
 			goOrderReceiving() {
-				uni.setStorageSync("nav_state", "order-receiving")
+				
+				getApp().globalData.shipping_order_page = 0
 				uni.switchTab({
 
 					url: `/pages/shipping_order/shipping_order`
@@ -576,7 +591,7 @@
 			},
 
 			goOrderDistributing() {
-				uni.setStorageSync("nav_state", "order-distributing")
+				getApp().globalData.shipping_order_page = 1
 				uni.switchTab({
 
 					url: `/pages/shipping_order/shipping_order`

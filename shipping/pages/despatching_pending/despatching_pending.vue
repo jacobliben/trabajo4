@@ -69,10 +69,14 @@
 					</view>
 				
 			</view>
-			
 			<view class="address">
-				<text>收货地址：{{item.iscmDispatchInformationRecord.consigneeAddress}}</text>
+				<text>收货地址：{{item.iscmDispatchInformationRecord.consigneeProvinceName}}
+				<text>{{item.iscmDispatchInformationRecord.consigneeCityName}}</text>
+				<text>{{item.iscmDispatchInformationRecord.consigneeRegionName}}</text>
+				<text>{{item.iscmDispatchInformationRecord.consigneeAddress}}</text>
+				</text>
 			</view>
+			
 		</view>
 		<info-not-found v-if ="show_not_found"/>
 		</scroll-view>
