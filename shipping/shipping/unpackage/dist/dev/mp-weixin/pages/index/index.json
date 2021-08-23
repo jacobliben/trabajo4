@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "徐工智联",
+  "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "tabbar": "/pages/tab_bar/tab_bar"
+  }
+}

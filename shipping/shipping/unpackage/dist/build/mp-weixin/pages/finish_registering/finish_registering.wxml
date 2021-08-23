@@ -1,0 +1,1 @@
+<view class="data-v-7143dcf9"><view class="title data-v-7143dcf9">恭喜您，您的账户和密码已经成功创建！</view><view class="btn-row data-v-7143dcf9"><button data-event-opts="{{[['tap',[['goIndex',['$event']]]]]}}" class="next-btn bg-gradual-green round data-v-7143dcf9" bindtap="__e">进入登录页</button></view></view>

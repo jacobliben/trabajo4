@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "运单",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "receiving-shipping-order": "/pages/receiving_shipping_order/receiving_shipping_order",
+    "distribute-drivers": "/pages/distribute_drivers/distribute_drivers"
+  }
+}

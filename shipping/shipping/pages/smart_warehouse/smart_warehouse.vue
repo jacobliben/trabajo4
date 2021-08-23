@@ -1,0 +1,82 @@
+<template>
+	<view>
+		<view class="title">智能立体库助力徐工智联增速加码</view>
+		<view class="date">2021-03-02 15:47</view>
+		<view class="body">
+			<view class="sub-body">
+				随着现代物流的高速发展，智能化仓储设备在今天越来越普及。在徐工智联液压件物流部，智能立体库的使用为徐工智联增速加码。该立体库充分利用了垂直空间，在占地面积仅有754㎡的情况下，实际可使用面积达到了5600㎡。
+			</view>
+			 
+			 <view>
+				<!-- <image src="/static/smart-warehouse.jpg" class="article-img" mode="widthFix"></image> -->
+				 <image src="/static/swiper03.jpg" class="article-img" mode="widthFix"></image>
+			 </view>
+			 <view class="sub-body">
+				 “相比以往人工识别查找、纸质单据传递、人工汇总管理的工作模式，智能立体库采用手持终端扫码收发，全程无纸化信息传递，进行可视化管理和智能化信息管理分析，完全实现了机械化和自动化。”液压物流部经理王进进介绍。
+			 </view>
+			 
+			 <view class="sub-body">
+				 从过去“人找货”到现在“货找人”，物料出入库效率从20托盘/小时，增加到40托盘/每小时，工作效率提高了50%。通过智能化手段，物料可以精确做到“先进先出”，进一步防止其损坏、丢失。同时还减少了劳动强度，释放出约15%的人力资源，为公司实现了降本增效。此外，库区的电子显示器可以实时显示库存状态、库存占用情况及低库存预警信息，方便管理人员随时了解库存情况，根据生产计划及时调整物料收发。
+			 </view>
+			 
+			 <view class="sub-body">
+				 据了解，液压件物流部将持续优化仓储流程，提高人员技能素养，为公司高质量发展贡献力量。
+			 </view>
+		</view>
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				
+			}
+		},
+		methods: {
+			
+		}
+	}
+</script>
+
+<style lang="scss" scoped>
+ .title{
+	 text-align: center;
+	 color:#1f1698;
+	 font-size: 30rpx;
+	 font-weight: 600;
+	 margin:10rpx;
+ }
+ .body{
+	 width:100%;
+	 padding: 15rpx;
+	
+	
+ }
+ .date{
+	 color:#999;
+	 font-size: 20rpx;
+	display: flex;
+	justify-content: center;
+ }
+ .article-img{
+	 width: 750rpx;
+	  
+ }
+ .sub-title{
+	 margin:10rpx 5rpx;
+	 font-size: 30rpx;
+	
+ }
+ .sub-body{
+	 width:90%;
+	 display: flex;
+	 margin-left: 5%;
+	 
+	 text-indent: 70rpx;
+	  font-size: 25rpx;
+	  letter-spacing: 5rpx;
+	  line-height:35rpx ;
+	  margin-bottom: 20rpx;
+ }
+</style>

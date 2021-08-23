@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "徐工智联",
+  "usingComponents": {
+    "min-badge": "/components/min-badge/min-badge",
+    "cmd-notice-bar": "/components/cmd-notice-bar/cmd-notice-bar"
+  }
+}
