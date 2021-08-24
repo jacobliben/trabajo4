@@ -123,8 +123,11 @@
 				uni.setNavigationBarTitle({
 					title:`${this.now_state.text}`
 				})
+				
 			
-			const user_permissions= uni.getStorageSync("user_info").data.permissions
+				const user_permissions= uni.getStorageSync("user_info").data.permissions
+			
+			
 			
 			//确定“发车”等按钮是否可以显示
 			if (this.btn_text ==="查阅" ||this.btn_text ==="查看"){

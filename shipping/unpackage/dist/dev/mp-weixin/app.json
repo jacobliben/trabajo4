@@ -98,7 +98,9 @@
     "pages/hall/hall",
     "pages/cada_quote/cada_quote",
     "pages/hall_opener/hall_opener",
-    "pages/tab_bar/tab_bar"
+    "pages/tabbar_index/tabbar_index",
+    "pages/tabbar_waybill/tabbar_waybill",
+    "pages/tabbar_accounts/tabbar_accounts"
   ],
   "subPackages": [],
   "window": {
@@ -109,6 +111,7 @@
     "enablePullDownRefresh": false
   },
   "tabBar": {
+    "custom": true,
     "list": [
       {
         "text": "首页",

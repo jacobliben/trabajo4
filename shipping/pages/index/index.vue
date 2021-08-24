@@ -374,8 +374,14 @@
 			}
 			var that = this
 			this.gotRouter()
+			
+			try {
+				this.user = uni.getStorageSync("user_info")
+			} catch (e) {
+				// error
+			}
 
-			this.user = uni.getStorageSync("user_info")
+			
 			if (!this.user || this.user == undefined || this.user == null) {
 				uni.navigateTo({
 					url: "/pages/login/login"
@@ -443,7 +449,14 @@
 			}
 
 		},
-
+        onPullDownRefresh() {
+			console.log("111")
+        	this.getShippingInfoList()
+			
+			setTimeout(()=>{
+			  uni.stopPullDownRefresh()	
+			},3000)
+        },
 		onHide() {
 			//restore the original shipping order status
 			this.show_shipping_order = true
@@ -506,7 +519,8 @@
 					data: queryParams
 				})
 
-
+                
+				
 				if (!res.data.rows || res.data.rows.length == 0) {
 					this.show_shipping_list = false
 					return
@@ -515,6 +529,8 @@
 				} else {
 					this.shipping_info_list = res.data.rows
 				}
+				
+				
 
 			},
 			goMessage() {

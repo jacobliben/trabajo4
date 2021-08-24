@@ -1,1 +1,0 @@
-<view class="data-v-760b2d74"><view class="details-body data-v-760b2d74"></view><button class="submit-btn data-v-760b2d74" type="default" loading="{{loading}}" disabled="{{disabled}}" size="mini" data-event-opts="{{[['tap',[['accept',['$event']]]]]}}" bindtap="__e">{{btn_title}}</button></view>

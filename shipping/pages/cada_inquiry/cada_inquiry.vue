@@ -151,33 +151,37 @@
 											     </view>
 								</view>
 								
-								<view class="cu-form-group">
-											     <view class="name">运输{{txt}}价(元)<text class="star">*</text></view>
-											     <view class="ref-name">
-											     	<input type="number" :value="quotePrice" placeholder="请输入运输价"   @input ="getQuotePrice">
-											     </view>
+								
+								<view v-if = "canSeeInquiry">
+									<view class="cu-form-group">
+												     <view class="name">运输{{txt}}价(元)<text class="star">*</text></view>
+												     <view class="ref-name">
+												     	<input type="number" :value="quotePrice" placeholder="请输入运输价"   @input ="getQuotePrice">
+												     </view>
+									</view>
+									
+									<view class="cu-form-group">
+												     <view class="name">运输重量(吨)<text class="star">*</text></view>
+												     <view class="ref-name">
+												     	<input type="number" :value="transportWeight" placeholder="请输入运输重量"   @input ="getTransportWeight">
+												     </view>
+									</view>
+									
+									<view class="cu-form-group">
+												     <view class="name">运输天数(天)</view>
+												     <view class="ref-name">
+												     	<input type="number" placeholder="请输入运输天数"   @input ="getTransportDays">
+												     </view>
+									</view>
+									
+									<view class="cu-form-group">
+												     <view class="name">备注</view>
+												     <view class="ref-name">
+												     	<input type="text" placeholder="请输入备注"  :value="remark" @input ="getRemark">
+												     </view>
+									</view>
 								</view>
 								
-								<view class="cu-form-group">
-											     <view class="name">运输重量(吨)<text class="star">*</text></view>
-											     <view class="ref-name">
-											     	<input type="number" :value="transportWeight" placeholder="请输入运输重量"   @input ="getTransportWeight">
-											     </view>
-								</view>
-								
-								<view class="cu-form-group">
-											     <view class="name">运输天数(天)</view>
-											     <view class="ref-name">
-											     	<input type="number" placeholder="请输入运输天数"   @input ="getTransportDays">
-											     </view>
-								</view>
-								
-								<view class="cu-form-group">
-											     <view class="name">备注</view>
-											     <view class="ref-name">
-											     	<input type="text" placeholder="请输入备注"  :value="remark" @input ="getRemark">
-											     </view>
-								</view>
 					      
 					  
 					
@@ -188,7 +192,7 @@
 						   @click="backBusiness">返回</button>
 						<button class="next-btn round margin-bottom"  :class="{'bg-gradual-green':active}"
 								  :disabled="disabled"
-						form-type="submit">报价</button> 
+						form-type="submit" v-if = "canSeeInquiry">报价</button> 
 											
 					</view>
 				
@@ -230,7 +234,7 @@
 				letEnable:false,
 				
 				
-				
+				canSeeInquiry:true,
 				disabled:true,
 				active:false,
 			}
@@ -245,13 +249,18 @@
 			//计价方式
 			this.getSettlementMethodOptions()
 			
+			try {
+			    this.received_info = uni.getStorageSync("inquiry_item")
+				var authorization = uni.getStorageSync("token")												
+			} catch (e) {
+			    // error
+			}
 			
-			this.received_info = uni.getStorageSync("inquiry_item")
 			
 			
 			const enquiryId = this.received_info.enquiryId
 			
-			var authorization = uni.getStorageSync("token")
+			
 			 
 								  const res = await this.$request({
 								  	 	url:"/app/enquiry/getEnquiryInfo/" + enquiryId ,
@@ -339,6 +348,24 @@
 					
 					immediate:true, // watch侦听操作内的函数会立刻被执行
 				},
+				
+		onShow() {
+			try {
+			    this.canSeeInquiry = uni.getStorageSync("canSeeInquiry")
+															
+			} catch (e) {
+			    // error
+			}
+		},	
+			
+		onHide() {
+			try {
+			     uni.removeStorageSync("canSeeInquiry")
+															
+			} catch (e) {
+			    // error
+			}
+		},	
 		methods: {
 			// 货物分类字典
 			async getGoodsTypeOptions(){
@@ -626,6 +653,7 @@
   
   .minput{
 	   color:#999; 
+	   font-size:29rpx ;
 	   
   }
    

@@ -182,10 +182,10 @@
   color: #999999;
 }
 .ref-name.data-v-760b2d74 {
-  font-size: 25rpx;
-  color: #999;
+  font-size: 30rpx;
 }
 .ref-name-m.data-v-760b2d74 {
-  padding-left: 50%;
+  padding-left: 40%;
+  padding-right: 0;
 }
 

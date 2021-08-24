@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "个人资料",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "input-id": "/components/register/input_id",
-    "xfl-select": "/components/xfl-select/xfl-select",
-    "ss-select-city": "/components/ss-select-city/index"
-  }
-}

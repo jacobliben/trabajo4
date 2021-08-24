@@ -274,6 +274,13 @@
 			<!-- #endif --> 
 		</view>
 		  
+		 <checkbox-group class="check-contract">
+		                    
+		                     <label>
+		                         <checkbox :value="terms_checked" :checked="terms_checked" @click="checkChange" />请同意并签署 <text class="contract" @click="goContract">《承运合同》</text>
+		                     </label>
+		 </checkbox-group> 
+		  
 		<button type="default" class="submit-btn" :loading="loading" :disabled="disabled" size="mini" @click="accept" >{{btn_title}}</button>
 		
 		
@@ -297,7 +304,7 @@
 			return {
 				 percent:0,
 				 loading:false,
-				 disabled:false,
+				 disabled:true,
 				imgGoodsUrl:"/static/camera-scan.png",
 				imgOrderUrl:"/static/camera-scan.png",
 				tachar_scan:false,
@@ -322,9 +329,22 @@
 				packageTypeSendValue: [],
 				package_type_index:0,
 				
+				terms_checked: false,
 			};
 		},
-		
+		watch: {
+			
+			terms_checked(newValue, oldValue) {
+				if (newValue == true){
+					console.log(this.terms_checked,"terms_checked");
+					this.disabled = false
+				}else{
+					console.log(this.terms_checked,"terms_checked");
+					this.disabled = true
+				}
+				
+			}
+		},
 	
 		async onLoad(options){
 			var that = this
@@ -477,6 +497,17 @@
 				
 			},
 			
+			checkChange(evt){
+				
+				this.terms_checked = !this.terms_checked
+			},
+			
+			
+			goContract(){
+				uni.navigateTo({
+					url:"/pages/carrier_contract/carrier_contract"
+				})
+			},
 			
 			async accept(){
 				var that = this
@@ -726,5 +757,14 @@
 		padding-left:40%;
 		padding-right:0;
 	}
+	
+	.check-contract{
+		margin:40rpx  0 20rpx 20rpx;
+	}
    
+   
+   .contract{
+	   color:#1684FC;
+	   font-weight: 600;
+   }
 </style>

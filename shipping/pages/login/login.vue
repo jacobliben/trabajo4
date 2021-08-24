@@ -38,7 +38,9 @@
 			<button  form-type="submit"  class="login-btn margin-top margin-bottom text-center self-center radius" data-class="fade" role="button" :disabled="login_disable">
 				<text class="self-center">立即登录</text>
 			</button>
-			
+			<view>
+				{{version}}
+			</view>
 			<!-- <view class="login-inputs radius">
 				<view class="user-login">
 					<text class="cuIcon-people text-style text-blue"></text>
@@ -174,7 +176,7 @@
 				code:"",
 				hidePass:true,
 				
-				version:20.0,
+				
 				new_version:"",
 				new_version_describe:"",
 				appDownload:"",
@@ -190,24 +192,15 @@
 				terms_checked:true,
 				login_disable:true,
 				
-				update_flag:0
+				update_flag:0,
+				version:0,
 			}
 		},
 		
 		created() {
-			try {
-			    const value = uni.getStorageSync('update_flag');
-			    if (value) {
-			        this.update_flag = value
-			    }
-			} catch (e) {
-			    // error
-			}
 			
-			if (update_flag==0){
-				 this.AndroidCheckUpdate();
-			}
 			
+			this.AndroidCheckUpdate();
 			
 		},
 		mounted() {
@@ -437,17 +430,22 @@
 			             */
 			 
 			async AndroidCheckUpdate(){ 
+				
 				var that = this
+				that.version = plus.runtime.version
 				const res = await this.$request({
 					url:"/iscm/appVersion/version/" + that.version,
 					
 				})
-				
-				
+				console.log(res,"version");
+				//download url 
 				that.appDownload = res.data.data.download
+				//the most latest app version in the server
 				const appVersion = res.data.data.appVersion
+				
 				const oldVersion = that.version
-				const notForced = res.data.data.isUse
+				//forced updating or not 
+				const notForced = res.data.data.use
 				
 				if (notForced == false){
 					that.force_update = true
@@ -456,10 +454,15 @@
 				}
 				this.new_version = appVersion
 				this.new_version_describe = res.data.data.appDescribe
+				
+				
 				if (oldVersion<appVersion){
-					that.showModal()
+					
+						that.showModal()
+					
+					
 					   
-					   }                 
+			  }                 
 					
 					
 			},

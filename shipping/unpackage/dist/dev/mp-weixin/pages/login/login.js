@@ -325,6 +325,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _vuex = __webpack_require__(/*! vuex */ 12);
 
 
@@ -344,7 +346,7 @@ var Base64 = _base.default.Base64;var _default =
       code: "",
       hidePass: true,
 
-      version: 20.0,
+
       new_version: "",
       new_version_describe: "",
       appDownload: "",
@@ -360,24 +362,15 @@ var Base64 = _base.default.Base64;var _default =
       terms_checked: true,
       login_disable: true,
 
-      update_flag: 0 };
+      update_flag: 0,
+      version: 0 };
 
   },
 
   created: function created() {
-    try {
-      var value = uni.getStorageSync('update_flag');
-      if (value) {
-        this.update_flag = value;
-      }
-    } catch (e) {
-      // error
-    }
 
-    if (update_flag == 0) {
-      this.AndroidCheckUpdate();
-    }
 
+    this.AndroidCheckUpdate();
 
   },
   mounted: function mounted() {
@@ -607,17 +600,22 @@ var Base64 = _base.default.Base64;var _default =
                   */
 
     AndroidCheckUpdate: function AndroidCheckUpdate() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var that, res, appVersion, oldVersion, notForced;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
-                that = _this2;_context2.next = 3;return (
+
+                that = _this2;
+                that.version = plus.runtime.version;_context2.next = 4;return (
                   _this2.$request({
-                    url: "/iscm/appVersion/version/" + that.version }));case 3:res = _context2.sent;
+                    url: "/iscm/appVersion/version/" + that.version }));case 4:res = _context2.sent;
 
 
-
-
+                console.log(res, "version");
+                //download url 
                 that.appDownload = res.data.data.download;
+                //the most latest app version in the server
                 appVersion = res.data.data.appVersion;
+
                 oldVersion = that.version;
-                notForced = res.data.data.isUse;
+                //forced updating or not 
+                notForced = res.data.data.use;
 
                 if (notForced == false) {
                   that.force_update = true;
@@ -626,10 +624,15 @@ var Base64 = _base.default.Base64;var _default =
                 }
                 _this2.new_version = appVersion;
                 _this2.new_version_describe = res.data.data.appDescribe;
+
+
                 if (oldVersion < appVersion) {
+
                   that.showModal();
 
-                }case 12:case "end":return _context2.stop();}}}, _callee2);}))();
+
+
+                }case 14:case "end":return _context2.stop();}}}, _callee2);}))();
 
 
     } },

@@ -578,41 +578,41 @@
 				    }
 				})
 		    
-			const total_shipper_address = that.received_info.iscmDispatchInformationRecord.shipperProvinceName 
-			+ that.received_info.iscmDispatchInformationRecord.shipperCityName 
-			+ that.received_info.iscmDispatchInformationRecord.shipperRegionName 
-			+ that.received_info.iscmDispatchInformationRecord.shipperAddress
-			console.log(total_shipper_address,'total_shipper_address')
+			// const total_shipper_address = that.received_info.iscmDispatchInformationRecord.shipperProvinceName 
+			// + that.received_info.iscmDispatchInformationRecord.shipperCityName 
+			// + that.received_info.iscmDispatchInformationRecord.shipperRegionName 
+			// + that.received_info.iscmDispatchInformationRecord.shipperAddress
+			// console.log(total_shipper_address,'total_shipper_address')
 			
-			const total_consignee_address = that.received_info.iscmDispatchInformationRecord.consigneeProvinceName
-			+ that.received_info.iscmDispatchInformationRecord.consigneeCityName
-			+ that.received_info.iscmDispatchInformationRecord.consigneeRegionName
-			+ that.received_info.iscmDispatchInformationRecord.consigneeAddress
-			console.log(total_consignee_address,'total_consignee_address')
-			//解析目的地地址信息
-				uni.request({
-					//传入高德web服务端key和发货地址
-					 url: `https://restapi.amap.com/v3/geocode/geo?address=${total_shipper_address}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
-					// #ifdef APP-PLUS
-					success:(res)=>{
+			// const total_consignee_address = that.received_info.iscmDispatchInformationRecord.consigneeProvinceName
+			// + that.received_info.iscmDispatchInformationRecord.consigneeCityName
+			// + that.received_info.iscmDispatchInformationRecord.consigneeRegionName
+			// + that.received_info.iscmDispatchInformationRecord.consigneeAddress
+			// console.log(total_consignee_address,'total_consignee_address')
+			// //解析目的地地址信息
+			// 	uni.request({
+			// 		//传入高德web服务端key和发货地址
+			// 		 url: `https://restapi.amap.com/v3/geocode/geo?address=${total_shipper_address}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
+			// 		// #ifdef APP-PLUS
+			// 		success:(res)=>{
 						
-							this.startCountrySubdivisionCode  = res.data.geocodes[0].adcode
-							var main = plus.android.runtimeMainActivity();	
-							main.data =	this.startCountrySubdivisionCode					   
-							 uni.request({
-							 	//传入高德web服务端key和目的地址
-							 	 url: `https://restapi.amap.com/v3/geocode/geo?address=${total_consignee_address}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
+			// 				this.startCountrySubdivisionCode  = res.data.geocodes[0].adcode
+			// 				var main = plus.android.runtimeMainActivity();	
+			// 				main.data =	this.startCountrySubdivisionCode					   
+			// 				 uni.request({
+			// 				 	//传入高德web服务端key和目的地址
+			// 				 	 url: `https://restapi.amap.com/v3/geocode/geo?address=${total_consignee_address}&key=ae8b30ff7c227fb962010579230bf568`, //请求地名变经纬度
 							 	
-							 	success:(res)=>{
+			// 				 	success:(res)=>{
 							 		     
-							 			 this.endCountrySubdivisionCode  = res.data.geocodes[0].adcode
+			// 				 			 this.endCountrySubdivisionCode  = res.data.geocodes[0].adcode
 							 			  
 										 
-							     }
-							 })	 
-				    },
-					// #endif
-				})
+			// 				     }
+			// 				 })	 
+			// 	    },
+			// 		// #endif
+			// 	})
 			
 			// #ifdef APP-PLUS
 			//Android 获取定位经纬度
@@ -945,9 +945,13 @@
 						 const shippingNoteNumber = this.upload_info.waybillNo
 						 const serialNumber = "0000"
 						 
-						const startCountrySubdivisionCode = this.startCountrySubdivisionCode                                                             
-						const endCountrySubdivisionCode =  this.endCountrySubdivisionCode
+						const startCountrySubdivisionCode = this.received_info.iscmDispatchInformationRecord.shipperRegion                                                            
+						const endCountrySubdivisionCode =  this.received_info.iscmDispatchInformationRecord.consigneeRegion
 						
+						console.log(shippingNoteNumber,"shippingNoteNumber");
+						console.log(serialNumber,"serialNumber");
+						console.log(startCountrySubdivisionCode,"startCountrySubdivisionCode");
+						console.log(endCountrySubdivisionCode,"endCountrySubdivisionCode");
 						
 						//#ifdef APP-PLUS
 						//Android 获取class

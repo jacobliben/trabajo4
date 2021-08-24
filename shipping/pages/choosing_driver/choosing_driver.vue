@@ -1,4 +1,4 @@
-<template>
+ <template>
 	<view class="page">
 	<!-- 	<view class="flex first-row ">
 			<view class="left-first-row">
@@ -85,7 +85,7 @@
 				
 			</view>
 		</view> -->
-			<text class="cuIcon-back lg text-gray tmargin" @click="goBack"></text>
+			<view class="cuIcon-back lg text-gray tmargin" @click="goBack"></view>
 	    <view class="shipping_no">
 			<text class="shipping-title">运单编号：</text>
 			<text>{{received_info.waybillNo}}</text>
@@ -364,6 +364,15 @@
 		methods:{
 			
 			goBack(){
+				try {
+				    uni.removeStorageSync('accepted_shipping_orders');
+					uni.removeStorageSync('chief_driver_choosen');
+					uni.removeStorageSync('dispatch_goods_weight');
+					uni.removeStorageSync('vehicle_choosen');															
+																				  
+				} catch (e) {
+				    // error
+				}
 				
 				uni.reLaunch({
 					url:"/pages/shipping_order/shipping_order"
@@ -841,8 +850,10 @@
 			  font-size: 40rpx;
 			  color:#777;
 		  }
+		  
 	.tmargin{
-		margin-top: 200rpx;
+		
+		margin-top: 180rpx;
 		width:60rpx;
 		height:60rpx ;
 	}	  

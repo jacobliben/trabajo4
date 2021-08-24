@@ -3,7 +3,7 @@
   "enablePullDownRefresh": true,
   "usingComponents": {
     "despatching-pending": "/pages/despatching_pending/despatching_pending",
-    "tabbar": "/pages/tab_bar/tab_bar",
+    "tabbar-waybill": "/pages/tabbar_waybill/tabbar_waybill",
     "overall": "/components/overall"
   }
 }

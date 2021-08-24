@@ -19,7 +19,7 @@
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "徐工智联",
-				"enablePullDownRefresh": false,
+				"enablePullDownRefresh":true,
 				"navigationStyle":"custom",
 				    "app-plus":{
 				       "titleView":false
@@ -31,7 +31,7 @@
 		    "style" :                                                                                    
 		    {
 		        "navigationBarTitleText": "运单",
-		        "enablePullDownRefresh": false,
+		        "enablePullDownRefresh": true,
 				"app-plus": {
 				        "animationType": "pop-in",
 				        "animationDuration": 300
@@ -1037,7 +1037,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "货源大厅",
-                "enablePullDownRefresh": false,
+                "enablePullDownRefresh": true,
 				"app-plus": {
 				        "animationType": "fade-in",
 				        "animationDuration": 300
@@ -1073,13 +1073,22 @@
             }
             
         }
+        ,{
+            "path" : "pages/carrier_contract/carrier_contract",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "承运电子合同",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTitleText":"徐工智联",
 		"navigationBarTextStyle": "black",
 		"navigationBarBackgroundColor": "#f8f8f8",
 		"onReachBottomDistance": 200,
-		"enablePullDownRefresh": false
+		"enablePullDownRefresh":true
 		
 	},
 	"tabBar":{

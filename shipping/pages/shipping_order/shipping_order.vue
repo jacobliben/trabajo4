@@ -86,6 +86,14 @@
 		mounted() {
 			
 		},
+		onPullDownRefresh() {
+			var that = this
+			console.log("shipping_order")
+			this.refresh_index++;
+			setTimeout(()=>{
+				uni.stopPullDownRefresh()	
+			},3000)
+		},
 		methods:{
 			addRefresh(){
 				var that = this

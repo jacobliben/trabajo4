@@ -78,6 +78,12 @@
   height: 60rpx;
   left: 40%;
 }
+.bars view .zoom.data-v-7f6ec634 {
+  position: absolute;
+  width: 60rpx;
+  height: 60rpx;
+  right: 0;
+}
 .bars view .big-image.data-v-7f6ec634 {
   width: 50%;
   height: 150rpx;
@@ -164,13 +170,17 @@
 }
 .ref-name.data-v-7f6ec634 {
   font-size: 30rpx;
-  color: #999;
 }
 .red.data-v-7f6ec634 {
   color: #f00;
 }
-.black.data-v-7f6ec634 {
-  color: #333;
+.ref-name-m.data-v-7f6ec634 {
+  padding-left: 40%;
+  padding-right: 0;
+}
+.remark.data-v-7f6ec634 {
+  padding-left: 60%;
+  padding-right: 0;
 }
 .goods-sec.data-v-7f6ec634 {
   padding: 30rpx;
@@ -326,5 +336,8 @@
   -webkit-box-pack: cneter;
   -webkit-justify-content: cneter;
           justify-content: cneter;
+}
+.action.data-v-7f6ec634 {
+  margin-right: 30rpx;
 }
 

@@ -35,7 +35,7 @@
 			  lower-threshold="200" enable-flex="true" >
 			  
 			<view v-for="(item,index) in inquiry_list" :key="index" class="one_waybill " >
-				<view class="first-row">
+				<view class="first-row" @click="goInquiry(item)">
 				
 					 
 					<text selectable class="num">
@@ -375,12 +375,27 @@
 			quote(item){
 				var that = this
 					uni.setStorageSync('inquiry_item',item)
+					uni.setStorageSync('canSeeInquiry',true)
 					uni.navigateTo({
 						url:`/pages/cada_inquiry/cada_inquiry`
 					})
 				
 				
 			},
+			
+			goInquiry(item){
+				var that = this
+				    uni.setStorageSync('inquiry_item',item)
+					uni.setStorageSync('canSeeInquiry',false)
+					uni.navigateTo({
+						url:`/pages/cada_inquiry/cada_inquiry`
+					})
+				
+				
+			},
+			
+			
+			
 			
 			
 			copy(data){

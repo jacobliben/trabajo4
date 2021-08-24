@@ -271,6 +271,7 @@
 				            ],
 				index: 0,			 
 				params:{},
+				re_params:{},
 				received_info: [ ],
 				btn_title:"",
 				
@@ -296,7 +297,7 @@
 			if (this.btn_title == "修改" ||this.btn_title == "查看"){
 				this.received_info = uni.getStorageSync("driver_item")
 				this.disable_phone_change = true
-				
+				console.log(this.received_info,"received_info");
 				//驾驶员身份证正面
 				this.imgDriverIDFrontUrl = this.received_info.idcardFront
 				if (this.imgDriverIDFrontUrl ==''){
@@ -324,10 +325,14 @@
 				 this.driver_id = this.received_info.driverIdNumber
 				 this.driver_tel = this.received_info.driverPhone
 				 this.detail_address = this.received_info.driverAddress
-				 if(this.received_info.driverVehicleClass=="A2"){
-					 this.index == 0
-				 }else if (this.received_info.driverVehicleClass=="B2"){
-					  this.index == 1
+				  console.log(this.received_info.driverVehicleClass,'driverVehicleClass111');
+				 if(this.received_info.driverVehicleClass==="A2"){
+					 this.index = 0
+					 console.log(this.received_info.driverVehicleClass,'driverVehicleClass222');
+					 console.log(this.index,'index1');
+				 }else if (this.received_info.driverVehicleClass==="B2"){
+					  this.index = 1
+					   console.log(this.index,'index2');
 				 }
 				 this.issue_organization = this.received_info.driverIssuingOrganizations
 				 //驾驶证有效期起
@@ -425,6 +430,7 @@
 			bindPickerChange(e) {
 			            
 			            this.index = e.target.value
+						
 						if (this.index == 0){
 							this.params.driverVehicleClass = "A2"
 						}else if (this.index == 1){
@@ -433,12 +439,10 @@
 			        },
 			 getDriverName(e){
 				this.params.driverName = e.detail.value
+				
 				this.params.driverCertificateType  = "201";//驾驶员证件类型
 			},
-			getDriverApprovedVehicleType(e){
-				this.params.driverVehicleClass = e.newVal
-				
-			},
+			
 			getDriverCel(e){
 				this.driver_tel = e.detail.value
 				this.params.driverPhone = e.detail.value
@@ -989,7 +993,7 @@
 																							
 																						})
 																						setTimeout(()=>{
-																						   uni.navigateTo({
+																						   uni.reLaunch({
 																						   	url:"/pages/driver_list/driver_list"
 																						   })
 																						},800)
@@ -1014,9 +1018,11 @@
 								var modify_params= this.params
 								var modify_received_info= this.received_info
 								var modify_form = {}
-								Object.assign(modify_form,modify_params,modify_received_info)
+								console.log( modify_params,'modify_params');
+								console.log( modify_received_info,'modify_received_info');
+							    Object.assign(modify_form, modify_received_info, modify_params)
 								
-								
+								console.log( modify_form,'modify_form');
 								uni.showToast({
 									title:"正在修改中...",
 									icon:"none"
@@ -1041,7 +1047,7 @@
 										
 									})
 									setTimeout(()=>{
-									   uni.navigateTo({
+									   uni.reLaunch({
 									   	url:"/pages/driver_list/driver_list"
 									   })
 									},800)
@@ -1052,7 +1058,7 @@
 									})
 								} 
 								
-							}		  
+							 }		  
 								
 											
 										

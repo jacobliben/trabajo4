@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "银行卡信息维护",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "bankcard-has-approved": "/pages/bank_card_has_approved/bank_card_has_approved"
-  }
-}

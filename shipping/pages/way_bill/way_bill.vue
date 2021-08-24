@@ -141,7 +141,14 @@
 			
 			
 		},
-		
+		onPullDownRefresh() {
+			var that = this
+			
+			this.refresh_index++;
+			setTimeout(()=>{
+				uni.stopPullDownRefresh()	
+			},3000)
+		},
 		methods:{
 			addRefresh(){
 				var that = this

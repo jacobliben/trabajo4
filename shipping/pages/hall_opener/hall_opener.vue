@@ -69,6 +69,16 @@
 			this.tabCurrentIndex = 0
 			
 		},
+		
+		onPullDownRefresh() {
+			var that = this
+			console.log("hall");
+			this.refresh_index++;
+			setTimeout(()=>{
+				uni.stopPullDownRefresh()	
+			},3000)
+		},
+		
 		methods:{
 			
 			tabClick(index){

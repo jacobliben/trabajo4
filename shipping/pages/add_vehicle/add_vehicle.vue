@@ -1778,7 +1778,7 @@
 									
 								})
 								setTimeout(()=>{
-								   uni.navigateTo({
+								   uni.reLaunch({
 								   	url:"/pages/vehicle_list/vehicle_list"
 								   })
 								},800)
@@ -1794,7 +1794,7 @@
 					var modify_params= this.params
 					var modify_received_info= this.received_info
 					var modify_form = {}
-					Object.assign(modify_form,modify_params,modify_received_info)
+					Object.assign(modify_form,modify_received_info,modify_params)
 					
 					const resEdit = await this.$request({
 						url:"/app/vehicle/edit",
@@ -1813,7 +1813,7 @@
 							
 						})
 						setTimeout(()=>{
-						   uni.navigateTo({
+						   uni.reLaunch({
 						   	url:"/pages/vehicle_list/vehicle_list"
 						   })
 						},800)

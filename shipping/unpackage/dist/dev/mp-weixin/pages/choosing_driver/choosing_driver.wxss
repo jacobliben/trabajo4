@@ -161,14 +161,17 @@
   padding: 5%;
 }
 .shipping_no.data-v-6ec3d86e {
-  margin-top: 60rpx;
+  margin-top: 30rpx;
   color: #1684FC;
   font-size: 30rpx;
   font-family: SourceHanSansSC-bold PingFangSC-bold SourceHanSansSC-regular PingFangSC-regular Arial;
 }
+.shipping_no .shipping-title.data-v-6ec3d86e {
+  font-weight: 600;
+}
 .total_weight.data-v-6ec3d86e {
   margin-top: 30rpx;
-  margin-bottom: 120rpx;
+  margin-bottom: 50rpx;
 }
 .total_weight .title.data-v-6ec3d86e {
   font-weight: 800;
@@ -234,7 +237,7 @@
   color: #f00;
 }
 .choose-driver.data-v-6ec3d86e {
-  margin-top: 135rpx;
+  margin-top: 70rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -277,5 +280,10 @@
   margin-right: 20rpx;
   font-size: 40rpx;
   color: #777;
+}
+.tmargin.data-v-6ec3d86e {
+  margin-top: 180rpx;
+  width: 60rpx;
+  height: 60rpx;
 }
 

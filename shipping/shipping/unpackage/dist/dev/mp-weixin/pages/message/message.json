@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "info-not-found": "/pages/info_not_found/info_not_found"
-  }
-}

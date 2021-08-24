@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "派车单",
-  "enablePullDownRefresh": true,
-  "usingComponents": {
-    "despatching-pending": "/pages/despatching_pending/despatching_pending",
-    "tabbar": "/pages/tab_bar/tab_bar",
-    "overall": "/components/overall"
-  }
-}
