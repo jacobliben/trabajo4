@@ -3,6 +3,9 @@
 		
 	  <!-- head section -->
 	  <view class="head-sect">
+		  <view>
+		  	 <view class="cuIcon-back lg text-gray tmargin" @click="goBack"></view>
+		  </view>
 		  <view class="navbar">
 		  		  <view v-for ="(item,index) in navList" :key="index" 
 		  		  class="nav-item" :class="{current: tabCurrentIndex === index }" 
@@ -72,7 +75,13 @@
 			
 		},
 		methods:{
-			
+			goBack(){
+				
+				uni.reLaunch({
+					url:"/pages/accounts/accounts"
+				})
+				
+			},
 			tabClick(index){
 				this.tabCurrentIndex = index
 				
@@ -146,5 +155,11 @@
 	.content{
 		background-color: #fff;
 	}
-
+    
+	.tmargin{
+		
+		margin-top: 20rpx;
+		width:60rpx;
+		height:60rpx ;
+	}	
 </style>

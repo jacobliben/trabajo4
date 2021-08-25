@@ -31,7 +31,7 @@
 				}
 				
 				uni.reLaunch({
-				  url:"/pages/login_general/login_general"	
+				  url:"/pages/login/login"	
 				})
 			},
 			

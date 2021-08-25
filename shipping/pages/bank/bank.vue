@@ -142,16 +142,12 @@
 			 
 		},
 		created(){
+			this.isPerson = uni.getStorageSync("in_personal_registering")
 			
-			try {
-			    this.isPerson = uni.getStorageSync("in_personal_registering")
-				//用于跳转后回显
-				this.params_bank = uni.getStorageSync("params_bank")												
-			} catch (e) {
-			    // error
-			}
 			
-		
+			//用于跳转后回显
+			this.params_bank = uni.getStorageSync("params_bank")
+			
 			//获取银行名称列表
 			this.getBankName()
 			  // 承运人类型change

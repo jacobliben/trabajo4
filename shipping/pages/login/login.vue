@@ -31,7 +31,7 @@
 			<view class="terms">
 				 <label class="radio"><radio class="radio-icon" value="r1" :checked="terms_checked"  @click="radioChange"/>
 				   <text>登录代表同意徐工智联</text>
-				   <text class="blue-terms" @click.prevent="goTerms"><<用户协议>></text>
+				   <text class="blue-terms" @click.prevent="goTerms">《用户协议》</text>
 				 </label>
 			</view>
 			
@@ -194,14 +194,17 @@
 				
 				update_flag:0,
 				version:0,
+				
+				immediate_update:true,
 			}
 		},
 		
-		created() {
+		onLoad() {
 			
 			
 			this.AndroidCheckUpdate();
-			
+			this.immediate_update = getApp().globalData.immediate_update
+			console.log(this.immediate_update,'immediate_update');
 		},
 		mounted() {
 			    
@@ -240,8 +243,8 @@
 			//暂不更新
 			hideModal(){
 				this.show_modal = false
-				this.update_flag = 1
-				uni.setStorageSync("update_flag",1)
+				this.immediate_update = false
+				 getApp().globalData.immediate_update = false
 			},
 			updataNow(){
 				var that = this
@@ -430,7 +433,7 @@
 			             */
 			 
 			async AndroidCheckUpdate(){ 
-				
+				console.log("ok");
 				var that = this
 				that.version = plus.runtime.version
 				const res = await this.$request({

@@ -45,7 +45,7 @@ export const myPhoto = (options)=>{
 		
 		
 		
-		var photo_reshow = JSON.parse(value.data).url  //仅用于注册时回显
+		 var photo_reshow = JSON.parse(value.data).url  //仅用于注册时回显
 		var photo_file =JSON.parse(value.data).fileName
 		
 		

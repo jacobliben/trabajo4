@@ -508,7 +508,7 @@
 			this.btn_title = options.btn_title
 			if (this.btn_title == "修改"||this.btn_title == "查看"){
 				this.received_info = uni.getStorageSync("vehicle_item")
-				
+				console.log(this.received_info,"vehicle_item");
 			}
 			
 			
@@ -538,6 +538,7 @@
 							  //车辆行驶证主副页 
 							  
 							   this.imgVehicleLicenseFirstUrl = this.received_info.vehicleLicensePhotoFirst
+							   console.log(this.imgVehicleLicenseFirstUrl,"vehicleLicensePhotoFirst");
 							   if (this.imgVehicleLicenseFirstUrl ==''){
 								   this.imgVehicleLicenseFirstUrl = "/static/vehicle_license.jpg"
 							   }
@@ -1822,6 +1823,7 @@
 							title:resEdit.data.msg,
 							icon:"none"
 						})
+						console.log(resEdit.data.msg,'msg');
 					}
 				}
 						

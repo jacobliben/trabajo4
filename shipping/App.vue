@@ -108,6 +108,8 @@
 			shipping_order_page:0,
 			//for appear tab in way bill
 			way_bill_page:0,
+			//for delay update
+			immediate_update:true,
 		}
 	}
 </script>

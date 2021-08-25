@@ -272,6 +272,7 @@
 				index: 0,			 
 				params:{},
 				re_params:{},
+				listed_info: [ ],
 				received_info: [ ],
 				btn_title:"",
 				
@@ -291,15 +292,40 @@
 		            return this.getDate('end');
 		        }
 		    },
-		onLoad(options){
+		async onLoad(options){
 			this.btn_title = options.btn_title
 			
 			if (this.btn_title == "修改" ||this.btn_title == "查看"){
-				this.received_info = uni.getStorageSync("driver_item")
+				this.listed_info = uni.getStorageSync("driver_item")
 				this.disable_phone_change = true
-				console.log(this.received_info,"received_info");
+				console.log(this.listed_info,"listed_info");
+				console.log(this.listed_info.driverId,"driverId");
+				
+				const  driverId = this.listed_info.driverId
+				
+				var authorization = uni.getStorageSync("token")
+				 
+									  const res = await this.$request({
+									  	 	url:"/app/driver/getByDriverId/" + driverId ,
+									  	 	
+									  	 	header:{
+									  	 		Authorization:authorization,
+									  	 	},
+									  	 
+									  	 })
+				console.log(res,"resdriverId");
+				if (res.data.code ==200){
+					this.received_info = res.data.data
+				}else{
+					uni.showToast({
+						title: '请求接口失败!',
+						icon: 'none',
+					})
+				}
+				
 				//驾驶员身份证正面
 				this.imgDriverIDFrontUrl = this.received_info.idcardFront
+				console.log(this.imgDriverIDFrontUrl,"imgDriverIDFrontUrl");
 				if (this.imgDriverIDFrontUrl ==''){
 					this.imgDriverIDFrontUrl = "/static/id_front.jpg"
 				}
@@ -868,6 +894,7 @@
 				uni.navigateBack({
 					delta:1,
 				})
+			
 			},
 			formSubmit: async function(e) {  
 				                   
@@ -906,6 +933,11 @@
 								               	})
 								                return	 										
 								               }
+											   
+								/**
+								 * 从业资格证
+								 */			   
+								this.params.qualificationCertPhoto = uni.getStorageSync("qualificationCertPhoto")			   
 												
 																		   //进行驾驶员姓名检查
 																		   if (this.params.driverName == null || this.params.driverName ==""|| this.params.driverName.length<1){
@@ -992,6 +1024,16 @@
 																							title:res.data.msg,
 																							
 																						})
+																						
+																						try {
+																						    uni.removeStorageSync('idcardFront');
+																							uni.removeStorageSync('idcardBack');
+																							uni.removeStorageSync('drivingLicensePhotoFirst');
+																							uni.removeStorageSync('qualificationCertPhoto');															  
+																						} catch (e) {
+																						    // error
+																						}
+																						
 																						setTimeout(()=>{
 																						   uni.reLaunch({
 																						   	url:"/pages/driver_list/driver_list"
@@ -1014,49 +1056,154 @@
 								
 								
 							}else if (this.btn_title == "修改"){
-								var authorization = uni.getStorageSync("token")
-								var modify_params= this.params
+								//the original data
 								var modify_received_info= this.received_info
+								//the current data form 
 								var modify_form = {}
+								
+								uni.getStorageInfo({
+								    success: function (res) {
+								        console.log(res.keys.includes("idcardFront"),"keys");
+								       
+								    }
+								});
+								
+								var authorization = uni.getStorageSync("token")
+								
+								
+								//进行驾驶员身份证正面检查
+								this.params.idcardFront = uni.getStorageSync("idcardFront")
+								if (this.params.idcardFront == null || this.params.idcardFront ==""|| this.params.idcardFront.length<1){
+									modify_form.idcardFront = modify_received_info.idcardFront
+									console.log(modify_form.idcardFront,"modify_form.idcardFront")							
+								} else{
+									modify_form.idcardFront = this.params.idcardFront
+								} 
+								
+								
+								//进行驾驶员身份证背面检查
+								this.params.idcardBack = uni.getStorageSync("idcardBack")
+								if (this.params.idcardBack == null || this.params.idcardBack ==""|| this.params.idcardBack.length<1){
+									 modify_form.idcardBack = modify_received_info.idcardBack										
+								} else{
+									modify_form.idcardBack = this.params.idcardBack
+								} 
+								
+								/**
+								                * 机动车驾驶证主页
+								                */
+								this.params.drivingLicensePhotoFirst = uni.getStorageSync("drivingLicensePhotoFirst")
+								              
+								if (this.params.drivingLicensePhotoFirst == null || this.params.drivingLicensePhotoFirst ==""|| this.params.drivingLicensePhotoFirst.length<1){
+								      modify_form.drivingLicensePhotoFirst = modify_received_info.drivingLicensePhotoFirst        		 										
+								  }else{
+									modify_form.drivingLicensePhotoFirst = this.params.drivingLicensePhotoFirst
+								} 
+											   
+								/**
+								 * 从业资格证
+								 */			   
+								this.params.qualificationCertPhoto = uni.getStorageSync("qualificationCertPhoto")
+								if (this.params.qualificationCertPhoto == null || this.params.qualificationCertPhoto ==""|| this.params.qualificationCertPhoto.length<1){
+								        modify_form.qualificationCertPhoto = modify_received_info.qualificationCertPhoto       		 										
+								  }else{
+									modify_form.qualificationCertPhoto = this.params.qualificationCertPhoto
+								} 
+								
+								
+								
+								
+								//进行驾驶员身份证正面检查
+								
+								if (modify_form.idcardFront == null || modify_form.idcardFront ==""|| modify_form.idcardFront.length<1){
+									uni.showToast({
+										title:"未提交驾驶员身份证正面, 请提交",
+										icon:"none"
+									})
+								 return	 										
+								} 
+								
+								
+								//进行驾驶员身份证背面检查
+								
+								if (modify_form.idcardBack == null || modify_form.idcardBack ==""||modify_form.idcardBack.length<1){
+									uni.showToast({
+										title:"未提交驾驶员身份证背面, 请提交",
+										icon:"none"
+									})
+								 return	 										
+								} 
+								
+								/**
+								                * 机动车驾驶证主页
+								                */
+								
+								              
+								 if (modify_form.drivingLicensePhotoFirst == null || modify_form.drivingLicensePhotoFirst ==""|| modify_form.drivingLicensePhotoFirst.length<1){
+								               	uni.showToast({
+								               		title:"未提交机动车驾驶证主页, 请提交",
+								               		icon:"none"
+								               	})
+								                return	 										
+								               }
+								
+								
+								
+								//the data params that modified by you this time
+								var modify_params= this.params
+								
 								console.log( modify_params,'modify_params');
 								console.log( modify_received_info,'modify_received_info');
-							    Object.assign(modify_form, modify_received_info, modify_params)
+								Object.assign(modify_form, modify_received_info, modify_params)
 								
-								console.log( modify_form,'modify_form');
+								console.log( modify_form,'modify_form');  
+								
 								uni.showToast({
 									title:"正在修改中...",
 									icon:"none"
 								})
 								
-								const resEdit = await this.$request({
-									url:"/app/driver/edit",
-									method: "PUT",
-									data:modify_form,
-									header:{
-										Authorization:authorization,
+								
+								
+								// const resEdit = await this.$request({
+								// 	url:"/app/driver/edit",
+								// 	method: "PUT",
+								// 	data:modify_form,
+								// 	header:{
+								// 		Authorization:authorization,
 										
-									},
+								// 	},
 									
-								})
+								// })
 								
 								
 								
-								if(resEdit.data.msg ="操作成功"){
-									uni.showToast({
-										title:resEdit.data.msg,
+								// if(resEdit.data.msg ="操作成功"){
+								// 	uni.showToast({
+								// 		title:resEdit.data.msg,
 										
-									})
-									setTimeout(()=>{
-									   uni.reLaunch({
-									   	url:"/pages/driver_list/driver_list"
-									   })
-									},800)
-								}else{
-									uni.showToast({
-										title:resEdit.data.msg,
-										icon:"none"
-									})
-								} 
+								// 	})
+									
+								//     try {
+								//      uni.removeStorageSync('idcardFront');
+								//     	uni.removeStorageSync('idcardBack');
+								//     	uni.removeStorageSync('drivingLicensePhotoFirst');
+								//     	uni.removeStorageSync('qualificationCertPhoto');															  
+								//     } catch (e) {
+								//         // error
+								//     }
+								
+								// 	setTimeout(()=>{
+								// 	   uni.reLaunch({
+								// 	   	url:"/pages/driver_list/driver_list"
+								// 	   })
+								// 	},800)
+								// }else{
+								// 	uni.showToast({
+								// 		title:resEdit.data.msg,
+								// 		icon:"none"
+								// 	})
+								// } 
 								
 							 }		  
 								
