@@ -10,17 +10,31 @@
 		  		  	<text :class="{current: tabCurrentIndex === index }">{{item.text}}</text>
 		  		  </view>	  		  
 		  </view>
-		  <view class="plus" @click="addRefresh">
-			  <image src="/static/rotate.png" mode="" class="add" :class="{rotate: activeRotate }"></image>
-		  </view>
+		 
 	  </view>
+	 
+	 <view class="sub-sect">
+	 		  <view class="navbar">
+	 		  		  <view v-for ="(item,index) in subList" :key="index" 
+	 		  		  class="nav-item"  
+	 		  		  @click ="subClick(index,item)">
+	 		  		  	<text :class="{currentsub: subCurrentIndex === index }" >{{item.text}}</text>
+						<image src="/static/down.png" mode="" class="down" ></image>
+	 		  		  </view>	  		  
+	 		  </view>
+	 		  <view class="plus" @click="addRefresh">
+	 			  <image src="/static/rotate.png" mode="" class="add" :class="{rotate: activeRotate }"></image>
+	 		  </view>
+	 </view>
 	 
 		
 		<!-- body section -->
 		<view class="shipping-body">
 			<view class="list" v-for = "(item,index) in navList" :key="index"  v-if="tabCurrentIndex===index">
-				
-				 <hall :key="refresh_index" :source = "item"/> 
+				<lee-select-city class="lee-city" v-if="choose_start "  @startRegionDone = "startRegionDone" />
+				<lee-select-city-dest class="lee-city" v-if="choose_destination " @destRegionDone = "destRegionDone"/>
+				 <hall-select  v-if="choose_hall_select " :key="select_key"/>
+				 <hall :key="refresh_index" :source = "item" v-if="show_items"/> 
 				
 				
 			</view>
@@ -31,14 +45,20 @@
 
 <script>
 	import Hall from "@/pages/hall/hall.vue"
-	
-	
+	import HallSelect from "@/pages/hall_select/hall_select.vue"
+	import LeeSelectCity from '@/components/lee-select-city/lee-select-city.vue'
+	import LeeSelectCityDest from '@/components/lee-select-city-dest/lee-select-city.vue'
 	
 	export default {
 		data() {
 			return {
 				tabCurrentIndex:0,
+				subCurrentIndex:0,
 				refresh_index:0,
+				choose_start:false,
+				choose_destination:false,
+				show_items:true,
+				select_key:0,
 				navList:[
 					{
 						state:1,
@@ -58,12 +78,34 @@
 					
 					
 				],
+				
+				subList:[
+					{
+						ele_state:1,
+						text:"徐州市",
+						orderList:[]
+					},
+					{
+					  ele_state:2,
+					  text:"全国",
+					  orderList:[]
+					},
+					{
+					  ele_state:3,
+					  text:"筛选",
+					  orderList:[]
+					},
+					
+					
+				],
 				activeRotate:false,
 			};
 		},
 		components:{
 			 Hall,
-			
+			 LeeSelectCity,
+			 LeeSelectCityDest,
+			 HallSelect
 		},
 		onLoad(options){
 			this.tabCurrentIndex = 0
@@ -86,6 +128,27 @@
 				
 			},
 			
+			subClick(index,item){
+				this.subCurrentIndex  = index
+				console.log(item,'item111')
+				if (item.ele_state == 1){
+					this.choose_start = true
+					this.choose_destination = false
+					this.show_items = false
+				    this.choose_hall_select = false
+				}else if (item.ele_state == 2){
+					this.choose_destination = true
+					this.choose_start = false
+					this.show_items = false
+					this.choose_hall_select = false
+				}else if (item.ele_state == 3){
+					this.choose_hall_select = true
+					this.choose_destination = false
+					this.choose_start = false
+					this.show_items = false
+				}
+			},
+			
 			addRefresh(){
 				var that = this
 				this.activeRotate = true;
@@ -93,6 +156,18 @@
 				setTimeout(()=>{
 					that.activeRotate = false
 				},3000)
+			},
+			
+			startRegionDone(val){
+				
+				val =  val.toString ()
+				this.subList[0].text = val
+			},
+			
+			destRegionDone(val){
+				
+				val =  val.toString ()
+				this.subList[1].text = val
 			},
 		}
 	}
@@ -183,5 +258,36 @@
 		 animation: turnZ 1s linear infinite;
 	}
 	
-
+	
+	.sub-sect{
+		width:100%;
+		height:80rpx;
+		display: flex;
+		margin-top: 50rpx;
+		flex-direction: row;
+	}
+	
+	.currentsub{
+		
+		
+			color:#4682cb;
+			font-size: 35rpx;
+			text-align: center;
+		
+	}
+	
+	
+	
+	
+	.lee-city{
+		
+	}
+    
+	
+	.down{
+		width: 23rpx;
+		height: 23rpx;
+		margin-left: 10rpx;
+		
+	}
 </style>

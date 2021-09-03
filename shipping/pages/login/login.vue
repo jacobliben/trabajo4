@@ -221,11 +221,15 @@
 	    watch: {
 			
 	    	terms_checked(newValue, oldValue) {
-				if (newValue == true){
-					this.login_disable = false
-				}else{
-					this.login_disable = true
+				
+				if  (this.username.length>0 && this.password.length>0){
+					if (newValue == true  ){
+						this.login_disable = false
+					}else{
+						this.login_disable = true
+					}
 				}
+				
 	    		
 	    	}
 	    },
@@ -312,6 +316,13 @@
 				
 				uni.setStorageSync("username",this.username)
 				
+				if (this.username.length==0){
+					this.login_disable = true
+				}else{
+					if  (this.password.length>0 && this.terms_checked  == true){
+						this.login_disable = false
+					}
+				}
 				
 			},
 			
@@ -319,7 +330,14 @@
 				this.password = e.target.value
 				
 				uni.setStorageSync("password",this.password)
-				this.login_disable = false
+				
+				if (this.password.length==0){
+					this.login_disable = true
+				}else{
+					if  (this.username.length>0 && this.terms_checked  == true){
+						this.login_disable = false
+					}
+				}
 			},
 			wechatLogin(){
 				uni.switchTab({
@@ -329,7 +347,13 @@
 			
 			radioChange: function(evt) {
 			            this.terms_checked = !this.terms_checked
-						
+						if (this.terms_checked == false){
+							this.login_disable = true
+						}else{
+							if  (this.username.length>0 && this.password.length>0){
+								this.login_disable = false
+							}
+						}
 			        },
 			
 			 async formSubmit(){

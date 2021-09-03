@@ -1082,6 +1082,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/hall_select/hall_select",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTitleText":"徐工智联",

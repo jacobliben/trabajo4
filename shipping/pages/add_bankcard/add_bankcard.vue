@@ -39,7 +39,7 @@
 			    				    
 			    				 </view>
 			    </view> -->
-			   <!-- #ifndef MP-WEIXIN -->
+			 
 			   <view class="cu-form-group">
 			    			     <view class="name">银行名称<text class="star">*</text></view>
 			    			     <view class="ref-name">
@@ -49,7 +49,7 @@
 			   						 </multiselect>
 			    				 </view>
 			    </view>
-			   <!-- #endif -->
+			  
 			  <!-- <view class="cu-form-group">
 			  			     <view class="name">支行联行 <text class="star">*</text></view>
 			  			     <view class="ref-name" >
@@ -59,7 +59,7 @@
 			  				 </view>
 			  </view> -->
 			  
-			    <!-- #ifndef MP-WEIXIN -->
+			
 			  <view class="cu-form-group">
 			   			     <view class="name">支行联行<text class="star">*</text></view>
 			   			     <view class="ref-name">
@@ -69,7 +69,7 @@
 			  					</multiselect>
 			   				 </view>
 			   </view>
-			   <!-- #endif -->
+			  
 			  
 			 
 			  
@@ -278,7 +278,9 @@
 				var queryParams= this.queryParams 
 				var fullNameOfTheBank
 				if(this.btn_title == "修改"){
-					fullNameOfTheBank = this.received_info.bankName
+					
+					fullNameOfTheBank = this.fullNameOfTheBank
+					
 				}else if(this.btn_title == "添加"){
 					fullNameOfTheBank = this.fullNameOfTheBank
 				}
@@ -465,7 +467,7 @@
 				        	 
 				        	 const resEdit = await this.$request({
 				        	 	url:"/app/carrierBankcard/edit",
-				        	 	method: "POST",
+				        	 	method: "PUT",
 				        	 	data:modify_form,
 				        	 	header:{
 				        	 		Authorization:authorization,

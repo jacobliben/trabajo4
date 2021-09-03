@@ -45,9 +45,9 @@
 				</view>
 			  
 			  <input type="text" placeholder="请输入验证码"  @input="getUserVerifyCode" class="veri-input">
-			  <view  @click="getVerifyCode" :disabled="codeDisabled" role="button"  class=" text-get "  >
+			  <button  @click="getVerifyCode" :disabled="codeDisabled"  class=" text-get "  >
 			  	<text class="text-df">{{codeText}}</text>
-			  </view>
+			  </button>
 			</view>
 			
 			
@@ -404,12 +404,21 @@
 	 .text-get{
 		     border-left: 8rpx solid #f1f1f1;
 			 color: #978887;
-			 font-size: 40rpx;
+			 font-size: 20rpx;
 			 font-weight: 600;
 			 padding-left: 40rpx;
 			 margin-top: 30rpx;
 	 		 width:200rpx;
 	 		 height:50rpx;
+			 
+			 // border-left: 8rpx solid #f1f1f1;
+			 // color: #978887;
+			 // font-size: 40rpx;
+			 // font-weight: 600;
+			 // padding-left: 40rpx;
+			 // margin-top: 30rpx;
+			 // width:200rpx;
+			 // height:50rpx;
 	 }
 	 
 	 .login-btn{

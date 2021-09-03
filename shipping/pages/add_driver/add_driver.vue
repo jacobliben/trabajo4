@@ -842,7 +842,13 @@
 			
 			
 			cancelDriverIDFront(){
-				this.imgDriverIDFrontUrl ="/static/id_front.jpg",
+				this.imgDriverIDFrontUrl ="/static/id_front.jpg"
+				try {
+				    uni.removeStorageSync('idcardFront');
+					
+				} catch (e) {
+				    // error
+				}
 				setTimeout(()=>{
 					uni.showToast({
 						title:"删除照片成功，请重新",
@@ -853,6 +859,12 @@
 			},
 			cancelDriverIDBack(){
 				this.imgDriverIDBackUrl ="/static/id-back.jpg"
+				try {
+				    uni.removeStorageSync('idcardBack');
+					
+				} catch (e) {
+				    // error
+				}
 				setTimeout(()=>{
 					uni.showToast({
 						title:"删除照片成功，请重新",
@@ -864,6 +876,12 @@
 			
 			cancelDriverLicense(){
 				this.imgDriverLicensePhotoUrl = "/static/driving_license.jpg"
+				try {
+				    uni.removeStorageSync('drivingLicensePhotoFirst');
+					
+				} catch (e) {
+				    // error
+				}
 				setTimeout(()=>{
 					uni.showToast({
 						title:"删除照片成功，请重新",
@@ -875,6 +893,12 @@
 			
 			cancelDrivingCertificate(){
 				this.imgDrivingCertificateUrl ="/static/roadcert.jpg"
+				try {
+				    uni.removeStorageSync('qualificationCertPhoto');
+					
+				} catch (e) {
+				    // error
+				}
 				setTimeout(()=>{
 					uni.showToast({
 						title:"删除照片成功，请重新",

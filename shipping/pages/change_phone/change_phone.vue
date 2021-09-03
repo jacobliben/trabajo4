@@ -191,7 +191,7 @@
 												
 												if (res.data.code == 200){
 													uni.reLaunch({
-														url:"/pages/login_general/login_general"
+														url:"/pages/login/login"
 													})
 												}else{
 													uni.showToast({title:res.data.msg, icon:"none"});
