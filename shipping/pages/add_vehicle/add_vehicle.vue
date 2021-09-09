@@ -367,8 +367,11 @@
 				isPerson: false,
 				disabled:true,
 				active:false,
+				
 				//接受显示
+				listed_info: [],
 				received_info : [],
+				
 				//显示车牌号
 				plate_number:"", 
 				vehicleOwnName:"",
@@ -493,6 +496,8 @@
 				driving_cert_issuing_date_has_input:false,
 				driving_cert_expiry_date_has_input:false,
 				road_cert_expiry_date_has_input:false,
+				
+				
 			};
 		},
 		computed: {
@@ -507,8 +512,8 @@
 		onLoad(options){
 			this.btn_title = options.btn_title
 			if (this.btn_title == "修改"||this.btn_title == "查看"){
-				this.received_info = uni.getStorageSync("vehicle_item")
-				console.log(this.received_info,"vehicle_item");
+				this.listed_info = uni.getStorageSync("vehicle_item")
+				
 			}
 			
 			
@@ -527,7 +532,7 @@
 			 
 			
 		},
-		created(){
+		async created(){
 			this.isPerson = uni.getStorageSync("in_personal_registering")
 			// 默认能源类型 非新能源
 			this.params.whetherNewEnergy =2
@@ -535,6 +540,29 @@
 			
 			//导入车辆详情
 			if (this.btn_title == "修改"||this.btn_title == "查看"){
+				const  vehicleId = this.listed_info.vehicleId
+				console.log (vehicleId,"vehicleId")
+				
+				var authorization = uni.getStorageSync("token")
+				 
+									  const res = await this.$request({
+									  	 	url:"/app/vehicle/getByVehicleId/" + vehicleId ,
+									  	 	
+									  	 	header:{
+									  	 		Authorization:authorization,
+									  	 	},
+									  	 
+									  	 })
+				console.log(res,"resvehicleId");
+				
+				if (res.data.code ==200){
+					this.received_info = res.data.data
+				}else{
+					uni.showToast({
+						title: '请求接口失败!',
+						icon: 'none',
+					})
+				}
 							  //车辆行驶证主副页 
 							  
 							   this.imgVehicleLicenseFirstUrl = this.received_info.vehicleLicensePhotoFirst
@@ -585,7 +613,20 @@
 									  this.road_cert_expiry_date_has_input = true 
 								  }
 								
+								//是否新能源
+								this.whetherNewEnergy = this.received_info.whetherNewEnergy
 								 
+								this.energy_current = this.whetherNewEnergy-1
+								
+								//车辆种类
+								this.vehicleSpecies = this.received_info.vehicleSpecies
+								
+								if (this.vehicleSpecies == 103 ){
+									this.car_current = 0
+								} else if (this.vehicleSpecies == 303 ){
+									this.car_current = 1
+								}
+								
 								 this.vehicleLadenWeight = this.received_info.vehicleLadenWeight
 								  this.vehicleTonnage = this.received_info.vehicleTonnage
 								 this.vehicleAxlenum = this.received_info.vehicleAxlenum
@@ -1300,14 +1341,11 @@
 				  success: function (res) {
 				   const tempFilePaths = res.tempFilePaths;
 							
-								 
-								 
-							
-								 //upload the img 
-								_self.imgDriverLicenseUrl = tempFilePaths[0]
+					//upload the img 
+					_self.imgDriverLicenseUrl = tempFilePaths[0]
 								
-								//make the tachar img appear
-								    	_self.tachar_driver_license=true
+					//make the tachar img appear
+					_self.tachar_driver_license=true
 										
 				     const uploadTask =uni.uploadFile({
 				    url : 'http://182.61.138.90:8081/iscm/dispatch',
@@ -1792,10 +1830,91 @@
 							//"添加"按钮结束
 				}else if (this.btn_title == "修改"){
 					var authorization = uni.getStorageSync("token")
-					var modify_params= this.params
+					
+					//the original data
 					var modify_received_info= this.received_info
+					
+					//the current data form
 					var modify_form = {}
+					
+					//进行车辆行驶证主副页检查
+					this.params.vehicleLicensePhotoFirst = uni.getStorageSync("vehicleLicensePhotoFirst")
+					if (this.params.vehicleLicensePhotoFirst == null || this.params.vehicleLicensePhotoFirst ==""|| this.params.vehicleLicensePhotoFirst.length<1){
+						modify_form.vehicleLicensePhotoFirst = modify_received_info.vehicleLicensePhotoFirst
+						console.log(modify_form.vehicleLicensePhotoFirst,"modify_form.vehicleLicensePhotoFirst")							
+					} else{
+						modify_form.vehicleLicensePhotoFirst = this.params.vehicleLicensePhotoFirst
+					} 
+					
+					
+					//进行道路运输证照片检查
+					this.params.vehicleRoadcertPhoto = uni.getStorageSync("vehicleRoadcertPhoto")
+					if (this.params.vehicleRoadcertPhoto == null || this.params.vehicleRoadcertPhoto ==""|| this.params.vehicleRoadcertPhoto.length<1){
+						 modify_form.vehicleRoadcertPhoto= modify_received_info.vehicleRoadcertPhoto										
+					} else{
+						modify_form.vehicleRoadcertPhoto = this.params.vehicleRoadcertPhoto
+					} 
+					
+					/**
+					                * 人车
+					                */
+					this.params.peopleVehiclePhoto = uni.getStorageSync("peopleVehiclePhoto")
+					              
+					if (this.params.peopleVehiclePhoto == null || this.params.peopleVehiclePhoto ==""|| this.params.peopleVehiclePhoto.length<1){
+					      modify_form.peopleVehiclePhoto = modify_received_info.peopleVehiclePhoto        		 										
+					  }else{
+						modify_form.peopleVehiclePhoto = this.params.peopleVehiclePhoto
+					} 
+								   
+					/**
+					 * 挂车行驶证主页
+					 */			   
+					this.params.trailerLicensePhotoFirst = uni.getStorageSync("trailerLicensePhotoFirst")
+					if (this.params.trailerLicensePhotoFirst == null || this.params.trailerLicensePhotoFirst ==""|| this.params.trailerLicensePhotoFirst.length<1){
+					        modify_form.trailerLicensePhotoFirst = modify_received_info.trailerLicensePhotoFirst       		 										
+					  }else{
+						modify_form.trailerLicensePhotoFirst = this.params.trailerLicensePhotoFirst
+					} 
+					
+					
+					
+					
+					//进行车辆行驶证主副页检查
+					
+					if (modify_form.vehicleLicensePhotoFirst == null || modify_form.vehicleLicensePhotoFirst ==""|| modify_form.vehicleLicensePhotoFirst.length<1){
+						uni.showToast({
+							title:"未提交车辆行驶证主副页, 请提交",
+							icon:"none"
+						})
+					 return	 										
+					} 
+					
+					
+					//进行道路运输证照片检查
+					
+					if (modify_form.vehicleRoadcertPhoto == null || modify_form.vehicleRoadcertPhoto ==""||modify_form.vehicleRoadcertPhoto.length<1){
+						uni.showToast({
+							title:"未提交道路运输证照片, 请提交",
+							icon:"none"
+						})
+					 return	 										
+					} 
+					
+					
+					
+					
+					
+					//the data params that modified by you this time
+					var modify_params= this.params
+					
+					//use the now input data to replace the original data
 					Object.assign(modify_form,modify_received_info,modify_params)
+					
+					
+					
+					
+					
+					
 					
 					const resEdit = await this.$request({
 						url:"/app/vehicle/edit",

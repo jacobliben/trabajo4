@@ -125,6 +125,8 @@
 				  if (this.action == "start"){
 					   this.loading_start_time = `${e.year}-${e.month}-${e.day} ${e.hour}:${e.minute}`;
 					   uni.setStorageSync("loading_start_time_filter", this.loading_start_time)
+					   
+					   console.log(new Date(this.loading_start_time).getTime(),"loading_start_time");
 				  }else if (this.action == "end"){
 					   this.loading_end_time = `${e.year}-${e.month}-${e.day} ${e.hour}:${e.minute}`;
 					    uni.setStorageSync("loading_end_time_filter", this.loading_end_time)
@@ -238,6 +240,15 @@
 			},
 			
 			confirm(){
+				//check it the loading start time is later than loading end time
+				if(new Date(this.loading_start_time).getTime()-new Date(this.loading_end_time).getTime()>0){
+					uni.showToast({
+						title:"装货开始时间不能晚于装货结束时间",
+						icon:"none"
+					})
+					
+					return
+				}
 				//pass data to hall_opener page
 				const hparams ={} 
 				hparams.cargoBoxTypeSelected = this.cargoBoxTypeSelected

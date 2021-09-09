@@ -34,7 +34,7 @@
 	  <view class="condition-list" v-if ="show_conditions">
 		  <view class="sm-bars">
 			  <text class="bg-item" v-if ="cargoBoxTypeSelectedBar">
-			  			  <text v-for="(item,index) in cargoBoxTypeSelected ">
+			  			  <text v-for="(item,index) in cargoBoxTypeSelectedLabel ">
 			  			      <text class="sm-item"> {{item}}</text>
 							   <text :class="index===cargoBoxTypeSelected.length-1?'show':'unshow'">/</text>
 			  			  </text>
@@ -166,6 +166,9 @@
 				vehicleLengthSelected: [],
 				loading_start_time:"",
 				loading_end_time:"",
+				
+				//hall_select显示的cargoBoxType
+				cargoBoxTypeSelectedLabel: [],
 			};
 		},
 		components:{
@@ -281,24 +284,37 @@
 			},
 			
 			hallSelect(val){
-				
+				var that = this
 				console.log(val);
 				this.choose_hall_select = val.choose_hall_select
 				this.show_items = val.show_items
 				
+				//将cargoBoxTypeSelected数值转化为文字
 				this.cargoBoxTypeSelected = val.cargoBoxTypeSelected
 				if(this.cargoBoxTypeSelected.length>0){
 					this.cargoBoxTypeSelectedBar = true
 					this.show_conditions = true
 					console.log(this.cargoBoxTypeSelected,"cargoBoxTypeSelectedxxx");
 					const restArr = []
+					const cargoBoxTypeSelectedLabel = []
 				   const cargoBoxTypeSelected = this.cargoBoxTypeSelected
 				   cargoBoxTypeSelected.forEach(
 				      obj =>{
 						  console.log (obj, "mn")
+						  var cargo_selected =that.cargoBoxTypeDictValues.findIndex(value=>value ==obj)
+						  restArr.push(cargo_selected)
 					  }
 				   
 				   )
+				   console.log(restArr,'restArr');
+				   restArr.forEach((val)=>{
+					   var cargoBoxTypeOptionsTemp = this.cargoBoxTypeOptions
+					   var every_cargo_label = cargoBoxTypeOptionsTemp[val].dictLabel
+					   console.log(every_cargo_label,'every_cargo_label');
+					   cargoBoxTypeSelectedLabel.push(every_cargo_label)
+				   })
+				  console.log(cargoBoxTypeSelectedLabel,'cargoBoxTypeSelectedLabel');
+				  this.cargoBoxTypeSelectedLabel = cargoBoxTypeSelectedLabel
 				}
 				
 				this.vehicleLengthSelected = val.vehicleLengthSelected

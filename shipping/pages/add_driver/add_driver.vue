@@ -602,9 +602,10 @@
 								_self.driver_id = identify_res.data.data.num
 								_self.detail_address = identify_res.data.data.address
 									
-										//从业资格证编号：默认为驾驶员身份证编号
-										_self.qualificationCertNo = _self.driver_id
-										_self.params.qualificationCertNo = _self.qualificationCertNo 														
+								//从业资格证编号：默认为驾驶员身份证编号
+								_self.qualificationCertNo = _self.driver_id
+								_self.params.qualificationCertNo = _self.qualificationCertNo 	
+																					
 								//params 的值
 								 _self.params.driverName = _self.driver_name 
 								 _self.params.driverIdNumber = _self.driver_id
@@ -851,7 +852,7 @@
 				}
 				setTimeout(()=>{
 					uni.showToast({
-						title:"删除照片成功，请重新",
+						title:"删除照片成功",
 						icon:"none"
 					})
 				},500)
@@ -867,7 +868,7 @@
 				}
 				setTimeout(()=>{
 					uni.showToast({
-						title:"删除照片成功，请重新",
+						title:"删除照片成功",
 						icon:"none"
 					})
 				},500)
@@ -884,7 +885,7 @@
 				}
 				setTimeout(()=>{
 					uni.showToast({
-						title:"删除照片成功，请重新",
+						title:"删除照片成功",
 						icon:"none"
 					})
 				},500)
@@ -901,7 +902,7 @@
 				}
 				setTimeout(()=>{
 					uni.showToast({
-						title:"删除照片成功，请重新",
+						title:"删除照片成功",
 						icon:"none"
 					})
 				},500)
@@ -1189,45 +1190,45 @@
 								
 								
 								
-								// const resEdit = await this.$request({
-								// 	url:"/app/driver/edit",
-								// 	method: "PUT",
-								// 	data:modify_form,
-								// 	header:{
-								// 		Authorization:authorization,
+								const resEdit = await this.$request({
+									url:"/app/driver/edit",
+									method: "PUT",
+									data:modify_form,
+									header:{
+										Authorization:authorization,
 										
-								// 	},
+									},
 									
-								// })
+								})
 								
 								
 								
-								// if(resEdit.data.msg ="操作成功"){
-								// 	uni.showToast({
-								// 		title:resEdit.data.msg,
+								if(resEdit.data.msg ="操作成功"){
+									uni.showToast({
+										title:resEdit.data.msg,
 										
-								// 	})
+									})
 									
-								//     try {
-								//      uni.removeStorageSync('idcardFront');
-								//     	uni.removeStorageSync('idcardBack');
-								//     	uni.removeStorageSync('drivingLicensePhotoFirst');
-								//     	uni.removeStorageSync('qualificationCertPhoto');															  
-								//     } catch (e) {
-								//         // error
-								//     }
+								    try {
+								     uni.removeStorageSync('idcardFront');
+								    	uni.removeStorageSync('idcardBack');
+								    	uni.removeStorageSync('drivingLicensePhotoFirst');
+								    	uni.removeStorageSync('qualificationCertPhoto');															  
+								    } catch (e) {
+								        // error
+								    }
 								
-								// 	setTimeout(()=>{
-								// 	   uni.reLaunch({
-								// 	   	url:"/pages/driver_list/driver_list"
-								// 	   })
-								// 	},800)
-								// }else{
-								// 	uni.showToast({
-								// 		title:resEdit.data.msg,
-								// 		icon:"none"
-								// 	})
-								// } 
+									setTimeout(()=>{
+									   uni.reLaunch({
+									   	url:"/pages/driver_list/driver_list"
+									   })
+									},800)
+								}else{
+									uni.showToast({
+										title:resEdit.data.msg,
+										icon:"none"
+									})
+								} 
 								
 							 }		  
 								
