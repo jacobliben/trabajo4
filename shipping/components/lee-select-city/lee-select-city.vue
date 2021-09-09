@@ -86,7 +86,8 @@
 				<!-- 市级END -->
 			</view>
 		</view>
-		<button  type="primary" class="confirm-btn" @click="confirmStart" >确认</button>	
+		<!-- <button  type="primary" class="confirm-btn" @click="confirmStart" >确认</button> -->
+		<button  type="primary" class="confirm-btn" @click="confirmyes" >确认</button>	
 	</view>
 </template>
 
@@ -94,6 +95,7 @@
 	import LeeLatterList from './lee-latter-list.vue'
 	import cityData from './city.json'
 	import hotCities from './hot-cities.json'
+	import dataRegion from "@/components/data.js"
 	
 	export default {
 		components: {
@@ -278,6 +280,7 @@
 			confirmStart(){
 				
 				var start_place = []
+				var start_place_code = []
 				
 				this.currentSelected.forEach((item,index)=>{
 					start_place.push(item.name)
@@ -293,6 +296,40 @@
 				
 				start_place = start_place.join("")
 				
+			},
+			
+			confirmyes(){
+				
+				var start_place = []
+				
+				this.currentSelected.forEach((item,index)=>{
+					start_place.push(item)
+				})
+			    
+				console.log (start_place, "start_place")
+				console.log (dataRegion ,"dataRegion")
+				let start_region_value
+				
+				if (start_place.length>0){
+					var first_level = start_place[0]
+					var first_level_place = dataRegion.filter(val=>val.name ==first_level.name )
+					console.log (first_level_place ,"first_level_place")
+					start_region_value = first_level_place[0].value 
+					if (start_place.length>1){
+						var second_level = start_place[1]
+						var second_level_place = first_level_place[0].submenu.filter(val=>val.name == second_level.name )
+						console.log (second_level_place ,"second_level_place")
+						start_region_value = second_level_place[0].value
+						if (start_place.length>2){
+							var third_level = start_place[2]
+							var third_level_place = second_level_place[0].submenu.filter(val=>val.name == third_level.name )
+							console.log (third_level_place ,"third_level_place")
+							start_region_value = third_level_place[0].value
+						}
+					}
+				}
+				
+				console.log (start_region_value ,"start_region_value")
 			},
 		}
 	}

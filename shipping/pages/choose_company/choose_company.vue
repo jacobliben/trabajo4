@@ -53,7 +53,7 @@
 			<button class="pizhou-lilian" :class="{'xz-lilian':selected_pizhou}" @click="pickPizhou">
 				徐州徐工智联物流邳州分公司
 			</button> -->
-				<button v-for = "(item,index) in company_names" class="a-btn" :class="{'xz-lilian':tabCurrentIndex === item.carrierCompanyId}" @click="pick(item)">
+				<button v-for = "(item,index) in company_names" :key="index" class="a-btn" :class="{'xz-lilian':tabCurrentIndex === item.carrierCompanyId}" @click="pick(item)">
 					{{item.companyName}}
 				</button>
 		</view>

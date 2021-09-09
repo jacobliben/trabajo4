@@ -190,6 +190,7 @@
 
 <script>
 	import infoNotFound from "@/pages/info_not_found/info_not_found.vue"
+	import dataRegion from "@/components/data.js"
 	
 	var _self;
 	var origin_location
@@ -271,7 +272,7 @@
 			}
 			this.searchInquiry()
 			
-			
+			console.log (dataRegion ,"dataRegion")
 		},
 		
 		onShow(){

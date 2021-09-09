@@ -34,35 +34,35 @@
 	  <view class="condition-list" v-if ="show_conditions">
 		  <view class="sm-bars">
 			  <text class="bg-item" v-if ="cargoBoxTypeSelectedBar">
-			  			  <text v-for="(item,index) in cargoBoxTypeSelectedLabel ">
+			  			  <text v-for="(item,index) in cargoBoxTypeSelectedLabel " :key="index">
 			  			      <text class="sm-item"> {{item}}</text>
 							   <text :class="index===cargoBoxTypeSelected.length-1?'show':'unshow'">/</text>
 			  			  </text>
 			  			  <text class="cuIcon-close text-style margin-left" v-if ="cargoBoxTypeSelected"
-						   @click="cargoBoxTypeSelectedBar = false"></text>
+						   @click="clearCargoBoxTypeSelectedBar"></text>
 			  </text>
 			  	 				  
-			  <text class="bg-item" v-if ="vehicleLengthSelectedBar">
-			  	 					  <text v-for="(item,index) in vehicleLengthSelected ">
+			  <text class="bg-item" v-if ="vehicleLengthSelectedBar" >
+			  	 					  <text v-for="(item,index) in vehicleLengthSelected " :key="index">
 			  	 					       <text class="sm-item">{{item}}米</text>
 										   <text :class="index===vehicleLengthSelected.length-1?'show':'unshow'">/</text>
 			  	 					  </text>
 			  	 					  <text class="cuIcon-close text-style  margin-left" v-if ="vehicleLengthSelected"
-									  @click="vehicleLengthSelectedBar= false"></text>
+									  @click="clearVehicleLengthSelectedBar"></text>
 			  </text>
 			  			
 			  			
 			  					 
 			  <text class="bg-item" v-if ="loading_start_time_bar">
 			              <text>{{loading_start_time}}</text>
-						  <text class="cuIcon-close text-style  margin-left" v-if ="vehicleLengthSelected"
-						  @click="loading_start_time_bar= false"></text>
+						  <text class="cuIcon-close text-style  margin-left" v-if ="loading_start_time_bar"
+						  @click="clearLoadingStartTime"></text>
 			  </text>
 			  
 			  <text class="bg-item" v-if ="loading_end_time_bar">
 				           <text>{{loading_end_time}}</text>
-				           <text class="cuIcon-close text-style  margin-left" v-if ="vehicleLengthSelected"
-				           @click="loading_end_time_bar= false"></text>
+				           <text class="cuIcon-close text-style  margin-left" v-if ="loading_end_time_bar"
+				           @click="clearLoadingEndTime"></text>
 			  
 			  </text>
 		  </view>
@@ -171,6 +171,34 @@
 				cargoBoxTypeSelectedLabel: [],
 			};
 		},
+		computed:{
+			dataRange(){
+				const {cargoBoxTypeSelectedBar,
+				vehicleLengthSelectedBar,
+				loading_start_time_bar, 
+				loading_end_time_bar} = this
+				
+				return {cargoBoxTypeSelectedBar,
+				vehicleLengthSelectedBar,
+				loading_start_time_bar, 
+				loading_end_time_bar}
+			}
+		},
+		watch: {
+		    dataRange (val) {
+		      console.log(val,'dataRange')
+			  //get the values of every bars
+			  let bar_shown = Object.values(val)
+			  console.log(bar_shown)
+			  //to see if every value are all false, if all false, not shown all the bloc
+			  let bars_all_not_show = bar_shown.every(ele=> ele == false)
+			  console.log(bars_all_not_show,'bar')
+			  //if all the small filtered bars are not shown, let disappear all this bloc
+			  if(bars_all_not_show) {
+				  this.show_conditions = false
+			  }
+		    }
+		  },
 		components:{
 			 Hall,
 			 LeeSelectCity,
@@ -337,9 +365,54 @@
 				
 				
 			},
+			
+			clearCargoBoxTypeSelectedBar(){
+				try {
+				 uni.removeStorageSync('cargoBoxTypeSelected');
+																		  
+				} catch (e) {
+				    // error
+				}
+				this.cargoBoxTypeSelectedBar = false
+			},
+			clearVehicleLengthSelectedBar(){
+				try {
+				 uni.removeStorageSync('vehicleLengthSelected');
+																		  
+				} catch (e) {
+				    // error
+				} 
+				this.vehicleLengthSelectedBar = false
+			},
+			clearLoadingStartTime(){
+				try {
+				 uni.removeStorageSync('loading_start_time_filter');
+																		  
+				} catch (e) {
+				    // error   
+				} 
+				this.loading_start_time_bar = false
+			},
+			clearLoadingEndTime(){
+				try {
+				 uni.removeStorageSync('loading_end_time_filter');
+																		  
+				} catch (e) {
+				    // error   
+				} 
+				this.loading_end_time_bar = false
+			},
 			clearBars(){
+				try {
+				 uni.removeStorageSync('cargoBoxTypeSelected');
+					uni.removeStorageSync('vehicleLengthSelected');
+					uni.removeStorageSync('loading_start_time_filter');
+					uni.removeStorageSync('loading_end_time_filter');															  
+				} catch (e) {
+				    // error
+				}
 				this.show_conditions = false
-			}
+			},
 		}
 	}
 </script>

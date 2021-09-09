@@ -1816,6 +1816,18 @@
 									title:res.data.msg,
 									
 								})
+								
+								try {
+								 uni.removeStorageSync('vehicleLicensePhotoFirst');
+									uni.removeStorageSync('vehicleRoadcertPhoto');
+									uni.removeStorageSync('peopleVehiclePhoto');
+									uni.removeStorageSync('trailerLicensePhotoFirst');															  
+								} catch (e) {
+								    // error
+								}
+								
+								
+								
 								setTimeout(()=>{
 								   uni.reLaunch({
 								   	url:"/pages/vehicle_list/vehicle_list"
@@ -1912,10 +1924,6 @@
 					
 					
 					
-					
-					
-					
-					
 					const resEdit = await this.$request({
 						url:"/app/vehicle/edit",
 						method: "PUT",
@@ -1932,6 +1940,15 @@
 							title:resEdit.data.msg,
 							
 						})
+						
+						try {
+						 uni.removeStorageSync('vehicleLicensePhotoFirst');
+							uni.removeStorageSync('vehicleRoadcertPhoto');
+							uni.removeStorageSync('peopleVehiclePhoto');
+							uni.removeStorageSync('trailerLicensePhotoFirst');															  
+						} catch (e) {
+						    // error
+						}
 						setTimeout(()=>{
 						   uni.reLaunch({
 						   	url:"/pages/vehicle_list/vehicle_list"

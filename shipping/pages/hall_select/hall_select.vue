@@ -83,16 +83,6 @@
 			 
 			 //re-show
 			 
-			 this.cargoBoxTypeSelected = uni.getStorageSync("cargoBoxTypeSelected")
-			 const cargoBoxTypeSelected =  this.cargoBoxTypeSelected
-			 console.log(this.cargoBoxTypeSelected,'mmm')
-			 for (let i of this.cargoBoxTypeSelected){
-			 	
-			 	console.log(i ,"aobj");
-			 	
-			 }
-			 this.vehicleLengthSelected = uni.getStorageSync("vehicleLengthSelected")
-		
 			 this.loading_start_time = uni.getStorageSync("loading_start_time_filter")
 			 
 			 this.loading_end_time = uni.getStorageSync("loading_end_time_filter")
@@ -159,11 +149,21 @@
 				
 				for (let i =0; i< this.cargoBoxTypeOptions.length; i++){
 					var obj ={}
+					//reshow the selected ones with obj.checked= 1
+					this.cargoBoxTypeSelected = uni.getStorageSync("cargoBoxTypeSelected")
+					const cargoBoxTypeSelected =  this.cargoBoxTypeSelected
+					
 					console.log(this.cargoBoxTypeOptions[i],"i");	
 					var {name, value, checked} = obj
 					obj.name = this.cargoBoxTypeOptions[i].dictLabel
 					obj.value = this.cargoBoxTypeOptions[i].dictValue
 					obj.checked= 0
+					if (cargoBoxTypeSelected.includes(obj.value)){
+						obj.checked= 1
+					}else{
+						obj.checked= 0
+					}
+					
 					console.log(obj ,"obj");
 					newArr.push(obj)
 				}
@@ -194,11 +194,23 @@
 					
 					for (let i =0; i< this.vehicleLengthOptions.length; i++){
 						var obj ={}
-						console.log(this.vehicleLengthOptions[i],"i");	
+							
+						//reshow the selected ones with obj.checked= 1
+						
+						 this.vehicleLengthSelected = uni.getStorageSync("vehicleLengthSelected")
+						 const vehicleLengthSelected =  this.vehicleLengthSelected
+						 
 						var {name, value, checked} = obj
 						obj.name = this.vehicleLengthOptions[i].dictLabel
 						obj.value = this.vehicleLengthOptions[i].dictValue
 						obj.checked= 0
+						
+						if (vehicleLengthSelected.includes(obj.value)){
+							obj.checked= 1
+						}else{
+							obj.checked= 0
+						}
+						
 						console.log(obj ,"obj");
 						newArr.push(obj)
 					}
@@ -213,7 +225,7 @@
 			radioChangeType(val) {
 			console.log(val) // 单选时 返回选中项的value, 反选返回null
 			 this.cargoBoxTypeSelected = val
-			 console.log(this.cargoBoxTypeSelected,"cargoBoxTypeSelected" )
+			
 			 uni.setStorageSync("cargoBoxTypeSelected", this.cargoBoxTypeSelected)
 			},
 			
@@ -221,7 +233,7 @@
 			radioChangeLengthType(val) {
 			console.log(val) // 单选时 返回选中项的value, 反选返回null
 			 this.vehicleLengthSelected = val
-			 console.log(this.vehicleLengthSelected, "vehicleLengthSelected")
+			 
 			 uni.setStorageSync("vehicleLengthSelected", this.vehicleLengthSelected)
 			},
 			
