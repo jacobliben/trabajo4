@@ -457,14 +457,14 @@
 							//restore the original shipping order status
 							this.show_shipping_order = true
 				
-				uni.reLaunch({
-					url:'/pages/login/login'
-				})  
+				// uni.reLaunch({
+				// 	url:'/pages/login/login'
+				// })  
 			
 				
 				// // #ifdef APP-PLUS 
 							 
-				// plus.runtime.quit();  
+				 plus.runtime.quit();  
 				// // #endif
 			}
 		}

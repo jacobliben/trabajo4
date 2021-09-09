@@ -258,8 +258,8 @@
 						title:"两次密码需一致",
 						icon:"none"
 					})
-					this.contrasena = ""
-					this.recontrasena = ""	 
+					// this.contrasena = ""
+					// this.recontrasena = ""	 
 				 this.is_correct=false	 										
 				} else{
 					this.recontrasena = e.target.value
@@ -297,7 +297,7 @@
 									         	title:"密码长度8~16位,必须包含数字,字母",
 												icon:"none"
 									         })
-				           this.contrasena = ""
+				           // this.contrasena = ""
 						  
 											return
 											 
@@ -349,7 +349,7 @@
 												title:"验证码必须4位,请输入",
 												icon:"none"
 											})
-											this.veri_code = ""
+											// this.veri_code = ""
 										 return	 										
 										} 
 										
@@ -359,8 +359,8 @@
 												title:"密码请输入8-16位",
 												icon:"none"
 											})
-										this.contrasena = ""
-										this.recontrasena = ""	 	
+										// this.contrasena = ""
+										// this.recontrasena = ""	 	
 										 return	 										
 										} 
 										
@@ -374,7 +374,7 @@
 															         	title:"密码长度8~16位,必须包含数字,字母",
 																		icon:"none"
 															         })
-										           this.contrasena = ""
+										    //        this.contrasena = ""
 												  
 													return
 																	 
@@ -387,8 +387,8 @@
 												title:"两次密码需一致",
 												icon:"none"
 											})
-										 this.contrasena = ""
-										 this.recontrasena = ""	 
+										 // this.contrasena = ""
+										 // this.recontrasena = ""	 
 										 return	 										
 										} 
 										
@@ -434,7 +434,7 @@
 	
 	.btn-row{
 		width: 100%;
-		margin-top:200rpx;
+		margin-top:50rpx;
 		display: flex;
 		justify-content: center;
 	}

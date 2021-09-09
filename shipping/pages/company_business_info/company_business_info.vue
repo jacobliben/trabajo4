@@ -2,7 +2,7 @@
 	<view>
 		<form @submit="formSubmit" >
 		     <!-- 	take ID photo section -->
-			 <view class="current-state margin-top">
+			 <view class="current-state">
 			 		<text >证件照片上传</text>
 			 		<text class="red-isterisk">*</text>
 			 	</view>
@@ -1194,6 +1194,19 @@
 									},
 			
 			
+		},
+		onBackPress(event) {
+			this.params.the_step =1
+			this.params.active_one_step= true
+			this.params.active_two_step= false
+			this.params.active_three_step= false
+			this.params.active_four_step= false
+			this.params.active_five_step= false
+			
+			uni.setStorageSync("params_business",this.params)
+			this.$emit('register_business_params',this.params)
+			
+			return true
 		}
 		
 	}
@@ -1201,7 +1214,7 @@
 
 <style lang="scss" scoped>
    .current-state{
-   		 margin-top:10rpx;
+   		 margin-top:35rpx;
    		 margin-left:10rpx;
    		 margin-bottom: 25rpx;
    		 border-left:3rpx solid blue;
@@ -1292,7 +1305,7 @@
    
    .btn-row{
    	width: 100%;
-   	margin-top:200rpx;
+   	margin-top:50rpx;
    	display: flex;
    	justify-content: center;
    }

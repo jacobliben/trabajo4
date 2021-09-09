@@ -86,6 +86,10 @@
             {
                 "navigationBarTitleText": "注册",
                 "enablePullDownRefresh": false,
+				"navigationStyle":"custom",
+				    "app-plus":{
+				       "titleView":false
+				      },
 				"app-plus": {
 				        "animationType": "slide-in-top",
 				        "animationDuration": 300

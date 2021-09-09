@@ -40,6 +40,11 @@
 			</view>
 		</view>
 		
+		<button  @click="exit"  class="login-btn margin-top margin-bottom text-center self-center radius" data-class="fade" role="button" :disabled="login_disable">
+			<text class="self-center">
+				退出注册
+			</text>
+		</button>
 		
 	</view>
 </template>
@@ -69,6 +74,11 @@
 			}
 		},
 		methods:{
+			exit(){
+				uni.reLaunch({
+					url:"/pages/login/login"
+				})
+			},
 			showDriverModal(){
 				//APP 端
 				// #ifdef APP-PLUS
@@ -232,5 +242,15 @@
 	.driver-img{
 		width:200rpx;
 		height:200rpx;
+	}
+	
+	.login-btn{
+			width: 90%;
+			margin-left:5%;
+			 background-color: #1684fc;
+			 color:#fff;
+			 font-size: 30rpx;
+			 font-weight: 600;
+			 border-radius:15rpx;
 	}
 </style>

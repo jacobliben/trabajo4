@@ -4,6 +4,7 @@
 			<!-- <view class="head">
 				<image src="/static/driver-version.png" mode="widthFix" class="drivers"></image>
 			</view> -->
+			<view><text class="cuIcon-close text-style  start-icon" @click="exit"></text></view>
 			
 			<view class="head-title">
 			   欢迎登录徐工智联 <text class="title-blue">司机版</text>
@@ -30,7 +31,7 @@
 			
 			<view class="terms">
 				 <label class="radio"><radio class="radio-icon" value="r1" :checked="terms_checked"  @click="radioChange"/>
-				   <text>登录代表同意徐工智联</text>
+				   <text class="text-gray">登录代表同意徐工智联</text>
 				   <text class="blue-terms" @click.prevent="goTerms">《用户协议》</text>
 				 </label>
 			</view>
@@ -70,7 +71,7 @@
 				
 				
 				<view class="change-pass">
-					<navigator url="/pages/tel_login/tel_login"><text class="no-use-more">验证码登录</text></navigator>
+					<navigator url="/pages/tel_login/tel_login"><text class="choices">验证码登录</text></navigator>
 				</view>
 				
 				<view class="change-pass">
@@ -235,6 +236,12 @@
 	    },
 		methods: {
 			
+			exit(){
+				// #ifdef APP-PLUS
+							 
+				plus.runtime.quit();  
+				// #endif
+			},
 			goTerms(){
 				uni.navigateTo({
 					url:"/pages/terms/terms"
@@ -730,7 +737,7 @@
 		 margin-top: 20%;
 		 letter-spacing: 20rpx;
 		 font-size: 50rpx;
-		 font-weight: 500;
+		 font-weight: 800;
 		 margin-bottom: 17rpx;
 		 position: relative;
 		 
@@ -738,6 +745,7 @@
 	 .sub-head-title{
 		
 		padding-left: 0rpx;
+		text-align:left ;
 		
 	 }
 	 
@@ -748,7 +756,7 @@
 		letter-spacing: 25rpx;
 	 	font-size: 35rpx;
 	 	font-weight: 400;
-		margin-left: 10%;
+		margin-left: 0%;
 	 }
 	 
 	 .title-blue{
@@ -807,6 +815,7 @@
 	 }
 	 
 	 .login-btn{
+		 
 		 background-color: #1684fc;
 		 color:#fff;
 		 font-size: 30rpx;

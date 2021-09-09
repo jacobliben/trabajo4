@@ -40,6 +40,9 @@
 			</view>
 		</view>
 		
+		<button  @click="salir"  class="login-btn margin-top margin-bottom text-center self-center radius" data-class="fade" role="button" :disabled="login_disable">
+			<text class="self-center">立即登录</text>
+		</button>
 		
 	</view>
 </template>

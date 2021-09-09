@@ -282,6 +282,9 @@
 				})
 			
 				var dest_region = dest_place.slice(-1)
+				if (dest_region.length ==0){
+					dest_region = "全国"
+				}
 				uni.setStorageSync("enquiry_dest_region",dest_region)
 				this.$emit("destRegionDone",dest_region)
 				

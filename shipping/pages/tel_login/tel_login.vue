@@ -64,7 +64,7 @@
 				<navigator url="/pages/choose_identity/choose_identity" ><text class="choices">立即注册</text></navigator>
 			</view>
 			<view class="change-pass">
-				<navigator url="/pages/login/login"><text class="no-use-more">密码登录</text></navigator>
+				<navigator url="/pages/login/login"><text class="choices">密码登录</text></navigator>
 			</view>
 		    <view>
 				<navigator url="/pages/recover_account/recover_account"><text class="choices">忘记密码？</text>

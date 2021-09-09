@@ -25,15 +25,64 @@
 	 		  <view class="plus" @click="addRefresh">
 	 			  <image src="/static/rotate.png" mode="" class="add" :class="{rotate: activeRotate }"></image>
 	 		  </view>
+			  
+			
 	 </view>
 	 
+	 
+	 <!-- 从hall_select页面传来的值的小条 -->
+	  <view class="condition-list" v-if ="show_conditions">
+		  <view class="sm-bars">
+			  <text class="bg-item" v-if ="cargoBoxTypeSelectedBar">
+			  			  <text v-for="(item,index) in cargoBoxTypeSelected ">
+			  			      <text class="sm-item"> {{item}}</text>
+							   <text :class="index===cargoBoxTypeSelected.length-1?'show':'unshow'">/</text>
+			  			  </text>
+			  			  <text class="cuIcon-close text-style margin-left" v-if ="cargoBoxTypeSelected"
+						   @click="cargoBoxTypeSelectedBar = false"></text>
+			  </text>
+			  	 				  
+			  <text class="bg-item" v-if ="vehicleLengthSelectedBar">
+			  	 					  <text v-for="(item,index) in vehicleLengthSelected ">
+			  	 					       <text class="sm-item">{{item}}米</text>
+										   <text :class="index===vehicleLengthSelected.length-1?'show':'unshow'">/</text>
+			  	 					  </text>
+			  	 					  <text class="cuIcon-close text-style  margin-left" v-if ="vehicleLengthSelected"
+									  @click="vehicleLengthSelectedBar= false"></text>
+			  </text>
+			  			
+			  			
+			  					 
+			  <text class="bg-item" v-if ="loading_start_time_bar">
+			              <text>{{loading_start_time}}</text>
+						  <text class="cuIcon-close text-style  margin-left" v-if ="vehicleLengthSelected"
+						  @click="loading_start_time_bar= false"></text>
+			  </text>
+			  
+			  <text class="bg-item" v-if ="loading_end_time_bar">
+				           <text>{{loading_end_time}}</text>
+				           <text class="cuIcon-close text-style  margin-left" v-if ="vehicleLengthSelected"
+				           @click="loading_end_time_bar= false"></text>
+			  
+			  </text>
+		  </view>
+		  
+			
+		<view class="clear-bars" @click="clearBars">清空</view>
+	  </view>
 		
 		<!-- body section -->
 		<view class="shipping-body">
 			<view class="list" v-for = "(item,index) in navList" :key="index"  v-if="tabCurrentIndex===index">
+				<!-- 选择出发地 -->
 				<lee-select-city class="lee-city" v-if="choose_start "  @startRegionDone = "startRegionDone" />
+				<!-- 选择目的地 -->
 				<lee-select-city-dest class="lee-city" v-if="choose_destination " @destRegionDone = "destRegionDone"/>
-				 <hall-select  v-if="choose_hall_select " :key="select_key"/>
+				<!-- 筛选条件 --> 
+				 <hall-select  v-if="choose_hall_select " :key="select_key" @hallSelect = "hallSelect"/>
+				 
+				 
+				 <!-- 货源条目 -->
 				 <hall :key="refresh_index" :source = "item" v-if="show_items"/> 
 				
 				
@@ -57,6 +106,18 @@
 				refresh_index:0,
 				choose_start:false,
 				choose_destination:false,
+				choose_hall_select:false,
+				//显示筛选小条
+				show_conditions:false,
+				cargoBoxTypeSelectedBar:false,
+				vehicleLengthSelectedBar:false,
+				loading_start_time_bar:false,
+				loading_end_time_bar:false,
+				
+				
+				cargoBoxTypeDictValues:[],
+				cargoBoxTypeDictLabels:[],
+				
 				show_items:true,
 				select_key:0,
 				navList:[
@@ -99,6 +160,12 @@
 					
 				],
 				activeRotate:false,
+				
+				//hall_select 页传来的筛选值
+				cargoBoxTypeSelected: [],
+				vehicleLengthSelected: [],
+				loading_start_time:"",
+				loading_end_time:"",
 			};
 		},
 		components:{
@@ -111,7 +178,11 @@
 			this.tabCurrentIndex = 0
 			
 		},
+		mounted(){
 		
+			 //车辆类型字典
+			 this.getCargoBoxTypeOptions()
+		},		
 		onPullDownRefresh() {
 			var that = this
 			console.log("hall");
@@ -122,7 +193,29 @@
 		},
 		
 		methods:{
-			
+			//车辆类型字典
+			async getCargoBoxTypeOptions(){
+				
+				var authorization = uni.getStorageSync("token")
+				
+				const res = await this.$request({
+					 	url:"/system/dict/data/type/vehicle_cargo_box_type",
+					 	
+					 	header:{
+					 		Authorization:authorization,
+					 	},
+					 	
+					 })
+				console.log(res,"cargoBoxTypeOptions");	
+					this.cargoBoxTypeOptions = res.data.data
+				console.log(this.cargoBoxTypeOptions,"cargoBoxTypeOptions222");	
+				    this.cargoBoxTypeDictValues = this.cargoBoxTypeOptions.map(x => x.dictValue)
+					this.cargoBoxTypeDictLabels = this.cargoBoxTypeOptions.map(x => x.dictLabel)
+				console.log(this.cargoBoxTypeDictValues,"cargoBoxTypeDictValues");
+				console.log(this.cargoBoxTypeDictLabels,"cargoBoxTypeDictLabels");	
+				
+				
+			},
 			tabClick(index){
 				this.tabCurrentIndex = index
 				
@@ -136,16 +229,19 @@
 					this.choose_destination = false
 					this.show_items = false
 				    this.choose_hall_select = false
+					this.show_conditions = false
 				}else if (item.ele_state == 2){
 					this.choose_destination = true
 					this.choose_start = false
 					this.show_items = false
 					this.choose_hall_select = false
+					this.show_conditions = false
 				}else if (item.ele_state == 3){
 					this.choose_hall_select = true
 					this.choose_destination = false
 					this.choose_start = false
 					this.show_items = false
+					this.show_conditions = false
 				}
 			},
 			
@@ -157,18 +253,77 @@
 					that.activeRotate = false
 				},3000)
 			},
-			
+				
 			startRegionDone(val){
 				
 				val =  val.toString ()
 				this.subList[0].text = val
+				
+				if (val.length>0){
+					this.choose_start = false
+					this.choose_destination = false
+					this.choose_hall_select = false
+					this.show_items = true
+				}
 			},
 			
 			destRegionDone(val){
 				
 				val =  val.toString ()
 				this.subList[1].text = val
+				
+				if (val.length>0){
+					this.choose_start = false
+					this.choose_destination = false
+					this.choose_hall_select = false
+					this.show_items = true
+				}
 			},
+			
+			hallSelect(val){
+				
+				console.log(val);
+				this.choose_hall_select = val.choose_hall_select
+				this.show_items = val.show_items
+				
+				this.cargoBoxTypeSelected = val.cargoBoxTypeSelected
+				if(this.cargoBoxTypeSelected.length>0){
+					this.cargoBoxTypeSelectedBar = true
+					this.show_conditions = true
+					console.log(this.cargoBoxTypeSelected,"cargoBoxTypeSelectedxxx");
+					const restArr = []
+				   const cargoBoxTypeSelected = this.cargoBoxTypeSelected
+				   cargoBoxTypeSelected.forEach(
+				      obj =>{
+						  console.log (obj, "mn")
+					  }
+				   
+				   )
+				}
+				
+				this.vehicleLengthSelected = val.vehicleLengthSelected
+				if(this.vehicleLengthSelected.length>0){
+					this.vehicleLengthSelectedBar = true
+					this.show_conditions = true
+				}
+				
+				this.loading_start_time = val.loading_start_time
+				if(this.loading_start_time.length>0){
+					this.loading_start_time_bar = true
+					this.show_conditions = true
+				}
+				
+				this.loading_end_time = val.loading_end_time
+				if(this.loading_end_time.length>0){
+					this.loading_end_time_bar = true
+					this.show_conditions = true
+				}
+				
+				
+			},
+			clearBars(){
+				this.show_conditions = false
+			}
 		}
 	}
 </script>
@@ -289,5 +444,56 @@
 		height: 23rpx;
 		margin-left: 10rpx;
 		
+	}
+	
+	.condition-list{
+		width: 90%;
+		margin-top: 25rpx;
+		margin-left: 5%;
+		white-space: nowrap;
+		overflow: hidden;
+		height:50rpx;
+		display: flex;
+		justify-content: space-between;
+		
+	}
+	
+	.sm-bars{
+		width: 85%;
+		white-space: nowrap;
+		overflow: hidden;
+		
+		height:40rpx;
+	}
+	
+	.clear-bars{
+		width: 10%;
+		color: #4a94f7;
+		font-size: 30rpx;
+	}
+	
+	.sm-item{
+		
+		background-color: #ebf5fe;
+		color: #4a94f7;
+		
+		margin-left: 5rpx;
+		margin-right: 5rpx;
+	}
+	
+	.bg-item{
+		font-size: 30rpx;
+		background-color: #ebf5fe;
+		color: #4a94f7;
+		margin-left: 15rpx;
+		margin-right: 15rpx;
+	}
+	
+	.show{
+		opacity: 0;
+	}
+	
+	.unshow{
+		opacity: 1;
 	}
 </style>

@@ -36,7 +36,7 @@
 		<view class="notes">
 			<view>{{received_msg}}</view>
 		</view> -->
-		
+		<view><text class="cuIcon-back text-style  start-icon" @click="exit"></text></view>
 		<view class="head-sec">
 			<view class="head-title">
 			   欢迎登录徐工智联
@@ -100,6 +100,12 @@
 			
 		},
 		methods: {
+			
+			exit(){
+				uni.reLaunch({
+					url:'/pages/login/login'
+				})  
+			},
 			phoneCall(){
 				uni.makePhoneCall({
 				    phoneNumber: '051687739070' ,
