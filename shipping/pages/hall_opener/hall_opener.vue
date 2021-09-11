@@ -33,6 +33,16 @@
 	 <!-- 从hall_select页面传来的值的小条 -->
 	  <view class="condition-list" v-if ="show_conditions">
 		  <view class="sm-bars">
+			  <text class="bg-item" v-if ="inquirySelectedBar">
+			  			  <text v-for="(item,index) in 	inquiryLabel" :key="index">
+			  			      <text class="sm-item"> {{item}}</text>
+			  					<text :class="index===inquiryLabel.length-1?'show':'unshow'">/</text>		   
+			  			  </text>
+			  			  <text class="cuIcon-close text-style margin-left" v-if ="inquiryTypeSelected"
+			  			   @click="clearInquirySelectedBar"></text>
+			  </text>
+			  
+			  
 			  <text class="bg-item" v-if ="cargoBoxTypeSelectedBar">
 			  			  <text v-for="(item,index) in cargoBoxTypeSelectedLabel " :key="index">
 			  			      <text class="sm-item"> {{item}}</text>
@@ -75,7 +85,7 @@
 		<view class="shipping-body">
 			<view class="list" v-for = "(item,index) in navList" :key="index"  v-if="tabCurrentIndex===index">
 				<!-- 选择出发地 -->
-				<lee-select-city class="lee-city" v-if="choose_start "  @startRegionDone = "startRegionDone" />
+				 <lee-select-city class="lee-city" v-if="choose_start "  @startRegionDone = "startRegionDone" /> -->
 				<!-- 选择目的地 -->
 				<lee-select-city-dest class="lee-city" v-if="choose_destination " @destRegionDone = "destRegionDone"/>
 				<!-- 筛选条件 --> 
@@ -109,6 +119,7 @@
 				choose_hall_select:false,
 				//显示筛选小条
 				show_conditions:false,
+				inquirySelectedBar:false,
 				cargoBoxTypeSelectedBar:false,
 				vehicleLengthSelectedBar:false,
 				loading_start_time_bar:false,
@@ -117,6 +128,7 @@
 				
 				cargoBoxTypeDictValues:[],
 				cargoBoxTypeDictLabels:[],
+				
 				
 				show_items:true,
 				select_key:0,
@@ -162,13 +174,18 @@
 				activeRotate:false,
 				
 				//hall_select 页传来的筛选值
+				inquiryTypeSelected: [],
 				cargoBoxTypeSelected: [],
 				vehicleLengthSelected: [],
+				inquiryTypeSelected: [],
 				loading_start_time:"",
 				loading_end_time:"",
 				
 				//hall_select显示的cargoBoxType
 				cargoBoxTypeSelectedLabel: [],
+				
+				//hall_select显示的inquiryType
+				inquiryLabel: [],
 			};
 		},
 		computed:{
@@ -186,13 +203,13 @@
 		},
 		watch: {
 		    dataRange (val) {
-		      console.log(val,'dataRange')
+		     
 			  //get the values of every bars
 			  let bar_shown = Object.values(val)
-			  console.log(bar_shown)
+			 
 			  //to see if every value are all false, if all false, not shown all the bloc
 			  let bars_all_not_show = bar_shown.every(ele=> ele == false)
-			  console.log(bars_all_not_show,'bar')
+			  
 			  //if all the small filtered bars are not shown, let disappear all this bloc
 			  if(bars_all_not_show) {
 				  this.show_conditions = false
@@ -210,18 +227,12 @@
 			
 		},
 		mounted(){
-		
+			
+			
+			
 			 //车辆类型字典
 			 this.getCargoBoxTypeOptions()
 		},		
-		onPullDownRefresh() {
-			var that = this
-			console.log("hall");
-			this.refresh_index++;
-			setTimeout(()=>{
-				uni.stopPullDownRefresh()	
-			},3000)
-		},
 		
 		methods:{
 			//车辆类型字典
@@ -237,26 +248,41 @@
 					 	},
 					 	
 					 })
-				console.log(res,"cargoBoxTypeOptions");	
+				
 					this.cargoBoxTypeOptions = res.data.data
-				console.log(this.cargoBoxTypeOptions,"cargoBoxTypeOptions222");	
+			
 				    this.cargoBoxTypeDictValues = this.cargoBoxTypeOptions.map(x => x.dictValue)
 					this.cargoBoxTypeDictLabels = this.cargoBoxTypeOptions.map(x => x.dictLabel)
-				console.log(this.cargoBoxTypeDictValues,"cargoBoxTypeDictValues");
-				console.log(this.cargoBoxTypeDictLabels,"cargoBoxTypeDictLabels");	
+				
 				
 				
 			},
+			
 			tabClick(index){
 				this.tabCurrentIndex = index
+				console.log(index,'tab-index');
 				
+				let designatedStatus =[]
+				
+				if (index == 0){
+					designatedStatus =[1, 2, 3]
+				}else if (index == 1){
+					designatedStatus =[1, 2]
+				}else if (index == 2){
+					designatedStatus =[3]
+				}
+				console.log(designatedStatus,'designatedStatus');
+				uni.setStorageSync('designatedStatus',designatedStatus)
 			},
 			
 			subClick(index,item){
 				this.subCurrentIndex  = index
-				console.log(item,'item111')
+				
 				if (item.ele_state == 1){
-					this.choose_start = true
+					// this.choose_start = true
+					uni.navigateTo({
+						url:"/pages/inquiry_start/inquiry_start"
+					})
 					this.choose_destination = false
 					this.show_items = false
 				    this.choose_hall_select = false
@@ -313,35 +339,42 @@
 			
 			hallSelect(val){
 				var that = this
-				console.log(val);
+				console.log (val, "val")
 				this.choose_hall_select = val.choose_hall_select
 				this.show_items = val.show_items
+				this.inquiryTypeSelected = val.inquiryTypeSelected
+				this.inquiryLabel = val.inquiryLabel
 				
+				//将inquiryLabel显示
+				if(this.inquiryLabel.length>0){
+					this.inquirySelectedBar = true
+					this.show_conditions = true
+				}
 				//将cargoBoxTypeSelected数值转化为文字
 				this.cargoBoxTypeSelected = val.cargoBoxTypeSelected
 				if(this.cargoBoxTypeSelected.length>0){
 					this.cargoBoxTypeSelectedBar = true
 					this.show_conditions = true
-					console.log(this.cargoBoxTypeSelected,"cargoBoxTypeSelectedxxx");
+					
 					const restArr = []
 					const cargoBoxTypeSelectedLabel = []
 				   const cargoBoxTypeSelected = this.cargoBoxTypeSelected
 				   cargoBoxTypeSelected.forEach(
 				      obj =>{
-						  console.log (obj, "mn")
+						
 						  var cargo_selected =that.cargoBoxTypeDictValues.findIndex(value=>value ==obj)
 						  restArr.push(cargo_selected)
 					  }
 				   
 				   )
-				   console.log(restArr,'restArr');
+				 
 				   restArr.forEach((val)=>{
 					   var cargoBoxTypeOptionsTemp = this.cargoBoxTypeOptions
 					   var every_cargo_label = cargoBoxTypeOptionsTemp[val].dictLabel
-					   console.log(every_cargo_label,'every_cargo_label');
+					 
 					   cargoBoxTypeSelectedLabel.push(every_cargo_label)
 				   })
-				  console.log(cargoBoxTypeSelectedLabel,'cargoBoxTypeSelectedLabel');
+				
 				  this.cargoBoxTypeSelectedLabel = cargoBoxTypeSelectedLabel
 				}
 				
@@ -365,7 +398,15 @@
 				
 				
 			},
-			
+			clearInquirySelectedBar(){
+				try {
+				 uni.removeStorageSync('inquiryTypeSelectedLabel');
+				 uni.removeStorageSync('inquiryTypeSelected');														  
+				} catch (e) {
+				    // error
+				}
+				this.inquirySelectedBar = false
+			},
 			clearCargoBoxTypeSelectedBar(){
 				try {
 				 uni.removeStorageSync('cargoBoxTypeSelected');

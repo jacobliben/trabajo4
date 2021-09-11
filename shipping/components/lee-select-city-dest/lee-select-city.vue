@@ -92,6 +92,7 @@
 	import LeeLatterList from './lee-latter-list.vue'
 	import cityData from './city.json'
 	import hotCities from './hot-cities.json'
+	import dataRegion from "@/components/data.js"
 	
 	export default {
 		components: {
@@ -276,6 +277,7 @@
 			confirmDest(){
 				
 				var dest_place = []
+				var dest_place_code = []
 				
 				this.currentSelected.forEach((item,index)=>{
 					dest_place.push(item.name)
@@ -289,6 +291,38 @@
 				this.$emit("destRegionDone",dest_region)
 				
 				dest_place = dest_place.join("")
+				
+				this.currentSelected.forEach((item,index)=>{
+					dest_place_code.push(item)
+				})
+				
+				console.log (dest_place_code, "dest_place_code")
+				console.log (dataRegion ,"dataRegion")
+				let dest_region_value
+				
+				if (dest_place_code.length>0){
+					var first_level = dest_place_code[0]
+					var first_level_place = dataRegion.filter(val=>val.name ==first_level.name )
+					console.log (first_level_place ,"first_level_place")
+					dest_region_value = first_level_place[0].value 
+					
+					if (dest_place_code.length>1){
+						var second_level = dest_place_code[1]
+						var second_level_place = first_level_place[0].submenu.filter(val=>val.name == second_level.name )
+						console.log (second_level_place ,"second_level_place")
+						dest_region_value = second_level_place[0].value
+						
+						if (dest_place_code.length>2){
+							var third_level = dest_place_code[2]
+							var third_level_place = second_level_place[0].submenu.filter(val=>val.name == third_level.name )
+							console.log (third_level_place ,"third_level_place")
+							dest_region_value = third_level_place[0].value
+						}
+					}
+				}
+				
+				
+				uni.setStorageSync("dest_region_value",dest_region_value)
 				
 			},
 		}

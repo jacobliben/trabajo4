@@ -277,7 +277,7 @@
 		 <checkbox-group class="check-contract">
 		                    
 		                     <label>
-		                         <checkbox :value="terms_checked" :checked="terms_checked" @click="checkChange" />请同意并签署 <text class="contract" @click="goContract">《承运合同》</text>
+		                         <checkbox :value="terms_checked" :checked="terms_checked" @click="checkChange" />请阅读并同意签署 <text class="contract" @click="goContract">《承运合同》</text>
 		                     </label>
 		 </checkbox-group> 
 		  
@@ -290,7 +290,7 @@
 </template>
 
 <script>
-	
+	import contract from "@/pages/carrier_contract/carrier_contract"
 	var _self;
 	var origin_location
 	var origin_latitude
@@ -314,6 +314,7 @@
 				received_info:{},
 				btn_title:"",
 				short_distance:null,
+				params:{},
 				
 				// 货物分类字典
 				goodsType:"",
@@ -330,6 +331,8 @@
 				package_type_index:0,
 				
 				terms_checked: false,
+				
+				waybillId:""
 			};
 		},
 		watch: {
@@ -345,10 +348,10 @@
 				
 			}
 		},
-	
+	    
 		async onLoad(options){
 			var that = this
-			
+			  this.waybillId = options.waybillId
 			 const waybillId= options.waybillId
 			 var authorization = uni.getStorageSync("token")
 			 
@@ -365,6 +368,8 @@
 			
 			 this.received_info = resSource.data.data
 		     console.log(this.received_info,'777')
+			 
+			 uni.setStorageSync("contract_waybill_info", this.received_info)
 			 
 			 // 包装类型字典
 			 this.getPackageTypeOptions()
@@ -500,56 +505,79 @@
 			checkChange(evt){
 				
 				this.terms_checked = !this.terms_checked
+				if (this.terms_checked){
+					this.goContract()
+				}
+				
 			},
 			
 			
 			goContract(){
+				const waybillId = this.waybillId
 				uni.navigateTo({
-					url:"/pages/carrier_contract/carrier_contract"
+					url:`/pages/carrier_contract/carrier_contract?waybillId=${waybillId}`
 				})
 			},
 			
 			async accept(){
 				var that = this
 				var waybillID = this.received_info.waybillId
+				
+				this.params.waybillId = waybillID
+				this.params.contractBase64 = uni.getStorageSync("contractBase64")
+				this.params.contractNo = uni.getStorageSync("contract_no")
+				
+				const params = this.params
+				
 				console.log(waybillID,'999');
 				 var authorization = uni.getStorageSync("token")
 				 
 				
 					 const res = await this.$request({
-					 	 	url:`/app/waybill/waybillAccept/${waybillID}`,
+					 	 	url:`/app/waybill/waybillAccept`,
+					 	 	method: "POST",
 					 	 	
 					 	 	header:{
 					 	 		Authorization:authorization,
+								"Content-Type": "application/json",
 					 	 	},
-					 	 	
+					 	 	data:params,
 					 	 })
 					
 				console.log(res,'mmm');
+			
 				
-				if (res.data.code !=200){
+				if(res.data.msg =="操作成功"){
 					uni.showToast({
-						title:"请求失败",
+						title:res.data.msg,
+						
+					})
+					
+					try {
+					 uni.removeStorageSync("contractBase64");
+					 uni.removeStorageSync("contract_no");
+																					  
+					} catch (e) {
+					    // error
+					}
+					
+					
+					
+					setTimeout(()=>{
+					   uni.reLaunch({
+					   				url:"/pages/shipping_order/shipping_order"
+					   			})
+					},800)
+				}else{
+					uni.showToast({
+						title:res.data.msg,
 						icon:"none"
 					})
+					
 					return
 				}
-				
-				that.now_page = 0
-				uni.reLaunch({
-								url:"/pages/shipping_order/shipping_order"
-							})
-							
-							
-							
-							
-							
 							
 			},
-				
-				
-				
-				
 			
 		}
 	}

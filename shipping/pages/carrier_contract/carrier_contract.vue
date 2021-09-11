@@ -1,207 +1,315 @@
 <template>
-	<view>
-		<view class="goods-sec ">
-			<view class="dispatch-no" >
-				<view class="dispatch-title">承运合同</view>
-				<view class="dispatch-num">合同编号：CYHT0A210824376660</view>
+	<view >
+		<view id="poster" ref="contract">
+			<view class="goods-sec" >
+				<view class="dispatch-no" >
+					<view class="dispatch-title" @click="createContract">承运合同</view>
+					<view class="dispatch-num">合同编号：{{contract_no}}</view>
+				</view>
+				
+				<view class="vehicle-info">
+					<view class="first-driver text-black ">甲方：{{contract_info.iscmWaybillInformationRecord.shipper}}（托运人）</view>
+					<view class="first-driver text-white">证件号：{{contract_info.iscmWaybillInformationRecord.shipperPertNumber}}</view>
+					<view class="goods-weight">联系人：{{contract_info.iscmWaybillInformationRecord.shipperName}}</view>
+					<view class="goods-weight">联系电话：{{contract_info.iscmWaybillInformationRecord.shipperPhone}}</view>
+				</view>
+				
+				<view class="vehicle-info">
+					<view class="first-driver text-black">乙方：{{contract_info.iscmWaybillInformationRecord.consignee}}（承运人）</view>
+					<view class="first-driver text-white">证件号：{{contract_info.iscmWaybillInformationRecord.consigneePertNumber}}</view>
+					<view class="goods-weight">联系人：{{contract_info.iscmWaybillInformationRecord.consigneeName}}</view>
+					<view class="goods-weight">联系电话：{{contract_info.iscmWaybillInformationRecord.consigneePhone}}</view>
+				</view>
 			</view>
 			
-			<view class="vehicle-info">
-				<view class="first-driver text-black ">甲方：（托运人）</view>
-				<view class="first-driver text-white">证件号：</view>
-				<view class="goods-weight">联系人：</view>
-				<view class="goods-weight">联系电话：</view>
+			<view class="address-sec ">
+				<view class="title">
+					第1条 运输服务内容
+				</view>
+				
+				<view>
+					乙方根据甲方需求，向甲方提供运输服务，具体包括以下服务项目：
+				</view>
+				
+				
+				<view>
+					供应地：{{contract_info.iscmWaybillInformationRecord.shipperAddress}} 发货人：{{contract_info.iscmWaybillInformationRecord.shipperName}}(发货) 联系方式：{{contract_info.iscmWaybillInformationRecord.shipperPhone}}
+				</view>
+				
+				<view>
+					接收地：{{contract_info.iscmWaybillInformationRecord.consigneeAddress}} 收货人：{{contract_info.iscmWaybillInformationRecord.consigneeName}}(收货) 联系方式：{{contract_info.iscmWaybillInformationRecord.consigneePhone}}
+				</view>
+				
+				
+				<view>
+					货物信息：{{contract_waybill_info.iscmSource.goodsName}}
+				</view>
+				
+				<view>
+					运输方式：公路
+				</view>
+				
+				<view>
+					数量：{{contract_waybill_info.packageNumber}}
+				</view>
+				
+				<view>
+					吨位：{{contract_waybill_info.goodsWeight}}
+				</view>
+				
+				<view>
+					计价方式：{{settlement_type}}
+				</view>
+				
+				<view>
+					运费单价(元)：{{contract_waybill_info.waybillUnitPrice}}
+				</view>
+				
+				
+				<view>
+					运费金额(元)：{{contract_waybill_info.carrierRates}}
+				</view>
 			</view>
 			
-			<view class="vehicle-info">
-				<view class="first-driver text-black">乙方：徐州市聚诚运输有限公司（承运人）</view>
-				<view class="first-driver text-white">证件号：</view>
-				<view class="goods-weight">联系人：</view>
-				<view class="goods-weight">联系电话：13685141842</view>
-			</view>
-			
-			
-			<!-- <view class="vehicle-info">
-				<view class="goods-nombre"></view>
-				<view class="goods-nombre"></view>
-				<view class="goods-nombre"></view>
-			</view> -->
-			
-		</view>
-		
-		<view class="address-sec ">
-			<view class="title">
-				第1条 运输服务内容
-			</view>
-			
-			<view>
-				乙方根据甲方需求，向甲方提供运输服务，具体包括以下服务项目：
-			</view>
-			
-			
-			<view>
-				供应地：上海市邯郸路220号 发货人：李程(发货) 联系方式：18799990001
-			</view>
-			
-			<view>
-				接收地：徐州市铜山路209号 收货人：李程(收货) 联系方式：15806890123
-			</view>
-			
-			
-			<view>
-				货物信息：测试qqq
-			</view>
-			
-			<view>
-				运输方式：公路
-			</view>
-			
-			<view>
-				数量：
-			</view>
-			
-			<view>
-				吨位：
-			</view>
-			
-			<view>
-				计价方式：
-			</view>
-			
-			<view>
-				运费单价(元)：
-			</view>
-			
-			
-			<view>
-				运费金额(元)：99
-			</view>
-		</view>
-		
-		<view class="address-sec ">
-			<view class="title">
-				第2条 服务期限
-			</view>
-			
-			<view>
-				乙方为甲方的服务期限自 {{new Date().getFullYear()}}年 {{new Date().getMonth()+1}}月{{new Date().getDate()}}日起生效。
-			</view>
-			
-		</view>
-		
-		<view class="address-sec ">
-			<view class="title">
-				第3条 甲方权利和义务
-			</view>
-			
-			<view>
-				3.1 在乙方提供服务的过程中，甲方及时向乙方提供本合同标的涉及到的物品、收货方资料等必要的材料、协助及乙方提出的合理配合。
-			</view>
-			
-			<view>
-				3.2 甲方按照本合同约定，如期向乙方支付相应的物流服务费用。
-			</view>
-			
-		</view>
-		
-		<view class="address-sec ">
-			<view class="title">
-				第4条 乙方权利和义务
-			</view>
-			
-			<view>
-				4.1 乙方具备从事本合同各物流服务活动的资质，若甲方要求，乙方应及时提供相关文件。
-			</view>
-			
-			<view>
-				4.2 乙方具备或者能够获得完成本合同项下各服务项目所需的物流资源和人力资源。
-			</view>
-			
-			<view>
-				4.3 乙方按照本合同约定，及时、有效地提供本合同约定的各项物流服务，并对服务的完成予以必要和充分的关注。
-			</view>
-			
-			<view>
-				4.4 乙方根据甲方的特点及对物流运作的要求制定良好的物流运行规范，必要时可要求甲方予以合理的配合。
-			</view>
-			
-		</view>
-		
-		
-		<view class="address-sec ">
-			<view class="title">
-				第5条 结算方式
-			</view>
-			
-			<view>
-				5.1 结算周期：见票后2个月内
-			</view>
-			
-			<view>
-				5.2 支付方式：电汇
-			</view>
-			
-		</view>
-		
-		<view class="address-sec ">
-			<view class="title">
-				第6条 违约责任
-			</view>
-			
-			<view>
-				如因乙方原因造成损失，乙方应承担运输过程风险。
-			</view>
-			
-		</view>
-		
-		<view class="address-sec ">
-			<view class="title">
-				第7条 争议的解决
-			</view>
-			
-			<view>
-				任何因本合同而产生的争议，双方应首先通过友好协商方式解决，协商不成可以在合同签约地徐州经济开发区人民法院提起诉讼。
-			</view>
-			
-		</view>
-		
-		<view class="address-sec ">
-			<view class="title">
-				第8条 其他约定
-			</view>
-			
-			<view>
+			<view class="address-sec ">
+				<view class="title">
+					第2条 服务期限
+				</view>
+				
+				<view>
+					乙方为甲方的服务期限自 {{new Date().getFullYear()}}年 {{new Date().getMonth()+1}}月{{new Date().getDate()}}日起生效。
+				</view>
 				
 			</view>
 			
-		</view>
-		
-		
-		<view class="address-sec ">
-			<view class="title">甲方：</view>
+			<view class="address-sec ">
+				<view class="title">
+					第3条 甲方权利和义务
+				</view>
+				
+				<view>
+					3.1 在乙方提供服务的过程中，甲方及时向乙方提供本合同标的涉及到的物品、收货方资料等必要的材料、协助及乙方提出的合理配合。
+				</view>
+				
+				<view>
+					3.2 甲方按照本合同约定，如期向乙方支付相应的物流服务费用。
+				</view>
+				
+			</view>
 			
-			<view>日期： {{new Date().getFullYear()}}年 {{new Date().getMonth()+1}}月{{new Date().getDate()}}日</view>
+			<view class="address-sec ">
+				<view class="title">
+					第4条 乙方权利和义务
+				</view>
+				
+				<view>
+					4.1 乙方具备从事本合同各物流服务活动的资质，若甲方要求，乙方应及时提供相关文件。
+				</view>
+				
+				<view>
+					4.2 乙方具备或者能够获得完成本合同项下各服务项目所需的物流资源和人力资源。
+				</view>
+				
+				<view>
+					4.3 乙方按照本合同约定，及时、有效地提供本合同约定的各项物流服务，并对服务的完成予以必要和充分的关注。
+				</view>
+				
+				<view>
+					4.4 乙方根据甲方的特点及对物流运作的要求制定良好的物流运行规范，必要时可要求甲方予以合理的配合。
+				</view>
+				
+			</view>
+			
+			
+			<view class="address-sec ">
+				<view class="title">
+					第5条 结算方式
+				</view>
+				
+				<view>
+					5.1 结算周期：见票后2个月内
+				</view>
+				
+				<view>
+					5.2 支付方式：电汇
+				</view>
+				
+			</view>
+			
+			<view class="address-sec ">
+				<view class="title">
+					第6条 违约责任
+				</view>
+				
+				<view>
+					如因乙方原因造成损失，乙方应承担运输过程风险。
+				</view>
+				
+			</view>
+			
+			<view class="address-sec ">
+				<view class="title">
+					第7条 争议的解决
+				</view>
+				
+				<view>
+					任何因本合同而产生的争议，双方应首先通过友好协商方式解决，协商不成可以在合同签约地徐州经济开发区人民法院提起诉讼。
+				</view>
+				
+			</view>
+			
+			<view class="address-sec ">
+				<view class="title">
+					第8条 其他约定
+				</view>
+				
+				<view>
+					
+				</view>
+				
+			</view>
+			
+			
+			<view class="address-sec ">
+				<view class="title">甲方：{{contract_info.iscmWaybillInformationRecord.shipper}}</view>
+				
+				<view>日期： {{new Date().getFullYear()}}年 {{new Date().getMonth()+1}}月{{new Date().getDate()}}日</view>
+			</view>
+			
+			<view class="address-sec ">
+				<view class="title">乙方：{{contract_info.iscmWaybillInformationRecord.consignee}}</view>
+				
+				<view>日期： {{new Date().getFullYear()}}年 {{new Date().getMonth()+1}}月{{new Date().getDate()}}日</view>
+			</view>
 		</view>
 		
-		<view class="address-sec ">
-			<view class="title">乙方：徐州市聚诚运输有限公司</view>
-			
-			<view>日期： {{new Date().getFullYear()}}年 {{new Date().getMonth()+1}}月{{new Date().getDate()}}日</view>
-		</view>
+		
+		
+		
+		<!-- <view>
+			<image :src ="base64" mode ="" class="canvas_img"></image>
+		</view> -->
+		
 	</view>
 </template>
 
 
 
 <script>
+	import html2canvas from "@/components/html2canvas.js"
 	export default {
 		data() {
 			return {
-				
+				settlement_type:"",
+				contract_no:"",
+				contract_info:"",
+				contract_waybill_info:[],
+				sourceSettlementMethodOptions:[],
+				 //是否创建
+				isCreated:true,
+				base64:"",
 			}
 		},
-		methods: {
+		async onLoad(options){
+			this.contract_waybill_info =uni.getStorageSync("contract_waybill_info")
+			console.log(this.contract_waybill_info, "contract_waybill_info");
 			
+			this.waybillId = options.waybillId
+			const waybillId= options.waybillId
+			
+			var authorization = uni.getStorageSync("token")
+			
+			const resContract = await this.$request({
+				 	url:`/iscm/waybill/getCarrierContractsData/${waybillId}`,
+				 	
+				 	header:{
+				 		Authorization:authorization,
+									
+				 	},
+								
+				 	
+				 })
+			console.log(resContract,"resContract")			
+			if(resContract.data.msg =="操作成功"){
+				   this.contract_info = resContract.data.data
+			
+				}else{
+						uni.showToast({
+							title:resContract.data.msg,
+							icon:"none"
+						})
+						
+					}
+				
+			this.getSourceSettlementMethodOptions()	
+			
+		},
+		async mounted(){
+			var authorization = uni.getStorageSync("token")
+			
+			const res = await this.$request({
+				url:"/iscm/number/getCarrierContractNo",
+				method: "GET",
+				header:{
+					Authorization:authorization,
+					
+				},
+				
+			})
+			
+			console.log (res, "contract")
+			
+			if(res.data.code == 200){
+				
+				this.contract_no = res.data.data
+				uni.setStorageSync("contract_no", this.contract_no)
+				}
+				
+				
+			this.createContract()	
+		},
+		methods: {
+			 //生成合同存合同列表
+			        createContract() {
+			          if (this.isCreated){
+			           
+			            var that = this;
+			
+				       uni.pageScrollTo({
+				       	  scrollTop:0,
+						  duration:0,
+				       })
+				       
+					    var dom = document.querySelector('#poster')
+						html2canvas(dom, {
+							width:dom.clientWidth,
+							height:dom.clientHeight,
+							scrollY:0,
+							scrollX:0,
+							useCORS:true,
+						}).then((canvas) =>{
+							this.base64 = canvas.toDataURL('image/png')
+							uni.setStorageSync("contractBase64", this.base64)
+						})
+				 
+				 
+			          }
+			
+			      },
+			// 计价方式类型字典
+			async getSourceSettlementMethodOptions(){
+				const sourceSettlementMethodOptions = await this.$getRegistDicts("source_settlement_method")
+				
+				 this.sourceSettlementMethodOptions =  sourceSettlementMethodOptions.data.data.map(e=>e.dictLabel)
+				 this.sourceSettlementValues =  sourceSettlementMethodOptions.data.data.map(e=>e.dictValue)
+				
+				 const waybillSettlementMethod = this.contract_info.waybillSettlementMethod
+				const sourceSettlementIndex =  this.sourceSettlementValues.findIndex (val => val == waybillSettlementMethod)
+				
+				const sourceSettlementMethodLabels = this.sourceSettlementMethodOptions
+				 this.settlement_type = sourceSettlementMethodLabels[sourceSettlementIndex]
+				
+			},
 		}
 	}
 </script>
@@ -408,7 +516,7 @@
 	 height: 650rpx;
 	 background-color: #5fcf6f;
 	 border-radius: 25rpx;
-	 box-shadow: 5rpx 5rpx 5rpx #ccc;
+	
  }
  
  
@@ -459,15 +567,12 @@
   }
   
   .address-sec{
-	   
 	  padding: 30rpx;
 	  margin:20rpx;
-	 
 	  border: 1rpx solid #bfbfbf;
 	  background-color: #fff;
 	  border-radius: 25rpx;
-	  box-shadow: 5rpx 5rpx 5rpx #ccc;
-	  
+	
 	  .title{
 		  font-weight: 600;
 	  }
@@ -576,6 +681,10 @@
 	  margin-right: 30rpx;
   }
   
+  .canvas_img{
+	  width:100%;
+	  height:4000rpx;
+  }
   
 </style>
 

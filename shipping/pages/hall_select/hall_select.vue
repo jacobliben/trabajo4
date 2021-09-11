@@ -1,6 +1,13 @@
 <template>
 	<view>
 		<view>
+			<view class="cargo-title">询价状态<text  class="cargo-text">（可多选） </text></view>
+			<view class="flex ">
+			<axb-check-box ref="radio3" :multi="true" :list="inquiryType" @change="radioChangeInquiryType"   class="cargo-type" ></axb-check-box>
+			</view>
+		</view>
+		
+		<view>
 			<view class="cargo-title">车型选择 <text  class="cargo-text">（可多选）</text></view>
 			<view class="flex ">
 			<axb-check-box ref="radio3" :multi="true" :list="cargoBoxType" @change="radioChangeType" v-if="cargo_show" class="cargo-type" ></axb-check-box>
@@ -52,6 +59,35 @@
 	export default {
 		data() {
 			return {
+				//询价状态字典
+				inquiryType: [
+					
+					{name: "未开始",
+					 value: "1",
+					 checked:0
+					},
+					{name: "报价中",
+					 value: "2",
+					  checked:0
+					},
+					{name: "待评标",
+					 value: "3",
+					 checked:0
+					},
+					{name: "已评标",
+					 value: "4",
+					 checked:0
+					},
+					{name: "已流标",
+					 value: "5",
+					 checked:0
+					},
+					{name: "已弃标",
+					 value: "6",
+					 checked:0
+					},
+				],
+				inquiryTypeDictValue: [],
 				//车辆类型字典
 				 cargoBoxTypeOptions: [],
 				 //the cargoBoxType shown
@@ -64,9 +100,15 @@
 				 vehicleLength: [],
 				 // the selected ones
 				 vehicleLengthSelected: [],
+				 // the selected inquiry ones
+				 inquiryTypeSelected: [],
+				  // the selected inquiry labels
+				inquiryLabel: [],
 				 
 				 cargo_show:false,
 				 vehicle_show:false,
+				 inquiry_show:false,
+				 
 				startTime: [],
 				
 				loading_start_time:"",
@@ -116,7 +158,7 @@
 					   this.loading_start_time = `${e.year}-${e.month}-${e.day} ${e.hour}:${e.minute}`;
 					   uni.setStorageSync("loading_start_time_filter", this.loading_start_time)
 					   
-					   console.log(new Date(this.loading_start_time).getTime(),"loading_start_time");
+					  
 				  }else if (this.action == "end"){
 					   this.loading_end_time = `${e.year}-${e.month}-${e.day} ${e.hour}:${e.minute}`;
 					    uni.setStorageSync("loading_end_time_filter", this.loading_end_time)
@@ -141,9 +183,9 @@
 					 	},
 					 	
 					 })
-				console.log(res,"cargoBoxTypeOptions");	
+				
 					this.cargoBoxTypeOptions = res.data.data
-				console.log(this.cargoBoxTypeOptions,"cargoBoxTypeOptions111");	
+				
 				
 				var newArr = []
 				
@@ -153,7 +195,7 @@
 					this.cargoBoxTypeSelected = uni.getStorageSync("cargoBoxTypeSelected")
 					const cargoBoxTypeSelected =  this.cargoBoxTypeSelected
 					
-					console.log(this.cargoBoxTypeOptions[i],"i");	
+					
 					var {name, value, checked} = obj
 					obj.name = this.cargoBoxTypeOptions[i].dictLabel
 					obj.value = this.cargoBoxTypeOptions[i].dictValue
@@ -164,10 +206,10 @@
 						obj.checked= 0
 					}
 					
-					console.log(obj ,"obj");
+					
 					newArr.push(obj)
 				}
-				console.log(newArr,"newArr");	
+				
 					this.cargoBoxType = newArr
 				
 				 this.cargo_show = true
@@ -187,7 +229,7 @@
 					 	
 					 })
 					
-					console.log(res,"vehicleLengthOptions");	 
+						 
 					this.vehicleLengthOptions = res.data.data
 					
 					var newArr = []
@@ -211,15 +253,44 @@
 							obj.checked= 0
 						}
 						
-						console.log(obj ,"obj");
+						
 						newArr.push(obj)
 					}
-					console.log(newArr,"newArr");	
-						this.vehicleLength = newArr
+						
+					this.vehicleLength = newArr
 					
 					 this.vehicle_show = true
 					
 			},
+			
+			//询价类型
+			radioChangeInquiryType(val) {
+			    console.log(val,"InquiryType") // 单选时 返回选中项的value, 反选返回null
+			    this.inquiryTypeSelected = val
+				uni.setStorageSync("inquiryTypeSelected", this.inquiryTypeSelected)
+				
+				//convert the Inquiry values to label and put it into storage
+				 const inquiryTypeDictValue = this.inquiryType.map(x => x.value)
+				
+				const restArr = []
+				const inquiryTypeSelectedLabel = []
+				
+				const inquiryTypeSelected = val
+				
+				inquiryTypeSelected.forEach(
+				   obj =>{
+										  
+										  var inquiry_selected_index =inquiryTypeDictValue.findIndex(value=>value ==obj)
+										  var inquiry_selected_label = this.inquiryType[inquiry_selected_index].name
+										  restArr.push(inquiry_selected_label)
+									  }
+				
+				)
+				this.inquiryLabel = restArr
+				uni.setStorageSync("inquiryTypeSelectedLabel", restArr)
+				uni.setStorageSync("inquiryTypeSelected", this.inquiryTypeSelected)
+			},
+			
 			
 			//车辆类型
 			radioChangeType(val) {
@@ -239,16 +310,15 @@
 			
 			clearChoices(){
 				var that = this
-				this.cargo_show = false
-				this.vehicle_show = false
-				setTimeout(()=>{
-					this.cargo_show = true
-					that.vehicle_show = true
-				},3)
+				
+				
 				
 				this.loading_start_time = ""
 				
 				this.loading_end_time = ""
+				
+				
+				
 			},
 			
 			confirm(){
@@ -265,9 +335,12 @@
 				const hparams ={} 
 				hparams.cargoBoxTypeSelected = this.cargoBoxTypeSelected
 				hparams.vehicleLengthSelected = this.vehicleLengthSelected
+				hparams.inquiryTypeSelected = this.inquiryTypeSelected
+				hparams.inquiryLabel = this.inquiryLabel
 				
 				hparams.loading_start_time = this.loading_start_time
 				hparams.loading_end_time = this.loading_end_time
+				
 				
 				//close this page
 				hparams.choose_hall_select = false

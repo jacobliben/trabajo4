@@ -103,6 +103,9 @@
 		onHide: function() {
 			
 		},
+		methods:{
+			
+		},
 		globalData:{
 			//for appear tab in shipping order
 			shipping_order_page:0,
