@@ -48,15 +48,15 @@
 				
 				
 			<view class="cu-form-group">
-						     <view class="name">是否新能源 </view>
+						     <view class="name">是否新能源</view>
 						     <view class="ref-name">
-								<radio-group class="truck-type" style="margin-left:-145rpx;" @change="radioEnergyChange">
+								<radio-group class="truck-type" @change="radioEnergyChange">
 								                <label class="cell" v-for="(item, index) in energy_items" 
 														:key="item.value">
 								                    <view>
 								                        <radio :value="item.value" class="radio" :checked="index === energy_current" />
 								                    </view>
-								                    <view>{{item.name}}</view>
+								                    <view class="radio-item">{{item.name}}</view>
 								                </label>
 								 </radio-group>
 							 </view>
@@ -71,7 +71,7 @@
 		      					                    <view>
 		      					                        <radio :value="item.value" class="radio" :checked="index === car_current" />
 		      					                    </view>
-		      					                    <view>{{item.name}}</view>
+		      					                    <view class="radio-item">{{item.name}}</view>
 		      					                </label>
 		      					            </radio-group>
 		      				 </view>
@@ -175,56 +175,70 @@
 			
 			  
 			  <view class="cu-form-group" >
-			  	<text class="name">行驶证注册日<text  class=" text-sm text-green" v-if = "!received_info.vehicleRegisterDate&&btn_title == '修改'">(未填)</text></text>
-			  	<view >
-			  		 <picker v-if="driving_cert_register_date_has_input" mode="date" :value="driving_cert_register_date"  :end="endDate" @change="bindDateChange" data-index="driving_cert_register_date">
-			  		      <view class="picker-view date-left text-lg" >{{driving_cert_register_date}}</view>
-			  		 </picker>
-			  	</view>
-				
-				<view @click="driving_cert_register_date_has_input = true"  >
+			  	<view class="name">行驶证注册日<text  class=" text-sm text-green" v-if = "!received_info.vehicleRegisterDate&&btn_title == '修改'">(未填)</text></view>
+			  	
+				<view  class="ref-name">
+					<view>
+						 <picker v-if="driving_cert_register_date_has_input" mode="date" :value="driving_cert_register_date"  :end="endDate" @change="bindDateChange" data-index="driving_cert_register_date">
+						      <view class="picker-view date-left text-lg" >{{driving_cert_register_date}}</view>
+						 </picker>
+					</view>
 					
-					 <view  class="picker-view text-lg"  v-if="!driving_cert_register_date_has_input" >选择行驶证注册日期</view>
+					<view @click="driving_cert_register_date_has_input = true">
+						
+						 <view  class="picker-view text-lg"  v-if="!driving_cert_register_date_has_input" >选择行驶证注册日期</view>
+					</view>
 				</view>
+				
 			  </view>
 			  
 			  <view class="cu-form-group" >
 			  	<text class="name">行驶证发证日</text>
-			  	<view >
-			  		 <picker mode="date" v-if="driving_cert_issuing_date_has_input" :value="driving_cert_issuing_date"   :end="endDate" @change="bindDateChange" data-index="driving_cert_issuing_date">
-			  		      <view class="picker-view date-left text-lg">{{driving_cert_issuing_date}}</view>
-			  		 </picker>
-			  	</view>
-				<view @click="driving_cert_issuing_date_has_input = true"  >
-					
-					 <view  class="picker-view  text-lg"  v-if="!driving_cert_issuing_date_has_input" >选择行驶证发证日期</view>
+				
+				<view class="ref-name">
+					<view >
+						 <picker mode="date" v-if="driving_cert_issuing_date_has_input" :value="driving_cert_issuing_date"   :end="endDate" @change="bindDateChange" data-index="driving_cert_issuing_date">
+						      <view class="picker-view date-left text-lg">{{driving_cert_issuing_date}}</view>
+						 </picker>
+					</view>
+					<view @click="driving_cert_issuing_date_has_input = true"  >
+						
+						 <view  class="picker-view  text-lg"  v-if="!driving_cert_issuing_date_has_input" >选择行驶证发证日期</view>
+					</view>
 				</view>
+			  	
 			  </view>
 			   
 			   <view class="cu-form-group" >
 			   	<text class="name">行驶证失效日<text  class=" text-sm text-green" v-if = "!received_info.vehicleLicenseExpireDate&&btn_title == '修改'">(未填)</text></text>
-			   	<view >
-			   		 <picker mode="date" v-if="driving_cert_expiry_date_has_input" :value="driving_cert_expiry_date"   :end="endDate" @change="bindDateChange" data-index="driving_cert_expiry_date">
-			   		      <view class="picker-view date-left text-lg">{{driving_cert_expiry_date}}</view>
-			   		 </picker>
-			   	</view>
-				<view @click="driving_cert_expiry_date_has_input = true"  >
-					
-					 <view  class="picker-view text-lg" style="margin-left:130rpx;" v-if="!driving_cert_expiry_date_has_input" >选择行驶证失效日期</view>
+			   	<view class="ref-name">
+					<view>
+						 <picker mode="date" v-if="driving_cert_expiry_date_has_input" :value="driving_cert_expiry_date"   :end="endDate" @change="bindDateChange" data-index="driving_cert_expiry_date">
+						      <view class="picker-view date-left text-lg">{{driving_cert_expiry_date}}</view>
+						 </picker>
+					</view>
+					<view @click="driving_cert_expiry_date_has_input = true"  >
+						
+						 <view  class="picker-view text-lg" style="margin-left:130rpx;" v-if="!driving_cert_expiry_date_has_input" >选择行驶证失效日期</view>
+					</view>
 				</view>
+				
 			   </view>
 			   
 			   <view class="cu-form-group" >
 			   	<text class="name">运输证到期日<text class="star">*</text></text>
-			   	<view >
-			   		 <picker mode="date" v-if="road_cert_expiry_date_has_input" :value="road_cert_expiry_date"   :end="endDate" @change="bindDateChange" data-index="road_cert_expiry_date">
-			   		      <view class="picker-view date-left text-lg">{{road_cert_expiry_date}}</view>
-			   		 </picker>
-			   	</view>
-				<view @click="road_cert_expiry_date_has_input = true"  >
-					
-					 <view  class="picker-view text-lg"  v-if="!road_cert_expiry_date_has_input" >选择运输证到期日期</view>
+			   	<view class="ref-name">
+					<view >
+						 <picker mode="date" v-if="road_cert_expiry_date_has_input" :value="road_cert_expiry_date"   :end="endDate" @change="bindDateChange" data-index="road_cert_expiry_date">
+						      <view class="picker-view date-left text-lg">{{road_cert_expiry_date}}</view>
+						 </picker>
+					</view>
+					<view @click="road_cert_expiry_date_has_input = true"  >
+						
+						 <view  class="picker-view text-lg"  v-if="!road_cert_expiry_date_has_input" >选择运输证到期日期</view>
+					</view>
 				</view>
+				
 			   </view>
 			  
 			  <view class="current-state margin-top">
@@ -541,7 +555,7 @@
 			//导入车辆详情
 			if (this.btn_title == "修改"||this.btn_title == "查看"){
 				const  vehicleId = this.listed_info.vehicleId
-				console.log (vehicleId,"vehicleId")
+				
 				
 				var authorization = uni.getStorageSync("token")
 				 
@@ -553,7 +567,7 @@
 									  	 	},
 									  	 
 									  	 })
-				console.log(res,"resvehicleId");
+				
 				
 				if (res.data.code ==200){
 					this.received_info = res.data.data
@@ -566,7 +580,7 @@
 							  //车辆行驶证主副页 
 							  
 							   this.imgVehicleLicenseFirstUrl = this.received_info.vehicleLicensePhotoFirst
-							   console.log(this.imgVehicleLicenseFirstUrl,"vehicleLicensePhotoFirst");
+							  
 							   if (this.imgVehicleLicenseFirstUrl ==''){
 								   this.imgVehicleLicenseFirstUrl = "/static/vehicle_license.jpg"
 							   }
@@ -623,6 +637,7 @@
 								
 								if (this.vehicleSpecies == 103 ){
 									this.car_current = 0
+									this.is_ordinary = true
 								} else if (this.vehicleSpecies == 303 ){
 									this.car_current = 1
 								}
@@ -1853,7 +1868,7 @@
 					this.params.vehicleLicensePhotoFirst = uni.getStorageSync("vehicleLicensePhotoFirst")
 					if (this.params.vehicleLicensePhotoFirst == null || this.params.vehicleLicensePhotoFirst ==""|| this.params.vehicleLicensePhotoFirst.length<1){
 						modify_form.vehicleLicensePhotoFirst = modify_received_info.vehicleLicensePhotoFirst
-						console.log(modify_form.vehicleLicensePhotoFirst,"modify_form.vehicleLicensePhotoFirst")							
+													
 					} else{
 						modify_form.vehicleLicensePhotoFirst = this.params.vehicleLicensePhotoFirst
 					} 
@@ -1959,7 +1974,7 @@
 							title:resEdit.data.msg,
 							icon:"none"
 						})
-						console.log(resEdit.data.msg,'msg');
+						
 					}
 				}
 						
@@ -2049,8 +2064,8 @@
    }
    .picker-view{
 	   color:#222;
-	   
-	  
+	   text-align: left;
+	 
 	   width:calc(100vw - 300rpx);
    }
    
@@ -2059,19 +2074,23 @@
    } 
    
   .truck-type{
-	  position: absolute;
-	  right: 110rpx;
+	  /**position: absolute;
+	   * **/ 
+	  /**right: 110rpx;
+	   * **/ 
 	  display: flex;
 	  flex-direction: row;
   }
    
    .name{
    		 color:#000;
-		 
+		
    }
    .ref-name{
    		 font-size:18rpx;
    	     color:#999;
+		 
+		 width:450rpx;
    }
    .text-name{
 	   margin-left: 5%;
@@ -2142,6 +2161,11 @@
  .radio{
 	 transform: scale(0.6);
 	 margin-left: 15rpx;
+	 font-size: 40rpx;
+ }
+ 
+ .radio-item{
+	 color:#000;
 	 font-size: 30rpx;
  }
  
@@ -2151,12 +2175,12 @@
  }
  
  .mleft{
-	 padding-left: 30rpx;
+	 padding-left: 0rpx;
 	
  }
  
  .date-left{
-	 padding-left: 90rpx;
+	 padding-left: 0rpx;
 	 
  }
  

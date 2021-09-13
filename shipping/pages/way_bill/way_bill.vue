@@ -134,10 +134,8 @@
 		onShow(){
 			 
 			const now_page = getApp().globalData.way_bill_page
-			console.log(now_page,"now_page2");
+			
 			this.tabClick(now_page)
-			
-			
 			
 			
 		},

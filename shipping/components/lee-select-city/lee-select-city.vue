@@ -1,25 +1,26 @@
 <template>
-	<view class="lee-select-city" :style="{ height }" >
+	<!-- <view class="lee-select-city" :style="{ height }" > -->
+	 <view class="lee-select-city">
 		<!-- 选择提示 -->
-		<view class="lee-select-display" v-if="currentSelected.length" >
+		<!-- <view class="lee-select-display" v-if="currentSelected.length" > -->
+		<view class="lee-select-display"  >
 			<view class="lee-select-display-item"
 			
-				v-for="(v, k) of currentSelected"
+				v-for="(v,k) of currentSelected"
 				:key="k"
 				:class="{ active: currentLevel === k }"
 				@click="skipLevel(k)"
 			><text >{{ v.name }}</text></view>
 			<view class="lee-select-display-item" 
-				v-if="placeholder">{{ placeholder }}</view>
+				v-if="placeholder">{{ placeholder }}111</view>
 			
 		</view>
 		<!-- 选择提示END -->
 		
 		
 		<view class="swiper">
-			<view class="swiper-wrapper" :style="{
-				transform: `translateX(-${100 * currentLevel/3}%)`
-			}">
+			<view class="swiper-wrapper" >
+			
 				<!-- 省级 -->
 				<scroll-view class="swiper-item" scroll-y>
 					<view class="swiper-content">
@@ -96,6 +97,7 @@
 	import cityData from './city.json'
 	import hotCities from './hot-cities.json'
 	import dataRegion from "@/components/data.js"
+	import simpleAddressHigh from '@/components/simple-address-high/simple-address.vue';
 	
 	export default {
 		components: {
@@ -292,7 +294,7 @@
 					start_region = "全国"
 				}
 				uni.setStorageSync("enquiry_start_region",start_region)
-				this.$emit("startRegionDone",start_region)
+				
 				
 				start_place = start_place.join("")
 				
@@ -310,7 +312,7 @@
 					var first_level_place = dataRegion.filter(val=>val.name ==first_level.name )
 					console.log (first_level_place ,"first_level_place")
 					start_region_value = first_level_place[0].value 
-					
+					console.log (start_region_value ,"start_region_value")
 					if (start_place_code.length>1){
 						var second_level = start_place_code[1]
 						var second_level_place = first_level_place[0].submenu.filter(val=>val.name == second_level.name )
@@ -328,6 +330,7 @@
 				
 				
 				uni.setStorageSync("start_region_value",start_region_value)
+				this.$emit("startRegionDone",start_region)
 			},
 			
 			
@@ -362,7 +365,7 @@
 			position: relative;
 		}
 		&-item {
-			width: calc(100% / 3);
+			width: 33.3%;
 			height: 100%;
 			position: relative;
 			box-sizing: border-box;
@@ -477,7 +480,7 @@
 		font-size: $lee-font-size-caption;
 		margin-bottom: $lee-spacing-base;
 		color: $uni-color-primary;
-		background-color: lighten($uni-color-primary, 40%);
+		background-color:  $uni-color-primary;
 		border-radius: 8upx;
 	}
 	

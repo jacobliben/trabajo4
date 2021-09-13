@@ -72,7 +72,8 @@
 		        "enablePullDownRefresh": false,
 				"app-plus": {
 				        "animationType": "zoom-fade-out",
-				        "animationDuration": 300
+				        "animationDuration": 300,
+						"background":"blue" 
 				    }
 		    }
 		    
@@ -193,7 +194,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "待发货",
-                "enablePullDownRefresh": true
+                "enablePullDownRefresh": false
             }
             
         },{
@@ -1015,7 +1016,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
-                "enablePullDownRefresh": true,
+                "enablePullDownRefresh": false,
 				"app-plus": {
 				        "animationType": "zoom-fade-out",
 				        "animationDuration": 300
@@ -1041,7 +1042,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "货源大厅",
-                "enablePullDownRefresh": true,
+                "enablePullDownRefresh": false,
 				"app-plus": {
 				        "animationType": "fade-in",
 				        "animationDuration": 300

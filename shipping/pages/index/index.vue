@@ -323,6 +323,15 @@
 			//后退刷新页面，查询“未读信息”的条数
 
 			this.getUnreadMessageList()
+			
+			
+			try {
+			 uni.removeStorageSync('designatedStatus');
+			 uni.removeStorageSync('inquiryTypeSelected');
+																	  
+			} catch (e) {
+			    // error
+			}
 		},
 
 
@@ -450,7 +459,7 @@
 
 		},
         onPullDownRefresh() {
-			console.log("111")
+			
         	this.getShippingInfoList()
 			
 			setTimeout(()=>{

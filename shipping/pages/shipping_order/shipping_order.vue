@@ -88,7 +88,7 @@
 		},
 		onPullDownRefresh() {
 			var that = this
-			console.log("shipping_order")
+			
 			this.refresh_index++;
 			setTimeout(()=>{
 				uni.stopPullDownRefresh()	

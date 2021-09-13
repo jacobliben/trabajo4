@@ -291,9 +291,9 @@
 			//计价方式
 			this.getSettlementMethodOptions()
 			this.quote_item = uni.getStorageSync("quote_item")
-			console.log(this.quote_item,'quote_item')
+			
 			const enquiryId = this.quote_item.enquiryId
-			console.log(enquiryId,'enquiryId')
+			
 			var Authorization = uni.getStorageSync("token")
 			const res_quote = await this.$request({
 				url:"/app/enquiry/getEnquiryInfo/"+ enquiryId ,
@@ -303,11 +303,11 @@
 				}
 				
 			})
-			console.log (res_quote,"res_quote")
+			
 			
 			
 			this.detailed = res_quote.data.data 
-			console.log(this.detailed,'detailed')
+			
 									
 									if (this.detailed.orderWay ==2 ){
 										this.txt = "总"
@@ -323,11 +323,11 @@
 			async getIsBiddingOptions(){
 				const isBiddingOptions = await this.$getRegistDicts("is_bidding")
 				
-				console.log(isBiddingOptions,'isBidding');
+				
 				this.isBiddingOptions = isBiddingOptions.data.data.map(e=>e.dictLabel)
-				console.log(this.isBiddingOptions,'isBiddingOptions');
+				
 				this.isBiddingSendValue = isBiddingOptions.data.data.map(e=>e.dictValue)
-				console.log(this.isBiddingSendValue,'isBiddingSendValue');
+				
 				
 			},					
 					
@@ -419,8 +419,7 @@
 			getQuotePrice(e){
 				this.quotePrice  = e.detail.value
 				this.params.quotePrice = e.detail.value
-				console.log(this.params.quotePrice,'quotePrice');
-				//this.checkPrice()
+				
 				
 			},
 			
@@ -470,11 +469,7 @@
 			getTransportWeight(e){
 				this.transportWeight  = e.detail.value
 				this.params.transportWeight = e.detail.value
-				console.log(this.params.transportWeight,'transportWeight');
-				
-				//this.checkWeight()
-				
-				
+			
 				
 			},
 			
@@ -572,7 +567,7 @@
 								},
 								
 							})
-						    console.log(res,"addQuote");
+						    
 							if(res.data.msg =="操作成功"){
 								uni.showToast({
 									title:res.data.msg,

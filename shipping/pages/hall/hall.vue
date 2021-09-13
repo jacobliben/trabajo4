@@ -262,7 +262,7 @@
 			
 		},
 		mounted(){
-			console.log (this.source ,"source")
+			
 			if (this.source.state ==1){
 				
 			}else if (this.source.state ==2){
@@ -272,7 +272,7 @@
 			}
 			this.searchInquiry()
 			
-			console.log (dataRegion ,"dataRegion")
+		
 		},
 		
 		onShow(){
@@ -421,20 +421,21 @@
 			async searchInquiry(){
 				
 				var that = this
-				that.queryParams.shipperRegion = uni.getStorageSync("start_region_value")
-				that.queryParams.consigneeRegion = uni.getStorageSync("dest_region_value")
+				that.queryParams.shipperRegion = ""
+				that.queryParams.consigneeRegion = ""
+				 that.queryParams.shipperRegion = uni.getStorageSync("start_region_value")
+				
+				 that.queryParams.consigneeRegion = uni.getStorageSync("dest_region_value")
 				that.queryParams.order = ""
 			    that.queryParams.designatedStatus = []
 			    that.queryParams.enquiryStatusArr = []
-				// try {
+				
 				  that.queryParams.designatedStatus = uni.getStorageSync('designatedStatus');
 				  that.queryParams.enquiryStatusArr	= uni.getStorageSync('inquiryTypeSelected');														  
-				// } catch (e) {
-				//     // error
-				// }
+				
 				
 				var queryParams= that.queryParams
-					console.log(queryParams,'queryParams');
+					
 					 var authorization = uni.getStorageSync("token")
 					  
 						  const res = await that.$request({
@@ -446,7 +447,7 @@
 						  	 	data:queryParams
 						  	 })
 					
-						    console.log(res,'jh');
+						   
 							
 							
 							

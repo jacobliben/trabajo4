@@ -255,7 +255,7 @@
 					  	 	data:queryParams
 					  	 })
 				
-					    console.log(res,'jh');
+
 					  if(res.data.total == 0){
 					  	setTimeout(()=>{
 					  		this.show_not_found = true

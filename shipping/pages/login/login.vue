@@ -205,14 +205,14 @@
 			
 			this.AndroidCheckUpdate();
 			this.immediate_update = getApp().globalData.immediate_update
-			console.log(this.immediate_update,'immediate_update');
+			
 		},
 		mounted() {
 			    
 				
 				this.username = uni.getStorageSync("username")
 				this.password = uni.getStorageSync("password")			
-				console.log (typeof this.username,"username")
+				
 				if (this.username!="" && this.password!=""){
 					this.login_disable = false
 				}else{
@@ -269,12 +269,14 @@
 				            plus.runtime.install(plus.io.convertLocalFileSystemURL(d.filename),{},{},function(error){  
 				                uni.showToast({  
 				                    title: '安装失败', 
+									icon:'none',
 				                    duration: 1500  
 				                });  
 				            })
 				        } else {  
 				             uni.showToast({  
 				                title: '更新失败',
+								icon:'none',
 				                duration: 1500  
 				             });  
 				        }    

@@ -298,8 +298,7 @@
 			if (this.btn_title == "修改" ||this.btn_title == "查看"){
 				this.listed_info = uni.getStorageSync("driver_item")
 				this.disable_phone_change = true
-				console.log(this.listed_info,"listed_info");
-				console.log(this.listed_info.driverId,"driverId");
+				
 				
 				const  driverId = this.listed_info.driverId
 				
@@ -313,7 +312,7 @@
 									  	 	},
 									  	 
 									  	 })
-				console.log(res,"resdriverId");
+				
 				if (res.data.code ==200){
 					this.received_info = res.data.data
 				}else{
@@ -325,7 +324,7 @@
 				
 				//驾驶员身份证正面
 				this.imgDriverIDFrontUrl = this.received_info.idcardFront
-				console.log(this.imgDriverIDFrontUrl,"imgDriverIDFrontUrl");
+				
 				if (this.imgDriverIDFrontUrl ==''){
 					this.imgDriverIDFrontUrl = "/static/id_front.jpg"
 				}
@@ -351,14 +350,13 @@
 				 this.driver_id = this.received_info.driverIdNumber
 				 this.driver_tel = this.received_info.driverPhone
 				 this.detail_address = this.received_info.driverAddress
-				  console.log(this.received_info.driverVehicleClass,'driverVehicleClass111');
+				
 				 if(this.received_info.driverVehicleClass==="A2"){
 					 this.index = 0
-					 console.log(this.received_info.driverVehicleClass,'driverVehicleClass222');
-					 console.log(this.index,'index1');
+				
 				 }else if (this.received_info.driverVehicleClass==="B2"){
 					  this.index = 1
-					   console.log(this.index,'index2');
+					  
 				 }
 				 this.issue_organization = this.received_info.driverIssuingOrganizations
 				 //驾驶证有效期起
@@ -1088,7 +1086,7 @@
 								
 								uni.getStorageInfo({
 								    success: function (res) {
-								        console.log(res.keys.includes("idcardFront"),"keys");
+								        
 								       
 								    }
 								});
@@ -1100,7 +1098,7 @@
 								this.params.idcardFront = uni.getStorageSync("idcardFront")
 								if (this.params.idcardFront == null || this.params.idcardFront ==""|| this.params.idcardFront.length<1){
 									modify_form.idcardFront = modify_received_info.idcardFront
-									console.log(modify_form.idcardFront,"modify_form.idcardFront")							
+															
 								} else{
 									modify_form.idcardFront = this.params.idcardFront
 								} 
@@ -1177,11 +1175,9 @@
 								//the data params that modified by you this time
 								var modify_params= this.params
 								
-								console.log( modify_params,'modify_params');
-								console.log( modify_received_info,'modify_received_info');
+								
 								Object.assign(modify_form, modify_received_info, modify_params)
 								
-								console.log( modify_form,'modify_form');  
 								
 								uni.showToast({
 									title:"正在修改中...",

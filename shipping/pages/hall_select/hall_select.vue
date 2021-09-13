@@ -38,7 +38,7 @@
 		</view>
 		
 		<view class="btns">
-			<button  type="default" class="clear-btn" @click="clearChoices" >清空条件</button>
+			<!-- <button  type="default" class="clear-btn" @click="clearChoices" >清空条件</button> -->
 			<button  type="primary" class="confirm-btn" @click="confirm" >确认</button>
 		</view>
 			
@@ -128,6 +128,16 @@
 			 this.loading_start_time = uni.getStorageSync("loading_start_time_filter")
 			 
 			 this.loading_end_time = uni.getStorageSync("loading_end_time_filter")
+			 
+			 const inquiry_type_value = uni.getStorageSync("inquiryTypeSelected")
+			
+			
+			 this.inquiryType.map(val =>{
+				 if (inquiry_type_value.includes(val.value)){
+					
+					 val.checked = 1
+				 } 
+			 })
 		},	 
 		components: {
 		    axbCheckBox,
@@ -265,7 +275,7 @@
 			
 			//询价类型
 			radioChangeInquiryType(val) {
-			    console.log(val,"InquiryType") // 单选时 返回选中项的value, 反选返回null
+			 
 			    this.inquiryTypeSelected = val
 				uni.setStorageSync("inquiryTypeSelected", this.inquiryTypeSelected)
 				
@@ -294,7 +304,7 @@
 			
 			//车辆类型
 			radioChangeType(val) {
-			console.log(val) // 单选时 返回选中项的value, 反选返回null
+			
 			 this.cargoBoxTypeSelected = val
 			
 			 uni.setStorageSync("cargoBoxTypeSelected", this.cargoBoxTypeSelected)
@@ -302,7 +312,7 @@
 			
 			//车长
 			radioChangeLengthType(val) {
-			console.log(val) // 单选时 返回选中项的value, 反选返回null
+			
 			 this.vehicleLengthSelected = val
 			 
 			 uni.setStorageSync("vehicleLengthSelected", this.vehicleLengthSelected)

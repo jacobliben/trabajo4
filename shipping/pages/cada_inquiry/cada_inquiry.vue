@@ -273,7 +273,7 @@
 							
 								    
 									this.detailed = res.data.data
-									console.log(this.detailed,'detailed')
+									
 									
 									if (this.detailed.orderWay ==2 ){
 										this.txt = "总"
@@ -284,7 +284,7 @@
 		},
 		watch:{
 					quotePrice(val, oldVal) {
-                         console.log('quotePrice: %s, old: %s', val, oldVal)
+                        
 						 
 						 if (this.params.quotePrice > this.detailed.highestPrice){
 						 	
@@ -322,7 +322,7 @@
 						 }
                      },
 					transportWeight(val, oldVal) {
-                         console.log('transportWeight: %s, old: %s', val, oldVal)
+                        
 						 
 						 if (this.params.transportWeight > this.detailed.iscmSource.goodsWeight){
 						 	uni.showToast({
@@ -417,8 +417,7 @@
 			getQuotePrice(e){
 				this.quotePrice  = e.detail.value
 				this.params.quotePrice = e.detail.value
-				console.log(this.params.quotePrice,'quotePrice');
-				//this.checkPrice()
+			
 				
 			},
 			
@@ -468,11 +467,6 @@
 			getTransportWeight(e){
 				this.transportWeight  = e.detail.value
 				this.params.transportWeight = e.detail.value
-				console.log(this.params.transportWeight,'transportWeight');
-				
-				//this.checkWeight()
-				
-				
 				
 			},
 			
@@ -570,7 +564,7 @@
 								},
 								
 							})
-						    console.log(res,"addQuote");
+						    
 							if(res.data.msg =="操作成功"){
 								uni.showToast({
 									title:res.data.msg,

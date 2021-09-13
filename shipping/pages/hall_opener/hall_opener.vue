@@ -85,7 +85,8 @@
 		<view class="shipping-body">
 			<view class="list" v-for = "(item,index) in navList" :key="index"  v-if="tabCurrentIndex===index">
 				<!-- 选择出发地 -->
-				 <lee-select-city class="lee-city" v-if="choose_start "  @startRegionDone = "startRegionDone" /> -->
+				
+				 <lee-select-city class="lee-city" v-if="choose_start "  @startRegionDone = "startRegionDone" /> 
 				<!-- 选择目的地 -->
 				<lee-select-city-dest class="lee-city" v-if="choose_destination " @destRegionDone = "destRegionDone"/>
 				<!-- 筛选条件 --> 
@@ -98,7 +99,8 @@
 				
 			</view>
 		</view>
-		
+		<simple-address-high ref="simpleAddressOrigin" :key="key_origin" :pickerValueDefault="cityPickerValueDefault" @onConfirm="onConfirmOrigin" themeColor="#007AFF"></simple-address-high>
+		<simple-address-dest ref="simpleAddressDest" :pickerValueDefault="cityPickerValueDefault" @onConfirm="onConfirmDest" themeColor="#007AFF"></simple-address-dest>
 	</view>
 </template>
 
@@ -107,10 +109,13 @@
 	import HallSelect from "@/pages/hall_select/hall_select.vue"
 	import LeeSelectCity from '@/components/lee-select-city/lee-select-city.vue'
 	import LeeSelectCityDest from '@/components/lee-select-city-dest/lee-select-city.vue'
+	import SimpleAddressHigh from '@/components/simple-address-high/simple-address.vue';
+	import SimpleAddressDest from '@/components/simple-address-high/simple-address.vue';
 	
 	export default {
 		data() {
 			return {
+				key_origin:0,
 				tabCurrentIndex:0,
 				subCurrentIndex:0,
 				refresh_index:0,
@@ -128,7 +133,7 @@
 				
 				cargoBoxTypeDictValues:[],
 				cargoBoxTypeDictLabels:[],
-				
+				 cityPickerValueDefault: [0, 0, 1],
 				
 				show_items:true,
 				select_key:0,
@@ -220,7 +225,9 @@
 			 Hall,
 			 LeeSelectCity,
 			 LeeSelectCityDest,
-			 HallSelect
+			 HallSelect,
+			 SimpleAddressHigh,
+			 SimpleAddressDest
 		},
 		onLoad(options){
 			this.tabCurrentIndex = 0
@@ -232,6 +239,8 @@
 			
 			 //车辆类型字典
 			 this.getCargoBoxTypeOptions()
+			 this.subList[0].text = uni.getStorageSync("enquiry_start_region")
+			 this.subList[1].text = uni.getStorageSync("enquiry_dest_region")
 		},		
 		
 		methods:{
@@ -260,7 +269,7 @@
 			
 			tabClick(index){
 				this.tabCurrentIndex = index
-				console.log(index,'tab-index');
+				
 				
 				let designatedStatus =[]
 				
@@ -271,7 +280,7 @@
 				}else if (index == 2){
 					designatedStatus =[3]
 				}
-				console.log(designatedStatus,'designatedStatus');
+				
 				uni.setStorageSync('designatedStatus',designatedStatus)
 			},
 			
@@ -279,17 +288,19 @@
 				this.subCurrentIndex  = index
 				
 				if (item.ele_state == 1){
-					// this.choose_start = true
-					uni.navigateTo({
-						url:"/pages/inquiry_start/inquiry_start"
-					})
-					this.choose_destination = false
+					//  this.choose_start = true
+					
+					// this.choose_destination = false
+					
+					this.selectOrigin()
 					this.show_items = false
 				    this.choose_hall_select = false
 					this.show_conditions = false
 				}else if (item.ele_state == 2){
-					this.choose_destination = true
-					this.choose_start = false
+				  //    this.choose_destination = true
+					 // this.choose_start = false
+					
+					this.selectDest()
 					this.show_items = false
 					this.choose_hall_select = false
 					this.show_conditions = false
@@ -339,7 +350,7 @@
 			
 			hallSelect(val){
 				var that = this
-				console.log (val, "val")
+				
 				this.choose_hall_select = val.choose_hall_select
 				this.show_items = val.show_items
 				this.inquiryTypeSelected = val.inquiryTypeSelected
@@ -453,6 +464,72 @@
 				    // error
 				}
 				this.show_conditions = false
+			},
+			
+			//发货区域
+			    selectOrigin() {
+			    // 根据 label 获取
+				
+			    var index = this.$refs.simpleAddressOrigin.queryIndex(['江苏省', '徐州市', '云龙区'], 'label');
+			    
+			    this.cityPickerValueDefault = index.index;
+			    this.$refs.simpleAddressOrigin.open();
+			},
+			onConfirmOrigin(e) {
+				var pickerTextOrigin
+				if(e.provinceCode==11
+				||e.provinceCode==31
+				||e.provinceCode==12||e.provinceCode==50){
+					 pickerTextOrigin = e.labelArr[0]+e.labelArr[2]
+				}
+				else{
+					pickerTextOrigin = e.labelArr[0]+e.labelArr[1]+e.labelArr[2]
+				}
+				
+				const enquiry_start_region = e.labelArr[2]
+			
+				uni.setStorageSync("enquiry_start_region",enquiry_start_region)
+				
+				
+				this.subList[0].text = enquiry_start_region
+				const start_region_value = e.areaCode
+				uni.setStorageSync("start_region_value",start_region_value)
+				uni.reLaunch({
+					url:"/pages/hall_opener/hall_opener"
+				})
+			},
+			
+			//收货区域
+			    selectDest() {
+			    // 根据 label 获取
+				
+			    var index = this.$refs.simpleAddressDest.queryIndex(['江苏省', '徐州市', '云龙区'], 'label');
+			    
+			    this.cityPickeDestrValueDefault = index.index;
+			    this.$refs.simpleAddressDest.open();
+			},
+			onConfirmDest(e) {
+				var pickerTextDest
+				if(e.provinceCode==11
+				||e.provinceCode==31
+				||e.provinceCode==12||e.provinceCode==50){
+					pickerTextDest = e.labelArr[0]+e.labelArr[2]
+				}
+				else{
+					pickerTextDest = e.labelArr[0]+e.labelArr[1]+e.labelArr[2]
+				}
+				
+				const enquiry_dest_region = e.labelArr[2]
+				
+				uni.setStorageSync("enquiry_dest_region",enquiry_dest_region)
+				
+				
+				this.subList[1].text = enquiry_dest_region
+				const dest_region_value = e.areaCode
+				uni.setStorageSync("dest_region_value",dest_region_value)
+				uni.reLaunch({
+					url:"/pages/hall_opener/hall_opener"
+				})
 			},
 		}
 	}

@@ -90,14 +90,11 @@
 		props:['vehicle'],
 		created(){
 			
-	
 			// 工作状态字典
 			this.getVehicleWorkStatusOptions()
 			
 			},
 		mounted(){
-			console.log(this.vehicle,'1998');
-			
 			
 			this.searchVehicle()
 		},

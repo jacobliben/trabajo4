@@ -339,10 +339,10 @@
 			
 			terms_checked(newValue, oldValue) {
 				if (newValue == true){
-					console.log(this.terms_checked,"terms_checked");
+					
 					this.disabled = false
 				}else{
-					console.log(this.terms_checked,"terms_checked");
+					
 					this.disabled = true
 				}
 				
@@ -367,7 +367,7 @@
 			 	 })
 			
 			 this.received_info = resSource.data.data
-		     console.log(this.received_info,'777')
+		    
 			 
 			 uni.setStorageSync("contract_waybill_info", this.received_info)
 			 
@@ -529,7 +529,6 @@
 				
 				const params = this.params
 				
-				console.log(waybillID,'999');
 				 var authorization = uni.getStorageSync("token")
 				 
 				
@@ -539,12 +538,11 @@
 					 	 	
 					 	 	header:{
 					 	 		Authorization:authorization,
-								"Content-Type": "application/json",
+								"Content-Type": "application/x-www-form-urlencoded",
 					 	 	},
 					 	 	data:params,
 					 	 })
 					
-				console.log(res,'mmm');
 			
 				
 				if(res.data.msg =="操作成功"){

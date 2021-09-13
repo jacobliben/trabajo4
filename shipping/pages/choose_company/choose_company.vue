@@ -121,7 +121,7 @@
 					 		"Authorization": token_id
 					 	},
 					 })
-					console.log( res,' res');
+				
 					 this.items = res.data.data
 					 this.company_names = res.data.data
 					 //如果res.data.data 为空数组，证明正在审核中，返回审核中的页面
@@ -166,7 +166,7 @@
 			 
 			
 			pick(item){
-				console.log(item,'item')
+				
 				this.tabCurrentIndex = item.carrierCompanyId
 				this.selected_xuzhou = true
 				this.carrierCompanyId = item.carrierCompanyId
@@ -190,7 +190,7 @@
 							Authorization:authorization,
 						}
 					 })
-					 console.log(res,"code");
+					
 				if (res.data.code !=200){
 					uni.showToast({
 						title:"请求失败",

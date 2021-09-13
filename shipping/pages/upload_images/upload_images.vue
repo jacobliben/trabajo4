@@ -497,11 +497,8 @@
 			var that = this
 		    this.upload_info = uni.getStorageSync("upload_item")
 			
-			console.log (this.upload_info,'upload_info')
-			console.log (this.upload_info.waybillNo,'waybillNo')
-			
 			const dispatchId = this.upload_info.dispatchId
-			console.log (dispatchId,'dispatchId')
+		
 			
 			 var authorization = uni.getStorageSync("token")
 			const resDispatch = await this.$request({
@@ -513,9 +510,9 @@
 				
 			})
 			
-			console.log (resDispatch,'resDispatch')
+		
 			this.received_info = resDispatch.data.data
-			console.log (this.received_info,'received_info')
+		
 			//reappear dispatch weight as pre-determined signed weight
              this.signed_weight = this.received_info.dispatchGoodsWeight
 			 //put this weight into the params data

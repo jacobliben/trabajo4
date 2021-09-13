@@ -408,7 +408,7 @@
 			 font-weight: 600;
 			 padding-left: 40rpx;
 			 margin-top: 30rpx;
-	 		 width:200rpx;
+	 		 width:280rpx;
 	 		 height:50rpx;
 			 
 			 // border-left: 8rpx solid #f1f1f1;

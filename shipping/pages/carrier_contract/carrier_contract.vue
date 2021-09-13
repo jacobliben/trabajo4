@@ -212,7 +212,7 @@
 		},
 		async onLoad(options){
 			this.contract_waybill_info =uni.getStorageSync("contract_waybill_info")
-			console.log(this.contract_waybill_info, "contract_waybill_info");
+			
 			
 			this.waybillId = options.waybillId
 			const waybillId= options.waybillId
@@ -229,7 +229,7 @@
 								
 				 	
 				 })
-			console.log(resContract,"resContract")			
+					
 			if(resContract.data.msg =="操作成功"){
 				   this.contract_info = resContract.data.data
 			
@@ -257,7 +257,7 @@
 				
 			})
 			
-			console.log (res, "contract")
+			
 			
 			if(res.data.code == 200){
 				

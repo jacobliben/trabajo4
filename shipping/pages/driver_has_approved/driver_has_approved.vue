@@ -159,7 +159,7 @@
 			//this.getDriverVehicleClassOptions() 
 			 },
 		mounted(){
-			console.log(this.vehicle,'1999');
+		
 			
 			this.searchDriver()
 		},

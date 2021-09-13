@@ -158,7 +158,7 @@
     
 	.tmargin{
 		
-		margin-top: 20rpx;
+		margin-top: 5%;
 		width:60rpx;
 		height:60rpx ;
 	}	
