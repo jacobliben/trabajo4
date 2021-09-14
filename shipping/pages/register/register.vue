@@ -1,5 +1,5 @@
 <template>
-	<view>       
+	<view class="page">       
 	        <view class="top-sticky">
 				
 				<view class="cu-steps">
@@ -207,6 +207,9 @@
 <style lang="scss" scoped>
 	body{
 		background-color: #fff;
+	}
+	.page{
+		padding-top: 100rpx;
 	}
 	.top-sticky{
 		top:0rpx;

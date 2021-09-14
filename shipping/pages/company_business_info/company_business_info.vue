@@ -54,49 +54,58 @@
 			
 			<view class="cu-form-group margin-top" >
 				<view class="name">{{isPerson?'承运人姓名':'承运企业名称'}}<text class="red-isterisk">*</text></view>
-				<input type="text"  name="name" :value="company_name"
-				  :placeholder="isPerson?'请输入承运人姓名':'请输入公司全称'" 
-				 focus @input="getCompanyName">
+				<view class="ref-name">
+					<input type="text"  name="name" :value="company_name"
+					  :placeholder="isPerson?'请输入承运人姓名':'请输入公司全称'" 
+					 focus @input="getCompanyName">
+				</view>
 			</view>
+			
 			<view class="cu-form-group" >
 				<view class="name">{{isPerson?'身份证号码':'统一社会信用号码'}}<text class="red-isterisk">*</text></view>
-				<input type="text"  name="idcard" maxlength="18" :value="number_front"
-				 :placeholder="isPerson?'请输入身份证号码':'请输入统一社会信用号码'" 
-				 @input="getBusinessLicenseNum" >
-			
+				<view class="ref-name">
+					<input type="text"  name="idcard" maxlength="18" :value="number_front"
+					 :placeholder="isPerson?'请输入身份证号码':'请输入统一社会信用号码'" 
+					 @input="getBusinessLicenseNum" >
+				</view>
 			</view>
 			
 			<view class="cu-form-group"  >
 				<view class="name">所属区域<text class="red-isterisk">*</text></view>
-			        <!-- 首次选择 -->
-					<text  class="place_input text-gray" v-if="!origin_has_input&&!previous_has_input"  @click="selectOrigin">请选择所属区域</text>
-					<!-- 跳转后重显 -->
-					<text  class="place_input text-gray" v-if="!origin_has_input&&previous_has_input"  @click="selectOrigin">{{pickerTextOrigin}}</text>
-					
-					
-					<text  class=" place_got text-lg" v-if="origin_has_input" @click="selectOrigin"  >{{pickerTextOrigin}} </text>
-				
+			       <view class="ref-name">
+					   <!-- 首次选择 -->
+					   <text  class="place_input" v-if="!origin_has_input&&!previous_has_input"  @click="selectOrigin">请选择所属区域</text>
+					   <!-- 跳转后重显 -->
+					   <text  class="place_input" v-if="!origin_has_input&&previous_has_input"  @click="selectOrigin">{{pickerTextOrigin}}</text>
+					   
+					   
+					   <text  class=" place_got text-lg" v-if="origin_has_input" @click="selectOrigin"  >{{pickerTextOrigin}} </text>
+				   </view>
 			</view>
 			
 			<view class="cu-form-group" >
 				<view class="name">{{isPerson?'详细地址':'注册地址'}}<text class="red-isterisk">*</text></view>
-				<input type="text"  :value="detail_address"
-				 :placeholder="isPerson?'请输入详细地址':'请输入注册地址'" 
-				 @input="getRegisteringAddress">
+				<view class="ref-name">
+					<input type="text"  :value="detail_address"
+					 :placeholder="isPerson?'请输入详细地址':'请输入注册地址'" 
+					 @input="getRegisteringAddress">
+				</view>
 			</view>
 			
 			<!--  个人显示 -->
 			<view class="cu-form-group" v-if="isPerson">
 				<text class="name">身份证有效期起</text>
-				<view >
-					 <picker mode="date" v-if="id_begin_date_has_input" :value="id_begin_date"   :end="endDate" @change="bindDateChange" data-index="id_begin_date">
-					      <view class="picker-view text-lg">{{id_begin_date}}</view>
-					 </picker>
-				</view>
-				
-				<view @click="id_begin_date_has_input = true"  >
+				<view class="ref-name">
+					<view>
+						 <picker mode="date" v-if="id_begin_date_has_input" :value="id_begin_date"   :end="endDate" @change="bindDateChange" data-index="id_begin_date">
+						      <view class="picker-view text-lg">{{id_begin_date}}</view>
+						 </picker>
+					</view>
 					
-					 <view  class="picker-view text-lg"  v-if="!id_begin_date_has_input" >选择身份证有效期起</view>
+					<view @click="id_begin_date_has_input = true"  >
+						
+						 <view  class="picker-view text-lg"  v-if="!id_begin_date_has_input" >选择身份证有效期起</view>
+					</view>
 				</view>
 			</view>
 			
@@ -117,15 +126,17 @@
 			
 			<view class="cu-form-group" v-if="isPerson&&!forever" >
 				<text class="name">身份证有效期至</text>
-				<view >
-					 <picker mode="date" v-if="id_expiry_date_has_input" :value="id_expiry_date"   :end="endDate" @change="bindDateChange" data-index="id_expiry_date" >
-					      <view class="picker-view text-lg">{{id_expiry_date}}</view>
-					 </picker>
-				</view>
-				
-				<view @click="id_expiry_date_has_input = true"  >
+				<view class="ref-name">
+					<view >
+						 <picker mode="date" v-if="id_expiry_date_has_input" :value="id_expiry_date"   :end="endDate" @change="bindDateChange" data-index="id_expiry_date" >
+						      <view class="picker-view text-lg">{{id_expiry_date}}</view>
+						 </picker>
+					</view>
 					
-					 <view  class="picker-view text-lg left-more"  v-if="!id_expiry_date_has_input" >选择身份证有效期至</view>
+					<view @click="id_expiry_date_has_input = true"  >
+						
+						 <view  class="picker-view text-lg "  v-if="!id_expiry_date_has_input" >选择身份证有效期至</view>
+					</view>
 				</view>
 			</view>
 			
@@ -133,39 +144,49 @@
 			
 				<view class="cu-form-group" v-if="!isPerson">
 					<view class="name">法人代表名称<text class="red-isterisk">*</text></view>
-					<input type="text"    :value="legal_person"
-					 placeholder="请输入法人代表名称" 
-					 @input="getlegalPersonName">
+					<view class="ref-name">
+						<input type="text"    :value="legal_person"
+						 placeholder="请输入法人代表名称" 
+						 @input="getlegalPersonName">
+					</view>
 				</view>
 				
 				<view class="cu-form-group" v-if="!isPerson">
 					<view class="name">法人代表身份证号码<text class="red-isterisk">*</text></view>
-					<input type="number"  maxlength="18" :value="legal_person_id"
-					 placeholder="请输入法人代表身份证号码" 
-					 @input="getlegalPersonID">
+					<view class="ref-name">
+						<input type="number"  maxlength="18" :value="legal_person_id"
+						 placeholder="请输入法人代表身份证号码" 
+						 @input="getlegalPersonID">
+					</view>
 				</view>
 			
 			
 			
 			<view class="cu-form-group" >
 				<view class="name">运输经营许可证<text class="red-isterisk">*</text></view>
-				<input type="text"   maxlength="20" :value="transport_license_num"
-				 placeholder="请输入运输经营许可证号码" 
-				 @input="getTransportLicense">
+				<view class="ref-name">
+					<input type="text"   maxlength="20" :value="transport_license_num"
+					 placeholder="请输入运输经营许可证号码" 
+					 @input="getTransportLicense">
+				</view>
 			</view>
 			
 			<view class="cu-form-group" >
 				<view class="name">业务联系人<text class="red-isterisk">*</text></view>
-				<input type="text"   maxlength="28" :value="contact_name"
-				 placeholder="请输入业务联系人名称" 
-				 @input="getContact" >
+				<view class="ref-name">
+					<input type="text"   maxlength="28" :value="contact_name"
+					 placeholder="请输入业务联系人名称" 
+					 @input="getContact" >
+				</view>
 			</view>
 			
 			<view class="cu-form-group" >
 				<view class="name">业务联系人手机或电话<text class="red-isterisk">*</text></view>
-				<input type="number"   maxlength="11" name="cellphone" :value="tel"
-				 placeholder="请输入业务联系人手机号码" 
-				 @input="getPhoneNumber">
+				<view class="ref-name">
+					<input type="number"   maxlength="11" name="cellphone" :value="tel"
+					 placeholder="请输入业务联系人手机号码" 
+					 @input="getPhoneNumber">
+				</view>
 			</view>
 			
 			<view class="btn-row">
@@ -1234,16 +1255,16 @@
 		 }
    }
    .place_input{
-	   color:#777;
+	   color:#000;
 	   font-size:30rpx;
-	   margin-left:5%; 
+	   margin-left:0%; 
 	   width:calc(100vw - 300rpx);
    }
    
    .place_got{
-	   color:#555;
+	   color:#000;
 	   font-size:30rpx;
-	   margin-left:5%; 
+	   margin-left:0%; 
 	   width:calc(100vw - 300rpx);
    }
    .notes{
@@ -1297,10 +1318,10 @@
    }
    
    .picker-view{
-   	   color:#222;
+   	   color:#000;
    	   width:calc(100vw - 380rpx);
-   	   margin-left:60rpx;
-   	   padding-left:50rpx;
+   	   margin-left:0rpx;
+   	   padding-left:0rpx;
    } 
    
    .btn-row{
@@ -1329,7 +1350,7 @@
    	   border:1px solid #ddd;
    	   padding-left:0%;
    	   font-size:16rpx;
-   	   color:#ddd;
+   	   color:#000;
    	   width:400rpx;
    	   .set-zones{
    		   color:#000;
@@ -1341,10 +1362,12 @@
 		 width:45%;
   }
   .ref-name{
-  		 font-size:18rpx;
-  	     color:#999;
-		 width:55%;
+  		 font-size:28rpx;
+  	     color:#000;
+		 width:450rpx;
+		
   }
+  
   .truck-type{
   	  display: flex;
   	  flex-direction: row;

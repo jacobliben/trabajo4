@@ -25,7 +25,7 @@
 		<view class="cu-form-group" v-if="!isPerson" >
 			<view class="name">登录号 <text class="red">*</text></view>
 			
-			   <input type="text" maxlength="11" placeholder="登录账号以字母开头，支持字母、数字、“_”的组合，4-16个字符" :value="apodo"
+			   <input type="text" maxlength="16" placeholder="登录账号以字母开头，支持字母、数字、“_”的组合，4-16个字符" :value="apodo"
 			  
 			    name="nickname"  @input="getName" @blur="checkName">
 			

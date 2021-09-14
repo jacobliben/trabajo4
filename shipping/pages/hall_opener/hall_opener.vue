@@ -99,8 +99,8 @@
 				
 			</view>
 		</view>
-		<simple-address-high ref="simpleAddressOrigin" :key="key_origin" :pickerValueDefault="cityPickerValueDefault" @onConfirm="onConfirmOrigin" themeColor="#007AFF"></simple-address-high>
-		<simple-address-dest ref="simpleAddressDest" :pickerValueDefault="cityPickerValueDefault" @onConfirm="onConfirmDest" themeColor="#007AFF"></simple-address-dest>
+		<simple-address-high ref="simpleAddressOrigin" :key="key_origin" :pickerValueDefault="cityPickerValueDefault" @onConfirm="onConfirmOrigin" @onCancel="onCancelOrigin" themeColor="#007AFF"></simple-address-high>
+		<simple-address-dest ref="simpleAddressDest" :pickerValueDefault="cityPickerValueDefault" @onConfirm="onConfirmDest" @onCancel="onCancelDest" themeColor="#007AFF"></simple-address-dest>
 	</view>
 </template>
 
@@ -195,12 +195,14 @@
 		},
 		computed:{
 			dataRange(){
-				const {cargoBoxTypeSelectedBar,
+				const {inquirySelectedBar,
+				cargoBoxTypeSelectedBar,
 				vehicleLengthSelectedBar,
 				loading_start_time_bar, 
 				loading_end_time_bar} = this
 				
-				return {cargoBoxTypeSelectedBar,
+				return {inquirySelectedBar,
+				cargoBoxTypeSelectedBar,
 				vehicleLengthSelectedBar,
 				loading_start_time_bar, 
 				loading_end_time_bar}
@@ -355,7 +357,7 @@
 				this.show_items = val.show_items
 				this.inquiryTypeSelected = val.inquiryTypeSelected
 				this.inquiryLabel = val.inquiryLabel
-				
+				console.log(this.inquiryLabel, "inquiryLabel");
 				//将inquiryLabel显示
 				if(this.inquiryLabel.length>0){
 					this.inquirySelectedBar = true
@@ -456,7 +458,9 @@
 			},
 			clearBars(){
 				try {
-				 uni.removeStorageSync('cargoBoxTypeSelected');
+					uni.removeStorageSync('inquiryTypeSelected');
+					uni.removeStorageSync('inquiryTypeSelectedLabel');
+				    uni.removeStorageSync('cargoBoxTypeSelected');
 					uni.removeStorageSync('vehicleLengthSelected');
 					uni.removeStorageSync('loading_start_time_filter');
 					uni.removeStorageSync('loading_end_time_filter');															  
@@ -530,6 +534,24 @@
 				uni.reLaunch({
 					url:"/pages/hall_opener/hall_opener"
 				})
+			},
+			
+			onCancelOrigin(){
+				uni.showToast({
+					title:"请确认发货地区",
+					icon:"none"
+				})
+				this.subList[0].text = "未确定"
+				return
+			},
+			
+			onCancelDest(){
+				uni.showToast({
+					title:"请确认收货地区",
+					icon:"none"
+				})
+				this.subList[1].text = "未确定"
+				return
 			},
 		}
 	}

@@ -33,12 +33,12 @@
 				
 			    <view class="id-front" @click="takephoto" data-index="driving_certificate">
 						     <view class="title">从业资格证 </view>
-						     <view class="ref-name" >
+						     
 								<image  
 								:src="imgDrivingCertificateUrl" class="img" mode="aspectFit"></image>
 								<image src="/static/tachar.png" mode="aspectFit" @click="cancelDrivingCertificate"
 								 class="tachar" v-if="tachar_driving_certificate"></image>
-							 </view>
+							
 			    </view>	
 	
 			</view>
@@ -50,18 +50,20 @@
 			
 			<view class="cu-form-group"  >
 				<text class="name">姓名<text class="red-isterisk">*</text></text>
-				<input type="text"   maxlength="18" :value="driver_name"
-				 placeholder="请输入姓名" 
-				 @input="getDriverName">
-			
+				<view class="ref-name">
+					<input type="text"   maxlength="18" :value="driver_name"
+					 placeholder="请输入姓名" 
+					 @input="getDriverName">
+				</view>
 			</view>
 			
 			<view class="cu-form-group" >
 				<text class="name">身份证号<text class="red-isterisk">*</text></text>
-				<input type="number"   maxlength="18"   :value="driver_id"   
-				 placeholder="请输入身份证号" 
-				 @input="getDriverID" @blur="checkID">
-			
+				<view class="ref-name">
+					<input type="number"   maxlength="18"   :value="driver_id"
+					 placeholder="请输入身份证号" 
+					 @input="getDriverID" @blur="checkID">
+				</view>
 			</view>
 			
 			<view class=" space-line" >
@@ -74,72 +76,88 @@
 			
 			<view class="cu-form-group" >
 				<text class="name">手机号码<text class="red-isterisk">*</text></text>
-				<input type="number"  name="cellphone" maxlength="11" :value = "driver_tel"
-				 placeholder="请输入手机号码" :disabled="disable_phone_change"
-				 @input="getDriverCel">
+				<view class="ref-name">
+					<input type="number"  name="cellphone" maxlength="11" :value = "driver_tel"
+					 placeholder="请输入手机号码" :disabled="disable_phone_change"
+					 @input="getDriverCel">
+				</view>
+				
 			
 			</view>
 			
 			<view class="cu-form-group" >
 				<view class="name">联系地址</view>
-				<input type="text"  :value="detail_address"
-				 placeholder="请输入联系地址" 
-				 @input="getAddress">
+				<view class="ref-name">
+					<input type="text"  :value="detail_address"
+					 placeholder="请输入联系地址" 
+					 @input="getAddress">
+				</view>
+				
 			</view>
 			
 			<view class="cu-form-group" >
 				<text class="name">准驾车型<text class="red-isterisk">*</text></text>
 				<view class="ref-name " >
 					<picker @change="bindPickerChange" :value="index" :range="list">
-					                        <view class="picker-view text-lg">{{list[index]}}</view>
+					      <view class="picker-view text-lg">{{list[index]}}</view>
 					</picker>
 				</view>
 			</view>
 			
 			<view class="cu-form-group" >
 				<view class="name">驾驶证发证机关</view>
-				<input type="text"  
-				 placeholder="请输入驾驶证发证机关" :value="issue_organization"
-				 @input="getDriverIssuingOrganizations">
+				<view class="ref-name">
+					<input type="text"
+					 placeholder="请输入驾驶证发证机关" :value="issue_organization"
+					 @input="getDriverIssuingOrganizations">
+				</view>
 			</view>
 			
 			<view class="cu-form-group" >
 				<text class="name">驾驶证有效期起</text>
-				<view >
-					 <picker mode="date" v-if="driver_cert_begin_date_has_input" :value="driver_cert_begin_date"   :end="endDate" @change="bindDateChange" data-index="driver_cert_begin_date">
-					      <view class="picker-view text-lg">{{driver_cert_begin_date}}</view>
-					 </picker>
-				</view>
-				
-				<view @click="driver_cert_begin_date_has_input = true"  >
+				<view class="ref-name">
+					<view >
+						 <picker mode="date" v-if="driver_cert_begin_date_has_input" :value="driver_cert_begin_date"   :end="endDate" @change="bindDateChange" data-index="driver_cert_begin_date">
+						      <view class="picker-view text-lg">{{driver_cert_begin_date}}</view>
+						 </picker>
+					</view>
 					
-					 <view  class="picker-view text-lg"  v-if="!driver_cert_begin_date_has_input" >
-						 <text class="dLeft gray">驾驶证有效期起</text>
+					<view @click="driver_cert_begin_date_has_input = true"  >
+						
+						 <view  class="picker-view text-lg"  v-if="!driver_cert_begin_date_has_input" >
+							 <text class="dLeft gray">驾驶证有效期起</text>
+						</view>
 					</view>
 				</view>
 			</view>
 			
 			<view class="cu-form-group" >
 				<text class="name">驾驶证有效期至</text>
-				<view >
-					 <picker mode="date" v-if="driver_cert_expiry_date_has_input" :value="driver_cert_expiry_date"   :end="endDate" @change="bindDateChange" data-index="driver_cert_expiry_date">
-					      <view class="picker-view text-lg">{{driver_cert_expiry_date}}</view>
-					 </picker>
-				</view>
-				
-				<view @click="driver_cert_expiry_date_has_input = true"  >
+				<view class="ref-name">
+					<view >
+						 <picker mode="date" v-if="driver_cert_expiry_date_has_input" :value="driver_cert_expiry_date"   :end="endDate" @change="bindDateChange" data-index="driver_cert_expiry_date">
+						      <view class="picker-view text-lg">{{driver_cert_expiry_date}}</view>
+						 </picker>
+					</view>
 					
-					 <view  class="picker-view text-lg"  v-if="!driver_cert_expiry_date_has_input" >
-						 <text class="dLeft gray">驾驶证有效期至</text>
+					<view @click="driver_cert_expiry_date_has_input = true"  >
+						
+						 <view  class="picker-view text-lg"  v-if="!driver_cert_expiry_date_has_input" >
+							 <text class="dLeft gray">驾驶证有效期至</text>
+						</view>
 					</view>
 				</view>
+				
 			</view>
 			
 			<view class="cu-form-group" >
 				<text class="name">从业资格号<text class="red-isterisk">*</text></text>
-				<input type="text"   maxlength="28"
-				 placeholder="请输入从业资格号码" :value="qualificationCertNo"
-				 @input="getDrivingCertificateNum">
+				<view class="ref-name">
+					<input type="text"   maxlength="28"
+					 placeholder="请输入从业资格号码" :value="qualificationCertNo"
+					 @input="getDrivingCertificateNum">
+				</view>
+				
 			
 			</view>
 			
@@ -154,60 +172,69 @@
 			
 			<view class="cu-form-group" >
 				<text class="name">资格证失效日期</text>
-				<view >
+				<view class="ref-name">
+					<view>
+						 <picker mode="date"  v-if="expiry_date_has_input" :value="expiry_date"   :end="endDate" @change="bindDateChange" data-index="license_expiry_date">
+						      <view class="picker-view text-lg">{{expiry_date}}</view>
+						 </picker>
+					</view>
 					
-					 <picker mode="date"  v-if="expiry_date_has_input" :value="expiry_date"   :end="endDate" @change="bindDateChange" data-index="license_expiry_date">
-					      <view class="picker-view text-lg">{{expiry_date}}</view>
-					 </picker>
-				</view>
-				
-				<view @click="expiry_date_has_input = true"  >
-					
-					 <view  class="picker-view text-lg  "  v-if="!expiry_date_has_input" >
-						 <text class="dLeft gray">资格证失效日期</text>
+					<view @click="expiry_date_has_input = true"  >
+						
+						 <view  class="picker-view text-lg  "  v-if="!expiry_date_has_input" >
+							 <text class="dLeft gray">资格证失效日期</text>
+						</view>
 					</view>
 				</view>
 			</view>
 			
 			<view class="cu-form-group" >
 				<text class="name">身份证有效期起</text>
-				<view >
-					 <picker mode="date" v-if="id_begin_date_has_input" :value="id_begin_date"   :end="endDate" @change="bindDateChange" data-index="id_begin_date">
-					      <view class="picker-view text-lg">
-						    <text >{{id_begin_date}}</text>
-						  </view>
-					 </picker>
-				</view>
-				
-				<view @click="id_begin_date_has_input = true"  >
+				<view class="ref-name">
+					<view>
+						 <picker mode="date" v-if="id_begin_date_has_input" :value="id_begin_date"   :end="endDate" @change="bindDateChange" data-index="id_begin_date">
+						      <view class="picker-view text-lg">
+							    <text >{{id_begin_date}}</text>
+							  </view>
+						 </picker>
+					</view>
 					
-					 <view  class="picker-view text-lg"  v-if="!id_begin_date_has_input" >
-						 <text class="dLeft gray">身份证有效期起</text> 
+					<view @click="id_begin_date_has_input = true"  >
+						
+						 <view  class="picker-view text-lg"  v-if="!id_begin_date_has_input" >
+							 <text class="dLeft gray">身份证有效期起</text> 
+						</view>
 					</view>
 				</view>
 			</view>
 			
 			<view class="cu-form-group" >
 				<text class="name">身份证有效期至</text>
-				<view >
-					 <picker mode="date" v-if="id_expiry_date_has_input" :value="id_expiry_date"   :end="endDate" @change="bindDateChange" data-index="id_expiry_date">
-					      <view class="picker-view text-lg">{{id_expiry_date}}</view>
-					 </picker>
-				</view>
-				
-				<view @click="id_expiry_date_has_input = true"  >
+				<view class="ref-name">
+					<view>
+						 <picker mode="date" v-if="id_expiry_date_has_input" :value="id_expiry_date"   :end="endDate" @change="bindDateChange" data-index="id_expiry_date">
+						      <view class="picker-view text-lg">{{id_expiry_date}}</view>
+						 </picker>
+					</view>
 					
-					 <view  class="picker-view text-lg"  v-if="!id_expiry_date_has_input" >
-						 <text class="dLeft gray">身份证有效期至</text> 
+					<view @click="id_expiry_date_has_input = true"  >
+						
+						 <view  class="picker-view text-lg"  v-if="!id_expiry_date_has_input" >
+							 <text class="dLeft gray">身份证有效期至</text> 
+						</view>
 					</view>
 				</view>
+				
 			</view>
 			
 			<view class="cu-form-group" >
 				<text class="name">备注</text>
-				<input type="text"   :value="remark" 
-				 placeholder="请输入备注" 
-				 @input="getRemark">
+				<view class="ref-name">
+					<input type="text"   :value="remark"
+					 placeholder="请输入备注" 
+					 @input="getRemark"/>
+				</view>
+				
 			
 			</view>
 			
@@ -1318,6 +1345,14 @@
  		 color:#000;
  		 width:45%;
  }
+ 
+ .ref-name{
+ 		 font-size:18rpx;
+ 	     color:#999;
+ 		
+ 		 width:450rpx;
+ }
+ 
    .btn-row{
    	width: 100%;
    	margin-top:200rpx;
@@ -1352,13 +1387,13 @@
 	.picker-view{
 		   color:#222;
 		   width:calc(100vw - 380rpx);
-		   margin-left:60rpx;
-		   padding-left:50rpx;
+		   margin-left:0rpx;
+		   padding-left:0rpx;
 	} 
 	
 	.space-line{
 		width:70%;
-		margin-left:5%;
+		margin-left:0%;
 		 display: flex;
 		 justify-content: space-between;
 	}
@@ -1373,7 +1408,7 @@
  
  .dLeft{
 	 
-	 margin-left: -60rpx;
+	 margin-left: 0rpx;
  }
  
  .gray{

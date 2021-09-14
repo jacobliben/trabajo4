@@ -44,7 +44,7 @@
 					<image src="/static/lock.svg" mode="widthFix" class="lock"></image>
 				</view>
 			  
-			  <input type="text" placeholder="请输入验证码"  @input="getUserVerifyCode" class="veri-input">
+			  <input type="text" placeholder="请输入验证码"  @input="getUserVerifyCode" maxlength="4" class="veri-input">
 			  <button  @click="getVerifyCode" :disabled="codeDisabled"  class=" text-get "  >
 			  	<text class="text-df">{{codeText}}</text>
 			  </button>
@@ -363,7 +363,7 @@
 	 		 letter-spacing:0rpx;
 	 		 font-size: 40rpx;
 	 		 font-weight: 600;
-	 		 margin-bottom: 45rpx;
+	 		 margin-bottom: 145rpx;
 	 		 
 	 }
 	 

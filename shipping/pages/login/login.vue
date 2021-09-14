@@ -15,16 +15,16 @@
 			
 			<view class="get-inputs">
 				<view class="user-name">
-				  <input type="text" placeholder="请输入用户账号" :value="username"  @input="getUserAccount" class="username-input">
+				  <input type="text" placeholder="请输入用户账号" maxlength="16" :value="username"  @input="getUserAccount" @blur="checkUserNameAndTel" class="username-input">
 				</view>
 				
 				<view class="user-name" v-if="hidePass">
-				  <input type="text" placeholder="请输入用户密码" :value="password" password @input="getUserpassword" class="username-input">
+				  <input type="text" placeholder="请输入用户密码" maxlength="16" :value="password" password @input="getUserpassword" @blur="checkPassword" class="username-input">
 				  <image src="/static/blind.svg" mode="widthFix" class="end-icon"  @click="hidePass=!hidePass" ></image>
 				</view>
 				
 				<view class="user-name" v-if="!hidePass">
-				  <input type="text" placeholder="请输入用户密码" :value="password" @input="getUserpassword" class="username-input">
+				  <input type="text" placeholder="请输入用户密码" maxlength="16" :value="password" @input="getUserpassword" class="username-input">
 				  <image src="/static/eye.svg" mode="widthFix" class="end-icon"  @click="hidePass=!hidePass"></image>
 				</view>
 			</view>
@@ -176,7 +176,8 @@
 				userPassword:"",
 				code:"",
 				hidePass:true,
-				
+				tel_registered:true,
+				user_registered:true,
 				
 				new_version:"",
 				new_version_describe:"",
@@ -335,6 +336,57 @@
 				
 			},
 			
+			
+			//用户名查重
+			async checkUserNameAndTel(){
+				var that = this
+				// to see if is a registered username
+			    const res = await this.$request({
+						url:"/checkUserName/" + this.username ,
+						method: "GET",
+						
+				})
+					
+				console.log(res, "checkName");
+				if(res.data.code ==200){
+					
+					//if not a registered username, to see if it is a phone number
+						var reg_tel= /^(1)\d{10}$/
+						let username = this.username
+						//if it is a phone number, check to see if the phone has been registered
+						if (reg_tel.test(username)){
+							
+							const resTel = await this.$request({
+								url:"/validUser",
+								method: "POST",
+								data:{
+							         "mobile": that.username
+							         }
+								
+							})
+						     console.log(resTel, "resTel");
+							//verify if the phone has been registered
+							if (resTel.data.msg =="该手机号尚未注册"){
+								uni.showToast({
+									title:"该用户名不存在,请重输 ",
+																										icon:"none"
+								})
+							}
+						}else{
+							uni.showToast({
+								title:"该用户名不存在,请重输 ",
+																									icon:"none"
+							})
+						}
+				}if(res.data.code == 401){
+					uni.showToast({
+						title:"该用户名不存在,请重输 ",
+																							icon:"none"
+					})
+				}
+			},
+			
+			
 			getUserpassword(e){
 				this.password = e.target.value
 				
@@ -347,6 +399,22 @@
 						this.login_disable = false
 					}
 				}
+			},
+			
+			checkPassword(){
+				//进行密码复杂度检查
+				let psw = this.password
+				
+				var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
+				
+				if(!reg.test(psw)){
+					
+					uni.showToast({
+						title:"密码长度8~16位,必须包含数字,字母",
+						icon:"none"											
+					})				         
+				   					 
+				 }
 			},
 			wechatLogin(){
 				uni.switchTab({
@@ -466,7 +534,7 @@
 			             */
 			 
 			async AndroidCheckUpdate(){ 
-				console.log("ok");
+				
 				var that = this
 				that.version = plus.runtime.version
 				const res = await this.$request({
