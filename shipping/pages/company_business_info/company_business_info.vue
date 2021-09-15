@@ -1158,6 +1158,22 @@
 				
 				
 				
+				//个人身份证起至时间检查
+				if (this.isPerson){
+					if (this.params.idcardValidPeriodFrom != null  && this.params.idcardValidPeriodTo != null){
+						
+						if ((new Date(this.params.idcardValidPeriodFrom).getTime()-new Date(this.params.idcardValidPeriodTo).getTime())>0){
+							
+							uni.showToast({
+								title:"身份证有效期开始时间不能晚于身份证有效期结束时间",
+								icon:"none"
+							})
+							
+							return
+						}
+					}
+				}
+				
 				//企业类检查
 				if (!this.isPerson){
 					//进行法人代表名称检查
@@ -1362,7 +1378,7 @@
 		 width:45%;
   }
   .ref-name{
-  		 font-size:28rpx;
+  		 font-size:35rpx;
   	     color:#000;
 		 width:450rpx;
 		

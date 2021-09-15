@@ -22,10 +22,7 @@
 					<image src="/static/tachar.png" mode="aspectFit" @click="cancelPeopleVehicle"
 					 class="tachar" v-if="tachar_people_vehicle"></image>
 				</view>
-				
-				
-				                             
-				                             							 
+				                       							 
 			</view>
 				
 			<view class="two-photos">
@@ -145,7 +142,7 @@
 			  
 			  <view class="cu-form-group">
 			  			     <view class="name">车牌颜色 <text class="star">*</text></view>
-			  			     <view class="ref-name" >
+			  			     <view class="ref-name">
 								<picker @change="bindPickerColorChange" :value="plate_type_index" :range="list">
 								                      <view class="picker-view text-lg">{{list[plate_color_index]}}</view>
 								 </picker>		  
@@ -154,15 +151,16 @@
 			  
 			  <view class="cu-form-group" >
 			  	<text class="name">行驶证失效日期<text class="star">*</text></text>
-			  	<view >
-			  		 <picker mode="date" v-if="driving_cert_expiry_date_has_input" :value="driving_cert_expiry_date"   :end="endDate" @change="bindDateChange" data-index="driving_cert_expiry_date">
-			  		      <view class="picker-view text-lg">{{driving_cert_expiry_date}}</view>
-			  		 </picker>
-			  	</view>
-			  				<view @click="driving_cert_expiry_date_has_input = true"  >
-			  					
-			  					 <view  class="picker-view text-lg"  v-if="!driving_cert_expiry_date_has_input" >选择行驶证失效日期</view>
-			  				</view>
+			  	 <view class="ref-name">
+				        <view>
+					      <picker mode="date" v-if="driving_cert_expiry_date_has_input" :value="driving_cert_expiry_date"   :end="endDate" @change="bindDateChange" data-index="driving_cert_expiry_date">
+					      	    <view class="picker-view text-lg">{{driving_cert_expiry_date}}</view>
+					      </picker>
+					    </view>
+						<view @click="driving_cert_expiry_date_has_input = true">
+							<view  class="picker-view text-lg"  v-if="!driving_cert_expiry_date_has_input" >选择行驶证失效日期</view>
+						</view>
+				</view>
 			  </view>
 			  
 			  <view class="cu-form-group">
@@ -197,16 +195,16 @@
 			  			     <view class="name">货箱长度</view>
 			  			     <view class="ref-name">
 			  					<picker @change="bindPickercargoBoxLengthChange" :value="box_length_index" :range="box_length_list">
-			  					                      <view class="picker-view text-lg">{{box_length_list[box_length_index]}}</view>
+			  					        <view class="picker-view text-lg">{{box_length_list[box_length_index]}}</view>
 			  					 </picker>
 			  				 </view>
 			  </view>
 			  
 			  <view class="cu-form-group">
 			  			     <view class="name">车轴数<text class="star">*</text></view>
-			  			     <view class="ref-name">
-			  								 <uni-number-box class="picker-view text-lg"
-			  								  :min="0" :max="20" @change="getVehicleAxlenum" v-model = "vehicleAxlenum"></uni-number-box>
+			  			     <view>
+			  						<uni-number-box class=" text-lg ref-axis"
+			  						:min="0" :max="20" @change="getVehicleAxlenum" v-model = "vehicleAxlenum"></uni-number-box>
 			  					 
 			  				 </view>
 			  </view>
@@ -1605,9 +1603,14 @@
 	   
    }
    .picker-view{
-	   color:#222;
+	   color:#000;
 	   width:calc(100vw - 380rpx);
 	    background-color: #fff;
+   }
+   
+   .ref-axis{
+	   color:#000;
+	   width: 450rpx;
    }
    
    .cu-form-group picker::after {  
@@ -1623,8 +1626,9 @@
    		 color:#000;
    }
    .ref-name{
-   		 font-size:18rpx;
-   	     color:#999;
+   		 font-size:35rpx;
+   	     color:#000;
+		 width:450rpx;
    }
    .text-name{
 	   margin-left: 5%;
@@ -1639,6 +1643,11 @@
    }
    .cell{
 	   margin-right: 10rpx;
+	   
+	   display: flex;
+	   flex-direction: row;
+	   color: #000;
+	   font-size: 30rpx;
    }
    .star{
 	   color:#f00;

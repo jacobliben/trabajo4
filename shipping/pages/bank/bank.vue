@@ -18,7 +18,7 @@
 			  
 			  <view class="cu-form-group">
 			  			     <view class="name">银行行别 <text class="star">*</text></view>
-			  			     <view >
+			  			     <view class="ref-name">
 								 <picker @change="bindBankClassPickerChange"  :value="bank_class_index" :range="bank_list">
 								          <view class="picker-view text-lg">{{bank_list[bank_class_index]}}</view>
 								 </picker>
@@ -241,13 +241,6 @@
 				this.params.bankcardAccount = e.detail.value
 				this.disabled = false
 				this.active = true
-				
-				if (this.bank_account.substr(0,6) == "436742"
-				||this.bank_account.substr(0,6) == "436745"
-				||this.bank_account.substr(0,6) == "622280"
-				){
-					this.bank_name = "建设银行"
-				}
 				
 			},
 			getBank(e){
@@ -545,10 +538,13 @@
    .name{
    		 color:#000;
    }
+   
    .ref-name{
-   		 font-size:18rpx;
-   			 color:#999;
+   		 font-size:35rpx;
+   	     color:#000;
+   		 width:450rpx;
    }
+   
    .text-name{
 	   margin-left: 5%;
 	   margin-bottom: 20rpx;
@@ -572,12 +568,10 @@
 	   height: 50rpx;
    }
    .tachar{
-   			  
-   			  width:60rpx;
-   			  height: 60rpx;
-   					  
-   			  left:10%;
-   		  }
+   		width:60rpx;
+   		height: 60rpx;	  
+   		left:10%; 
+   }
 		  
 	.btn-row{
 		width: 100%;

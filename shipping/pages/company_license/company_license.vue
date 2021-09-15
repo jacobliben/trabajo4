@@ -48,85 +48,95 @@
 			
 			<view class="cu-form-group" v-if="!isPerson" >
 				<text class="name">驾驶员姓名<text class="red-isterisk">*</text></text>
-				<input type="text"   maxlength="18" :value="driver_name"
-				 placeholder="请输入驾驶员姓名" 
-				 @input="getDriverName">
-			
+				<view class="ref-name">
+					<input type="text"   maxlength="18" :value="driver_name"
+					 placeholder="请输入驾驶员姓名" 
+					 @input="getDriverName">
+				</view>
 			</view>
 			
 			
 			
 			<view class="cu-form-group" >
 				<text class="name">准驾车型<text class="red-isterisk">*</text></text>
-				<view class="ref-name" >
+				<view class="ref-name">
 					<picker @change="bindPickerChange" :value="index" :range="list">
-					                        <view class="picker-view text-lg">{{list[index]}}</view>
+					    <view class="picker-view text-lg">{{list[index]}}</view>
 					</picker>
 				</view>
 			</view>
 			
 			<view class="cu-form-group" v-if="!isPerson">
 				<text class="name">驾驶员手机号码<text class="red-isterisk">*</text></text>
-				<input type="number"  name="cellphone" maxlength="11" :value = "driver_tel"
-				 placeholder="请输入驾驶员手机号码" 
-				 @input="getDriverCel">
-			
+				<view class="ref-name">
+					<input type="number"  name="cellphone" maxlength="11" :value = "driver_tel"
+					 placeholder="请输入驾驶员手机号码" 
+					 @input="getDriverCel">
+				</view>
 			</view>
 			
 			<view class="cu-form-group" v-if="!isPerson">
 				<text class="name">驾驶员身份证号<text class="red-isterisk">*</text></text>
-				<input type="number"   maxlength="18"   :value="driver_id"   
-				 placeholder="请输入驾驶员身份证号" 
-				 @input="getDriverID">
-			
+				<view class="ref-name">
+					<input type="number"   maxlength="18"   :value="driver_id"
+					 placeholder="请输入驾驶员身份证号" 
+					 @input="getDriverID">
+				</view>
 			</view>
 			
 			<view class="cu-form-group" >
 				<text class="name">从业资格证号<text class="red-isterisk">*</text></text>
-				<input type="text"   maxlength="20" 
-				 placeholder="请输入从业资格证号码"  :value="quali_cert_num"
-				 @input="getDrivingCertificateNum">
-			
+				<view class="ref-name">
+					<input type="text"   maxlength="20"
+					 placeholder="请输入从业资格证号码"  :value="quali_cert_num"
+					 @input="getDrivingCertificateNum">
+				</view>
 			</view>
 			
 			<view class="cu-form-group" >
 				<text class="name">从业资格证起</text>
-				<view >
-					 <picker v-if="begin_date_has_input" mode="date"  :value="begin_date"  :end="endDate" @change="bindDateChange" data-index="license_begin_date">
-					      <view class="picker-view text-lg" >{{begin_date}}</view>
-					 </picker>
-				</view>
-				<view @click="begin_date_has_input = true"  >
-					
-					 <view  class="picker-view text-lg"  v-if="!begin_date_has_input" >选择从业资格证开始日期</view>
+				<view class="ref-name">
+					<view>
+						 <picker v-if="begin_date_has_input" mode="date"  :value="begin_date"  :end="endDate" @change="bindDateChange" data-index="license_begin_date">
+						      <view class="picker-view text-lg" >{{begin_date}}</view>
+						 </picker>
+					</view>
+					<view @click="begin_date_has_input = true"  >
+						
+						 <view  class="picker-view text-lg"  v-if="!begin_date_has_input" >选择从业资格证开始日期</view>
+					</view>
 				</view>
 			</view>
 			
 			<view class="cu-form-group" >
 				<text class="name">从业资格证有效期至</text>
-				<view >
-					 <picker v-if="expiry_date_has_input" mode="date" :value="expiry_date"   :end="endDate" @change="bindDateChange" data-index="license_expiry_date">
-					      <view class="picker-view text-lg">{{expiry_date}}</view>
-					 </picker>
-				</view>
-				
-				<view @click="expiry_date_has_input = true"  >
+				<view class="ref-name">
+					<view>
+						 <picker v-if="expiry_date_has_input" mode="date" :value="expiry_date"   :end="endDate" @change="bindDateChange" data-index="license_expiry_date">
+						      <view class="picker-view text-lg">{{expiry_date}}</view>
+						 </picker>
+					</view>
 					
-					 <view  class="picker-view text-lg"  v-if="!expiry_date_has_input" >选择从业资格证失效日期</view>
+					<view @click="expiry_date_has_input = true"  >
+						
+						 <view  class="picker-view text-lg"  v-if="!expiry_date_has_input" >选择从业资格证失效日期</view>
+					</view>
 				</view>
 			</view>
 			
 			<view class="cu-form-group" >
 				<text class="name">驾驶证有效期至</text>
-				<view >
-					 <picker mode="date" v-if="driver_cert_expiry_date_has_input" :value="driver_cert_expiry_date"   :end="endDate" @change="bindDateChange" data-index="driver_cert_expiry_date">
-					      <view class="picker-view text-lg">{{driver_cert_expiry_date}}</view>
-					 </picker>
-				</view>
-				
-				<view @click="driver_cert_expiry_date_has_input = true"  >
+				<view class="ref-name">
+					<view>
+						 <picker mode="date" v-if="driver_cert_expiry_date_has_input" :value="driver_cert_expiry_date"   :end="endDate" @change="bindDateChange" data-index="driver_cert_expiry_date">
+						      <view class="picker-view text-lg">{{driver_cert_expiry_date}}</view>
+						 </picker>
+					</view>
 					
-					 <view  class="picker-view text-lg"  v-if="!driver_cert_expiry_date_has_input" >选择驾驶证有效期至</view>
+					<view @click="driver_cert_expiry_date_has_input = true"  >
+						
+						 <view  class="picker-view text-lg"  v-if="!driver_cert_expiry_date_has_input" >选择驾驶证有效期至</view>
+					</view>
 				</view>
 			</view>
 			
@@ -904,14 +914,22 @@
  		 color:#000;
  		 width:45%;
  }
-   .btn-row{
+ 
+ .ref-name{
+ 		 font-size:35rpx;
+ 	     color:#000;
+ 		 width:450rpx;
+ 		
+ }
+ 
+ .btn-row{
    	width: 100%;
    	margin-top:50rpx;
    	display: flex;
    	justify-content: center;
    }
    
-   .next-btn{
+  .next-btn{
    		 margin-top:20rpx;
    		 width:30%;
    		

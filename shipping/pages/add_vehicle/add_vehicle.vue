@@ -113,9 +113,9 @@
 			  						     <view class="name">车主类型 <text class="star">*</text></view>
 			  						     <view class="ref-name" >
 			  							     
-			  										<picker @change="bindPickerTypeChange" :value="owner_type_index" :range="owner_type_list">
-			  										          <view class="picker-view  mleft text-lg">{{owner_type_list[owner_type_index]}}</view>
-			  										 </picker>	 
+			  								<picker @change="bindPickerTypeChange" :value="owner_type_index" :range="owner_type_list">
+												<view class="picker-view  mleft text-lg">{{owner_type_list[owner_type_index]}}</view>
+			  								</picker>	 
 			  							 </view>
 			  			</view>
 						
@@ -150,7 +150,7 @@
 			  						     <view class="name">车辆能源类型 <text class="star">*</text></view>
 			  						     <view class="ref-name">
 			  								<picker @change="bindPickerEnergyTypeChange" :value="energy_type_index" :range="energy_type_list">
-			  								                      <view class="picker-view  mleft text-lg">{{energy_type_list[energy_type_index]}}</view>
+			  								    <view class="picker-view  mleft text-lg">{{energy_type_list[energy_type_index]}}</view>
 			  								 </picker>
 			  							 </view>
 			  </view>
@@ -280,8 +280,8 @@
 			  
 			  <view class="cu-form-group">
 			  			     <view class="name">车轴数<text class="star">*</text></view>
-			  			     <view class="ref-name">
-								 <uni-number-box class="picker-view text-lg"
+			  			     <view>
+								 <uni-number-box class="text-lg ref-axis"
 								  :min="0" :max="20" @change="getVehicleAxlenum" v-model = "vehicleAxlenum"></uni-number-box>
 			  					 
 			  				 </view>
@@ -2087,11 +2087,17 @@
 		
    }
    .ref-name{
-   		 font-size:18rpx;
+   		 font-size:25rpx;
    	     color:#999;
 		 
 		 width:450rpx;
    }
+   
+   .ref-axis{
+   	   color:#000;
+   	   width: 450rpx;
+   }
+   
    .text-name{
 	   margin-left: 5%;
 	   margin-bottom: 20rpx;
@@ -2104,7 +2110,7 @@
 	   background-color: #eee;
    }
    .cell{
-	    color:000;
+	   color:000;
 	   display: flex;
 	   flex-direction: row;
    }

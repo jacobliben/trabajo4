@@ -40,7 +40,7 @@
 			</view>
 		</view>
 		
-		<button  @click="exit"  class="login-btn margin-top margin-bottom text-center self-center radius" data-class="fade" role="button" :disabled="login_disable">
+		<button  @click="exit"  class="login-btn margin-top margin-bottom text-center self-center radius" data-class="fade" role="button" >
 			<text class="self-center">
 				退出注册
 			</text>
