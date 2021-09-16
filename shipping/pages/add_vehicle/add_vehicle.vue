@@ -2074,10 +2074,7 @@
    } 
    
   .truck-type{
-	  /**position: absolute;
-	   * **/ 
-	  /**right: 110rpx;
-	   * **/ 
+	  
 	  display: flex;
 	  flex-direction: row;
   }
@@ -2110,6 +2107,7 @@
 	   background-color: #eee;
    }
    .cell{
+	   
 	   color:000;
 	   display: flex;
 	   flex-direction: row;
@@ -2166,7 +2164,7 @@
  
  .radio{
 	 transform: scale(0.6);
-	 margin-left: 15rpx;
+	 margin-left: 0rpx;
 	 font-size: 40rpx;
  }
  

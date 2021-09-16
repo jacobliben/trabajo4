@@ -63,7 +63,7 @@
 						
 						<view class="red margin-top margin-bottom">
 							<view @click="callService">
-								<image src="/static/after-sales-service.png" class="after-sales-service" mode=""></image>
+								<image src="/static/after-sales-service.svg" class="after-sales-service" mode=""></image>
 								<text class="margin-bottom">
 									联系客服
 								</text>
@@ -71,7 +71,7 @@
 							 </view>
 							<!--<view>|</view>
 							<view>
-								<image src="../../static/question.png" class="after-sales-service" mode=""></image>
+								<image src="../../static/question.svg" class="after-sales-service" mode=""></image>
 								<text>认证遇到问题</text>
 							</view> -->
 							

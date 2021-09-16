@@ -77,7 +77,7 @@
 				<view class="vehicle_content">
 					<view class="left">
 						<view>
-							<image src="/static/chofer.png" mode="aspectFit" class="truck" ></image>
+							<image src="/static/chofer.svg" mode="aspectFit" class="truck" ></image>
 						</view>
 						<view>
 							<text class="margin-right">{{item.driverName}}  </text>		

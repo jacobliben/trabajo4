@@ -43,15 +43,7 @@
 		   -->
 		<view class="button-images shadow-text">
 			<view class="first-row-btns ">
-				<!-- <view class="one-icon" hover-class="one-icon-hover">
-				   					  <image src="/static/gas.png" mode="aspectFit"></image>
-				   					  <text>优惠加油</text>
-				   </view>
-				   <view class="one-icon" hover-class="one-icon-hover">
-				   					  <image src="/static/delivery.png" mode="aspectFit"></image>
-				   					  <text>租车</text>
-				   </view>
-				    -->
+				
 
 				<view class="one-icon " hover-class="one-icon-hover" @tap="goOrderReceiving" v-if="show_shipping_order">
 					<image src="/static/ordered-record.png" mode="aspectFit"></image>
@@ -61,66 +53,56 @@
 				
                   <view class="one-icon" hover-class="one-icon-hover" @click="goOrderDistributing"
                   	v-if="show_shipping_order">
-                  	<image src="/static/delivery.png" mode="aspectFit"></image>
+                  	<image src="/static/delivery.svg" mode="aspectFit"></image>
                   	<text>分配运力</text>
                   </view>
 				  
 				  <view class="one-icon " hover-class="one-icon-hover" @tap="goVehicle" v-if="show_shipping_order">
-				  	<image src="/static/calculator.png" mode="aspectFit"></image>
+				  	<image src="/static/calculator.svg" mode="aspectFit"></image>
 				  	<text>车辆管理</text>
 				  </view>
 
-				<view class="one-icon" hover-class="one-icon-hover" @click="goHall" v-if="show_shipping_order">
-					<image src="/static/home-drivers.png" mode="aspectFit"></image>
-					<text>货源大厅</text>
-				</view>
+				  <view class="one-icon" hover-class="one-icon-hover" @click="goHall" v-if="show_shipping_order">
+				  	<image src="/static/home-drivers.png" mode="aspectFit"></image>
+				  	<text>货源大厅</text>
+				  </view>
 				
 				<view class="one-icon" hover-class="one-icon-hover" @click="goHall" v-if="!show_shipping_order">
 					  主要功能
 				</view>
 
 				<!-- <view class="one-icon" hover-class="one-icon-hover" @click="goCalculatingKm">
-					 					  <image src="/static/calculator.png" mode="aspectFit"></image>
+					 					  <image src="/static/calculator.svg" mode="aspectFit"></image>
 					 					  <text>里程计算</text>
 					 </view> -->
 
 
 
-				<!--   <view class="one-icon" hover-class="one-icon-hover">
-				   					  <image src="/static/camera.png" mode="aspectFit"></image>
-				   					  <text>违章查询</text>
-				   </view>
-				  <view class="one-icon" hover-class="one-icon-hover">
-					                 <image src="/static/italy.png" mode="aspectFit"></image>
-					                <text>社区</text>
-				  </view> -->
+				
 			</view>
 			<view class="second-row-btns">
 
-				<!--   <view class="one-icon" hover-class="one-icon-hover" @click="goClientService">
-				     					  <image src="/static/pantone.png" mode="aspectFit"></image>
-				     					  <text>邀请有奖</text>
-				     </view>
+				<!--   
 				    <view class="one-icon" hover-class="one-icon-hover">
-				    					  <image src="/static/molecula.png" mode="aspectFit"></image>
+				    					  <image src="/static/molecula.svg" mode="aspectFit"></image>
 				    					  <text>全部</text>
 				    </view> -->
 
 				<view class="one-icon" hover-class="one-icon-hover" @click="goLoading">
-					<image src="/static/despatching.png" mode="aspectFit"></image>
+					<image src="/static/despatching.svg" mode="aspectFit"></image>
 					<text>确认装货</text>
 				</view>
 
 				<view class="one-icon" hover-class="one-icon-hover" @click="goDespatching">
-					<image src="/static/globe.png" mode="aspectFit"></image>
+					<image src="/static/globe.svg" mode="aspectFit"></image>
 					<text>确认发车</text>
 				</view>
 				<view class="one-icon" hover-class="one-icon-hover" @click="goReceiving">
-					<image src="/static/box.png" mode="aspectFit"></image>
+					<image src="/static/box.svg" mode="aspectFit"></image>
 					<text>确认签收</text>
 				</view>
 				<view class="one-icon" hover-class="one-icon-hover" @click="goAccount">
-					<image src="/static/pantone.png" mode="aspectFit"></image>
+					<image src="/static/pantone.svg" mode="aspectFit"></image>
 					<text>更多功能</text>
 				</view>
 

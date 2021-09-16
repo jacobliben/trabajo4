@@ -13,7 +13,7 @@
 				<view class="vehicle_content">
 					<view class="left">
 						<view>
-							<image src="/static/bankcard.png" mode="aspectFit" class="truck" ></image>
+							<image src="/static/bankcard.svg" mode="aspectFit" class="truck" ></image>
 						</view>
 						<view>
 							<text class="vehicle_type">{{item.bankName}}  </text>		

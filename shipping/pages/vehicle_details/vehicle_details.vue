@@ -89,7 +89,7 @@
 			
 			<view class="red">
 				<view @click="callService">
-					<image src="../../static/after-sales-service.png" class="after-sales-service" mode=""></image>
+					<image src="../../static/after-sales-service.svg" class="after-sales-service" mode=""></image>
 					<text>
 						联系客服
 					</text>

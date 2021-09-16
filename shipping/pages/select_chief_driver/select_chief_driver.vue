@@ -82,7 +82,7 @@
 						
 							<view class="left">
 									<view>
-										<image src="/static/truck.png" mode="aspectFit" class="truck" ></image>
+										<image src="/static/truck.svg" mode="aspectFit" class="truck" ></image>
 									</view>
 									<view>
 										<text class="driverVehicleClass">准驾车型/</text>		

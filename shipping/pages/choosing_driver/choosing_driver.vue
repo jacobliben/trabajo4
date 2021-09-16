@@ -45,7 +45,7 @@
 	
 		
 		<view class="person" @click="goSelectVehicle">
-			<image src="/static/truck.png" mode="aspectFit" class="person-img"></image>
+			<image src="/static/truck.svg" mode="aspectFit" class="person-img"></image>
 			<view class="person-details">
 				<view class="person-name">运输车辆</view>
 				<view class="person-nums">

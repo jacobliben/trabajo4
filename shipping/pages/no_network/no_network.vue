@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="net">
-			<image src="/static/no_network.png" mode="widthFix" class="drivers"></image>
+			<image src="/static/no_network.svg" mode="widthFix" class="drivers"></image>
 		</view>
 		<view class="net" >
 			<view class="words">

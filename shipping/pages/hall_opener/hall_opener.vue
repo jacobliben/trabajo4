@@ -237,8 +237,6 @@
 		},
 		mounted(){
 			
-			
-			
 			 //车辆类型字典
 			 this.getCargoBoxTypeOptions()
 			 this.subList[0].text = uni.getStorageSync("enquiry_start_region")
@@ -652,7 +650,6 @@
 	}
 	
 	.currentsub{
-		
 		
 			color:#4682cb;
 			font-size: 35rpx;

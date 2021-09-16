@@ -2,7 +2,7 @@
 	<view class="">
 		<view class="current-state"><text>当前状态</text></view>
 		
-	     <view class="one-line">
+	    <!-- <view class="one-line">
 			 <view class="left">
 				 <image src="/static/get-order.png"  class="sm-icon" alt="" v-if="!get_order_finished">
 				  <image src="/static/get-order-blue.png" class="sm-icon" alt="" v-if="get_order_finished">
@@ -11,7 +11,7 @@
 			 </view>
 			 
 			 <view class="date" v-if="get_order_finished">2021-03-04 07:34</view>			 
-		 </view>
+		 </view> -->
 		 
 		 <view class="one-line">
 		 			 <view class="left">

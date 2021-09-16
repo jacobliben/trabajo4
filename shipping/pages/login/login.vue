@@ -144,7 +144,7 @@
 		
 		<!-- <view class="rapid-login-icon">
 			<view class="one-login-icon" @click="wechatLogin">
-				<image src="/static/wechat.png" mode="" class="wechat"></image>
+				<image src="/static/wechat.svg" mode="" class="wechat"></image>
 				<text class="one-login-icon-letter">微信登录</text>
 			</view>
 			<view class="one-login-icon">

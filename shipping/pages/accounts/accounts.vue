@@ -21,7 +21,7 @@
 	   
 	   <view class="cu-form-group" hover-class="one-icon-hover" @click="goDispatchBefore" v-if="show_dispatch_before"  >
 	   		   <view class="lite-bar">
-	   		       <!-- <image src="/static/billboard.svg"  class="sm-pic"></image> -->
+	   		      
 				   <text class="sm-pic billboard"></text>
 	   			     <text class="lite-title">历史派车单</text>
 	   			</view>	
@@ -30,7 +30,7 @@
 	   
 	   <view class="cu-form-group" v-if="false">
 		   <view class="lite-bar">
-		       <!-- <image src="/static/card.png"  class="sm-pic"></image> -->
+		      
 			    <text class="sm-pic card"></text>
 	   			<text class="lite-title">结算申请</text>
 			</view>		
@@ -47,7 +47,7 @@
 	   
 	   <view class="cu-form-group" @click="goAddCarBoss" v-if="false">
 		   <view class="lite-bar">
-		        <image src="/static/vr.png"  class="sm-pic"></image>
+		        <image src="/static/vr.svg"  class="sm-pic"></image>
 	   			<text class="lite-title">车老板列表</text>
 			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -65,7 +65,7 @@
 	   
 	   <view class="cu-form-group" @click="goBankCard" v-if="show_bankcard" >
 	   		   <view class="lite-bar">
-	   		   	   <!-- <image src="/static/archive.svg"  class="sm-pic"></image> -->
+	   		   	 
 				   <text class="sm-pic archive"></text>
 	   				<text class="lite-title">银行卡管理</text>
 	   			</view> 
@@ -74,7 +74,7 @@
 	   
 	   <view class="cu-form-group" @click="goDriver" v-if="show_driver" >
 	   		   <view class="lite-bar">
-	   		   	   <!-- <image src="/static/driver.svg"  class="sm-pic"></image> -->
+	   		   	   
 				   <text class="sm-pic driver"></text>
 	   				<text class="lite-title">司机管理</text>
 	   			</view> 
@@ -92,7 +92,7 @@
 	   
 	   <view class="cu-form-group" @click="goMember"  v-if="false">
 	   		   <view class="lite-bar">
-	   		   	<image src="/static/medal.png"  class="sm-pic"></image>
+	   		   	<image src="/static/medal.svg"  class="sm-pic"></image>
 	   			<text class="lite-title">承运人会员管理</text>
 	   			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -100,7 +100,7 @@
 	   
 	   <view class="cu-form-group" v-if="false">
 		   <view class="lite-bar">
-		   	    <image src="/static/money.png"  class="sm-pic"></image>
+		   	    <image src="/static/money.svg"  class="sm-pic"></image>
 	   			<text class="lite-title">我的钱包</text>
 			</view>	
 	   			<text class="cuIcon-right lg text-gray"></text>
@@ -562,7 +562,7 @@
 	 }
 	 
 	 .card{
-	 		 background-image: url(../../static/card.png);
+	 		 background-image: url(../../static/card.svg);
 	 }
 	 
 	 .cars{
